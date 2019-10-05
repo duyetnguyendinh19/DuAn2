@@ -28,6 +28,12 @@ public class Review implements Serializable {
     @Column(name = "reply")
     private String reply;
 
+    @Column(name = "rate", columnDefinition = "TINYINT")
+    private Integer rate;
+
+    @Column(name = "status", columnDefinition = "TINYINT")
+    private int status;
+
     @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product;
@@ -35,11 +41,13 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public Review(String name, Date createDate, String description, String reply, Product product) {
+    public Review(String name, Date createDate, String description, String reply, Integer rate, int status, Product product) {
         this.name = name;
         this.createDate = createDate;
         this.description = description;
         this.reply = reply;
+        this.rate = rate;
+        this.status = status;
         this.product = product;
     }
 
@@ -83,6 +91,22 @@ public class Review implements Serializable {
         this.reply = reply;
     }
 
+    public Integer getRate() {
+        return rate;
+    }
+
+    public void setRate(Integer rate) {
+        this.rate = rate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -92,9 +116,23 @@ public class Review implements Serializable {
     }
 
     @PrePersist
-    public void prePersist(){
-        if(this.createDate == null){
+    public void prePersist() {
+        if (this.createDate == null) {
             this.createDate = new Date();
+        }
+    }
+
+    public static enum status {
+
+        INACTIVE(0), ACTIVE(1);
+        private final int value;
+
+        private status(int value) {
+            this.value = value;
+        }
+
+        public int value() {
+            return this.value;
         }
     }
 }

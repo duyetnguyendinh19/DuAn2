@@ -98,7 +98,7 @@ public class HomeController {
             String[] subImg = gson.fromJson(product.getSubImg(), new TypeToken<String[]>() {}.getType());
             model.addAttribute("subImg", subImg);
         }
-        List<Review> lsReview = reviewService.findAllByProductId(product.getId());
+        List<Review> lsReview = reviewService.findAllByProductIdAndStatus(product.getId(), Review.status.ACTIVE.value());
         List<Product> productRelationship = productService.findProductByCategoryId(product.getCategory().getId());
         model.addAttribute("newProduct", newProduct);
         model.addAttribute("product", product);

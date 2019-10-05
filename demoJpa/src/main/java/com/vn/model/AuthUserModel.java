@@ -21,7 +21,6 @@ public class AuthUserModel implements Serializable {
     private String verifyPassword;
     private String email;
     private List<Long> roles;
-//    private List<Long> permissions;
     private String lsRoles;
 
     public String getLsRoles() {
@@ -143,14 +142,6 @@ public class AuthUserModel implements Serializable {
     public void setRoles(List<Long> roles) {
         this.roles = roles;
     }
-
-//    public List<Long> getPermissions() {
-//        return this.permissions;
-//    }
-
-//    public void setPermissions(List<Long> permissions) {
-//        this.permissions = permissions;
-//    }
 
     public String getFullName() {
         return this.fullName;

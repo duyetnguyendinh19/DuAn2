@@ -10,7 +10,7 @@ public interface ReviewService {
 
     Page<Review> findAll(Pageable pageable);
 
-    List<Review> findAllByProductId(Long id);
+    List<Review> findAllByProductIdAndStatus(Long id, int status);
 
     Review insert(Review review);
 

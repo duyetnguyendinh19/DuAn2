@@ -43,10 +43,9 @@ public class Product implements Serializable {
 
     @Column(name = "isDelete", columnDefinition = "CHAR(1)")
     private String isdelete;
-//
-//    @Temporal(TemporalType.TIMESTAMP)
-//    @Column(name = "created_date")
-//    private Date createdDate;
+
+    @Column(name = "rate", columnDefinition = "TINYINT(4)")
+    private int rate;
 
     @Column(name = "info")
     private String info;
@@ -61,7 +60,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, String info, Category category, List<Product_Bill> lsProduct_bills) {
+    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, int rate, String info, Category category, List<Product_Bill> lsProduct_bills) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -71,10 +70,12 @@ public class Product implements Serializable {
         this.mainImg = mainImg;
         this.subImg = subImg;
         this.isdelete = isdelete;
+        this.rate = rate;
         this.info = info;
         this.category = category;
         this.lsProduct_bills = lsProduct_bills;
     }
+
 
     public Long getId() {
         return id;
@@ -154,6 +155,14 @@ public class Product implements Serializable {
 
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
+    }
+
+    public int getRate() {
+        return rate;
+    }
+
+    public void setRate(int rate) {
+        this.rate = rate;
     }
 
     public String getInfo() {
