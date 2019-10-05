@@ -1,0 +1,30 @@
+<header id="topnav" class="navbar navbar-fixed-top navbar-teal" role="banner" xmlns:th="http://www.w3.org/1999/xhtml">
+	<div class="logo-area">
+		<span id="trigger-sidebar" class="toolbar-trigger toolbar-icon-bg">
+			<a data-toggle="tooltips" data-placement="right" title="Toggle Sidebar"> 
+				<span class="icon-bg"> 
+					<i class="ti ti-menu"></i>
+				</span>
+			</a>
+		</span> 
+		<a th:href="@{/report/dashboard.html}"><h4 style="color: #FFF">Trò chơi âm nhạc</h4></a>
+	</div>
+
+	<ul class="nav navbar-nav toolbar pull-right">
+		<li class="dropdown toolbar-icon-bg">
+			<a class="dropdown-toggle username" data-toggle="dropdown"> 
+				<img class="img-circle" th:src="@{/assets/img/human.png}" alt="" />
+			</a>
+			<ul class="dropdown-menu userinfo arrow">
+				<li>
+					<a th:href="@{/user/view.html}"><i class="ti ti-user"></i> <span>Thông tin tài khoản</span></a>
+				</li>
+				<li>
+					<a th:href="@{/user/change-password.html}"><i class="ti ti-package"></i><span>Đổi mật khẩu</span></a></li>
+				<li>
+					<a th:href="@{/admin/logout.html}"><i class="ti ti-shift-right"></i><span>Đăng xuất</span></a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</header>

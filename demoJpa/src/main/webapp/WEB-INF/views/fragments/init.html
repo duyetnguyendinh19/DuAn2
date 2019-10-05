@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head th:fragment="head">
+ 		<meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="_csrf" th:if="${_csrf} != null" th:content="${_csrf.token}"/>
+		<meta name="_csrf_header" th:if="${_csrf} != null" th:content="${_csrf.headerName}"/>
+
+        <title>Ô Tô Kê</title>
+        <link href="../../../resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet"  th:href="@{/resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css?v=1}"/>
+        <link th:href="@{/resources/sb-admin-v2/css/plugins/dataTables/dataTables.bootstrap.css?v=1}" rel="stylesheet"/>
+        <link th:href="@{/resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css?v=1}" rel="stylesheet"/>
+		
+        <link href="../../../resources/sb-admin-v2/css/bootstrap.min.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/css/bootstrap.min.css?v=1}"/>
+        <link href="../../../resources/sb-admin-v2/font-awesome/css/font-awesome.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/font-awesome/css/font-awesome.css?v=1}"/>
+        <link href="../../../resources/sb-admin-v2/css/metisMenu.min.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/css/metisMenu.min.css?v=1}"/>
+
+        <link href="../../../resources/sb-admin-v2/css/plugins/morris/morris-0.4.3.min.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/css/plugins/morris/morris-0.4.3.min.css?v=1}"/>
+        <link href="../../resources/sb-admin-v2/css/plugins/timeline/timeline.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/css/plugins/timeline/timeline.css?v=1}"/>
+
+        <link href="../../../resources/sb-admin-v2/css/sb-admin.css" rel="stylesheet"  th:href="@{/resources/sb-admin-v2/css/sb-admin.css?v=3}"/>
+        <link rel="stylesheet" type="text/css" media="all" href="bootstrap-daterangepicker/daterangepicker-bs3.css" th:href="@{/resources/bootstrap-daterangepicker/daterangepicker-bs3.css}"/>
+    </head>
+    <body>
+         <div th:fragment="extra">
+             <p>Extra Content Fragment </p>             
+         </div>
+
+		<div th:fragment="commonScript">
+		    <script src="../../resources/sb-admin-v2/js/jquery-1.10.2.js" th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js?v=1}"></script>
+	        <script src="../../resources/sb-admin-v2/js/bootstrap.min.js" th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js?v=1}"></script>
+            <script th:src="@{/resources/bootstrap-datetimepicker/js/moment.min.js?v=1}"></script>
+	        <script src="../../resources/sb-admin-v2/js/bootstrap-switch.js" th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js?v=1}"></script>
+	        <script src="../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js" th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js?v=1}"></script>
+	
+	        <script src="../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js" th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js?v=1}"></script>
+	        <script src="../../resources/sb-admin-v2/js/plugins/morris/morris.js" th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js?v=1}"></script>
+
+	        <script src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js" th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js?v=1}"></script>
+            <script th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js?v=1}"></script>
+            <script th:src="@{/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js?v=1}"></script>
+			<script src="../../../resources/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js" th:src="@{/resources/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js?v=1}"></script>
+	
+	        <script src="../../resources/sb-admin-v2/js/sb-admin.js" th:src="@{/resources/sb-admin-v2/js/sb-admin.js?v=1}"></script>
+		</div>
+</body>
+</html>

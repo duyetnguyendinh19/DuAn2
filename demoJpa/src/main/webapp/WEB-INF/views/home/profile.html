@@ -1,0 +1,136 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/initHome :: head"></div>
+</head>
+
+<body>
+
+<!-- Body main wrapper start -->
+<div class="wrapper">
+
+    <!-- START HEADER AREA -->
+    <header class="header-area header-wrapper">
+        <!-- START IMPORT HEADER -->
+        <div th:replace="fragments/navHome :: header"></div>
+        <!-- END IMPORT HEADER -->
+    </header>
+    <!-- END HEADER AREA -->
+
+    <!-- START MOBILE MENU AREA -->
+    <div th:replace="fragments/navHome :: menuMobile"></div>
+    <!-- END MOBILE MENU AREA -->
+
+    <!-- BREADCRUMBS SETCTION START -->
+    <div class="breadcrumbs-section plr-200 mb-80">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Thông tin cá nhân</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a th:href="@{/}">Trang chủ</a></li>
+                                <li>Thông tin cá nhân</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BREADCRUMBS SETCTION END -->
+
+    <!-- Start page content -->
+    <div id="page-content" class="page-wrapper">
+
+        <!-- LOGIN SECTION START -->
+        <div class="login-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="my-account-content" id="accordion2">
+                            <!-- My Personal Information -->
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion2" href="#personal_info">Thông tin cá nhân</a>
+                                    </h4>
+                                </div>
+                                <div id="personal_info" class="panel-collapse collapse in" role="tabpanel">
+                                    <div class="panel-body">
+                                        <form action="#">
+                                            <div class="new-customers">
+                                                <div class="p-30">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="firstName"  placeholder="Họ...">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="lastName"  placeholder="Tên...">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="province" placeholder="Thành phố...">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="town" placeholder="Quận/Huyện...">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <select class="custom-select" name="gender">
+                                                                <option value="defalt">Giới tính</option>
+                                                                <option value="0">Nam</option>
+                                                                <option value="1">Nữ</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="mobile"  placeholder="Số điện thoại...">
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <select class="custom-select" name="atm">
+                                                                <option value="defalt">Ngân hàng</option>
+                                                                <option value="">VIETCOMBANK</option>
+                                                                <option value="">VIETINBANK</option>
+                                                                <option value="">ACB</option>
+                                                                <option value="">VPBANK</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            <input type="text" name="atmNumber" placeholder="Số tài khoản...">
+                                                        </div>
+                                                    </div>
+                                                    <input type="text" name="company" placeholder="Công ty...">
+                                                    <input type="text" name="email" placeholder="Email...">
+                                                    <input type="password" name="password"  placeholder="Mật khẩu...">
+                                                    <input type="password" name="confirmPassword"  placeholder="Xác thực mật khẩu...">
+                                                    <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea>
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Lưu</button>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Làm mới</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LOGIN SECTION END -->
+    </div>
+    <!-- End page content -->
+    <!-- START FOOTER AREA -->
+    <div th:replace="fragments/navHome :: footer"></div>
+    <!-- END FOOTER AREA -->
+</div>
+<div th:replace="fragments/initHome :: commonScript"></div>
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0; background-color: rgb(3, 179, 178);">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" th:href="" th:th:href="@{/thread/list.html}" style="color:white; margin-left: 0px;">Football Game 01</a>
+    </div>
+    <!-- /.navbar-header -->
+    <ul class="nav navbar-top-links navbar-right hidden-xs" th:if="${session.principal != null}">
+        <li>
+            <a class="navbar-brand" th:href="#" style="color:white; margin-right: 15px;">Hello: <span th:text="${session.principal}"></span></a>
+        </li>
+    </ul>
+    <!-- /.navbar-top-links -->
+
+    <div class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+        </div>
+        <!-- /.sidebar-collapse -->
+    </div>
+    <!-- /.navbar-static-side -->
+</nav>

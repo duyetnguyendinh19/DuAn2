@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="demoJpa:war" />
+    </artifacts-to-build>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d5296e52-fb40-4ec9-9e7d-464452e6fe21" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Report.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReportRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReviewRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ReportService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ReviewService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReportServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/vn/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/vn/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa.war" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa.war" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/config/sercurity/CustomAuthenticationProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/config/sercurity/CustomAuthenticationProvider.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/AuthUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/AuthUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/Category$status.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/Category$status.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/jpa/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/repository/AuthUserRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/repository/AuthUserRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/repository/CategoryRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/repository/CategoryRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/service/imple/AuthUserDetailsServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/classes/com/vn/service/imple/AuthUserDetailsServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/views/fragments/navHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/demoJpa/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/demoJpa/WEB-INF/views/home/product-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="FxmlFile" />
+        <option value="package-info" />
+        <option value="spring-beans.schema" />
+        <option value="HTML File" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JRebelWorkspace">
+    <option name="jrebelEnabledAutocompile" value="true" />
+  </component>
+  <component name="LogFilters">
+    <option name="FILTER_ERRORS" value="false" />
+    <option name="FILTER_WARNINGS" value="false" />
+    <option name="FILTER_INFO" value="true" />
+    <option name="FILTER_DEBUG" value="true" />
+    <option name="CUSTOM_FILTER" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="skipTests" value="true" />
+  </component>
+  <component name="ProjectId" id="1QxHToHZ5Xdy87e81ZDalmY9EIO" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_directory_selection" value="$PROJECT_DIR$/src/main/webapp/assets/teamplates/audio" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/static/bank" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\static\bank" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\resources" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\teamplates\audio" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\css\teamplates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\teamplates\img\logo" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\WEB-INF\views\admin" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\teamplates\js\vendor" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\teamplates\js" />
+      <recent name="C:\Users\Bui Van Tan\Desktop\demoJpa\src\main\webapp\assets\teamplates\css" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 8.0.36" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.36" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="demoJpa:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/demoJpa_war" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Tomcat_8_0_36_demoJpa" />
+        <option name="JNDI_PORT" value="1999" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="59758" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="59759" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="demoJpa:war" />
+        </option>
+      </method>
+    </configuration>
+    <configuration default="true" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.0.36" ALTERNATIVE_JRE_ENABLED="false">
+      <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8284/demoJpa_Web_exploded/" />
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="demoJpa:Web exploded">
+          <settings>
+            <option name="CONTEXT_PATH" value="/demoJpa_Web_exploded" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="_demoJpa" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="59758" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="JRebel Debug">
+        <option name="DEBUG_PORT" value="59759" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="JRebel Executor">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="demoJpa:war" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d5296e52-fb40-4ec9-9e7d-464452e6fe21" name="Default Changelist" comment="" />
+      <created>1568705337974</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1568705337974</updated>
+      <workItem from="1568705342842" duration="10259000" />
+      <workItem from="1568724061610" duration="2951000" />
+      <workItem from="1568770026301" duration="5554000" />
+      <workItem from="1568790674695" duration="13396000" />
+      <workItem from="1568857162997" duration="28150000" />
+      <workItem from="1568943278400" duration="14890000" />
+      <workItem from="1569030706354" duration="1237000" />
+      <workItem from="1569054341310" duration="2100000" />
+      <workItem from="1569202592603" duration="3839000" />
+      <workItem from="1569290359639" duration="25707000" />
+      <workItem from="1569326902615" duration="6807000" />
+      <workItem from="1569374999119" duration="4210000" />
+      <workItem from="1569489589193" duration="655000" />
+      <workItem from="1569548748926" duration="21588000" />
+      <workItem from="1569635115726" duration="9023000" />
+      <workItem from="1569674158643" duration="389000" />
+      <workItem from="1569725701090" duration="8570000" />
+      <workItem from="1569757169574" duration="2899000" />
+      <workItem from="1569806874635" duration="28471000" />
+      <workItem from="1569855095713" duration="673000" />
+      <workItem from="1569893990615" duration="19412000" />
+      <workItem from="1570066220429" duration="30106000" />
+      <workItem from="1570117372826" duration="690000" />
+      <workItem from="1570152507633" duration="18998000" />
+      <workItem from="1570190643545" duration="5442000" />
+      <workItem from="1570239514479" duration="12819000" />
+    </task>
+    <task id="LOCAL-00001" summary="update code">
+      <created>1569817775412</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1569817775412</updated>
+    </task>
+    <task id="LOCAL-00002" summary="update code">
+      <created>1569837609457</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1569837609457</updated>
+    </task>
+    <task id="LOCAL-00003" summary="update code">
+      <created>1569840262315</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1569840262315</updated>
+    </task>
+    <task id="LOCAL-00004" summary="update code html">
+      <created>1569904510969</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1569904510969</updated>
+    </task>
+    <task id="LOCAL-00005" summary="update code html">
+      <created>1569920133173</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1569920133173</updated>
+    </task>
+    <task id="LOCAL-00006" summary="update code html">
+      <created>1569920316611</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1569920316611</updated>
+    </task>
+    <task id="LOCAL-00007" summary="update code">
+      <created>1570012853706</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1570012853707</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update code">
+      <created>1570089234890</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1570089234890</updated>
+    </task>
+    <task id="LOCAL-00009" summary="update code">
+      <created>1570095571842</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1570095571842</updated>
+    </task>
+    <task id="LOCAL-00010" summary="update code">
+      <created>1570196404400</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1570196404400</updated>
+    </task>
+    <task id="LOCAL-00011" summary="update code">
+      <created>1570196490339</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1570196490339</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="PERFORM_ROLLBACK_IN_BACKGROUND" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="update code html" />
+    <MESSAGE value="update code" />
+    <option name="LAST_COMMIT_MESSAGE" value="update code" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
+        <watch expression="authUser" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>

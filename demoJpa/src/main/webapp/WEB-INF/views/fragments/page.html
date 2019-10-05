@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+	<head th:replace="fragments/init :: head">
+   		<title>Title List</title>    
+ 	</head>
+
+	<body class="animated-content">
+		<header id="topnav" class="navbar navbar-default navbar-fixed-top" role="banner" 
+			th:include="fragments/header-bar">
+		</header>
+		<div id="layout-static">
+			<div class="static-sidebar-wrapper sidebar-default">
+				<div class="static-sidebar">
+					<div class="sidebar" th:include="fragments/side-menu"></div>
+				</div>
+			</div>
+			<div class="static-content-wrapper">
+				<div class="static-content">
+					<div class="page-content">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div th:replace="fragments/init :: commonScript"></div>
+    </body>
+</html>

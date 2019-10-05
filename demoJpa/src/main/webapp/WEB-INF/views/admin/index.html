@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/init :: head"></div>
+    <title>Title List</title>
+    <link href="../../../resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet"  th:href="@{/resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css}"/>
+    <link href="../../../resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css" rel="stylesheet"  th:href="@{/resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css}"/>
+</head>
+<body>
+<div id="wrapper">
+    <div id="nav_id" th:replace="nav :: div">
+    </div>
+    <div id="page-wrapper" style="min-height: 600px;">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="panel-body">
+<!--                        <form role="form" th:action="@{/questions/list.html}" th:object="${question}" method="POST">-->
+<!--                            <input type="hidden" name="list_user_type" th:value="${list_user_type}" />-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users','ContentManagers')">-->
+<!--                                    <label>Lĩnh vực</label>-->
+<!--                                    <select class="selectpicker form-control" id="cateId" name = "cateId">-->
+<!--                                        <option th:each="eachCate : ${categories}" th:value="${eachCate.id}" th:text="${eachCate.name}" th:selected="${eachCate.id==selectedCate.id}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users','ContentManagers')">-->
+<!--                                    <label>Trạng thái</label>-->
+<!--                                    <select class="selectpicker form-control" id="statusId" name = "status">-->
+<!--                                        <option th:each="eachStatus : ${statuses}" th:value="${eachStatus.id}" th:text="${eachStatus.value}" th:selected="${eachStatus.id==selectedStatus.id}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users','ContentManagers')">-->
+<!--                                    <label>Câu hỏi</label>-->
+<!--                                    <select class="selectpicker form-control" id="mtInvite" name = "mtInvite">-->
+<!--                                        <option th:each="eachType : ${questionTypes}" th:value="${eachType.id}" th:text="${eachType.value}" th:selected="${eachType.id==selectedQuestionType.id}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                    <label>CTV</label>-->
+<!--                                    <select class="selectpicker form-control" id="createdBy" name = "createdBy">-->
+<!--                                        <option th:each="eachAuthor : ${authors}" th:value="${eachAuthor.id}" th:text="${eachAuthor.value}" th:selected="${eachAuthor.id==selectedAuthor.id}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                    <label>Giá (Fee)</label>-->
+<!--                                    <select class="selectpicker form-control" id="fee" name = "fee">-->
+<!--                                        <option th:each="eachFee : ${fees}" th:value="${eachFee.value}" th:text="${eachFee.value}" th:selected="${eachFee.value==selectedFee.value}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                    <label>Nhóm</label>-->
+<!--                                    <select class="selectpicker form-control" id="group" name = "group">-->
+<!--                                        <option th:each="eachGroup : ${groups}" th:value="${eachGroup.id}" th:text="${eachGroup.value}" th:selected="${eachGroup.id==group}">-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3">-->
+<!--                                    <label>Câu số</label>-->
+<!--                                    <input class="form-control"  type="number" min="1" id="txtQuestionId" name="questionId" th:value="${questionId}">-->
+<!--                                </div>-->
+<!--                                <div class="col-md-3" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                    <label>Level</label>-->
+<!--                                    <select id="level" name = "levels" class="selectpicker form-control" multiple data-actions-box="true" data-selected-text-format="count > 5">-->
+<!--                                        <option th:selected="${question.parseLevel(1)==1}" value="1">Level 1</option>-->
+<!--                                        <option th:selected="${question.parseLevel(2)==2}" value="2">Level 2</option>-->
+<!--                                        <option th:selected="${question.parseLevel(4)==4}" value="4">Level 3</option>-->
+<!--                                        <option th:selected="${question.parseLevel(8)==8}" value="8">Level 4</option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+
+<!--                                <div class="row" style="padding-left: 15px; padding-right: 15px;">-->
+<!--                                    <div class="col-md-6">-->
+<!--                                        <label>Nội dung </label>-->
+<!--                                        <input class="form-control" id="txtTempalte" name="template" th:value="${template}">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-3">-->
+<!--                                        <label>&nbsp;</label>-->
+<!--                                        <div>-->
+<!--                                            <button type="submit" id="btnSearch" class="btn btn-primary">Tìm kiếm</button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-md-2" sec:authorize="hasAnyAuthority('Administrators','Managers','ContentManagers','Users')">-->
+<!--                                        <label>&nbsp;</label>-->
+<!--                                        <div>-->
+<!--                                            <a th:href="@{/questions/add}" href="/questions/add" class="btn btn-primary">Thêm câu hỏi</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+                        <!-- End form -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-info" th:if="${page.content} != null">
+                    <div class="panel-heading">
+                        Danh sách câu hỏi
+                        <div class="btn-group pull-right">
+                            <a id = "btnAdd" href="#" th:href="@{/questions/add.html}" sec:authorize="hasAnyAuthority('Administrators')"><i class="fa fa-plus fa-2x"></i></a>
+                            <a id = "btnRefresh" href="#" th:href="@{/questions/list.html}"><i class="fa fa-refresh fa-2x"></i></a>
+                        </div>
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table id="table-question" class="table table-striped table-bordered table-hover dataTable">
+                                <thead>
+                                <tr>
+<!--                                    <th class="text-center">#</th>-->
+<!--                                    <th class="text-center">Ngày tạo</th>-->
+<!--                                    <th class="text-center">Nội dung</th>-->
+<!--                                    <th class="text-center">Phí/Thưởng/Time/Điểm</th>-->
+<!--                                    <th class="text-center">Đáp án</th>-->
+<!--                                    <th class="text-center">Người tạo</th>-->
+<!--                                    <th class="text-center">Trạng thái</th>-->
+<!--                                    <th class="text-center">#</th>-->
+<!--                                    <td class="text-center" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">#</td>-->
+<!--                                    <th class="text-center" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">#</th>-->
+                                </tr>
+                                </thead>
+                                <tbody>
+<!--                                <tr th:each="question, iterStat : ${page.content}">-->
+<!--                                    <td>-->
+<!--                                        <a href="#" th:text="${question.id}">1</a>-->
+<!--                                    </td>-->
+<!--                                    <td class="col-xs-1" th:text="${#dates.format(question.createdDate, 'dd/MM/yyyy')}"></td>-->
+<!--                                    <td class="col-xs-5 col-md-5" th:text="${question.template}"></td>-->
+<!--                                    <td class="text-center" th:text="${#numbers.formatDecimal(question.fee, 0, 'COMMA', 0, 'POINT') + '/' + #numbers.formatDecimal(question.reward, 0, 'COMMA', 0, 'POINT') + '/' +question.validDuration+'/'+ #numbers.formatDecimal(question.score, 0, 'COMMA', 0, 'POINT') }"></td>-->
+<!--                                    <td class="text-center" ><div th:if="${not(question.status == 1 && list_user_type == 2)}" th:text="${question.correctAnswer}"></div></td>-->
+<!--                                    <td class="text-center" ><div th:text="${allCreatorMap.get(question.ownerId)}"></div></td>-->
+<!--                                    <td class="text-center" th:switch="${#strings.toString(question.status)}">-->
+<!--                                        <span th:case="0" class="btn btn-default">&nbsp;&nbsp;Nháp&nbsp;&nbsp;&nbsp;</span>-->
+<!--                                        <span th:case="1" class="btn btn-success">Đã duyệt</span>-->
+<!--                                        <span th:case="2" class="btn btn-warning">Từ chối </span>-->
+<!--                                    </td>-->
+<!--                                    <td class="text-center">-->
+<!--                                        <button class="btn btn-info btn-circle" th:if="${not(question.status == 1 && list_user_type == 2)}" th:onclick="'editConfirm(\'' + ${question.id} + '\');'"><i class="fa fa-edit"></i></button>-->
+<!--                                        <button class="btn btn-info btn-circle" th:if="${question.status == 1 && list_user_type == 2}" th:onclick="'copyEditReject(\'' + ${question.id} + '\');'"><i class="fa fa-edit"></i></button>-->
+<!--                                        &lt;!&ndash;                                                 	<a th:href="@{/questions/{id}/update.html(id=${question.id})}"><button class="btn btn-info btn-circle"><i class="fa fa-edit"></i></button></a> &ndash;&gt;-->
+<!--                                    </td>-->
+<!--                                    <td class="text-center" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                        <button class="btn btn-info btn-circle" th:if="${not(question.status == 1 && list_user_type == 2)}" th:onclick="'copyConfirm(\'' + ${question.id} + '\');'"><i class="fa fa-copy"></i></button>-->
+<!--                                        <button class="btn btn-info btn-circle" th:if="${question.status == 1 && list_user_type == 2}" th:onclick="'copyEditReject(\'' + ${question.id} + '\');'"><i class="fa fa-copy"></i></button>-->
+<!--                                    </td>-->
+<!--                                    <td class="text-center" sec:authorize="hasAnyAuthority('Administrators','Managers','Users')">-->
+<!--                                        <button th:if="${question.status} != 1" th:onclick="'approveQuestion(\'' + ${question.id} + '\');'" type="button" class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>-->
+<!--                                        <button th:if="${question.status} == 1" th:onclick="'rejectQuestion(\'' + ${question.id} + '\');'" type="button" class="btn btn-warning btn-circle"><i class="fa fa-check"></i></button>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /.row -->
+<!--        START PANIGATION-->
+<!--        <div th:replace="fragments/panigator :: content(page = ${page})"></div>-->
+<!--        END PANIGATION-->
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+<div th:replace="fragments/init :: commonScript"></div>
+<script type="text/javascript" src="bootstrap-select-1.12.4/bootstrap-select.js" th:src="@{/resources/bootstrap-select-1.12.4/dist/js/bootstrap-select.js}"></script>
+<script th:inline="javascript">
+    var currUrl = /*[[@{/}]]*/ "";
+    var pageIndex = /*[[${session.pageIndex}]]*/ "";
+</script>
+<!--<script>-->
+<!--    function approveQuestion(questionId) {-->
+<!--        BootstrapDialog.show({-->
+<!--            title: 'Duyệt câu hỏi',-->
+<!--            message: 'Bạn đang thực thực hiện duyệt cây hỏi số ' + questionId + ' ! Bấm duyệt để xách nhận.',-->
+<!--            buttons: [{-->
+<!--                label: 'Bỏ qua',-->
+<!--                action: function(dialogItself){-->
+<!--                    dialogItself.close();-->
+<!--                }-->
+<!--            },{-->
+<!--                label: 'Duyệt',-->
+<!--                // no title as it is optional-->
+<!--                cssClass: 'btn-primary',-->
+<!--                data: {-->
+<!--                    js: 'btn-confirm',-->
+<!--                    'question-id': questionId-->
+<!--                },-->
+<!--                action: function(dialogItself){-->
+<!--                    var reqUrl = currUrl + "questions/approveOrReject";-->
+<!--                    $.ajax({-->
+<!--                        url: reqUrl,-->
+<!--                        method: 'POST',-->
+<!--                        data: {-->
+<!--                            'type': 1,-->
+<!--                            'question_id': questionId-->
+<!--                        },-->
+<!--                        success: function( response ) {-->
+<!--                            var obj = JSON.parse(response);-->
+<!--                            if(obj.status == 0) {-->
+<!--                                dialogItself.close();-->
+<!--                                window.location = currUrl + "/questions/list.html?page=" + pageIndex;-->
+<!--                            } else {-->
+<!--                            }-->
+<!--                        }-->
+<!--                    });-->
+<!--                }-->
+<!--            }]-->
+<!--        });-->
+<!--    };-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+<!--    function copyEditReject(questionId) {-->
+<!--        BootstrapDialog.show({-->
+<!--            title: 'Edit-Copy câu hỏi',-->
+<!--            message: 'Tài khoản của bạn không được phép thực hiện chức năng EDIT/COPY với câu hỏi số ' + questionId + '.',-->
+<!--            buttons: [{-->
+<!--                label: 'OK',-->
+<!--                cssClass: 'btn-primary',-->
+<!--                action: function(dialogItself){-->
+<!--                    dialogItself.close();-->
+<!--                }-->
+<!--            }]-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function() {-->
+<!--        $('#table-question').DataTable({-->
+<!--            "order": [ 3, 'desc' ],-->
+<!--            "aoColumnDefs": [ {-->
+<!--                'bSortable' : false,-->
+<!--                'aTargets' : [ 0 ]-->
+<!--            } ],-->
+<!--            "paging": false,-->
+<!--            "info": false,-->
+<!--            "searching": false-->
+
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+</body>
+
+</html>
