@@ -271,6 +271,7 @@ CREATE TABLE `product` (
   `subImg` text COLLATE utf8_unicode_ci,
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `info` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `rate` tinyint(4) DEFAULT NULL,
   `id_category` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_category_idx` (`id_category`),
@@ -284,7 +285,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Iphone X',18000000,50,'Ngon, Sạch, Đẹp',0,1,'assets/teamplates/img/product/7.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',2),(2,'SamSung A50',6000000,120,'Đẹp, 4GB/64GB',5500000,0,'assets/teamplates/img/product/5.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',3),(4,'Iphone 11',25000000,45,'Đẹp mê lì',0,1,'assets/teamplates/img/product/6.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',2),(5,'Xiaomi Mi 5',7500000,200,'Phê',7000000,1,'assets/teamplates/img/product/4.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',4),(6,'Oppo F9',9000000,220,'Đẳng cấp',8800000,1,'assets/teamplates/img/product/2.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',5);
+INSERT INTO `product` VALUES (1,'Iphone X',18000000,50,'Ngon, Sạch, Đẹp',0,1,'assets/teamplates/img/product/7.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',2,2),(2,'SamSung A50',6000000,120,'Đẹp, 4GB/64GB',5500000,0,'assets/teamplates/img/product/5.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',1,3),(4,'Iphone 11',25000000,45,'Đẹp mê lì',0,1,'assets/teamplates/img/product/6.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',3,2),(5,'Xiaomi Mi 5',7500000,200,'Phê',7000000,1,'assets/teamplates/img/product/4.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',4,4),(6,'Oppo F9',9000000,220,'Đẳng cấp',8800000,1,'assets/teamplates/img/product/2.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',5,5);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,9 +361,11 @@ CREATE TABLE `review` (
   `created_date` datetime DEFAULT NULL,
   `description` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `reply` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `status` tinyint(4) DEFAULT NULL,
+  `rate` tinyint(4) DEFAULT NULL,
   `id_product` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,7 +374,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Nguyễn Văn A','2019-10-05 08:30:52','Chất lượng tốt, sản phẩm đẹp, dùng ok',NULL,2),(2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,2);
+INSERT INTO `review` VALUES (1,'Nguyễn Văn A','2019-10-05 08:30:52','Chất lượng tốt, sản phẩm đẹp, dùng ok',NULL,1,NULL,2),(2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(3,'Nguyễn Thị B','2019-05-21 05:23:05','Đờ mờ xấu đéo chịu được',NULL,0,NULL,2);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -384,4 +387,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-05 14:44:22
+-- Dump completed on 2019-10-05 20:31:11
