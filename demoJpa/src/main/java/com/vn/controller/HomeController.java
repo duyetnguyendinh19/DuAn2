@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.vn.common.Constants;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
 import com.vn.jpa.Review;
@@ -105,6 +106,18 @@ public class HomeController {
         model.addAttribute("proRelationship", productRelationship);
         model.addAttribute("review", lsReview);
         ModelAndView modelAndView = new ModelAndView("home/product-single");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/home/{id}/product.html", method = {RequestMethod.GET})
+    public ModelAndView product(Model model, @PathVariable("id") Long id, Pageable pageable) {
+        Category category = categoryService.findOne(id);
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC,"id"));
+        Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
+        Page<Product> page = productService.findAllByCategoryId(id, _page);
+        model.addAttribute("name" , category.getName());
+        model.addAttribute("page", page);
+        ModelAndView modelAndView = new ModelAndView("home/product");
         return modelAndView;
     }
 

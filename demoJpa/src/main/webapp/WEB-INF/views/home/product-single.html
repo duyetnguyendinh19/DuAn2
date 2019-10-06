@@ -351,7 +351,7 @@
                                 <ul>
                                     <li th:class="${iterStat.index == 0} ? 'open'"><a href="#" th:text="${eachCate.value[0]}">Điện thoại</a>
                                         <ul th:each="cateChilren : ${eachCate.value[1]}">
-                                            <li><a href="#" th:text="${cateChilren[1]}">Iphone</a></li>
+                                            <li><a th:href="@{/home/{id}/product.html(id = ${cateChilren[0]})}" th:text="${cateChilren[1]}">Iphone</a></li>
                                         </ul>
                                     </li>
                                 </ul>

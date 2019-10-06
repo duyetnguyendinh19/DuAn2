@@ -55,7 +55,7 @@
                                                 <ul class="single-mega-item" th:each="eachCate : ${session.categoryNav}">
                                                     <li class="menu-title" th:text="${eachCate.value[0]}">Điện thoại</li>
                                                     <li th:each="cateChilren : ${eachCate.value[1]}">
-                                                        <a href="#" th:text="${cateChilren[1]}">Iphone</a>
+                                                        <a th:href="@{/home/{id}/product.html(id=${cateChilren[0]})}" th:text="${cateChilren[1]}">Iphone</a>
                                                     </li>
                                                 </ul>
                                             </div>
