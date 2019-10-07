@@ -32,12 +32,12 @@ public class AdminController {
     }
 
 //    @PreAuthorize("hasAnyAuthority('Administrators')")
-    @GetMapping(value = {"list.html"})
+    @GetMapping(value = {"dashboard.html"})
     public String index(ModelMap modelMap, Pageable pageable, HttpSession session) {
-        Page<Category> page = categoryService.findAll(pageable);
-        modelMap.addAttribute("page", page);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        modelMap.addAttribute("name1", authentication.getName());
+//        Page<Category> page = categoryService.findAll(pageable);
+//        modelMap.addAttribute("page", page);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        modelMap.addAttribute("name1", authentication.getName());
         return "admin/index";
     }
 

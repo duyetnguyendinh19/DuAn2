@@ -1,5 +1,5 @@
 <div th:fragment="content" th:remove="tag">
-    <div th:if="${not #lists.isEmpty(page.content)}">
+    <div th:if="${not #lists.isEmpty(page) and not #lists.isEmpty(page.content)}">
         <div class="pagination pull-left no-margin" style="margin: 0px!important;">
 						<span> Showing <span th:text="${(page.number * page.size)+1}"></span>
 								to <span th:text="${(page.number * page.size)+ page.numberOfElements}"></span>  of

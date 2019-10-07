@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Date;
 
 @Service(value = "reportService")
 @Transactional
@@ -20,6 +21,11 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public Page<Report> findAll(Pageable pageable) {
         return reportRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<Report> findAllReportsReports(Date fromDate, Date toDate, String name, Pageable pageable) {
+        return reportRepo.findAllReportsReports(fromDate, toDate, name, pageable);
     }
 
     @Override

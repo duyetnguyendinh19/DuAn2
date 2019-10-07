@@ -25,19 +25,12 @@ public class AppAuthenticationSuccessHanding implements AuthenticationSuccessHan
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
         String targetLink = "/";
         if (authUser.getUserType() == 2){
-            targetLink = "/admin/list.html";
+            targetLink = "/admin/dashboard.html";
         }else if(authUser.getUserType() == 1){
-            targetLink = "/admin/list.html";
+            targetLink = "/user/list.html";
         }else{
-            targetLink = "/admin/list.html";
+            targetLink = "/admin/dashboard.html";
         }
-//        List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) authentication.getAuthorities();
-//        for(GrantedAuthority eachGrant : grantedAuthorities){
-//            if(eachGrant.getAuthority().equals("CustCare")){
-//                targetLink = "";
-//                break;
-//            }
-//        }
         if(authUser.getStatus() == 0){
             targetLink = request.getContextPath() + "/error";
             response.sendRedirect(targetLink);

@@ -8,11 +8,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a sec:authorize="hasAnyAuthority('Administrators','Users')"
-               th:href="@{/{dashboardLink}(dashboardLink=${session.dashboardLink})}" class="navbar-brand" style="color:white; margin-left: 0px;">
-                <i class="fa fa-music" style="color: yellow;font-size: 23px"></i>
-                <i class="glyphicon glyphicon-music" style="color: yellow;font-size: 23px"></i>
-                <i class="fa fa-music" style="color: yellow;font-size: 23px"></i> Ô Tô Kê
+            <a sec:authorize="hasAnyAuthority('Administrators','Users','Staffs')"
+               th:href="@{/{dashboardLink}(dashboardLink=${session.dashboardLink})}" class="navbar-brand"
+               style="color:white; margin-left: 50px;padding-top: 5px!important;">
+                <img th:src="@{/assets/teamplates/img/logo/logo.png}" width="85px;"/>
             </a>
         </div>
         <!-- /.navbar-header -->
@@ -45,17 +44,23 @@
                         <li sec:authorize="hasAnyAuthority('Administrators')">
                             <a href="#" ><i class="fa fa-list-ol"></i> Quản lý nhân viên</a>
                         </li>
-                        <li sec:authorize="hasAnyAuthority('Administrators','Users')">
-                            <a href="#" ><i class="fa fa-list-ol"></i> Quản lý khách hàng</a>
+                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+                            <a th:href="@{/user/list.html}" ><i class="fa fa-list-ol"></i> Quản lý khách hàng</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-list-ol"></i> Quản lý D/m sản phẩm</a>
+                            <a th:href="@{/category/list.html}"><i class="fa fa-list-ol"></i> Quản lý D/m sản phẩm</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-list-ol"></i> Quản lý sản phẩm</a>
+                            <a th:href="@{/product/list.html}"><i class="fa fa-list-ol"></i> Quản lý sản phẩm</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Administrators')">
-                            <a href="#"><i class="fa fa-list-ul"></i> Quản lý hóa đơn</a>
+                            <a th:href="@{/bill/list.html}"><i class="fa fa-list-ul"></i> Quản lý hóa đơn</a>
+                        </li>
+                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+                            <a th:href="@{/review/list.html}"><i class="fa fa-list-ul"></i> Danh sách đánh giá</a>
+                        </li>
+                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+                            <a th:href="@{/report/list.html}"><i class="fa fa-list-ul"></i> Danh sách phản hồi</a>
                         </li>
                     </ul>
                 </li>
