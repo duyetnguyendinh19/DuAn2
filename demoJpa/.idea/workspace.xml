@@ -7,23 +7,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReviewController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/report/insert.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/report/list.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/report/update.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/review/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/duan2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/duan2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/AppAuthenticationSuccessHanding.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/AppAuthenticationSuccessHanding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReportRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReportRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/ReportService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ReportService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReportServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/rebel-remote.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/rebel.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/panigator.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/panigator.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/nav.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReportController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReportController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReviewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ReviewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReviewRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReviewRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ReviewService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReviewServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/report/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/report/list.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -205,7 +202,9 @@
       <workItem from="1570278677157" duration="5874000" />
       <workItem from="1570332251074" duration="5878000" />
       <workItem from="1570411723308" duration="5068000" />
-      <workItem from="1570417058462" duration="4797000" />
+      <workItem from="1570417058462" duration="10010000" />
+      <workItem from="1570431039128" duration="10220000" />
+      <workItem from="1570442349149" duration="2599000" />
     </task>
     <task id="LOCAL-00001" summary="update code">
       <created>1570284518987</created>
@@ -228,7 +227,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570367405924</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="update code">
+      <created>1570422059985</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1570422059985</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

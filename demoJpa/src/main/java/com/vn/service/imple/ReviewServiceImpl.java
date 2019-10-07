@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "reviewService")
@@ -21,6 +22,11 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Page<Review> findAll(Pageable pageable) {
         return reviewRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<Review> findALlReview(Date fromDate, Date toDate, String name, Pageable pageable) {
+        return reviewRepo.findALlReview(fromDate, toDate, name, pageable);
     }
 
     @Override

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Date;
 
 @Service(value = "billService")
 @Transactional
@@ -20,6 +21,11 @@ public class BillServiceImpl implements BillService {
     @Override
     public Page<Bill> findAll(Pageable pageable) {
         return billRepo.findAll(pageable);
+    }
+
+    @Override
+    public Page<Bill> findAllBill(Date fromDate, Date toDate, Integer status,String isDelete, Pageable pageable) {
+        return billRepo.findAllBillParam(fromDate, toDate, status,isDelete, pageable);
     }
 
     @Override

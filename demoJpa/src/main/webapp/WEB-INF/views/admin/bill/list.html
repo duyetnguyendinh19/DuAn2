@@ -46,23 +46,26 @@
     <div id="page-wrapper" style="min-height: 600px;">
         <div class="row">
             <div class="panel-body panel-info">
-                <form role="form" th:action="@{/report/list.html}" method="POST">
+                <form role="form" th:action="@{/bill/list.html}" method="POST">
                     <div class="row">
                         <div class="col-lg-4">
                             <label>Từ ngày - đến ngày</label>
                             <div class="input-prepend input-group">
                                 <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                <input type="text" name = "from_date" id="from_date" hidden="true" th:value="${from_date}"/>
-                                <input type="text" name = "to_date" id="to_date" hidden="true"  th:value="${to_date}"/>
+                                <input type="text" name="from_date" id="from_date" hidden="true" th:value="${from_date}"/>
+                                <input type="text" name="to_date" id="to_date" hidden="true"  th:value="${to_date}"/>
                                 <input type="text" style="width: 100%" id="timePicker" class="form-control span4"
                                        value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly" />
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <label>Name</label>
+                            <label>Trạng thái</label>
                             <div>
-                                <input class="form-control" id="name" name="name"
-                                       type="text" placeholder="Name" th:value="${name}">
+                                <select class=" form-control" name="status" th:value="${status}">
+                                    <option value="0" th:attr="selected =${status}== '0' ? 'selected'">Tất cả</option>
+                                    <option value="1" th:attr="selected =${status}== '1' ? 'selected'">Đã thanh toán</option>
+                                    <option value="2" th:attr="selected =${status}== '2' ? 'selected'">Chưa thanh toán</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -81,9 +84,9 @@
             <div class="col-lg-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                        Danh sách phản hồi
+                        Danh sách hóa đơn
                         <div class="btn-group pull-right">
-                            <a id="btnRefresh" href="#" th:href="@{/report/list.html}"><i class="fa fa-refresh fa-2x"></i></a>
+                            <a id="btnRefresh" href="#" th:href="@{/bill/list.html}"><i class="fa fa-refresh fa-2x"></i></a>
                         </div>
                     </div>
                     <!-- /.panel-heading -->
@@ -92,34 +95,37 @@
                             <table id="table-question" class="table table-striped table-bordered table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th class="text-table-header">STT</th>
-                                    <th class="text-table-header">Tên</th>
-                                    <th class="text-table-header">Email</th>
-                                    <th class="text-table-header">SĐT</th>
-                                    <th class="text-table-header">Vấn đề</th>
-                                    <th class="text-table-header">Ý kiến</th>
+                                    <th class="text-table-header">#</th>
+                                    <th class="text-table-header">Người tạo</th>
+                                    <th class="text-table-header">Thanh toán</th>
+                                    <th class="text-table-header">Tổng tiền</th>
                                     <th class="text-table-header">Trạng thái</th>
+                                    <th class="text-table-header">#</th>
                                     <th class="text-table-header">#</th>
                                 </tr>
                                 </thead>
                                 <tbody th:if="${page}!=null">
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.name}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.email}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.mobile}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.problem}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.opinion}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.createBy}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.payment}"></td>
+                                    <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
                                     <td class="text-table-body" style="text-align: center;">
-                                        <button class="btn btn-success" th:if="${eachRow.repply != null}">Đã phản hồi</button>
-                                        <button class="btn btn-warning" th:if="${eachRow.repply == null}">Chưa phản hồi</button>
+                                        <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán</button>
+                                        <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán</button>
                                     </td>
                                     <td class="text-table-body">
-                                        <a href="#" th:if="${eachRow.repply} == null"
-                                           data-toggle="tooltip" title="Phản hồi">
-                                            <button class="btn btn-info btn-circle"><i class="fa fa-reply"></i></button>
+                                        <a href="#" th:if="${eachRow.status} == 2"
+                                           data-toggle="tooltip" title="Duyệt">
+                                            <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
                                         </a>
-                                        <label th:if="${eachRow.repply} != null">&nbsp;</label>
+                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>
+                                    </td>
+                                    <td>
+<!--                                        <a type="button" class="btn btn-warning" href="#"-->
+<!--                                           th:onclick="'deleteConfirm(\'' + ${eachRow.name} + '\',\'' + ${eachRow.id} + '\' );'"-->
+<!--                                           data-toggle="tooltip" title="Xóa Đánh Giá"><i-->
+<!--                                                class="glyphicon glyphicon-trash"></i></a>-->
                                     </td>
                                 </tr>
                                 </tbody>
@@ -157,6 +163,12 @@
 <script type="text/javascript" src="bootstrap-daterangepicker/daterangepicker.js" th:src="@{/resources/bootstrap-daterangepicker/daterangepicker.js}"></script>
 <script src="https://cdn.jsdelivr.net/autonumeric/2.0.0/autoNumeric.min.js"></script>
 
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var currUrl = /*[[@{/}]]*/ "";
+    /*]]>*/
+</script>
+
 <script type="text/javascript">
     $('#timePicker').daterangepicker({
         "timePicker": true,
@@ -185,6 +197,27 @@
             }
         });
     });
+</script>
+
+<script type="text/javascript">
+    function deleteConfirm(name, id) {
+        BootstrapDialog.show({
+            title: 'Xác Nhận xóa Tài Khoản',
+            message: 'Bạn có chắc chắn muốn xóa Đánh giá có tên là ' + name + ' không ? Bấm Delete để xách nhận.',
+            buttons: [{
+                label: 'Bỏ qua',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                }
+            }, {
+                label: 'Delete',
+                cssClass: 'btn-primary',
+                action: function (dialogItself) {
+                    window.location.href = currUrl + 'review/delete/' + id + '/list.html';
+                }
+            }]
+        });
+    }
 </script>
 
 </body>

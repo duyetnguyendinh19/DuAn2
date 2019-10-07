@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class ReportController {
     private SimpleDateFormat sdf_ddMMyyyHHmm = new SimpleDateFormat("dd/MM/yyy HH:mm");
 
     @RequestMapping(value = "list.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String listReport(Model model, HttpSession session, Pageable pageable,
                              HttpServletRequest request, HttpServletResponse response,
                              @RequestParam(value = "from_date", defaultValue = "") String fromDate,
@@ -43,10 +45,6 @@ public class ReportController {
             DateTime dateTime = new DateTime();
             Date _fromDate = dateTime.withTimeAtStartOfDay().toDate();
             Date _toDate = dateTime.withTime(23, 59, 59, 999).toDate();
-//            if(Strings.isNullOrEmpty(fromDate) && Strings.isNullOrEmpty(toDate)){
-//                fromDate = sdf_ddMMyyyHHmm.format(_fromDate);
-//                toDate = sdf_ddMMyyyHHmm.format(_toDate);
-//            }
             if (Strings.isNullOrEmpty(fromDate) && request.getMethod().equalsIgnoreCase("GET")) {
                 fromDate = (String) session.getAttribute("from_date");
                 if (Strings.isNullOrEmpty(fromDate)) {

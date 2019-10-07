@@ -23,17 +23,17 @@ public class Bill implements Serializable {
     @Column(name = "payment")
     private String payment;
 
-    @Column(name = "status", columnDefinition = "TINYINT(4)")
+    @Column(name = "status", columnDefinition = "TINYINT")
     private int status;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
     private Date createDate;
 
     @Column(name = "created_by")
     private String createBy;
 
-    @Column(name = "isDelete", columnDefinition = "CHAR(1)")
+    @Column(name = "isDelete", columnDefinition = "CHAR")
     private String isDelete;
 
     @OneToMany(mappedBy = "bill")
