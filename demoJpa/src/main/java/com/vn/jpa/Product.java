@@ -41,14 +41,18 @@ public class Product implements Serializable {
     @Column(name = "subImg", columnDefinition = "TEXT")
     private String subImg;
 
-    @Column(name = "isDelete", columnDefinition = "CHAR(1)")
+    @Column(name = "isDelete", columnDefinition = "CHAR")
     private String isdelete;
 
-    @Column(name = "rate", columnDefinition = "TINYINT(4)")
+    @Column(name = "rate", columnDefinition = "TINYINT")
     private int rate;
 
     @Column(name = "info")
     private String info;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private Date createDate;
 
     @ManyToOne
     @JoinColumn(name = "id_category")
@@ -60,7 +64,7 @@ public class Product implements Serializable {
     public Product() {
     }
 
-    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, int rate, String info, Category category, List<Product_Bill> lsProduct_bills) {
+    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, int rate, String info, Date createDate, Category category, List<Product_Bill> lsProduct_bills) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -72,10 +76,18 @@ public class Product implements Serializable {
         this.isdelete = isdelete;
         this.rate = rate;
         this.info = info;
+        this.createDate = createDate;
         this.category = category;
         this.lsProduct_bills = lsProduct_bills;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public Long getId() {
         return id;
@@ -187,6 +199,13 @@ public class Product implements Serializable {
 
     public void setLsProduct_bills(List<Product_Bill> lsProduct_bills) {
         this.lsProduct_bills = lsProduct_bills;
+    }
+
+    @PrePersist
+    public void prePersist(){
+        if(this.createDate == null){
+            this.createDate = new Date();
+        }
     }
 }
 

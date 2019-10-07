@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "productService")
@@ -56,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> findAllByCategoryId(Long id, Pageable pageable) {
-        return productRepo.findAllByCategoryId(id ,pageable);
+        return productRepo.findAllByCategoryId(id, pageable);
+    }
+
+    @Override
+    public Page<Product> findAllProduct(Date fromDate, Date toDate, String name, String isDelete, Pageable pageable) {
+        return productRepo.findAllProduct(fromDate, toDate, name, isDelete, pageable);
     }
 }

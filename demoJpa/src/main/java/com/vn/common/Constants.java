@@ -29,4 +29,5 @@ public interface Constants {
     }
 
     public String DEFAULT_USER_PASS = "123456a@";
+    public String ISDELETE = "M";
 }
