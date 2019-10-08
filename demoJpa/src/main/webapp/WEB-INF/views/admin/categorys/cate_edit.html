@@ -59,15 +59,21 @@
 						</div>
 						<div class="col-lg-6">
 							<label>Trạng thái hoạt động</label>
-							<div>
-								<select id="form-field-active" class="form-control"  >
-									<option th:field="*{isActive}" th:selected="${ isActive=='Y' }">Hoạt động</option>
-									<option th:field="*{isActive}" th:selected="${ isActive=='N' }">Không hoạt động</option>
+							<!-- <div th:if="${ isActive != null }">
+								<select id="form-field-active" class="form-control" th:field="*{isActive}" >
+									<option th:selected="${ isActive=='Y' }">Hoạt động</option>
+									<option th:selected="${ isActive=='N' }">Không hoạt động</option>
 								</select>
 							</div>
+							<div th:if="${ isActive == null }">
+								<select id="form-field-active" class="form-control" th:field="*{isActive}" >
+									<option>Hoạt động</option>
+									<option>Không hoạt động</option>
+								</select>
+							</div> -->
 							<label>Ngày tạo</label>
 							<div>
-								<input class="form-control" type="checkbox" id="form-field-name"
+								<input class="form-control" type="text" id="form-field-date"
 									th:field="*{date}" readonly="readonly" />
 							</div>
 							<div class="form-group">
