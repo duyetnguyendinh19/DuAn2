@@ -68,7 +68,7 @@ CREATE TABLE `auth_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username_UNIQUE` (`user_name`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,7 +77,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'admin','Admin',NULL,NULL,NULL,'admin@yo.com','1','5876695f8e4e1811','$2a$10$B3oHbYckX3Kn54nVHlhOo.SSS4DGTePm8VfDgl.pZ2cYy69y.2ZFe','2019-09-24 22:21:33',NULL,1,1,0),(2,'tanbv','Bùi','Văn','Tứn','Bùi Văn Tứn','tanbvph05961@gmail.com','1','5876695f8e4e1811','$2a$10$XXaa5vhOSKqFtkyAXp3mr.URnTGQk7GnB0NYYJIxKfShEijW72iWW','2019-10-03 15:40:22',NULL,1,1,2);
+INSERT INTO `auth_user` VALUES (1,'admin','Admin',NULL,NULL,NULL,'admin@yo.com','1','5876695f8e4e1811','$2a$10$B3oHbYckX3Kn54nVHlhOo.SSS4DGTePm8VfDgl.pZ2cYy69y.2ZFe','2019-09-24 22:21:33',NULL,1,1,0),(2,'tanbv','Bùi','Văn','Tứn','Bùi Văn Tứn','tanbvph05961@gmail.com','1','5876695f8e4e1811','$2a$10$XXaa5vhOSKqFtkyAXp3mr.URnTGQk7GnB0NYYJIxKfShEijW72iWW','2019-10-03 15:40:22',NULL,1,1,1),(69,'duyetnd','','','','  Nguyễn Đình Duyệt','duyetnd@gmail.com','1','5876695f8e4e1811','$2a$10$tN9jWuy0ALIQKIG.8Gr57eoNgGGEqr93/ZImGcYFOvjo.wrupg7RS','2019-10-08 11:19:28',NULL,1,1,2),(70,'trilm','','','','  ','trilm@gmail.com','1','5876695f8e4e1811','$2a$10$mSOxNmIoD/We7WZXCpwlS..iv.iz.5uISkbChgr2Hbyls2X4txL/u','2019-10-08 17:30:41',NULL,1,1,0);
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +104,7 @@ CREATE TABLE `auth_user_role` (
 
 LOCK TABLES `auth_user_role` WRITE;
 /*!40000 ALTER TABLE `auth_user_role` DISABLE KEYS */;
-INSERT INTO `auth_user_role` VALUES (1,1),(2,1),(3,1),(2,2),(3,2);
+INSERT INTO `auth_user_role` VALUES (1,1),(2,1),(3,1),(3,2),(2,69),(3,70);
 /*!40000 ALTER TABLE `auth_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,15 +142,15 @@ DROP TABLE IF EXISTS `bill`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `bill` (
-  `id` bigint(20) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `total` float DEFAULT NULL,
   `payment` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
-  `created_date` date DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
   `created_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,6 +159,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
+INSERT INTO `bill` VALUES (1,10000000,'Thanh toán online',1,'2019-10-07 16:20:12','Bùi Văn Tấn','N'),(2,18000000,'Nhận hàng thanh toán',2,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +174,7 @@ CREATE TABLE `category` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `parent_id` bigint(20) DEFAULT NULL,
-  `status` int(1) DEFAULT NULL,
+  `isactive` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -186,7 +187,7 @@ CREATE TABLE `category` (
 
 LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
-INSERT INTO `category` VALUES (1,'Điện thoại',0,1,'2019-05-10 20:30:15','N'),(2,'Iphone',1,1,'2019-05-10 20:30:15','N'),(3,'SamSung',1,1,'2019-05-10 20:30:15','N'),(4,'Xiaomi',1,1,'2019-05-10 20:30:15','N'),(5,'Oppo',1,1,'2019-05-10 20:30:15','N'),(6,'Tai nghe',0,1,NULL,'N'),(7,'SamSung',6,1,NULL,'N'),(8,'Bose',6,1,NULL,'N'),(9,'Langsdom',6,1,NULL,'N'),(10,'Xiaomi',6,1,NULL,'N'),(11,'Iphone',6,1,NULL,'N'),(12,'Remax',6,1,NULL,'N'),(13,'Phụ kiện',0,1,NULL,'N'),(14,'Kính cường lực',13,1,NULL,'N'),(15,'Ốp điện thoại',13,1,NULL,'N'),(16,'Miếng dán điện thoại',13,1,NULL,'N'),(17,'Máy tính bảng',0,1,NULL,'N'),(18,'Ipad 4',17,1,NULL,'N'),(19,'Huewei MediaPad M2',17,1,NULL,'N'),(20,'Google Pixcel C',17,1,NULL,'N'),(21,'Xiaomi Pad 4',17,1,NULL,'N');
+INSERT INTO `category` VALUES (1,'Điện thoại',NULL,'1','2019-05-10 20:30:15','N'),(2,'Iphone',1,'1','2019-05-10 20:30:15','N'),(3,'SamSung',1,'1','2019-05-10 20:30:15','N'),(4,'Xiaomi',1,'1','2019-05-10 20:30:15','N'),(5,'Oppo',1,'1','2019-05-10 20:30:15','N'),(6,'Tai nghe',NULL,'1',NULL,'N'),(7,'SamSung',6,'1',NULL,'N'),(8,'Bose',6,'1',NULL,'N'),(9,'Langsdom',6,'1',NULL,'N'),(10,'Xiaomi',6,'1',NULL,'N'),(11,'Iphone',6,'1',NULL,'N'),(12,'Remax',6,'1',NULL,'N'),(13,'Phụ kiện',NULL,'1',NULL,'N'),(14,'Kính cường lực',13,'1',NULL,'N'),(15,'Ốp điện thoại',13,'1',NULL,'N'),(16,'Miếng dán điện thoại',13,'1',NULL,'N'),(17,'Máy tính bảng',NULL,'1',NULL,'N'),(18,'Ipad 4',17,'1',NULL,'N'),(19,'Huewei MediaPad M2',17,'1',NULL,'N'),(20,'Google Pixcel C',17,'1',NULL,'N'),(21,'Xiaomi Pad 4',17,'1',NULL,'N');
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -239,7 +240,7 @@ CREATE TABLE `info` (
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_auth_user` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -248,7 +249,7 @@ CREATE TABLE `info` (
 
 LOCK TABLES `info` WRITE;
 /*!40000 ALTER TABLE `info` DISABLE KEYS */;
-INSERT INTO `info` VALUES (1,'Thái Bình','Kiến Xương','Quang Bình - Kiến Xương -  Thái Bình','0338070700','1999-08-21','VIETTINBANK','Công ty Cổ phần Viễn Thông Tuổi Trẻ Yotel','212312354534','Từng học tại FPT PolyTechnic','N',2);
+INSERT INTO `info` VALUES (1,'Thái Bình','Kiến Xương','Quang Bình - Kiến Xương -  Thái Bình','0338070700','1999-08-21','VIETTINBANK','Công ty Cổ phần Viễn Thông Tuổi Trẻ Yotel','212312354534','Từng học tại FPT PolyTechnic','N',2),(2,'Thái Bình','Kiến Xương','Quang Bình - Kiến Xương -  Thái Bình','0338070700','1999-08-21','VIETTINBANK','Công ty Cổ phần Viễn Thông Tuổi Trẻ Yotel','212312354534','Từng học tại FPT PolyTechnic','N',69);
 /*!40000 ALTER TABLE `info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,6 +273,7 @@ CREATE TABLE `product` (
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `info` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `rate` tinyint(4) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
   `id_category` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_product_category_idx` (`id_category`),
@@ -285,7 +287,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,'Iphone X',18000000,50,'Ngon, Sạch, Đẹp',0,1,'assets/teamplates/img/product/7.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',2,2),(2,'SamSung A50',6000000,120,'Đẹp, 4GB/64GB',5500000,0,'assets/teamplates/img/product/5.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',1,3),(4,'Iphone 11',25000000,45,'Đẹp mê lì',0,1,'assets/teamplates/img/product/6.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',3,2),(5,'Xiaomi Mi 5',7500000,200,'Phê',7000000,1,'assets/teamplates/img/product/4.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',4,4),(6,'Oppo F9',9000000,220,'Đẳng cấp',8800000,1,'assets/teamplates/img/product/2.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',5,5);
+INSERT INTO `product` VALUES (1,'Iphone X',18000000,50,'Ngon, Sạch, Đẹp',0,1,'assets/teamplates/img/product/7.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',2,'2019-10-07 12:59:23',2),(2,'SamSung A50',6000000,120,'Đẹp, 4GB/64GB',5500000,0,'assets/teamplates/img/product/5.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',1,'2019-05-12 12:40:50',3),(4,'Iphone 11',25000000,45,'Đẹp mê lì',0,1,'assets/teamplates/img/product/6.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',3,'2019-07-20 15:32:56',2),(5,'Xiaomi Mi 5',7500000,200,'Phê',7000000,1,'assets/teamplates/img/product/4.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',4,'2019-08-11 01:42:15',4),(6,'Oppo F9',9000000,220,'Đẳng cấp',8800000,1,'assets/teamplates/img/product/2.jpg','[\"assets/teamplates/img/product/7.jpg\",\"assets/teamplates/img/product/6.jpg\",\"assets/teamplates/img/product/5.jpg\"]','N','Sản xuất năm 2019',5,'2019-09-30 21:05:12',5);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,7 +338,7 @@ CREATE TABLE `report` (
   `created_date` datetime DEFAULT NULL,
   `reply` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,6 +347,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
+INSERT INTO `report` VALUES (1,'Bùi Văn Tấn','tanbv.dev@gmail.com','Test ','0338070700','Ok','2019-10-07 10:05:50',NULL),(2,'Nguyễn Đình Duyệt','duyetnd@gmail.com','test','012312312','Demo','2019-10-06 00:00:00',NULL);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +368,7 @@ CREATE TABLE `review` (
   `rate` tinyint(4) DEFAULT NULL,
   `id_product` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +377,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Nguyễn Văn A','2019-10-05 08:30:52','Chất lượng tốt, sản phẩm đẹp, dùng ok',NULL,1,NULL,2),(2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(3,'Nguyễn Thị B','2019-05-21 05:23:05','Đờ mờ xấu đéo chịu được',NULL,0,NULL,2);
+INSERT INTO `review` VALUES (1,'Nguyễn Văn A','2019-10-07 08:30:52','Chất lượng tốt, sản phẩm đẹp, dùng ok',NULL,1,NULL,2),(2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(7,'Nguyễn Văn C','2019-08-12 10:25:04','Xấu bỏ mẹ ra',NULL,0,NULL,2);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -387,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-05 20:31:11
+-- Dump completed on 2019-10-08 17:32:30
