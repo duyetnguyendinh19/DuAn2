@@ -1,23 +1,26 @@
 package com.vn.service;
 
-import com.vn.jpa.Category;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import com.vn.jpa.Category;
+import com.vn.model.CategoryModel;
 
 public interface CategoryService {
+	Page<Category> findAll(Pageable pageable);
 
-    Page<Category> findAll(Pageable pageable);
+	List<Category> lsCatgory();
 
-    List<Category> lsCatgory();
+	Category insert(Category category);
 
-    Category insert(Category category);
+	Category update(Category category);
 
-    Category update(Category category);
+	void delete(Long id);
 
-    void delete(Long id);
+	Category findOne(Long id);
 
-    Category findOne(Long id);
-
+	Page<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive, Pageable pageable);
+	
 }

@@ -1,128 +1,150 @@
 package com.vn.jpa;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "category")
 @NamedQuery(name = "Category.findAll", query = "SELECT c FROM Category c")
 public class Category implements Serializable {
 
-    public static final Long serialize = 2L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "name")
-    private String name;
+	@Column(name = "name")
+	private String name;
 
-    @Column(name = "parent_id")
-    private Long parentId;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id", nullable = true)
+	private Category parent;
 
-    @Column(name = "status")
-    private int status;
+	@OneToMany(mappedBy = "parent" , fetch = FetchType.LAZY)
+	private List<Category> children = new ArrayList<Category>();
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "created_date")
-    private Date date;
+	@Column(name = "isactive" , columnDefinition = "CHAR(1)")
+	private String isActive;
 
-    @Column(name = "isdelete", columnDefinition = "CHAR(1)")
-    private String isDelete;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "created_date")
+	private Date date;
 
-    public Category() {
-    }
+	@Column(name = "isdelete", columnDefinition = "CHAR(1)")
+	private String isDelete;
 
-    public Category(String name, Long parentId, int status, Date date, String isDelete) {
-        this.name = name;
-        this.parentId = parentId;
-        this.status = status;
-        this.date = date;
-        this.isDelete = isDelete;
-    }
+	public Category() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Category(Long id, String name, Category parent, List<Category> children, String isActive, Date date,
+			String isDelete) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.parent = parent;
+		this.children = children;
+		this.isActive = isActive;
+		this.date = date;
+		this.isDelete = isDelete;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public Long getParentId() {
-        return parentId;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+	public String getIsActive() {
+		return isActive;
+	}
 
-    public int getStatus() {
-        return status;
-    }
+	public void setIsActive(String isActive) {
+		this.isActive = isActive;
+	}
 
-    public void setStatus(int status) {
-        this.status = status;
-    }
+	public Date getDate() {
+		return date;
+	}
 
-    public Date getDate() {
-        return date;
-    }
+	public void setDate(Date date) {
+		this.date = date;
+	}
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
+	public String getIsDelete() {
+		return isDelete;
+	}
 
-    public String getIsDelete() {
-        return isDelete;
-    }
+	public void setIsDelete(String isDelete) {
+		this.isDelete = isDelete;
+	}
 
-    public void setIsDelete(String isDelete) {
-        this.isDelete = isDelete;
-    }
+	public List<Category> getChildren() {
+		return children;
+	}
 
-    @PrePersist
-    public void prePersist(){
-        if(this.date == null){
-            this.date = new Date();
-        }
-    }
+	public void setChildren(List<Category> children) {
+		this.children = children;
+	}
 
-    public static enum status{
-        ACTIVE(0), INACTIVE(1);
+	public Category getParent() {
+		return parent;
+	}
 
-        private final int value;
+	public void setParent(Category parent) {
+		this.parent = parent;
+	}
 
-        private status(int value) {
-            this.value = value;
-        }
+	@PrePersist
+	 public void prePersist( ) {
+		 if(this.date == null )
+			 this.date = new Date();
+	 }
 
-        public int value(){
-            return this.value;
-        }
-    }
+	public static enum status {
+		ACTIVE(0), INACTIVE(1);
 
-    public static enum typeId{
-        PARENT(0L), CHILDREN(1L);
+		private final int value;
 
-        private final Long value;
+		private status(int value) {
+			this.value = value;
+		}
 
-        private typeId(Long value) {
-            this.value = value;
-        }
+		public int value() {
+			return this.value;
+		}
+	}
 
-        public Long value(){
-            return this.value;
-        }
-    }
+	public static enum typeId {
+		PARENT(0L), CHILDREN(1L);
+
+		private final Long value;
+
+		private typeId(Long value) {
+			this.value = value;
+		}
+
+		public Long value() {
+			return this.value;
+		}
+
+	}
 }

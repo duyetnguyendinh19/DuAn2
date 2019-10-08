@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragments/init :: head">
+<title>Title List</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="nav_id" th:replace="nav :: div">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+				style="margin-bottom: 0">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".sidebar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+				</div>
+				<!-- /.navbar-header -->
+
+				<ul class="nav navbar-top-links navbar-right">
+				</ul>
+				<!-- /.navbar-top-links -->
+
+				<div class="navbar-default navbar-static-side" role="navigation">
+				</div>
+				<!-- /.navbar-static-side -->
+			</nav>
+		</div>
+		<div id="page-wrapper" style="min-height: 600px;">
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 class="page-header">Thêm account mới</h4>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<form th:object="${category}" th:action="@{/category/save.html}"
+						method="POST">
+						<!-- <div class="alert alert-danger"
+							style="text-align: left; color: red; font-weight: bold; font-size: 13px;"></div> -->
+						<div class="col-lg-6">
+							<div class="form-group">
+								<label>Tên danh mục</label>
+								<div>
+									<input class="form-control" type="text" id="form-field-name"
+										th:field="*{name}" />
+								</div>
+								<label>Nhóm danh mục</label>
+								<div>
+									<select id="form-field-parent" class="form-control">
+										<option></option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-6">
+							<label>Trạng thái hoạt động</label>
+							<div>
+								<select id="form-field-active" class="form-control"  >
+									<option th:field="*{isActive}" th:selected="${ isActive=='Y' }">Hoạt động</option>
+									<option th:field="*{isActive}" th:selected="${ isActive=='N' }">Không hoạt động</option>
+								</select>
+							</div>
+							<label>Ngày tạo</label>
+							<div>
+								<input class="form-control" type="checkbox" id="form-field-name"
+									th:field="*{date}" readonly="readonly" />
+							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-info">Lưu</button>
+								<a th:href="@{/category/list.html}" href="/category/list"
+									class="btn btn-warning">Bỏ qua</a>
+							</div>
+						</div>
+					</form>
+				</div>
+				<!-- /.panel -->
+			</div>
+			<!-- /.col-lg-6 -->
+		</div>
+		<!-- /.row -->
+	</div>
+	<!-- /#page-wrapper -->
+
+	</div>
+	<!-- /#wrapper -->
+
+	<div th:replace="fragments/init :: commonScript"></div>
+	<!-- Core Scripts - Include with every page -->
+	<script src="../../resources/sb-admin-v2/js/jquery-1.10.2.js"
+		th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js}"></script>
+	<script src="../../resources/sb-admin-v2/js/bootstrap.min.js"
+		th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js}"></script>
+	<script src="../../resources/sb-admin-v2/js/bootstrap-switch.js"
+		th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
+	<script
+		src="../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+
+	<!-- Page-Level Plugin Scripts - Dashboard -->
+	<script
+		src="../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js}"></script>
+	<script src="../../resources/sb-admin-v2/js/plugins/morris/morris.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js}"></script>
+	<!-- Page-Level Plugin Scripts - Tables -->
+	<script
+		src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
+	<script
+		th:src="@{/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+
+
+	<!-- SB Admin Scripts - Include with every page -->
+	<script src="../../resources/sb-admin-v2/js/sb-admin.js"
+		th:src="@{/resources/sb-admin-v2/js/sb-admin.js}"></script>
+
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+	<script type="text/javascript">
+		$(function() {
+			$('#datetimepicker1').datetimepicker({
+				defaultDate : new Date(),
+				format : 'DD/MM/YYYY HH:mm'
+			});
+		});
+	</script>
+</body>
+
+</html>

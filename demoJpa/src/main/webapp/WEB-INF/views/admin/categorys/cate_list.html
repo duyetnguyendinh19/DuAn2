@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/init :: head">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Title List</title>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="nav_id" th:replace="nav :: div">
+			<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+				style="margin-bottom: 0">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".sidebar-collapse">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+				</div>
+				<!-- /.navbar-header -->
+
+				<ul class="nav navbar-top-links navbar-right">
+				</ul>
+				<!-- /.navbar-top-links -->
+
+				<div class="navbar-default navbar-static-side" role="navigation">
+				</div>
+				<!-- /.navbar-static-side -->
+			</nav>
+		</div>
+		<div id="page-wrapper" style="min-height: 600px;">
+			<div class="row">
+				<div class="panel-body panel-info">
+					<input type="hidden" name="category_list_ss"
+						th:value="${category_list_ss}" />
+					<form role="form" th:action="@{/category/list.html}" method="POST">
+						<div class="row">
+							<div class="col-sm-3">
+								<label>Tên danh mục</label>
+								<div>
+									<input class="form-control" id="txtName" name="txtName"
+										type="text" placeholder="Tên danh mục" th:value="${txtName}">
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<label>&nbsp;</label>
+								<div>
+									<button type="submit" id="btnSearch" class="btn btn-primary">Tìm
+										kiếm</button>
+								</div>
+							</div>
+							<div class="col-sm-2">
+								<label>&nbsp;</label>
+								<div>
+									<a th:href="@{/category/0/edit.html}" href="/category/add"
+										class="btn btn-primary">Thêm danh mục mới</a>
+								</div>
+							</div>
+						</div>
+						<div
+							style="text-align: left; color: red; font-weight: bold; font-size: 13px; margin-top: 10px;"
+							th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
+					</form>
+					<!-- End form -->
+				</div>
+			</div>
+			<!-- row -->
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="alert alert-danger"
+						th:if="${not #strings.isEmpty(not_found_message)}"
+						th:text="${not_found_message}"></div>
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							Danh sách danh mục
+							<div class="btn-group pull-right">
+								<a id="btnRefresh" href="#"
+									th:href="@{/category/list.html(category_list_ss=${category_list_ss})}"><i
+									class="fa fa-refresh fa-2x"></i></a>
+							</div>
+						</div>
+						<!-- /.panel-heading -->
+						<div class="panel-body">
+							<div class="table-responsive">
+								<table id="table-question"
+									class="table table-striped table-bordered table-hover dataTable">
+									<thead>
+										<tr>
+											<th class="text-center">#</th>
+											<th class="text-center">Mã danh mục</th>
+											<th class="text-center">Tên danh mục</th>
+											<th class="text-center">Nhóm danh mục</th>
+											<th class="text-center">#</th>
+											<th class="text-center">#</th>
+										</tr>
+									</thead>
+									<tbody th:if="${page.content} != null">
+										<tr th:each="eachRow, iterStat : ${page.content}">
+											<td class="text-center" th:text="${iterStat.count}"></td>
+											<td class="text-center" th:text="${eachRow.id}"></td>
+											<td class="text-center" th:text="${eachRow.name}"></td>
+											<td class="text-center"><p
+													th:if="${eachRow.parent != null}"
+													th:text="${eachRow.parent.name}"></p></td>
+											<td><a
+												th:href="@{/category/{id}/edit.html(id=${eachRow.id})}"
+												data-toggle="tooltip" title="Thay đổi thông tin danh mục">
+													<button class="btn btn-info btn-circle">
+														<i class="fa fa-edit"></i>
+													</button>
+											</a></td>
+											<td><a type="button" class="btn btn-warning" href="#"
+												th:onclick="'deleteConfirm(\'' + ${eachRow.id} + '\',\'' + ${eachRow.name} + '\');'"
+												data-toggle="tooltip" title="Xóa danh mục"><i
+													class="glyphicon glyphicon-trash"></i></a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<!-- /.table-responsive -->
+						</div>
+						<!-- /.panel-body -->
+					</div>
+					<!-- /.panel -->
+				</div>
+				<!-- /.col-lg-6 -->
+			</div>
+			<!-- /.row -->
+			<!-- /.row -->
+			<div th:replace="fragments/panigator :: content(page = ${page})">
+			</div>
+			<!-- /#page-wrapper -->
+		</div>
+		<!-- /#wrapper -->
+	</div>
+
+	<div th:replace="fragments/init :: commonScript"></div>
+	<!-- Core Scripts - Include with every page -->
+	<script src="../../../resources/sb-admin-v2/js/jquery-1.10.2.js"
+		th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js}"></script>
+	<script src="../../../resources/sb-admin-v2/js/bootstrap.min.js"
+		th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js}"></script>
+	<script src="../../../resources/sb-admin-v2/js/bootstrap-switch.js"
+		th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
+	<script
+		src="../../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+	<script
+		src="../../../resources/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js"
+		th:src="@{/resources/bootstrap3-dialog/dist/js/bootstrap-dialog.min.js}"></script>
+
+	<!-- Page-Level Plugin Scripts - Dashboard -->
+	<script
+		src="../../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js}"></script>
+	<script
+		src="../../../resources/sb-admin-v2/js/plugins/morris/morris.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js}"></script>
+	<!-- Page-Level Plugin Scripts - Tables -->
+	<script
+		src="../../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
+	<script
+		src="../../../resources/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js"
+		th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/dataTables.bootstrap.js}"></script>
+
+
+	<!-- SB Admin Scripts - Include with every page -->
+	<script src="../../resources/sb-admin-v2/js/sb-admin.js"
+		th:src="@{/resources/sb-admin-v2/js/sb-admin.js}"></script>
+
+	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+
+	<script th:inline="javascript">
+		/*<![CDATA[*/
+		var currUrl = /*[[@{/}]]*/"";
+		/*]]>*/
+	</script>
+
+	<script type="text/javascript">
+		function deleteConfirm(key,name) {
+			BootstrapDialog.show({
+				title : 'Xác Nhận xóa Tài Khoản',
+				message : 'Bạn có chắc chắn muốn xóa danh mục: ' + key + ' - ' + name
+						+ ' không ? Bấm Delete để xách nhận.',
+				buttons : [
+						{
+							label : 'Bỏ qua',
+							action : function(dialogItself) {
+								dialogItself.close();
+							}
+						},
+						{
+							label : 'Delete',
+							cssClass : 'btn-primary',
+							action : function(dialogItself) {
+								window.location.href = currUrl
+										+ 'category/delete/' + key
+										+ '/list.html';
+							}
+						} ]
+			});
+		}
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
+</body>
+
+</html>
