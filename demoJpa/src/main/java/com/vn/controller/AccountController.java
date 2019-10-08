@@ -55,7 +55,7 @@ public class AccountController {
         if (bindingResult.hasErrors()) {
             Page<AuthUserModel> pageTop = new PageImpl<>(new ArrayList<AuthUserModel>());
             model.addAttribute("page", pageTop);
-            return "admin/users/user_list";
+            return "admin/account/user_list";
         }
 
         if (request.getMethod().equalsIgnoreCase("GET")) {
@@ -94,7 +94,7 @@ public class AccountController {
         model.addAttribute("user_status", user_status);
         model.addAttribute("user_types", user_types);
         model.addAttribute("not_found_message", not_found_message);
-        return "admin/users/user_list";
+        return "admin/account/user_list";
     }
 
     @RequestMapping(value = "add.html", method = RequestMethod.GET)
@@ -108,7 +108,7 @@ public class AccountController {
         user.setVerifyPassword(Constants.DEFAULT_USER_PASS);
         model.addAttribute("user", user);
         model.addAttribute("allRoles", allRoles);
-        return "admin/users/user_add";
+        return "admin/account/user_add";
     }
 
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
@@ -120,7 +120,7 @@ public class AccountController {
             List<Role> allRoles = authRoleService.findAll();
             model.addAttribute("user", user);
             model.addAttribute("allRoles", allRoles);
-            return "admin/users/user_add";
+            return "admin/account/user_add";
         }
         List<Long> roleIds = user.getRoles();
         List<Role> roles = new ArrayList<>();
@@ -183,7 +183,7 @@ public class AccountController {
         model.addAttribute("user", user);
         model.addAttribute("allRoles", allRoles);
 
-        return "admin/users/user_update";
+        return "admin/account/user_update";
     }
 
     @RequestMapping(value = "{id}/update.html", method = RequestMethod.POST)
@@ -200,7 +200,7 @@ public class AccountController {
             List<Role> allRoles = authRoleService.findAll();
             model.addAttribute("user", user);
             model.addAttribute("allRoles", allRoles);
-            return "admin/users/user_update";
+            return "admin/account/user_update";
         }
         List<Long> listRole = user.getRoles();
         List<Role> roles = new ArrayList<>();

@@ -22,4 +22,6 @@ public interface ReviewRepo extends JpaRepository<Review, Long> {
                                @Param("toDate") Date toDate,
                                @Param("name") String name,
                                Pageable pageable);
+
+
 }

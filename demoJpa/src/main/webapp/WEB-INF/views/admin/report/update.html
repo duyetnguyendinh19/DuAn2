@@ -1,10 +1,155 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<html>
+<head th:replace="fragments/init :: head">
+    <title>Title List</title>
 </head>
+<style>
+    .readonly{
+        background: white!important;
+    }
+</style>
 <body>
+<div id="wrapper">
+    <div id="nav_id" th:replace="nav :: div">
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+            </div>
+            <!-- /.navbar-header -->
+            <ul class="nav navbar-top-links navbar-right">
+            </ul>
+            <!-- /.navbar-top-links -->
+            <div class="navbar-default navbar-static-side" role="navigation">
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+    </div>
+    <div id="page-wrapper" style="min-height: 600px;">
+        <div class="row">
+            <div class="col-lg-12">
+                <h4 class="page-header">Trả lời phản hồi khách hàng</h4>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <form th:object="${report}" th:action="@{/report/{id}/reply.html(id=${report.id})}" method="POST">
+                    <div class="alert alert-danger" th:if="${err} != null"
+                         style="text-align:left; color: red; font-weight: bold; font-size: 13px;" th:text="${err}"></div>
+                    <input type="hidden" name="id" id="id" th:value="*{id}"/>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Tên</label>
+                                <div>
+                                    <input class="form-control readonly" type="text" id="form-field-name" th:field="*{name}" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Email</label>
+                                <div>
+                                    <input class="form-control readonly" type="text" id="form-field-email" th:field="*{email}" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>SĐT</label>
+                                <div>
+                                    <input class="form-control readonly" type="text" id="form-field-mobile"
+                                           th:field="*{mobile}" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="height: 182px;">
+                            <div class="form-group" style="height: 100%;">
+                                <label>Ý kiến</label>
+                                <div style="height: 100%;">
+                                    <textarea placeholder="Ý kiến..." class="form-control readonly" id="form-field-opinion"
+                                              th:field="*{opinion}" style="height: 100%;" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6" style="height: 120px;">
+                            <div class="form-group" style="height: 70%;">
+                                <label>Vấn đề</label>
+                                <div style="height: 100%;">
+                                    <textarea placeholder="Vấn đề được phản hồi..." class="form-control readonly"
+                                              id="form-field-problem" th:field="*{problem}" style="height: 100%;" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="height: 120px;">
+                            <div class="form-group" style="height: 70%;">
+                                <label>Trả lời</label>
+                                <div style="height: 100%;">
+                                    <textarea placeholder="Trả lời phản hồi..." class="form-control"
+                                              id="form-field-reply" th:field="*{reply}" style="height: 100%;"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-info">Cập nhật</button>
+                                <a th:href="@{/report/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
+                                   href="/report/list" class="btn btn-warning">Bỏ qua</a>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </form>
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-lg-6 -->
+</div>
+<!-- /.row -->
+</div>
+<!-- /#page-wrapper -->
 
+</div>
+<!-- /#wrapper -->
+
+<div th:replace="fragments/init :: commonScript"></div>
+<!-- Core Scripts - Include with every page -->
+<script src="../../resources/sb-admin-v2/js/jquery-1.10.2.js"
+        th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js}"></script>
+<script src="../../resources/sb-admin-v2/js/bootstrap.min.js"
+        th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js}"></script>
+<script src="../../resources/sb-admin-v2/js/bootstrap-switch.js"
+        th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+
+<!-- Page-Level Plugin Scripts - Dashboard -->
+<script src="../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/morris/morris.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js}"></script>
+<!-- Page-Level Plugin Scripts - Tables -->
+<script src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
+<script th:src="@{/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+
+
+<!-- SB Admin Scripts - Include with every page -->
+<script src="../../resources/sb-admin-v2/js/sb-admin.js" th:src="@{/resources/sb-admin-v2/js/sb-admin.js}"></script>
+
+<!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY HH:mm'
+        });
+    });
+</script>
 </body>
+
 </html>

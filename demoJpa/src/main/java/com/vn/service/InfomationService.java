@@ -16,4 +16,5 @@ public interface InfomationService {
 
     Infomation findOne(Long id);
 
+    Infomation findByAuthUserId(Long id);
 }

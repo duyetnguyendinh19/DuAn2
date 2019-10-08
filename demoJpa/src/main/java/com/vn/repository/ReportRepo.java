@@ -19,4 +19,5 @@ public interface ReportRepo extends JpaRepository<Report, Long> {
                                        @Param("toDate") Date toDate,
                                        @Param("name") String name,
                                        Pageable pageable);
+
 }

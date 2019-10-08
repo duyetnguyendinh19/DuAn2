@@ -79,6 +79,7 @@ public class ProductController {
             model.addAttribute("page",page);
             session.setAttribute("from_date", sdf.format(_fromDate));
             session.setAttribute("to_date", sdf.format(_toDate));
+            request.getSession().setAttribute("pageIdx", pageable.getPageNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -58,6 +58,25 @@ public class AuthUserSeviceImpl implements AuthUserService {
     }
 
     @Override
+    public Page<AuthUserModel> listUserByType(String username, String email,byte type, Pageable pageable) {
+        Page<Object[]> pageObjects = authUserRepo.listUserByType(username, email,type, pageable);
+        List<AuthUserModel> listResponse = new ArrayList<>();
+        for (Object[] eachObj : pageObjects) {
+            Long id = (Long) eachObj[0];
+            String user_name = (String) eachObj[1];
+            String fullName = (String) eachObj[2];
+            String e_mail = (String) eachObj[3];
+            Byte status = (Byte) eachObj[4];
+            Date createdDate = (Date) eachObj[5];
+            AuthUserModel eachAuthUser = new AuthUserModel(id, user_name, fullName, e_mail, status, createdDate);
+            listResponse.add(eachAuthUser);
+        }
+        PageImpl<AuthUserModel> pageResponse = new PageImpl<>(listResponse, pageable, pageObjects.getTotalElements());
+
+        return pageResponse;
+    }
+
+    @Override
     public AuthUser create(AuthUser authUser) {
         return authUserRepo.save(authUser);
     }

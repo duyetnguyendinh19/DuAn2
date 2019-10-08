@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a sec:authorize="hasAnyAuthority('Administrators','Users','Staffs')"
+            <a sec:authorize="hasAnyAuthority('Administrators','Staffs')"
                th:href="@{/{dashboardLink}(dashboardLink=${session.dashboardLink})}" class="navbar-brand"
                style="color:white; margin-left: 50px;padding-top: 5px!important;">
                 <img th:src="@{/assets/teamplates/img/logo/logo.png}" width="85px;"/>
@@ -29,7 +29,7 @@
         <div class="sidebar-collapse">
             <!-- #side-menu -->
             <ul class="nav" id="side-menu">
-                <li sec:authorize="hasAnyAuthority('Administrators','Users')">
+                <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
                     <a href="#" th:href="@{/}"><i class="fa fa-dashboard"></i> Dashboard <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
@@ -37,12 +37,12 @@
                         </li>
                     </ul>
                 </li>
-                <li sec:authorize="hasAnyAuthority('Administrators','Users')">
+                <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
                     <a href="#" th:href="@{/}"><i class="fa fa-wrench fa-fw"></i> Quản lý <span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li sec:authorize="hasAnyAuthority('Administrators')">
-                            <a href="#" ><i class="fa fa-list-ol"></i> Quản lý nhân viên</a>
+                            <a th:href="@{/staff/list.html}" ><i class="fa fa-list-ol"></i> Quản lý nhân viên</a>
                         </li>
                         <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
                             <a th:href="@{/user/list.html}" ><i class="fa fa-list-ol"></i> Quản lý khách hàng</a>

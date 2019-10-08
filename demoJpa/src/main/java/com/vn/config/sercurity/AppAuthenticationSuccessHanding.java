@@ -24,12 +24,13 @@ public class AppAuthenticationSuccessHanding implements AuthenticationSuccessHan
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         AuthUser authUser = (AuthUser) authentication.getPrincipal();
         String targetLink = "/";
-        if (authUser.getUserType() == 2){
+        if (authUser.getUserType() == 0){
             targetLink = "/admin/dashboard.html";
         }else if(authUser.getUserType() == 1){
             targetLink = "/user/list.html";
-        }else{
-            targetLink = "/admin/dashboard.html";
+        }
+        if(authUser.getUserType() == 2){
+            targetLink = "/error/403.html?accessDinied=true";
         }
         if(authUser.getStatus() == 0){
             targetLink = request.getContextPath() + "/error";

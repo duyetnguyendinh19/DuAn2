@@ -41,4 +41,9 @@ public class InfomationServiceImpl implements InfomationService {
     public Infomation findOne(Long id) {
         return infomationRepo.findOne(id);
     }
+
+    @Override
+    public Infomation findByAuthUserId(Long id) {
+        return infomationRepo.findByAuthUserId(id);
+    }
 }

@@ -3,6 +3,7 @@ package com.vn.controller;
 import com.google.common.base.Strings;
 import com.vn.common.Constants;
 import com.vn.jpa.Report;
+import com.vn.model.ReportModel;
 import com.vn.service.ReportService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
@@ -13,14 +14,13 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,9 +78,46 @@ public class ReportController {
             model.addAttribute("page", page);
             session.setAttribute("from_date", sdf_ddMMyyyHHmm.format(_fromDate));
             session.setAttribute("to_date", sdf_ddMMyyyHHmm.format(_toDate));
+            request.getSession().setAttribute("pageIndex", pageable.getPageNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "admin/report/list";
     }
+
+    @RequestMapping(value = "{id}/reply.html", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String reply(Model model, @PathVariable("id") Long id){
+        Report report = reportService.findOne(id);
+        ReportModel reportModel = new ReportModel();
+        reportModel.setId(id);
+        reportModel.setEmail(report.getEmail());
+        reportModel.setMobile(report.getMobile());
+        reportModel.setName(report.getName());
+        reportModel.setOpinion(report.getOpinion());
+        reportModel.setProblem(report.getProblem());
+        reportModel.setReply(report.getRepply());
+        model.addAttribute("report", reportModel);
+        return "admin/report/update";
+    }
+
+    @RequestMapping(value = "{id}/reply.html", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String reply(Model model, @PathVariable("id") Long id, @ModelAttribute("report") @Valid ReportModel report){
+       try {
+           if(Strings.isNullOrEmpty(report.getReply())){
+               model.addAttribute("err", "Trả lời không được để trống");
+               model.addAttribute("report", report);
+               return "admin/report/update";
+           }
+           Report report1 = reportService.findOne(id);
+           report1.setRepply(report.getReply());
+           reportService.update(report1);
+           return "redirect:/report/list.html";
+       }catch (Exception e){
+           e.printStackTrace();
+           return "redirect:/report/list.html";
+       }
+    }
+
 }

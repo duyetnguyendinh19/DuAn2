@@ -111,15 +111,15 @@
                                     <td class="text-table-body" th:text="${eachRow.problem}"></td>
                                     <td class="text-table-body" th:text="${eachRow.opinion}"></td>
                                     <td class="text-table-body" style="text-align: center;">
-                                        <button class="btn btn-success" th:if="${eachRow.repply != null}">Đã phản hồi</button>
-                                        <button class="btn btn-warning" th:if="${eachRow.repply == null}">Chưa phản hồi</button>
+                                        <button class="btn btn-success" th:if="${eachRow.repply != null and not #lists.isEmpty(eachRow.repply)}">Đã phản hồi</button>
+                                        <button class="btn btn-warning" th:if="${eachRow.repply == null || #lists.isEmpty(eachRow.repply)}">Chưa phản hồi</button>
                                     </td>
                                     <td class="text-table-body">
-                                        <a href="#" th:if="${eachRow.repply} == null"
+                                        <a th:href="@{/report/{id}/reply.html(id=${eachRow.id})}" th:if="${eachRow.repply == null || #lists.isEmpty(eachRow.repply)}"
                                            data-toggle="tooltip" title="Phản hồi">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-reply"></i></button>
                                         </a>
-                                        <label th:if="${eachRow.repply} != null">&nbsp;</label>
+                                        <label th:if="${eachRow.repply != null || not #lists.isEmpty(eachRow.repply)}">&nbsp;</label>
                                     </td>
                                 </tr>
                                 </tbody>

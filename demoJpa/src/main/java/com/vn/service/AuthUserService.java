@@ -17,6 +17,8 @@ public interface AuthUserService  {
 
     Page<AuthUserModel> listUsers(String username, String email, Pageable pageable);
 
+    Page<AuthUserModel> listUserByType(String username, String email,byte type, Pageable pageable);
+
     AuthUser create(AuthUser authUser);
 
     AuthUser update(AuthUser authUser);

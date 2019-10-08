@@ -161,6 +161,16 @@ public class AuthUserModel implements Serializable {
         this.email = email;
     }
 
+    public AuthUserModel(Long id, String userName, String fullName, String email, byte status,  Date createdDate) {
+        this.id = id;
+        this.createdDate = createdDate;
+        this.fullName = fullName;
+        this.status = status;
+        this.userName = userName;
+        this.email = email;
+    }
+
+
     public AuthUserModel() {
     }
 }
