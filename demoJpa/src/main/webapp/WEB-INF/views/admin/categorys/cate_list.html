@@ -33,9 +33,9 @@
 		<div id="page-wrapper" style="min-height: 600px;">
 			<div class="row">
 				<div class="panel-body panel-info">
-					<input type="hidden" name="category_list_ss" th:value="${category_list_ss}" />
-					<form role="form" th:object="${categorySearchingForm}"
-						th:action="@{/category/list.html}" method="POST">
+					<input type="hidden" name="category_list_ss"
+						th:value="${category_list_ss}" />
+					<form role="form" th:action="@{/category/list.html}" method="POST">
 						<div class="row">
 							<div class="col-sm-3">
 								<label>Tên danh mục</label>
@@ -94,13 +94,16 @@
 											<th class="text-center">Nhóm danh mục</th>
 											<th class="text-center">#</th>
 											<th class="text-center">#</th>
-											<th class="text-center">#</th>
 										</tr>
 									</thead>
 									<tbody th:if="${page.content} != null">
 										<tr th:each="eachRow, iterStat : ${page.content}">
 											<td class="text-center" th:text="${iterStat.count}"></td>
+											<td class="text-center" th:text="${eachRow.id}"></td>
 											<td class="text-center" th:text="${eachRow.name}"></td>
+											<td class="text-center"><p
+													th:if="${eachRow.parent != null}"
+													th:text="${eachRow.parent.name}"></p></td>
 											<td><a
 												th:href="@{/category/{id}/update.html(id=${eachRow.id})}"
 												data-toggle="tooltip" title="Thay đổi thông tin danh mục">
@@ -109,7 +112,7 @@
 													</button>
 											</a></td>
 											<td><a type="button" class="btn btn-warning" href="#"
-												th:onclick="'deleteConfirm(\'' + ${eachRow.userName} + '\');'"
+												th:onclick="'deleteConfirm(\'' + ${eachRow.id} + '\',\'' + ${eachRow.name} + '\');'"
 												data-toggle="tooltip" title="Xóa danh mục"><i
 													class="glyphicon glyphicon-trash"></i></a></td>
 										</tr>
@@ -177,11 +180,11 @@
 	</script>
 
 	<script type="text/javascript">
-		function deleteConfirm(key) {
+		function deleteConfirm(key,name) {
 			BootstrapDialog.show({
 				title : 'Xác Nhận xóa Tài Khoản',
-				message : 'Bạn có chắc chắn muốn xóa danh mục: '
-						+ key + ' không ? Bấm Delete để xách nhận.',
+				message : 'Bạn có chắc chắn muốn xóa danh mục: ' + key + ' - ' + name
+						+ ' không ? Bấm Delete để xách nhận.',
 				buttons : [
 						{
 							label : 'Bỏ qua',
@@ -194,7 +197,7 @@
 							cssClass : 'btn-primary',
 							action : function(dialogItself) {
 								window.location.href = currUrl
-										+ 'account/delete/' + key
+										+ 'category/delete/' + key
 										+ '/list.html';
 							}
 						} ]

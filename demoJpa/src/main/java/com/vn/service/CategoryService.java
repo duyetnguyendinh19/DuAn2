@@ -9,19 +9,16 @@ import com.vn.jpa.Category;
 import com.vn.model.CategoryModel;
 
 public interface CategoryService {
+	Page<Category> findAll(Pageable pageable);
 
-    Page<Category> findAll(Pageable pageable);
+	List<Category> lsCatgory();
 
-    List<Category> lsCatgory();
+	Category insert(Category category);
 
-    Category insert(Category category);
+	Category update(Category category);
 
-    Category update(Category category);
+	void delete(Long id);
 
-    void delete(Long id);
+	Category findOne(Long id);
 
-    Category findOne(Long id);
-
-    Page<CategoryModel> getList(Pageable pageable);
-    
 }

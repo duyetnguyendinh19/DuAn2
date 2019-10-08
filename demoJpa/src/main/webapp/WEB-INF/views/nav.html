@@ -1,93 +1,86 @@
 <div xmlns:th="http://www.thymeleaf.org">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation"
-         style="margin-bottom: 0; background-color: rgb(3, 179, 178);">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a sec:authorize="hasAnyAuthority('Administrators','Users','Staffs')"
-               th:href="@{/{dashboardLink}(dashboardLink=${session.dashboardLink})}" class="navbar-brand"
-               style="color:white; margin-left: 50px;padding-top: 5px!important;">
-                <img th:src="@{/assets/teamplates/img/logo/logo.png}" width="85px;"/>
-            </a>
-        </div>
-        <!-- /.navbar-header -->
-        <ul class="nav navbar-top-links navbar-right hidden-xs" th:if="${session.account != null}">
-            <li>
-                <a class="navbar-brand" style="color:white; margin-right: 15px;">Xin chào: <span
-                        th:text="${session.account}"></span></a>
-            </li>
-        </ul>
-        <!-- /.navbar-top-links -->
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation"
+		style="margin-bottom: 0; background-color: rgb(3, 179, 178);">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".sidebar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a sec:authorize="hasAnyAuthority('Administrators','Users','Staffs')"
+				th:href="@{/{dashboardLink}(dashboardLink=${session.dashboardLink})}"
+				class="navbar-brand"
+				style="color: white; margin-left: 50px; padding-top: 5px !important;">
+				<img th:src="@{/assets/teamplates/img/logo/logo.png}" width="85px;" />
+			</a>
+		</div>
+		<!-- /.navbar-header -->
+		<ul class="nav navbar-top-links navbar-right hidden-xs"
+			th:if="${session.account != null}">
+			<li><a class="navbar-brand"
+				style="color: white; margin-right: 15px;">Xin chào: <span
+					th:text="${session.account}"></span></a></li>
+		</ul>
+		<!-- /.navbar-top-links -->
 
-    </nav>
-    <!-- /.navbar-static-side -->
-    <div class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-            <!-- #side-menu -->
-            <ul class="nav" id="side-menu">
-                <li sec:authorize="hasAnyAuthority('Administrators','Users')">
-                    <a href="#" th:href="@{/}"><i class="fa fa-dashboard"></i> Dashboard <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li>
-                            <a href="#" th:href="@{/admin/dashboard.html}"><i class="fa fa-bar-chart-o"></i> Thống kê chung</a>
-                        </li>
-                    </ul>
-                </li>
-                <li sec:authorize="hasAnyAuthority('Administrators','Users')">
-                    <a href="#" th:href="@{/}"><i class="fa fa-wrench fa-fw"></i> Quản lý <span
-                            class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li sec:authorize="hasAnyAuthority('Administrators')">
-                            <a href="#" ><i class="fa fa-list-ol"></i> Quản lý nhân viên</a>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
-                            <a th:href="@{/user/list.html}" ><i class="fa fa-list-ol"></i> Quản lý khách hàng</a>
-                        </li>
-                        <li>
-<<<<<<< HEAD
-                            <a th:href="@{/category/list.html}"><i class="fa fa-list-ol"></i> Quản lý D/m sản phẩm</a>
-=======
-                            <a href="#" th:href="@{/category/list.html}"><i class="fa fa-list-ol"></i> Quản lý D/m sản phẩm</a>
->>>>>>> DuyetND
-                        </li>
-                        <li>
-                            <a th:href="@{/product/list.html}"><i class="fa fa-list-ol"></i> Quản lý sản phẩm</a>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('Administrators')">
-                            <a th:href="@{/bill/list.html}"><i class="fa fa-list-ul"></i> Quản lý hóa đơn</a>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
-                            <a th:href="@{/review/list.html}"><i class="fa fa-list-ul"></i> Danh sách đánh giá</a>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
-                            <a th:href="@{/report/list.html}"><i class="fa fa-list-ul"></i> Danh sách phản hồi</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a th:href="@{/}"><i class="fa fa-user"></i> Tài khoản <span class="fa arrow"></span></a>
-                    <ul class="nav nav-second-level">
-                        <li sec:authorize="hasAnyAuthority('Administrators')">
-                            <a href="#" th:href="@{/account/list.html}"><i class="fa fa-th-list"></i> Ds Tài
-                                khoản</a>
-                        </li>
-                        <li>
-                            <a href="change_password.html" th:href="@{/account/change_password.html}"><i
-                                    class="fa fa-gear fa-fw"></i> Đổi mật khẩu</a>
-                        </li>
-                        <li>
-                            <a href="admin/login.html" th:href="@{/logout.html}"><i class="fa fa-sign-out fa-fw"></i>Đăng xuất</a>
-                        </li>
+	</nav>
+	<!-- /.navbar-static-side -->
+	<div class="navbar-default navbar-static-side" role="navigation">
+		<div class="sidebar-collapse">
+			<!-- #side-menu -->
+			<ul class="nav" id="side-menu">
+				<li sec:authorize="hasAnyAuthority('Administrators','Users')">
+					<a href="#" th:href="@{/}"><i class="fa fa-dashboard"></i>
+						Dashboard <span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li><a href="#" th:href="@{/admin/dashboard.html}"><i
+								class="fa fa-bar-chart-o"></i> Thống kê chung</a></li>
+					</ul>
+				</li>
+				<li sec:authorize="hasAnyAuthority('Administrators','Users')">
+					<a href="#" th:href="@{/}"><i class="fa fa-wrench fa-fw"></i>
+						Quản lý <span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li sec:authorize="hasAnyAuthority('Administrators')"><a
+							href="#"><i class="fa fa-list-ol"></i> Quản lý nhân viên</a></li>
+						<li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+							<a th:href="@{/user/list.html}"><i class="fa fa-list-ol"></i>
+								Quản lý khách hàng</a>
+						</li>
+						<li><a th:href="@{/category/list.html}"><i
+								class="fa fa-list-ol"></i> Quản lý D/m sản phẩm</a></li>
+						<li><a th:href="@{/product/list.html}"><i
+								class="fa fa-list-ol"></i> Quản lý sản phẩm</a></li>
+						<li sec:authorize="hasAnyAuthority('Administrators')"><a
+							th:href="@{/bill/list.html}"><i class="fa fa-list-ul"></i>
+								Quản lý hóa đơn</a></li>
+						<li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+							<a th:href="@{/review/list.html}"><i class="fa fa-list-ul"></i>
+								Danh sách đánh giá</a>
+						</li>
+						<li sec:authorize="hasAnyAuthority('Administrators','Staffs')">
+							<a th:href="@{/report/list.html}"><i class="fa fa-list-ul"></i>
+								Danh sách phản hồi</a>
+						</li>
+					</ul>
+				</li>
+				<li><a th:href="@{/}"><i class="fa fa-user"></i> Tài khoản
+						<span class="fa arrow"></span></a>
+					<ul class="nav nav-second-level">
+						<li sec:authorize="hasAnyAuthority('Administrators')"><a
+							href="#" th:href="@{/account/list.html}"><i
+								class="fa fa-th-list"></i> Ds Tài khoản</a></li>
+						<li><a href="change_password.html"
+							th:href="@{/account/change_password.html}"><i
+								class="fa fa-gear fa-fw"></i> Đổi mật khẩu</a></li>
+						<li><a href="admin/login.html" th:href="@{/logout.html}"><i
+								class="fa fa-sign-out fa-fw"></i>Đăng xuất</a></li>
 
-                    </ul>
-                </li>
-            </ul>
-            <!-- /#side-menu -->
-        </div>
-        <!-- /.sidebar-collapse -->
-    </div>
+					</ul></li>
+			</ul>
+			<!-- /#side-menu -->
+		</div>
+		<!-- /.sidebar-collapse -->
+	</div>
 </div>

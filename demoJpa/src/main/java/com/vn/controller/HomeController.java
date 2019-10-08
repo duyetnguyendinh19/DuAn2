@@ -66,7 +66,7 @@ public class HomeController {
         List<Category> category = categoryService.lsCatgory();
         Map<Long, List> mapLsId = new HashMap<>();
         for (Category each : category) {
-            if (each.getParentId() == 0) {
+            if (each.getParent().getId() == 0) {
                 List ls = new ArrayList();
                 ls.add(each.getName());
                 List lsCategoryChildren = new ArrayList();
@@ -75,8 +75,8 @@ public class HomeController {
             }
         }
         for (Category eachCateChildren : category) {
-            if (eachCateChildren.getParentId() != 0) {
-                ArrayList lsChildren = (ArrayList) mapLsId.get(eachCateChildren.getParentId()).get(1);
+            if (eachCateChildren.getParent().getId()!= 0) {
+                ArrayList lsChildren = (ArrayList) mapLsId.get(eachCateChildren.getParent().getId()).get(1);
                 List lsCategoryInfo = new ArrayList();
                 lsCategoryInfo.add(eachCateChildren.getId());
                 lsCategoryInfo.add(eachCateChildren.getName());
