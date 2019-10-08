@@ -29,10 +29,10 @@ public class Category implements Serializable {
 	@JoinColumn(name = "parent_id", nullable = true)
 	private Category parent;
 
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parent" , fetch = FetchType.LAZY)
 	private List<Category> children = new ArrayList<Category>();
 
-	@Column(name = "isactive")
+	@Column(name = "isactive" , columnDefinition = "CHAR(1)")
 	private String isActive;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -70,9 +70,6 @@ public class Category implements Serializable {
 	}
 
 	public void setName(String name) {
-		if(name == null) {
-			name = "";
-		}
 		this.name = name;
 	}
 

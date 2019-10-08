@@ -21,4 +21,6 @@ public interface CategoryService {
 
 	Category findOne(Long id);
 
+	Page<Category> findAllByIsDeleteAndIsActiveAndName(String isDelete, String isActive, Pageable pageable,String name);
+	
 }

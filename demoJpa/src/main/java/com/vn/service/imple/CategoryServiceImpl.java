@@ -19,7 +19,7 @@ import com.vn.service.CategoryService;
 @Service("categoryService")
 @Transactional
 public class CategoryServiceImpl implements CategoryService {
-	
+
 	@Resource
 	private CategoryRepo categoryRepo;
 
@@ -51,6 +51,12 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	public Category findOne(Long id) {
 		return categoryRepo.findOne(id);
+	}
+
+	@Override
+	public Page<Category> findAllByIsDeleteAndIsActiveAndName(String isDelete, String isActive, Pageable pageable,
+			String name) {
+		return categoryRepo.findAllByIsDeleteAndIsActiveAndName(isDelete, isActive, pageable, name);
 	}
 
 }
