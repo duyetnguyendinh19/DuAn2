@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "categoryRepo")
 public interface CategoryRepo extends JpaRepository<Category, Long> {
 
-	Page<Category> findAllByIsDeleteAndIsActiveAndName(String isDelete, String isActive, Pageable pageable,String name);
+	Page<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive, Pageable pageable);
 
 }
