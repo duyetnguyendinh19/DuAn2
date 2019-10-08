@@ -1,10 +1,12 @@
 package com.vn.service;
 
-import com.vn.jpa.Category;
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
+import com.vn.jpa.Category;
+import com.vn.model.CategoryModel;
 
 public interface CategoryService {
 
@@ -20,4 +22,6 @@ public interface CategoryService {
 
     Category findOne(Long id);
 
+    Page<CategoryModel> getList(Pageable pageable);
+    
 }
