@@ -32,7 +32,7 @@
 		<div id="page-wrapper" style="min-height: 600px;">
 			<div class="row">
 				<div class="col-lg-12">
-					<h4 class="page-header">Thêm account mới</h4>
+					<h4 class="page-header" th:text="${title}"></h4>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -40,42 +40,49 @@
 				<div class="col-lg-12">
 					<form th:object="${category}" th:action="@{/category/save.html}"
 						method="POST">
-						<!-- <div class="alert alert-danger"
-							style="text-align: left; color: red; font-weight: bold; font-size: 13px;"></div> -->
+						<div class="alert alert-danger"
+							style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+							th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Tên danh mục</label>
 								<div>
 									<input class="form-control" type="text" id="form-field-name"
-										th:field="*{name}" />
+										th:field="*{name}" maxlength="64" />
 								</div>
 								<label>Nhóm danh mục</label>
 								<div>
-									<select id="form-field-parent" class="form-control">
-										<option></option>
+									<select id="form-field-parent" class="form-control"
+										th:field="*{parent}">
+										<option th:value="null"></option>
+										<option th:each="cate : ${lstCate}" th:value="${cate.id}"
+											th:text="${cate.name}" th:selected="${ cate == parent } "></option>
 									</select>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-6">
-							<label>Trạng thái hoạt động</label>
-							<!-- <div th:if="${ isActive != null }">
-								<select id="form-field-active" class="form-control" th:field="*{isActive}" >
-									<option th:selected="${ isActive=='Y' }">Hoạt động</option>
-									<option th:selected="${ isActive=='N' }">Không hoạt động</option>
-								</select>
+							<label>Trạng thái hoạt động</label> <select
+								id="form-field-active" class="form-control"
+								th:field="*{isActive}">
+								<option value="Y">Hoạt động</option>
+								<option value="N">Không hoạt động</option>
+							</select> <label>Ngày tạo</label>
+
+							<div th:if="${date == null}">
+								<input type="text" name="date" class="form-control"
+									th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm:ss')}"
+									readonly="readonly" />
 							</div>
-							<div th:if="${ isActive == null }">
-								<select id="form-field-active" class="form-control" th:field="*{isActive}" >
-									<option>Hoạt động</option>
-									<option>Không hoạt động</option>
-								</select>
-							</div> -->
-							<label>Ngày tạo</label>
+							<div th:if="${date != null}">
+								<input type="text" name="date" class="form-control"
+									th:value="${date}" readonly="readonly" />
+							</div>
 							<div>
-								<input class="form-control" type="text" id="form-field-date"
-									th:field="*{date}" readonly="readonly" />
+								<input class="form-control" type="hidden" th:field="*{isDelete}" />
 							</div>
+						</div>
+						<div class="col-lg-6">
 							<div class="form-group">
 								<button type="submit" class="btn btn-info">Lưu</button>
 								<a th:href="@{/category/list.html}" href="/category/list"

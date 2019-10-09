@@ -1,6 +1,5 @@
 package com.vn.controller;
 
-import com.fasterxml.jackson.core.TreeNode;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -16,13 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.mail.MailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMailMessage;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,10 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
-import java.sql.Time;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
@@ -57,7 +47,8 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView index(Model model, Pageable pageable, HttpSession session) {
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
         Pageable _pageable = new PageRequest(pageable.getPageNumber(), 8, sort);

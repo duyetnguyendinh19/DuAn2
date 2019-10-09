@@ -1,12 +1,12 @@
 package com.vn.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.vn.jpa.Category;
-import com.vn.model.CategoryModel;
 
 public interface CategoryService {
 	Page<Category> findAll(Pageable pageable);
@@ -22,8 +22,13 @@ public interface CategoryService {
 	Category findOne(Long id);
 
 	Page<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive, Pageable pageable);
-	
+
 	List<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive);
+
+	Page<Category> findAllCatePage(String name, String delete, String active, Pageable pageable);
+
+	List<Category> findAllCateList(long id, String name, String delete, String active);
+
 
 	List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete);
 }

@@ -1,18 +1,16 @@
 package com.vn.service.imple;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.vn.jpa.Category;
-import com.vn.model.CategoryModel;
 import com.vn.repository.CategoryRepo;
 import com.vn.service.CategoryService;
 
@@ -67,5 +65,15 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete) {
         return categoryRepo.findByParentIdAndIsActiveAndIsDelete(id, isActive, isDelete);
     }
+
+	@Override
+	public Page<Category> findAllCatePage(String name, String delete, String active, Pageable pageable) {
+		return categoryRepo.findAllCatePage(name, delete, active, pageable);
+	}
+
+	@Override
+	public List<Category> findAllCateList(long id, String name, String delete, String active) {
+		return categoryRepo.findAllCateList(id, name, delete, active);
+	}
 
 }
