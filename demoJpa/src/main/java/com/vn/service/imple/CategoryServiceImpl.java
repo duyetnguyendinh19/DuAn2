@@ -58,4 +58,9 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepo.findAllByIsDeleteAndIsActive(isDelete, isActive, pageable);
 	}
 
+	@Override
+	public List<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive) {
+		return categoryRepo.findAllByIsDeleteAndIsActive(isDelete, isActive);
+	}
+
 }

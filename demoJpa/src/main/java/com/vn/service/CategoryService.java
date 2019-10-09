@@ -23,4 +23,5 @@ public interface CategoryService {
 
 	Page<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive, Pageable pageable);
 	
+	List<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive);
 }
