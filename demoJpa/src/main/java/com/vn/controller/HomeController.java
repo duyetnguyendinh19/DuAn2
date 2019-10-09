@@ -63,10 +63,10 @@ public class HomeController {
         Pageable _pageable = new PageRequest(pageable.getPageNumber(), 8, sort);
         Page<Product> product = productService.findAll(_pageable);
         List<Product> newProduct = productService.lsProductDateDesc();
-        List<Category> category = categoryService.lsCatgory();
+        List<Category> category = categoryService.findAllByIsDeleteAndIsActive("N","Y");
         Map<Long, List> mapLsId = new HashMap<>();
         for (Category each : category) {
-            if (each.getParent().getId() == 0) {
+            if (each.getParent() == null) {
                 List ls = new ArrayList();
                 ls.add(each.getName());
                 List lsCategoryChildren = new ArrayList();
@@ -75,7 +75,7 @@ public class HomeController {
             }
         }
         for (Category eachCateChildren : category) {
-            if (eachCateChildren.getParent().getId()!= 0) {
+            if (eachCateChildren.getParent() != null) {
                 ArrayList lsChildren = (ArrayList) mapLsId.get(eachCateChildren.getParent().getId()).get(1);
                 List lsCategoryInfo = new ArrayList();
                 lsCategoryInfo.add(eachCateChildren.getId());
