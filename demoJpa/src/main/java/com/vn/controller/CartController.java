@@ -46,7 +46,7 @@ public class CartController {
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
 		session.setAttribute("myCartNum", cartItems.size());
-		return "pages/cart";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "sub/{productId}.html", method = RequestMethod.GET)
@@ -56,7 +56,7 @@ public class CartController {
 			cartItems = new HashMap<>();
 		}
 		session.setAttribute("myCartItems", cartItems);
-		return "pages/cart";
+		return "redirect:/";
 	}
 
 	@RequestMapping(value = "remove/{productId}.html", method = RequestMethod.GET)
@@ -71,7 +71,7 @@ public class CartController {
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
 		session.setAttribute("myCartNum", cartItems.size());
-		return "pages/cart";
+		return "redirect:/";
 	}
 
 	public double totalPrice(HashMap<Long, Cart> cartItems) {

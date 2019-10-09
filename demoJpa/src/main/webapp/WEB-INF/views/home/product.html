@@ -153,7 +153,7 @@
                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
                                                 </li>
                                                 <li>
-                                                    <a href="#" title="Add to cart"><i
+                                                    <a th:href="@{/cart/add/{productId}.html(productId = ${eachPro.id})}" title="Add to cart"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></a>
                                                 </li>
                                             </ul>
