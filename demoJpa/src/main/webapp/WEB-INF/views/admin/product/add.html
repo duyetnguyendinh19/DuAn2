@@ -89,7 +89,6 @@
     }
 
     /*---------end upload ảnh--------*/
-
     .wrap-custom-fileadd {
         position: relative;
         display: inline-block;
@@ -119,7 +118,6 @@
         width: 100%;
         overflow: hidden;
         padding: 0 0.5rem;
-        /*cursor: pointer;*/
         background-color: #fff;
         border-radius: 4px;
         -webkit-transition: -webkit-transform 0.4s;
@@ -192,6 +190,27 @@
         margin-bottom: 20px;
     }
 
+    .removeIMG {
+        font-size: 13px !important;
+        margin-top: 40px !important;
+    }
+
+    .removeIMGAdd {
+        font-size: 13px !important;
+    }
+
+    .detail-step.row-card-hinhanh-chit-tiet .wrap-custom-file label:hover {
+        background: #aaaaaa !important;
+    }
+
+    .detail-step.row-card-hinhanh-chit-tiet .wrap-custom-file[id^="idSubImage_"] label:hover span {
+        display: block !important;
+    }
+
+    .detail-step.row-card-hinhanh-chit-tiet .wrap-custom-file[id^="idAddSubImage_"] label:hover span {
+        display: block !important;
+    }
+
 </style>
 <body>
 <div id="wrapper">
@@ -229,59 +248,120 @@
                 <form>
                     <!--                    <div class="alert alert-danger" style="text-align:left; color: red; font-weight: bold; font-size: 13px;" th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>-->
                     <!--                    <input type="hidden" name="id" id="id" th:value="*{id}" />-->
-                    <div class="col-lg-6">
-                        <div class="form-group">
-                            <label>Upload ảnh đại diện sản phẩm</label>
-                            <div>
-                                <div class="group-hinhanh">
-                                    <div class="wrap-custom-file">
-                                        <input type="file" name="image1" class="imgUpload" id="image1"
-                                               accept=".gif,.jpg,.png,.jpeg"/>
-                                        <label for="image1">
-                                            <span>Chọn ảnh</span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Hình ảnh chi tiết</label>
-                            <div>
-                                <div class="detail-step row-card-hinhanh-chit-tiet">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Hình ảnh đại diện</label>
+                                <div>
                                     <div class="group-hinhanh">
-                                        <div class="wrap-custom-fileadd" id="addSubImages">
-                                            <input type="file" name="addSubImage" class="imgAddSub"
-                                                   id="addSubImage" accept=".gif,.jpg,.png,.jpeg"/>
-                                            <label for="addSubImage"
-                                                   style="display: flex;align-items: center;justify-content: center;">
-                                                <span style="margin-top: 0px!important;">
-                                                    <i class="fa fa-plus" style="font-size: 50px;"></i>
-                                                </span>
+                                        <div class="wrap-custom-file">
+                                            <input type="file" name="image1" class="imgUpload" id="image1"
+                                                   accept=".gif,.jpg,.png,.jpeg"/>
+                                            <label for="image1">
+                                                <span>Chọn ảnh</span>
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label>Tên</label>
-                            <div>
-                                <label style="height: 100px;height: 70px" id="test"></label>
+                        <div class="col-lg-9">
+                            <div class="form-group">
+                                <label>Hình ảnh chi tiết</label>
+                                <div>
+                                    <div class="detail-step row-card-hinhanh-chit-tiet">
+                                        <div class="group-hinhanh">
+                                            <div class="wrap-custom-fileadd" id="addSubImages">
+                                                <input type="file" name="addSubImage" class="imgAddSub"
+                                                       id="addSubImage" accept=".gif,.jpg,.png,.jpeg"/>
+                                                <label for="addSubImage"
+                                                       style="display: flex;align-items: center;justify-content: center;">
+                                                <span style="margin-top: 0px!important;">
+                                                    <i class="fa fa-plus" style="font-size: 50px;"></i>
+                                                </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <!--                        </div>-->
-                            <!--                        <div class="form-group">-->
-                            <!--                            <label>Giới tính</label>-->
-                            <!--                            <div>-->
-
-                            <!--                            </div>-->
-                            <!--                        </div>-->
-                            <!--                        <div class="form-group">-->
-                            <!--                            <label>Email</label>-->
-                            <!--                            <div>-->
-
-                            <!--                            </div>-->
-                            <!--                        </div>-->
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Danh mục SP</label>
+                                <div>
+                                    <select class="form-control" id="form-field-cateChildren">
+                                        <option value="0">Chọn DM SP</option>
+                                        <option th:each="eachCate : ${category}" th:value="${eachCate.id}"
+                                                th:text="${eachCate.name}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Loại DM</label>
+                                <div>
+                                    <select class="form-control" id="form-field-cate-children">
+                                        <option>Chọn loại DM</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Tên sản phẩm</label>
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Tên sản phẩm"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Số lượng</label>
+                                <div>
+                                    <input type="text" class="form-control" id="quantity" value="1"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Giá sản phẩm</label>
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Giá sản phẩm" id="price"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Giảm giá</label>
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Giảm giá" id="priceSale"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="height: 100px;">
+                            <div class="form-group" style="height: 100px;">
+                                <label>Nội dung sản phẩm</label>
+                                <div style="height: 100px;">
+                                    <textarea class="form-control" placeholder="Nội dung sản phẩm"
+                                              style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Thông tin sản phẩm</label>
+                                <div>
+                                    <textarea class="form-control" placeholder="Thông tin sản phẩm"
+                                              style="height: 100px;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info">Thêm</button>
@@ -289,6 +369,7 @@
                                    href="/account/list" class="btn btn-warning">Bỏ qua</a>
                             </div>
                         </div>
+                    </div>
                 </form>
             </div>
             <!-- /.panel -->
@@ -328,12 +409,70 @@
 <script src="../../resources/sb-admin-v2/js/sb-admin.js" th:src="@{/resources/sb-admin-v2/js/sb-admin.js}"></script>
 
 <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var currUrl = /*[[@{/}]]*/ "";
+    /*]]>*/
+</script>
+<script>
+    $('#form-field-cateChildren').on('change', function () {
+        var id = $('#form-field-cateChildren option:selected').val();
+        $.ajax({
+            url: currUrl + 'product/categoryChildren.html',
+            method: 'GET',
+            data: {'parent_id': id},
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                var data = JSON.parse(response);
+                var html = '';
+                for (var eachRow of data) {
+                    html += `<option value="${eachRow.id}">${eachRow.name}</option>`;
+                }
+                $('#form-field-cate-children').html(html);
+            }
+        });
+    });
+</script>
 <script type="text/javascript">
     $(function () {
         $('#datetimepicker1').datetimepicker({
             defaultDate: new Date(),
             format: 'DD/MM/YYYY HH:mm'
         });
+    });
+</script>
+<script>
+    function formatNumberString(numberStr) {
+        if (typeof numberStr === 'number') {
+            numberStr = numberStr.toString();
+        }
+        return numberStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+    }
+</script>
+<script>
+    var that = this;
+    var isFormatNumber = true;
+    if (isFormatNumber !== false) {
+        $('#price').on('keyup', function () {
+            var formattedVal = formatNumberString($('#price').val().replace(/,/g, ''));
+            $('#price').val(formattedVal);
+        });
+    }
+    if (isFormatNumber !== false) {
+        $('#priceSale').on('keyup', function () {
+            var formattedVal = formatNumberString($('#priceSale').val().replace(/,/g, ''));
+            $('#priceSale').val(formattedVal);
+        });
+    }
+    $('#price, #priceSale, #quantity').on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+        if (/^\d*$/.test(this.value.replace(/,/g, ''))) {
+            this.oldValue = this.value;
+            this.oldSelectionStart = this.selectionStart;
+            this.oldSelectionEnd = this.selectionEnd;
+        } else if (this.hasOwnProperty("oldValue")) {
+            this.value = this.oldValue;
+            this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+        }
     });
 </script>
 <script type="text/javascript">
@@ -355,7 +494,7 @@
                                     'url(' + tmppath + ')');
                                 $labelText.removeClass('red');
                                 $labelText.text(fileName);
-                                that.dataValueClone.avatar1 = fileName;
+                                // that.dataValueClone.image1 = fileName;
                             } else {
                                 $label.removeClass('file-ok');
                                 $labelText.text(labelDefault);
@@ -368,16 +507,16 @@
     $('#addSubImage').on('change', function (event) {
         var that = this;
         var indexOfImageToAdd = imagesAdded.length;
-        var html = '<div class="wrap-custom-file" id="idAddSubImage_" data-index>' +
-            '<label style="display:flex;' +
-            'justify-content:center;' +
-            'align-items:center;">' +
-            '<span id="removeAdded_ class="removeIMGAdd" style="display:none;border:2px solid #fff;' +
-            'font-size: 15px;color: white;padding: 3px;width: calc(100% - 15px);align-items: center;justify-content: center;' +
-            'margin-top: 0!important;cursor:pointer;">REMOVE FILE</span>' +
-            '<span id="loading-add-image-span" class="fa fa-spinner fa-spin" style="margin-top:0!important"></span>' +
-            '<span class="nameFile" style="position:absolute;bottom:0;left:0;width:100%;padding:0.3rem;font-size:1.1rem;color:#6a0700;background-color: rgba(255, 255, 255, 0.7);height:28px;"></span>' +
-            '</label></div>'
+        var html = `<div class="wrap-custom-file" id="idAddSubImage_${indexOfImageToAdd}" data-index>
+            <label style="display:flex;
+            justify-content:center;
+            align-items:center;">
+        <span id="removeAdded_${indexOfImageToAdd}" class="removeIMGAdd" style="display:none;border:2px solid #fff;
+            font-size: 15px;color: white;padding: 3px;width: calc(100% - 15px);align-items: center;justify-content: center;
+            margin-top: 0!important;cursor:pointer;">REMOVE FILE</span>
+            <span id="loading-add-image-span" class="fa fa-spinner fa-spin" style="margin-top:0!important"></span>
+            <span class="nameFile" style="position:absolute;bottom:0;left:0;width:100%;padding:0.3rem;font-size:1.1rem;color:#6a0700;background-color: rgba(255, 255, 255, 0.7);height:28px;"></span>
+            </label></div>`;
         var reader = new FileReader();
         var objectResult = {};
         var dataFile = this.files[0];
@@ -389,16 +528,30 @@
                 objectResult.content = readerResult.split(',')[1];
                 imagesAdded.push(objectResult);
                 var tmppath = URL.createObjectURL(dataFile);
+                var htmlAppend = $(html);
+                htmlAppend.find('label').css('background-image', 'url(' + readerResult + ')');
+                htmlAppend.find('.nameFile').text(dataFile.name);
+                $('#addSubImages').before(htmlAppend);
                 $('#loading-add-image-span').remove();
-                $(html).find('label').css('background-image', 'url(' + readerResult + ')');
-                $(html).find('.nameFile').text(dataFile.name);
             }, 500);
         };
         reader.onerror = function (error) {
         };
-        $('#addSubImages').before(html);
-        $(that).val('');
+        // $(that).val('');
     });
+</script>
+<script> //xóa subImg
+var that = this;
+$('body').on('click', '.wrap-custom-file label span[id^="remove_"]', function () {
+    var data_index = $(this).parent().parent().attr('data-index');
+    that.remove.push(that.subImageGetted[data_index]);
+    $(this).parent().parent().remove();
+});
+</script>
+<script>  //Xóa subImgAdd
+$('body').on('click', '.wrap-custom-file label span[id^="removeAdded_"]', function () {
+    $(this).parent().parent().remove();
+});
 </script>
 </body>
 

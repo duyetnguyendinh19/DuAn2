@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,7 +32,7 @@ public class CategoryController {
 	private CategoryService categoryService;
 
 	@RequestMapping(value = "list.html")
-//	@PreAuthorize("hasAnyAuthority('Administrators')")
+	@PreAuthorize("hasAnyAuthority('Administrators')")
 	private String listCategory(Model model, Pageable pageable,
 			@RequestParam(value = "txtName", defaultValue = "") String txtName, HttpServletRequest request) {
 		String not_found_message = "";

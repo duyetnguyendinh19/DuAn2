@@ -212,9 +212,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
-                                            <label>Thông tin cá nhân</label>
+                                            <label>Địa chỉ</label>
                                             <div>
-                                                <textarea class="form-control readonly" id="info" readonly></textarea>
+                                                <textarea class="form-control readonly" id="address" readonly></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -270,15 +270,29 @@
                 contentType: 'application/x-www-form-urlencoded',
                 success: function (response) {
                     var data = JSON.parse(response);
-                    $('#nameUser').val(data.nameUser);
-                    $('#emailUser').val(data.emailUser);
-                    $('#bank').val(data.bank);
-                    $('#atmNumber').val(data.atmNumberBank);
-                    $('#birthday').val(moment(data.birthday).format('DD/MM/YYYY'));
-                    $('#company').val(data.company);
-                    $('#phone').val(data.phone);
-                    $('#province').val(data.province);
-                    $('#town').val(data.town);
+                    if(data !== null && data !== ''){
+                        $('#nameUser').val(data.nameUser);
+                        $('#emailUser').val(data.emailUser);
+                        $('#bank').val(data.bank);
+                        $('#atmNumber').val(data.atmNumberBank);
+                        $('#birthday').val(moment(data.birthday).format('DD/MM/YYYY'));
+                        $('#company').val(data.company);
+                        $('#phone').val(data.phone);
+                        $('#province').val(data.province);
+                        $('#town').val(data.town);
+                        $('#address').val(data.address);
+                    }else{
+                        $('#nameUser').val('');
+                        $('#emailUser').val('');
+                        $('#bank').val('');
+                        $('#atmNumber').val('');
+                        $('#birthday').val(moment('').format('DD/MM/YYYY'));
+                        $('#company').val('');
+                        $('#phone').val('');
+                        $('#province').val('');
+                        $('#town').val('');
+                        $('#address').val('');
+                    }
                 }
             })
         }

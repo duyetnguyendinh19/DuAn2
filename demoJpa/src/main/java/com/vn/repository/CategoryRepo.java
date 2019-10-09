@@ -16,4 +16,6 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
 	
 	List<Category> findAllByIsDeleteAndIsActive(String isDelete, String isActive);
 
+	List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete);
+
 }

@@ -1,5 +1,6 @@
 package com.vn.controller;
 
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
@@ -87,24 +88,24 @@ public class StaffController {
     @RequestMapping(value = "detail.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators')")
     public @ResponseBody
-    String detail(Model model, @RequestParam("id") Long id) throws Exception {
+    String detail(Model model, @RequestParam("id") Long id) throws Exception{
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Infomation infomation = infomationService.findByAuthUserId(id);
         InfomationModel infomationModel = new InfomationModel();
-        infomationModel.setProvince(infomation.getProvince());
-        infomationModel.setTown(infomation.getTown());
-        infomationModel.setAddress(infomation.getAddress());
-        infomationModel.setAtmNumberBank(infomation.getAtmNumber());
-        infomationModel.setBank(infomation.getBank());
-        infomationModel.setBirthday(infomation.getBirthday());
-        infomationModel.setId(infomation.getId());
-        infomationModel.setInfoPlus(infomation.getInfoPlus());
-        infomationModel.setPhone(infomation.getPhone());
-        infomationModel.setCompany(infomation.getCompany());
-        infomationModel.setNameUser(infomation.getAuthUser().getFullName());
-        infomationModel.setEmailUser(infomation.getAuthUser().getEmail());
-
+        if (infomation != null) {
+            infomationModel.setProvince(infomation.getProvince());
+            infomationModel.setTown(infomation.getTown());
+            infomationModel.setAddress(infomation.getAddress());
+            infomationModel.setAtmNumberBank(infomation.getAtmNumber());
+            infomationModel.setBank(infomation.getBank());
+            infomationModel.setBirthday(infomation.getBirthday());
+            infomationModel.setId(infomation.getId());
+            infomationModel.setInfoPlus(infomation.getInfoPlus());
+            infomationModel.setPhone(infomation.getPhone());
+            infomationModel.setCompany(infomation.getCompany());
+            infomationModel.setNameUser(infomation.getAuthUser().getFullName());
+            infomationModel.setEmailUser(infomation.getAuthUser().getEmail());
+        }
         return gson.toJson(infomationModel);
     }
-
 }

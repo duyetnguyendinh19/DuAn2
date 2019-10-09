@@ -87,22 +87,28 @@ public class UserController {
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public @ResponseBody
     String detail(Model model, @RequestParam("id") Long id) throws Exception {
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Infomation infomation = infomationService.findByAuthUserId(id);
-        InfomationModel infomationModel = new InfomationModel();
-        infomationModel.setProvince(infomation.getProvince());
-        infomationModel.setTown(infomation.getTown());
-        infomationModel.setAddress(infomation.getAddress());
-        infomationModel.setAtmNumberBank(infomation.getAtmNumber());
-        infomationModel.setBank(infomation.getBank());
-        infomationModel.setBirthday(infomation.getBirthday());
-        infomationModel.setId(infomation.getId());
-        infomationModel.setInfoPlus(infomation.getInfoPlus());
-        infomationModel.setPhone(infomation.getPhone());
-        infomationModel.setCompany(infomation.getCompany());
-        infomationModel.setNameUser(infomation.getAuthUser().getFullName());
-        infomationModel.setEmailUser(infomation.getAuthUser().getEmail());
-
-        return gson.toJson(infomationModel);
+        try {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Infomation infomation = infomationService.findByAuthUserId(id);
+            InfomationModel infomationModel = new InfomationModel();
+            if (infomation != null) {
+                infomationModel.setProvince(infomation.getProvince());
+                infomationModel.setTown(infomation.getTown());
+                infomationModel.setAddress(infomation.getAddress());
+                infomationModel.setAtmNumberBank(infomation.getAtmNumber());
+                infomationModel.setBank(infomation.getBank());
+                infomationModel.setBirthday(infomation.getBirthday());
+                infomationModel.setId(infomation.getId());
+                infomationModel.setInfoPlus(infomation.getInfoPlus());
+                infomationModel.setPhone(infomation.getPhone());
+                infomationModel.setCompany(infomation.getCompany());
+                infomationModel.setNameUser(infomation.getAuthUser().getFullName());
+                infomationModel.setEmailUser(infomation.getAuthUser().getEmail());
+            }
+            return gson.toJson(infomationModel);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/user/list.html";
+        }
     }
 }

@@ -1,9 +1,14 @@
 package com.vn.controller;
 
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
+import com.vn.jpa.Category;
 import com.vn.jpa.Product;
+import com.vn.model.CategoryModel;
 import com.vn.model.ProductModel;
+import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
@@ -22,17 +27,23 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/product/")
 public class ProductController {
 
     @Resource
+    private CategoryService categoryService;
+
+    @Resource
     private ProductService productService;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private String DELETE = "N";
+    private String ACTIVE = "Y";
 
     @RequestMapping(value = "list.html", method = {RequestMethod.GET, RequestMethod.POST})
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
@@ -69,14 +80,14 @@ public class ProductController {
             }
             model.addAttribute("from_date", fromDate);
             model.addAttribute("to_date", toDate);
-            model.addAttribute("name" ,name);
-            if(Strings.isNullOrEmpty(name)){
+            model.addAttribute("name", name);
+            if (Strings.isNullOrEmpty(name)) {
                 name = "";
             }
-            Sort sort = new Sort(Sort.Direction.DESC,"id");
+            Sort sort = new Sort(Sort.Direction.DESC, "id");
             Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
             Page<Product> page = productService.findAllProduct(_fromDate, _toDate, name, DELETE, _pageable);
-            model.addAttribute("page",page);
+            model.addAttribute("page", page);
             session.setAttribute("from_date", sdf.format(_fromDate));
             session.setAttribute("to_date", sdf.format(_toDate));
             request.getSession().setAttribute("pageIdx", pageable.getPageNumber());
@@ -88,25 +99,55 @@ public class ProductController {
 
     @RequestMapping(value = "add.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public String add(Model model){
+    public String add(Model model) {
+        List<Category> category = categoryService.findByParentIdAndIsActiveAndIsDelete(null, ACTIVE, DELETE);
+        List<CategoryModel> lsModel = new ArrayList<>();
+        for (Category each : category) {
+            CategoryModel categoryModel = new CategoryModel();
+            categoryModel.setId(each.getId());
+            categoryModel.setName(each.getName());
+            lsModel.add(categoryModel);
+        }
+        model.addAttribute("category", lsModel);
         return "admin/product/add";
     }
 
+    @RequestMapping(value = "categoryChildren.html", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public @ResponseBody String lsCategoryChildren(@RequestParam("parent_id") Long id){
+        try {
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            List<Category> category = categoryService.findByParentIdAndIsActiveAndIsDelete(id, ACTIVE, DELETE);
+            List<CategoryModel> lsModel = new ArrayList<>();
+            for (Category each : category) {
+                CategoryModel categoryModel = new CategoryModel();
+                categoryModel.setId(each.getId());
+                categoryModel.setName(each.getName());
+                lsModel.add(categoryModel);
+            }
+            return gson.toJson(lsModel);
+        }catch (Exception e){
+            e.printStackTrace();
+            return "redirect:/product/list.html";
+        }
+    }
+
+
     @RequestMapping(value = "{id}/update.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public String update(Model model, @PathVariable("id") Long id, @ModelAttribute("product") @Valid ProductModel productModel, BindingResult result){
+    public String update(Model model, @PathVariable("id") Long id, @ModelAttribute("product") @Valid ProductModel productModel, BindingResult result) {
         Product product = productService.findOne(id);
         return "admin/product/update";
     }
 
     @RequestMapping(value = "delete/{id}/list.html")
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public String updateisDelete(Model model, @PathVariable("id") Long id){
+    public String updateisDelete(Model model, @PathVariable("id") Long id) {
         try {
             Product product = productService.findOne(id);
             product.setIsdelete(Constants.ISDELETE);
             productService.update(product);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/product/list.html";
