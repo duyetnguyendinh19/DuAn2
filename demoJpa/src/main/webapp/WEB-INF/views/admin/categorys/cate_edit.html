@@ -32,7 +32,7 @@
 		<div id="page-wrapper" style="min-height: 600px;">
 			<div class="row">
 				<div class="col-lg-12">
-					<h4 class="page-header">Thêm account mới</h4>
+					<h4 class="page-header" th:text="${title}"></h4>
 				</div>
 				<!-- /.col-lg-12 -->
 			</div>
@@ -40,14 +40,15 @@
 				<div class="col-lg-12">
 					<form th:object="${category}" th:action="@{/category/save.html}"
 						method="POST">
-						<!-- <div class="alert alert-danger"
-							style="text-align: left; color: red; font-weight: bold; font-size: 13px;"></div> -->
+						<div class="alert alert-danger"
+							style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+							th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
 						<div class="col-lg-6">
 							<div class="form-group">
 								<label>Tên danh mục</label>
 								<div>
 									<input class="form-control" type="text" id="form-field-name"
-										th:field="*{name}" />
+										th:field="*{name}" maxlength="64" />
 								</div>
 								<label>Nhóm danh mục</label>
 								<div>
@@ -70,11 +71,12 @@
 
 							<div th:if="${date == null}">
 								<input type="text" name="date" class="form-control"
-									th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm:ss')}" readonly="readonly"/>
+									th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm:ss')}"
+									readonly="readonly" />
 							</div>
 							<div th:if="${date != null}">
 								<input type="text" name="date" class="form-control"
-									th:value="${date}" readonly="readonly"/>
+									th:value="${date}" readonly="readonly" />
 							</div>
 							<div>
 								<input class="form-control" type="hidden" th:field="*{isDelete}" />

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.vn.common.Constants;
 import com.vn.jpa.Category;
 import com.vn.service.CategoryService;
+import com.vn.validation.service.CategoryFormValidator;
 
 @Controller
 @RequestMapping("/category/")
@@ -32,6 +33,9 @@ public class CategoryController {
 	@Resource
 	private CategoryService categoryService;
 
+	@Resource
+	private CategoryFormValidator categoryFormValidator;
+	
 	@RequestMapping(value = "list.html")
 //	@PreAuthorize("hasAnyAuthority('Administrators')")
 	private String listCategory(Model model, Pageable pageable,
@@ -72,11 +76,13 @@ public class CategoryController {
 			Category category = new Category();
 			category.setIsActive("Y");
 			model.addAttribute("category", category);
+			model.addAttribute("title", "Thêm mới danh mục");
 		} else {
 			Category category = categoryService.findOne(id);
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			model.addAttribute("category", category);
 			model.addAttribute("date", sdf.format(category.getDate()));
+			model.addAttribute("title", "Sửa danh mục");
 		}
 
 		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
@@ -85,7 +91,16 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "save.html", method = RequestMethod.POST)
-	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,@RequestParam("date") String date) throws ParseException {
+	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,@RequestParam("date") String date,Model model) throws ParseException {
+		categoryFormValidator.validateCategoryForm(category, result);
+		if(result.hasErrors()) {
+			if(category.getId() == null) {
+				model.addAttribute("title","Thêm mới danh mục");
+			}else {
+				model.addAttribute("title","Sửa danh mục");
+			}
+			return "admin/categorys/cate_edit";
+		}
 		if(category.getId() == null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			category.setIsDelete("N");
