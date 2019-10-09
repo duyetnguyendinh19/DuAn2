@@ -1,5 +1,7 @@
 package com.vn.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -43,7 +45,7 @@ public class CategoryController {
 		}
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "id"));
 		Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-		Page<Category> pageTop = categoryService.findAllByIsDeleteAndIsActive("N", "Y", _pageable);
+		Page<Category> pageTop = categoryService.findAllCatePage( txtName, "N", "Y", _pageable);
 		if (pageTop.getContent().size() == 0) {
 			not_found_message = "Không tìm thấy dữ liệu";
 		}
@@ -68,17 +70,30 @@ public class CategoryController {
 	public String editCategory(Model model, @PathVariable("id") long id) {
 		if (id == 0) {
 			Category category = new Category();
-			category.setDate(new Date());
+			category.setIsActive("Y");
 			model.addAttribute("category", category);
-		}else {
-			model.addAttribute("category", categoryService.findOne(id));
+		} else {
+			Category category = categoryService.findOne(id);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			model.addAttribute("category", category);
+			model.addAttribute("date", sdf.format(category.getDate()));
 		}
-		
+
+		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
+
 		return "admin/categorys/cate_edit";
 	}
 
-	@RequestMapping(value = "save/list.html", method = RequestMethod.POST)
-	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result) {
+	@RequestMapping(value = "save.html", method = RequestMethod.POST)
+	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,@RequestParam("date") String date) throws ParseException {
+		if(category.getId() == null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+			category.setIsDelete("N");
+			category.setDate(sdf.parse(date));
+			categoryService.insert(category);
+		}else {
+			categoryService.update(category);
+		}
 		return "redirect:/category/list.html";
 	}
 

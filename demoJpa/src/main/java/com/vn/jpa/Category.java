@@ -94,6 +94,9 @@ public class Category implements Serializable {
 	}
 
 	public void setIsDelete(String isDelete) {
+		if(isDelete == null) {
+			isDelete = "N";
+		}
 		this.isDelete = isDelete;
 	}
 
