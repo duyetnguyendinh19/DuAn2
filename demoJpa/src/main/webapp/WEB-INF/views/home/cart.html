@@ -1,237 +1,238 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
-
 <head>
-    <div th:replace="fragments/initHome :: head"></div>
-    <style type="text/css">
-        .mb-50{
-            margin-bottom: 15px!important;
-        }
-    </style>
+<div th:replace="fragments/initHome :: head"></div>
+<style type="text/css">
+.mb-50 {
+	margin-bottom: 15px !important;
+}
+</style>
 </head>
 
 <body>
-<!-- Body main wrapper start -->
-<div class="wrapper">
-    <!-- START HEADER AREA -->
-    <header class="header-area header-wrapper">
-        <!-- header-top-bar -->
-        <div th:replace="fragments/navHome :: header"></div>
-        <!-- header-middle-area -->
-    </header>
-    <!-- END HEADER AREA -->
+	<!-- Body main wrapper start -->
+	<div class="wrapper">
+		<!-- START HEADER AREA -->
+		<header class="header-area header-wrapper">
+			<!-- header-top-bar -->
+			<div
+				th:replace="fragments/navHome :: header(cart = ${session.myCartItems},total = ${session.myCartTotal},size = ${session.myCartNum})"></div>
+			<!-- header-middle-area -->
+		</header>
+		<!-- END HEADER AREA -->
 
-    <!-- START MOBILE MENU AREA -->
-    <div th:replace="fragments/navHome :: menuMobile"></div>
-    <!-- END MOBILE MENU AREA -->
+		<!-- START MOBILE MENU AREA -->
+		<div th:replace="fragments/navHome :: menuMobile"></div>
+		<!-- END MOBILE MENU AREA -->
 
-    <!-- BREADCRUMBS SETCTION START -->
-    <div class="breadcrumbs-section plr-200 mb-80">
-        <div class="breadcrumbs overlay-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Giỏ hàng của bạn</h1>
-                            <ul class="breadcrumb-list">
-                                <li><a th:href="@{/}">Trang chủ</a></li>
-                                <li>Giỏ hàng</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BREADCRUMBS SETCTION END -->
+		<!-- BREADCRUMBS SETCTION START -->
+		<div class="breadcrumbs-section plr-200 mb-80">
+			<div class="breadcrumbs overlay-bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="breadcrumbs-inner">
+								<h1 class="breadcrumbs-title">Giỏ hàng của bạn</h1>
+								<ul class="breadcrumb-list">
+									<li><a th:href="@{/}">Trang chủ</a></li>
+									<li>Giỏ hàng</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- BREADCRUMBS SETCTION END -->
 
-    <!-- Start page content -->
-    <section id="page-content" class="page-wrapper">
+		<!-- Start page content -->
+		<section id="page-content" class="page-wrapper">
 
-        <!-- SHOP SECTION START -->
-        <div class="shop-section mb-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-2 col-sm-12">
-                        <ul class="cart-tab">
-                            <li>
-                                <a class="active" href="#shopping-cart" data-toggle="tab">
-                                    <span>01</span>
-                                    Giỏ của bạn
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#checkout" data-toggle="tab">
-                                    <span>02</span>
-                                    Thanh toán
-                                </a>
-                            </li>
-<!--                            <li>-->
-<!--                                <a href="#order-complete" data-toggle="tab">-->
-<!--                                    <span>03</span>-->
-<!--                                    Kết thúc-->
-<!--                                </a>-->
-<!--                            </li>-->
-                        </ul>
-                    </div>
-                    <div class="col-md-10 col-sm-12">
-                        <!-- Tab panes -->
-                        <div class="tab-content">
-                            <!-- shopping-cart start -->
-                            <div class="tab-pane active" id="shopping-cart">
-                                <div class="shopping-cart-content">
-                                    <form action="#">
-                                        <div class="table-content table-responsive mb-50">
-                                            <table class="text-center">
-                                                <thead>
-                                                <tr>
-                                                    <th class="product-thumbnail">Sản phẩm</th>
-                                                    <th class="product-price">Giá (Vnđ)</th>
-                                                    <th class="product-quantity">Số lượng</th>
-                                                    <th class="product-subtotal">Thành tiền (Vnđ)</th>
-                                                    <th class="product-remove">Xóa</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <!-- tr -->
-                                                <tr th:each="cart : ${session.myCartItems}">
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img th:src="${cart.product.mainImg}" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-left">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#" th:text="${cart.product.name}"></a>
-                                                            </h6>
-                                                            <p th:text="Hãng: + ${cart.product.category.name}"></p>
-                                                            <p th:text="Giá: + ${cart.product.price}"></p>
-                                                            <p>Màu: Black</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">5.600.000</td>
-                                                    <td class="product-quantity">
-                                                        <div class="cart-plus-minus f-left">
-                                                            <input type="text" value="1" name="payment"
-                                                                   class="cart-plus-minus-box">
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-subtotal">5.000.000</td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close" title="Xóa"></i></a>
-                                                    </td>
-                                                </tr>
-                                               
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="coupon-discount box-shadow p-30 mb-50">
-                                                    <h6 class="widget-title border-left mb-20">Mã giảm giá</h6>
-                                                    <p>Vui lòng nhập mã giảm giá nếu có!</p>
-                                                    <input type="text" name="name" placeholder="Nhập mã giảm giá tại đây.">
-                                                    <button class="submit-btn-1 black-bg btn-hover-2" type="submit">
-                                                        Gửi mã
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="payment-details box-shadow p-30 mb-50">
-                                                    <h6 class="widget-title border-left mb-20">Chi tiết thanh toán</h6>
-                                                    <table>
-                                                        <tr>
-                                                            <td class="td-title-1">Tiền sản phẩm</td>
-                                                            <td class="td-title-2">1.000.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Phí ship</td>
-                                                            <td class="td-title-2">150.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Thuế</td>
-                                                            <td class="td-title-2">500.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="order-total">Thành tiền</td>
-                                                            <td class="order-total-price">1.650.000 Vnđ</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- shopping-cart end -->
-                            <!-- checkout start -->
-                            <div class="tab-pane" id="checkout">
-                                <div class="checkout-content box-shadow p-30">
-                                    <form action="#">
-                                        <div class="row">
-                                            <!-- billing details -->
-                                            <div class="col-md-6">
-                                                <div class="billing-details pr-10">
-                                                    <h6 class="widget-title border-left mb-20">Thông tin người nhận</h6>
-                                                    <input type="text" name="name" placeholder="Tên của bạn...">
-                                                    <input type="text" name="email" placeholder="Email...">
-                                                    <input type="text" name="sdt" placeholder="Số điện thoại...">
-                                                    <textarea class="custom-textarea" placeholder="Địa chỉ..."></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <!-- our order -->
-                                                <div class="payment-details pl-10 mb-50">
-                                                    <h6 class="widget-title border-left mb-20">Đơn hàng của bạn</h6>
-                                                    <table>
-                                                        <tr>
-                                                            <td class="td-title-1">Iphone 5 x 2</td>
-                                                            <td class="td-title-2">15.000.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">SamSung A50</td>
-                                                            <td class="td-title-2">5.500.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Tổng tiền</td>
-                                                            <td class="td-title-2">20.500.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Phí ship</td>
-                                                            <td class="td-title-2">50.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="td-title-1">Thuế</td>
-                                                            <td class="td-title-2">500.000 Vnđ</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="order-total">Thành tiền</td>
-                                                            <td class="order-total-price">21.050.000 Vnđ</td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Thanh toán</button>
-                                                <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Hủy bỏ</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <!-- checkout end -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- SHOP SECTION END -->
-    </section>
-    <!-- End page content -->
-    <!-- START FOOTER AREA -->
-    <div th:replace="fragments/navHome :: footer"></div>
-    <!-- END FOOTER AREA -->
-</div>
-<!-- Body main wrapper end -->
-<div th:replace="fragments/initHome :: commonScript"></div>
+			<!-- SHOP SECTION START -->
+			<div class="shop-section mb-80">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-2 col-sm-12">
+							<ul class="cart-tab">
+								<li><a class="active" href="#shopping-cart"
+									data-toggle="tab"> <span>01</span> Giỏ của bạn
+								</a></li>
+								<li><a href="#checkout" data-toggle="tab"> <span>02</span>
+										Thanh toán
+								</a></li>
+								<!--                            <li>-->
+								<!--                                <a href="#order-complete" data-toggle="tab">-->
+								<!--                                    <span>03</span>-->
+								<!--                                    Kết thúc-->
+								<!--                                </a>-->
+								<!--                            </li>-->
+							</ul>
+						</div>
+						<div class="col-md-10 col-sm-12">
+							<!-- Tab panes -->
+							<div class="tab-content">
+								<!-- shopping-cart start -->
+								<div class="tab-pane active" id="shopping-cart">
+									<div class="shopping-cart-content">
+										<form action="#">
+											<div class="table-content table-responsive mb-50">
+												<table class="text-center">
+													<thead>
+														<tr>
+															<th class="product-thumbnail">Sản phẩm</th>
+															<th class="product-price">Giá (Vnđ)</th>
+															<th class="product-quantity">Số lượng</th>
+															<th class="product-subtotal">Thành tiền (Vnđ)</th>
+															<th class="product-remove">Xóa</th>
+														</tr>
+													</thead>
+													<tbody>
+														<!-- tr -->
+														<tr th:each="cart : ${session.myCartItems}">
+															<td class="product-thumbnail">
+																<div class="pro-thumbnail-img">
+																	<img th:src="${cart.value.product.mainImg}" alt="">
+																</div>
+																<div class="pro-thumbnail-info text-left">
+																	<h6 class="product-title-2">
+																		<a href="#" th:text="${cart.value.product.name}"></a>
+																	</h6>
+																	<p
+																		th:text="${cart.value.product.category.name}"></p>
+																	<p
+																		th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></p>
+																</div>
+															</td>
+															<td class="product-price">5.600.000</td>
+															<td class="product-quantity">
+																<div class="cart-plus-minus f-left">
+																	<input type="text" value="1" name="payment"
+																		class="cart-plus-minus-box">
+																</div>
+															</td>
+															<td class="product-subtotal">5.000.000</td>
+															<td class="product-remove"><a href="#"><i
+																	class="zmdi zmdi-close" title="Xóa"></i></a></td>
+														</tr>
+
+													</tbody>
+												</table>
+											</div>
+											<div class="row">
+												<div class="col-md-6">
+													<div class="coupon-discount box-shadow p-30 mb-50">
+														<h6 class="widget-title border-left mb-20">Mã giảm
+															giá</h6>
+														<p>Vui lòng nhập mã giảm giá nếu có!</p>
+														<input type="text" name="name"
+															placeholder="Nhập mã giảm giá tại đây.">
+														<button class="submit-btn-1 black-bg btn-hover-2"
+															type="submit">Gửi mã</button>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="payment-details box-shadow p-30 mb-50">
+														<h6 class="widget-title border-left mb-20">Chi tiết
+															thanh toán</h6>
+														<table>
+															<tr>
+																<td class="td-title-1">Tiền sản phẩm</td>
+																<td class="td-title-2">1.000.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">Phí ship</td>
+																<td class="td-title-2">150.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">Thuế</td>
+																<td class="td-title-2">500.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="order-total">Thành tiền</td>
+																<td class="order-total-price">1.650.000 Vnđ</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- shopping-cart end -->
+								<!-- checkout start -->
+								<div class="tab-pane" id="checkout">
+									<div class="checkout-content box-shadow p-30">
+										<form action="#">
+											<div class="row">
+												<!-- billing details -->
+												<div class="col-md-6">
+													<div class="billing-details pr-10">
+														<h6 class="widget-title border-left mb-20">Thông tin
+															người nhận</h6>
+														<input type="text" name="name"
+															placeholder="Tên của bạn..."> <input type="text"
+															name="email" placeholder="Email..."> <input
+															type="text" name="sdt" placeholder="Số điện thoại...">
+														<textarea class="custom-textarea" placeholder="Địa chỉ..."></textarea>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<!-- our order -->
+													<div class="payment-details pl-10 mb-50">
+														<h6 class="widget-title border-left mb-20">Đơn hàng
+															của bạn</h6>
+														<table>
+															<tr>
+																<td class="td-title-1">Iphone 5 x 2</td>
+																<td class="td-title-2">15.000.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">SamSung A50</td>
+																<td class="td-title-2">5.500.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">Tổng tiền</td>
+																<td class="td-title-2">20.500.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">Phí ship</td>
+																<td class="td-title-2">50.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="td-title-1">Thuế</td>
+																<td class="td-title-2">500.000 Vnđ</td>
+															</tr>
+															<tr>
+																<td class="order-total">Thành tiền</td>
+																<td class="order-total-price">21.050.000 Vnđ</td>
+															</tr>
+														</table>
+													</div>
+													<button class="submit-btn-1 mt-30 btn-hover-1"
+														type="submit">Thanh toán</button>
+													<button class="submit-btn-1 mt-30 btn-hover-1"
+														type="submit">Hủy bỏ</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- checkout end -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- SHOP SECTION END -->
+		</section>
+		<!-- End page content -->
+		<!-- START FOOTER AREA -->
+		<div th:replace="fragments/navHome :: footer"></div>
+		<!-- END FOOTER AREA -->
+	</div>
+	<!-- Body main wrapper end -->
+	<div th:replace="fragments/initHome :: commonScript"></div>
 </body>
 
 </html>
