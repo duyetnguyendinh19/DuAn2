@@ -95,17 +95,17 @@
                                                 </thead>
                                                 <tbody>
                                                 <!-- tr -->
-                                                <tr>
+                                                <tr th:each="cart : ${session.myCartItems}">
                                                     <td class="product-thumbnail">
                                                         <div class="pro-thumbnail-img">
-                                                            <img th:src="@{/assets/teamplates/img/cart/1.jpg}" alt="">
+                                                            <img th:src="${cart.product.mainImg}" alt="">
                                                         </div>
                                                         <div class="pro-thumbnail-info text-left">
                                                             <h6 class="product-title-2">
-                                                                <a href="#">SamSung A50</a>
+                                                                <a href="#" th:text="${cart.product.name}"></a>
                                                             </h6>
-                                                            <p>Hãng: SamSung</p>
-                                                            <p>Giá: 200.000 Vnđ</p>
+                                                            <p th:text="Hãng: + ${cart.product.category.name}"></p>
+                                                            <p th:text="Giá: + ${cart.product.price}"></p>
                                                             <p>Màu: Black</p>
                                                         </div>
                                                     </td>
@@ -121,60 +121,7 @@
                                                         <a href="#"><i class="zmdi zmdi-close" title="Xóa"></i></a>
                                                     </td>
                                                 </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img th:src="@{/assets/teamplates/img/cart/2.jpg}" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-left">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">SamSung A50</a>
-                                                            </h6>
-                                                            <p>Hãng: SamSung</p>
-                                                            <p>Giá: 200.000 Vnđ</p>
-                                                            <p>Màu: Black</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">5.060.000</td>
-                                                    <td class="product-quantity">
-                                                        <div class="cart-plus-minus f-left">
-                                                            <input type="text" value="1" name="payment"
-                                                                   class="cart-plus-minus-box">
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-subtotal">5.000.000</td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close" title="Xóa"></i></a>
-                                                    </td>
-                                                </tr>
-                                                <!-- tr -->
-                                                <tr>
-                                                    <td class="product-thumbnail">
-                                                        <div class="pro-thumbnail-img">
-                                                            <img th:src="@{/assets/teamplates/img/cart/3.jpg}" alt="">
-                                                        </div>
-                                                        <div class="pro-thumbnail-info text-left">
-                                                            <h6 class="product-title-2">
-                                                                <a href="#">SamSung A50</a>
-                                                            </h6>
-                                                            <p>Hãng: SamSung</p>
-                                                            <p>Giá: 200.000 Vnđ</p>
-                                                            <p>Màu: Black</p>
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-price">5.690.000</td>
-                                                    <td class="product-quantity">
-                                                        <div class="cart-plus-minus f-left">
-                                                            <input type="text" value="1" name="payment"
-                                                                   class="cart-plus-minus-box">
-                                                        </div>
-                                                    </td>
-                                                    <td class="product-subtotal">5.000.000</td>
-                                                    <td class="product-remove">
-                                                        <a href="#"><i class="zmdi zmdi-close" title="Xóa"></i></a>
-                                                    </td>
-                                                </tr>
+                                               
                                                 </tbody>
                                             </table>
                                         </div>

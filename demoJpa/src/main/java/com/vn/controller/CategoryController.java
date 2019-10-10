@@ -36,9 +36,9 @@ public class CategoryController {
 
 	@Resource
 	private CategoryFormValidator categoryFormValidator;
-	
+
 	@RequestMapping(value = "list.html")
-	@PreAuthorize("hasAnyAuthority('Administrators')")
+//	@PreAuthorize("hasAnyAuthority('Administrators')")
 	private String listCategory(Model model, Pageable pageable,
 			@RequestParam(value = "txtName", defaultValue = "") String txtName, HttpServletRequest request) {
 		String not_found_message = "";
@@ -50,7 +50,7 @@ public class CategoryController {
 		}
 		Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "id"));
 		Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-		Page<Category> pageTop = categoryService.findAllCatePage( txtName, "N", "Y", _pageable);
+		Page<Category> pageTop = categoryService.findAllCatePage(txtName, "N", "Y", _pageable);
 		if (pageTop.getContent().size() == 0) {
 			not_found_message = "Không tìm thấy dữ liệu";
 		}
@@ -86,28 +86,29 @@ public class CategoryController {
 			model.addAttribute("title", "Sửa danh mục");
 		}
 
-		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
+		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y", null));
 
 		return "admin/categorys/cate_edit";
 	}
 
 	@RequestMapping(value = "save.html", method = RequestMethod.POST)
-	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,@RequestParam("date") String date,Model model) throws ParseException {
+	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,
+			@RequestParam("date") String date, Model model) throws ParseException {
 		categoryFormValidator.validateCategoryForm(category, result);
-		if(result.hasErrors()) {
-			if(category.getId() == null) {
-				model.addAttribute("title","Thêm mới danh mục");
-			}else {
-				model.addAttribute("title","Sửa danh mục");
+		if (result.hasErrors()) {
+			if (category.getId() == null) {
+				model.addAttribute("title", "Thêm mới danh mục");
+			} else {
+				model.addAttribute("title", "Sửa danh mục");
 			}
 			return "admin/categorys/cate_edit";
 		}
-		if(category.getId() == null) {
+		if (category.getId() == null) {
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 			category.setIsDelete("N");
 			category.setDate(sdf.parse(date));
 			categoryService.insert(category);
-		}else {
+		} else {
 			categoryService.update(category);
 		}
 		return "redirect:/category/list.html";
