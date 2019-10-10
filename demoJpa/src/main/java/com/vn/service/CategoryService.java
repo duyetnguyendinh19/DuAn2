@@ -29,6 +29,5 @@ public interface CategoryService {
 
 	List<Category> findAllCateList(long id, String name, String delete, String active);
 
-
 	List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete);
 }

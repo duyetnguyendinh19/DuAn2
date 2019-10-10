@@ -2,507 +2,529 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div th:replace="fragments/initHome :: head"></div>
+<div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
-    .status-success{
-        color: white!important;
-        background: #0fa145!important;
-        text-decoration: none!important;
-        width: 75px;
-        padding: 5px;
-        border-radius: 5px;
-    }
-    .status-warning{
-        color: white!important;
-        background: #ff9800!important;
-        text-decoration: none!important;
-        width: 70px;
-        padding: 5px;
-        border-radius: 5px;
-    }
+.status-success {
+	color: white !important;
+	background: #0fa145 !important;
+	text-decoration: none !important;
+	width: 75px;
+	padding: 5px;
+	border-radius: 5px;
+}
+
+.status-warning {
+	color: white !important;
+	background: #ff9800 !important;
+	text-decoration: none !important;
+	width: 70px;
+	padding: 5px;
+	border-radius: 5px;
+}
 </style>
 
 
 <body>
-<!-- Body main wrapper start -->
-<div class="wrapper">
+	<!-- Body main wrapper start -->
+	<div class="wrapper">
 
-    <!-- START HEADER AREA -->
-    <header class="header-area header-wrapper">
-        <!-- start import header-->
-        <div th:replace="fragments/navHome :: header"></div>
-        <!-- end import header-->
-    </header>
-    <!-- END HEADER AREA -->
+		<!-- START HEADER AREA -->
+		<header class="header-area header-wrapper">
+			<!-- start import header-->
+			<div
+				th:replace="fragments/navHome :: header"></div>
+			<!-- end import header-->
+		</header>
+		<!-- END HEADER AREA -->
 
-    <!-- START MOBILE MENU AREA -->
-    <div th:replace="fragments/navHome :: menuMobile"></div>
-    <!-- END MOBILE MENU AREA -->
+		<!-- START MOBILE MENU AREA -->
+		<div th:replace="fragments/navHome :: menuMobile"></div>
+		<!-- END MOBILE MENU AREA -->
 
-    <!-- BREADCRUMBS SETCTION START -->
-    <div class="breadcrumbs-section plr-200 mb-80">
-        <div class="breadcrumbs overlay-bg">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="breadcrumbs-inner">
-                            <h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
-                            <ul class="breadcrumb-list">
-                                <li><a href="index.html">Trang chủ</a></li>
-                                <li>Chi tiết sản phẩm</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- BREADCRUMBS SETCTION END -->
+		<!-- BREADCRUMBS SETCTION START -->
+		<div class="breadcrumbs-section plr-200 mb-80">
+			<div class="breadcrumbs overlay-bg">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="breadcrumbs-inner">
+								<h1 class="breadcrumbs-title">Chi tiết sản phẩm</h1>
+								<ul class="breadcrumb-list">
+									<li><a href="index.html">Trang chủ</a></li>
+									<li>Chi tiết sản phẩm</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- BREADCRUMBS SETCTION END -->
 
-    <!-- Start page content -->
-    <section id="page-content" class="page-wrapper">
+		<!-- Start page content -->
+		<section id="page-content" class="page-wrapper">
 
-        <!-- SHOP SECTION START -->
-        <div class="shop-section mb-80">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9 col-xs-12">
-                        <!-- single-product-area start -->
-                        <div class="single-product-area mb-80">
-                            <div class="row">
-                                <!-- imgs-zoom-area start -->
-                                <div class="col-md-5 col-sm-5 col-xs-12">
-                                    <div class="imgs-zoom-area">
-                                        <img id="zoom_03" th:src="@{/{image}(image = ${product.mainImg})}"
-                                             th:data-zoom-image="@{/{image}(image = ${product.mainImg})}" alt="">
-                                        <div class="row" >
-                                            <div class="col-xs-12" th:if="${subImg} != null">
-                                                <div id="gallery_01" class="carousel-btn slick-arrow-3 mt-30" >
-                                                    <div class="p-c" th:each="eachSubImg : ${subImg}">
-                                                        <a href="#"
-                                                           th:data-image="@{/{image}(image = ${eachSubImg})}"
-                                                           th:data-zoom-image="@{/{image}(image = ${eachSubImg})}">
-                                                            <img class="zoom_03"
-                                                                 th:src="@{/{image}(image = ${eachSubImg})}"
-                                                                 alt="">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- imgs-zoom-area end -->
-                                <!-- single-product-info start -->
-                                <div class="col-md-7 col-sm-7 col-xs-12">
-                                    <div class="single-product-info">
-                                        <h3 class="text-black-1" th:text="${product.name}">Iphone</h3>
-                                        <hr>
-                                        <!-- single-pro-color-rating -->
-                                        <div class="single-pro-color-rating clearfix">
-                                            <div class="sin-pro-color f-left">
-                                                <p class="color-title f-left">Màu</p>
-                                                <div class="widget-color f-left">
-                                                    <ul>
-                                                        <li class="color-1"><a href="#"></a></li>
-                                                        <li class="color-2"><a href="#"></a></li>
-                                                        <li class="color-3"><a href="#"></a></li>
-                                                        <li class="color-4"><a href="#"></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="pro-rating sin-pro-rating f-right" style="width: 150px;">
-                                                <div th:if="${product.rate == 1}" style="margin-right: 5px;float:left;">
-                                                    <i class="zmdi zmdi-star" tabindex="0"></i>
-                                                    <i class="zmdi zmdi-star-outline" tabindex="0"></i>
-                                                    <i class="zmdi zmdi-star-outline" tabindex="0"></i>
-                                                    <i class="zmdi zmdi-star-outline" tabindex="0"></i>
-                                                    <i class="zmdi zmdi-star-outline" tabindex="0"></i>
-                                                </div>
-                                                <div th:if="${product.rate == 2}" style="margin-right: 5px;float:left;">
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${product.rate == 3}" style="margin-right: 5px;float:left;">
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${product.rate == 4}" style="margin-right: 5px;float:left;">
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${product.rate == 5}" style="margin-right: 5px;float:left;">
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                </div>
-                                                <span class="text-black-5">( 27 Rating )</span>
-                                            </div>
-                                        </div>
-                                        <!-- hr -->
-                                        <hr>
-                                        <!-- plus-minus-pro-action -->
-                                        <div class="plus-minus-pro-action clearfix">
-                                            <div class="sin-plus-minus f-left clearfix">
-                                                <p class="color-title f-left" style="width: 80px!important;">Số
-                                                    lượng</p>
-                                                <div class="cart-plus-minus f-left">
-                                                    <input type="text" value="1" name="number"
-                                                           class="cart-plus-minus-box">
-                                                </div>
-                                            </div>
-                                            <div class="sin-pro-action f-right">
-                                                <ul class="action-button">
-                                                    <li>
-                                                        <a href="#" title="Wishlist" tabindex="0"><i
-                                                                class="zmdi zmdi-favorite"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a th:onclick="'quickView(\'' + ${product.id} + '\')'"
-                                                           data-toggle="modal" data-target="#productModal"
-                                                           title="Quickview" tabindex="0"><i
-                                                                class="zmdi zmdi-zoom-in"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Add to cart" tabindex="0"><i
-                                                                class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <!-- plus-minus-pro-action end -->
-                                        <!-- hr -->
-                                        <hr>
-                                        <!-- single-product-price -->
-                                        <h3 class="pro-price"
-                                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0,'POINT') + ' Vnđ'}"></h3>
-                                        <!--  hr -->
-                                        <hr>
-                                        <div>
-                                            <a href="#" class="button extra-small button-black" tabindex="-1">
-                                                <span class="text-uppercase">Mua ngay</span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- single-product-info end -->
-                            </div>
-                            <!-- single-product-tab -->
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <!-- hr -->
-                                    <hr>
-                                    <div class="single-product-tab">
-                                        <ul class="default-tab reviews-tab mb-20">
-                                            <li class="active"><a href="#description" data-toggle="tab">Miêu tả</a></li>
-                                            <li><a href="#information" data-toggle="tab">Thông tin</a></li>
-                                            <li><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
-                                        </ul>
-                                        <div class="tab-content">
-                                            <div role="tabpanel" class="tab-pane active" id="description">
-                                                <p th:text="${product.description}">There are many variations of passages of Lorem Ipsum available, but
-                                                    the majo Rity have be suffered alteration in some form, by injected
-                                                    humou or randomis Rity have be suffered alteration in some form, by
-                                                    injected humou or randomis words which donot look even slightly
-                                                    believable. If you are going to use a passage Lorem Ipsum.</p>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane" id="information">
-                                                <p th:text="${product.info}">rerum blanditiis dolore dignissimos expedita consequatur deleniti
-                                                    consectetur non exercitationem.</p>
-                                            </div>
-                                            <div role="tabpanel" class="tab-pane" id="reviews">
-                                                <!-- reviews-tab-desc -->
-                                                <div class="reviews-tab-desc" th:if="${review} != null">
-                                                    <!-- single comments -->
-                                                    <div class="media mt-30" th:each="eachReview : ${review}">
-                                                        <div class="media-left">
-                                                            <a href="#"><img class="media-object"
-                                                                             th:src="@{/assets/teamplates/img/author/1.jpg}"
-                                                                             alt="#"></a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <div class="clearfix">
-                                                                <div class="name-commenter pull-left">
-                                                                    <h6 class="media-heading" th:text="${eachReview.name}">Gerald Barnes</h6>
-                                                                    <p class="mb-10" th:text="${#dates.format(eachReview.createDate,'dd/MM/yyyy HH:mm')}">27 Jun, 2017 at 2:30pm</p>
-                                                                </div>
-<!--                                                                <div class="pull-right">-->
-<!--                                                                    <ul class="reply-delate">-->
-<!--                                                                        <li><a href="#">Reply</a></li>-->
-<!--                                                                        <li>/</li>-->
-<!--                                                                        <li><a href="#">Delate</a></li>-->
-<!--                                                                    </ul>-->
-<!--                                                                </div>-->
-                                                            </div>
-                                                            <p class="mb-0" th:text="${eachReview.description}">Lorem ipsum dolor sit amet, consectetur
-                                                                adipiscing elit. Integer accumsan egestas .</p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- single comments -->
-                                                </div>
-                                                <div th:if="${#lists.isEmpty(review)}">Chưa có đánh giá nào cho sản phẩm.</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--  hr -->
-                                    <hr>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- single-product-area end -->
-                        <div class="related-product-area">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="section-title text-left mb-40">
-                                        <h2 class="uppercase">Gợi ý sản phẩm</h2>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="active-related-product">
-                                    <!-- product-item start -->
-                                    <div class="col-xs-12" th:each="eachRe : ${proRelationship}">
-                                        <div class="product-item">
-                                            <div class="product-img">
-                                                <a th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}">
-                                                    <img th:src="@{/{image}(image = ${eachRe.mainImg})}" alt=""/>
-                                                </a>
-                                            </div>
-                                            <div class="product-info">
-                                                <h6 class="product-title">
-                                                    <a th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}" th:text="${eachRe.name}">Product Name</a>
-                                                </h6>
-                                                <div class="pro-rating">
-                                                    <div th:if="${eachRe.rate == 1}">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                    </div>
-                                                    <div th:if="${eachRe.rate == 2}">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                    </div>
-                                                    <div th:if="${eachRe.rate == 3}">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                    </div>
-                                                    <div th:if="${eachRe.rate == 4}">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star-outline"></i>
-                                                    </div>
-                                                    <div th:if="${eachRe.rate == 5}">
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                        <i class="zmdi zmdi-star"></i>
-                                                    </div>
-                                                </div>
-                                                <h3 class="pro-price" th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
-                                                <ul class="action-button">
-                                                    <li>
-                                                        <a href="#" title="Wishlist"><i class="zmdi zmdi-favorite"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a th:onclick="'quickView(\'' + ${eachRe.id} + '\')'" data-toggle="modal" data-target="#productModal"
-                                                           title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#" title="Add to cart"><i
-                                                                class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- product-item end -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3 col-xs-12">
-                        <!-- widget-categories -->
-                        <aside class="widget widget-categories box-shadow mb-30">
-                            <h6 class="widget-title border-left mb-20">Danh mục sản phẩm</h6>
-                            <div id="cat-treeview" class="product-cat" th:each="eachCate,iterStat : ${session.categoryNav}">
-                                <ul>
-                                    <li th:class="${iterStat.index == 0} ? 'open'"><a href="#" th:text="${eachCate.value[0]}">Điện thoại</a>
-                                        <ul th:each="cateChilren : ${eachCate.value[1]}">
-                                            <li><a th:href="@{/home/{id}/product.html(id = ${cateChilren[0]})}" th:text="${cateChilren[1]}">Iphone</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                        </aside>
-                        <aside class="widget widget-product box-shadow">
-                            <h6 class="widget-title border-left mb-20">Sản phẩm mới nhất</h6>
-                            <!-- product-item start -->
-                            <div class="product-item" th:each="eachNew : ${newProduct}">
-                                <div class="product-img">
-                                    <a th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
-                                        <img th:src="@{/{image}(image = ${eachNew.mainImg})}" alt=""/>
-                                    </a>
-                                </div>
-                                <div class="product-info">
-                                    <h6 class="product-title">
-                                        <a th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}"
-                                           th:text="${eachNew.name}">Product Name</a>
-                                    </h6>
-                                    <h3 class="pro-price"
-                                        th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">&nbsp;Vnđ</h3>
-                                </div>
-                            </div>
-                            <!-- product-item end -->
-                        </aside>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- SHOP SECTION END -->
+			<!-- SHOP SECTION START -->
+			<div class="shop-section mb-80">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-9 col-xs-12">
+							<!-- single-product-area start -->
+							<div class="single-product-area mb-80">
+								<div class="row">
+									<!-- imgs-zoom-area start -->
+									<div class="col-md-5 col-sm-5 col-xs-12">
+										<div class="imgs-zoom-area">
+											<img id="zoom_03"
+												th:src="@{/{image}(image = ${product.mainImg})}"
+												th:data-zoom-image="@{/{image}(image = ${product.mainImg})}"
+												alt="">
+											<div class="row">
+												<div class="col-xs-12" th:if="${subImg} != null">
+													<div id="gallery_01"
+														class="carousel-btn slick-arrow-3 mt-30">
+														<div class="p-c" th:each="eachSubImg : ${subImg}">
+															<a href="#"
+																th:data-image="@{/{image}(image = ${eachSubImg})}"
+																th:data-zoom-image="@{/{image}(image = ${eachSubImg})}">
+																<img class="zoom_03"
+																th:src="@{/{image}(image = ${eachSubImg})}" alt="">
+															</a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- imgs-zoom-area end -->
+									<!-- single-product-info start -->
+									<div class="col-md-7 col-sm-7 col-xs-12">
+										<div class="single-product-info">
+											<h3 class="text-black-1" th:text="${product.name}">Iphone</h3>
+											<hr>
+											<!-- single-pro-color-rating -->
+											<div class="single-pro-color-rating clearfix">
+												<div class="sin-pro-color f-left">
+													<p class="color-title f-left">Màu</p>
+													<div class="widget-color f-left">
+														<ul>
+															<li class="color-1"><a href="#"></a></li>
+															<li class="color-2"><a href="#"></a></li>
+															<li class="color-3"><a href="#"></a></li>
+															<li class="color-4"><a href="#"></a></li>
+														</ul>
+													</div>
+												</div>
+												<div class="pro-rating sin-pro-rating f-right"
+													style="width: 150px;">
+													<div th:if="${product.rate == 1}"
+														style="margin-right: 5px; float: left;">
+														<i class="zmdi zmdi-star" tabindex="0"></i> <i
+															class="zmdi zmdi-star-outline" tabindex="0"></i> <i
+															class="zmdi zmdi-star-outline" tabindex="0"></i> <i
+															class="zmdi zmdi-star-outline" tabindex="0"></i> <i
+															class="zmdi zmdi-star-outline" tabindex="0"></i>
+													</div>
+													<div th:if="${product.rate == 2}"
+														style="margin-right: 5px; float: left;">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${product.rate == 3}"
+														style="margin-right: 5px; float: left;">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${product.rate == 4}"
+														style="margin-right: 5px; float: left;">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${product.rate == 5}"
+														style="margin-right: 5px; float: left;">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+													</div>
+													<span class="text-black-5">( 27 Rating )</span>
+												</div>
+											</div>
+											<!-- hr -->
+											<hr>
+											<!-- plus-minus-pro-action -->
+											<div class="plus-minus-pro-action clearfix">
+												<div class="sin-plus-minus f-left clearfix">
+													<p class="color-title f-left"
+														style="width: 80px !important;">Số lượng</p>
+													<div class="cart-plus-minus f-left">
+														<input type="text" value="1" name="number"
+															class="cart-plus-minus-box">
+													</div>
+												</div>
+												<div class="sin-pro-action f-right">
+													<ul class="action-button">
+														<li><a href="#" title="Wishlist" tabindex="0"><i
+																class="zmdi zmdi-favorite"></i></a></li>
+														<li><a
+															th:onclick="'quickView(\'' + ${product.id} + '\')'"
+															data-toggle="modal" data-target="#productModal"
+															title="Quickview" tabindex="0"><i
+																class="zmdi zmdi-zoom-in"></i></a></li>
+														<li><a
+															th:href="@{/cart/add/{productId}.html(productId = ${product.id})}"
+															title="Add to cart"><i
+																class="zmdi zmdi-shopping-cart-plus"></i></a></li>
+													</ul>
+												</div>
+											</div>
+											<!-- plus-minus-pro-action end -->
+											<!-- hr -->
+											<hr>
+											<!-- single-product-price -->
+											<h3 class="pro-price"
+												th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0,'POINT') + ' Vnđ'}"></h3>
+											<!--  hr -->
+											<hr>
+											<div>
+												<a href="#" class="button extra-small button-black"
+													tabindex="-1"> <span class="text-uppercase">Mua
+														ngay</span>
+												</a>
+											</div>
+										</div>
+									</div>
+									<!-- single-product-info end -->
+								</div>
+								<!-- single-product-tab -->
+								<div class="row">
+									<div class="col-md-12">
+										<!-- hr -->
+										<hr>
+										<div class="single-product-tab">
+											<ul class="default-tab reviews-tab mb-20">
+												<li class="active"><a href="#description"
+													data-toggle="tab">Miêu tả</a></li>
+												<li><a href="#information" data-toggle="tab">Thông
+														tin</a></li>
+												<li><a href="#reviews" data-toggle="tab">Đánh giá</a></li>
+											</ul>
+											<div class="tab-content">
+												<div role="tabpanel" class="tab-pane active"
+													id="description">
+													<p th:text="${product.description}">There are many
+														variations of passages of Lorem Ipsum available, but the
+														majo Rity have be suffered alteration in some form, by
+														injected humou or randomis Rity have be suffered
+														alteration in some form, by injected humou or randomis
+														words which donot look even slightly believable. If you
+														are going to use a passage Lorem Ipsum.</p>
+												</div>
+												<div role="tabpanel" class="tab-pane" id="information">
+													<p th:text="${product.info}">rerum blanditiis dolore
+														dignissimos expedita consequatur deleniti consectetur non
+														exercitationem.</p>
+												</div>
+												<div role="tabpanel" class="tab-pane" id="reviews">
+													<!-- reviews-tab-desc -->
+													<div class="reviews-tab-desc" th:if="${review} != null">
+														<!-- single comments -->
+														<div class="media mt-30" th:each="eachReview : ${review}">
+															<div class="media-left">
+																<a href="#"><img class="media-object"
+																	th:src="@{/assets/teamplates/img/author/1.jpg}" alt="#"></a>
+															</div>
+															<div class="media-body">
+																<div class="clearfix">
+																	<div class="name-commenter pull-left">
+																		<h6 class="media-heading" th:text="${eachReview.name}">Gerald
+																			Barnes</h6>
+																		<p class="mb-10"
+																			th:text="${#dates.format(eachReview.createDate,'dd/MM/yyyy HH:mm')}">27
+																			Jun, 2017 at 2:30pm</p>
+																	</div>
+																	<!--                                                                <div class="pull-right">-->
+																	<!--                                                                    <ul class="reply-delate">-->
+																	<!--                                                                        <li><a href="#">Reply</a></li>-->
+																	<!--                                                                        <li>/</li>-->
+																	<!--                                                                        <li><a href="#">Delate</a></li>-->
+																	<!--                                                                    </ul>-->
+																	<!--                                                                </div>-->
+																</div>
+																<p class="mb-0" th:text="${eachReview.description}">Lorem
+																	ipsum dolor sit amet, consectetur adipiscing elit.
+																	Integer accumsan egestas .</p>
+															</div>
+														</div>
+														<!-- single comments -->
+													</div>
+													<div th:if="${#lists.isEmpty(review)}">Chưa có đánh
+														giá nào cho sản phẩm.</div>
+												</div>
+											</div>
+										</div>
+										<!--  hr -->
+										<hr>
+									</div>
+								</div>
+							</div>
+							<!-- single-product-area end -->
+							<div class="related-product-area">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="section-title text-left mb-40">
+											<h2 class="uppercase">Gợi ý sản phẩm</h2>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="active-related-product">
+										<!-- product-item start -->
+										<div class="col-xs-12" th:each="eachRe : ${proRelationship}">
+											<div class="product-item">
+												<div class="product-img">
+													<a
+														th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}">
+														<img th:src="@{/{image}(image = ${eachRe.mainImg})}"
+														alt="" />
+													</a>
+												</div>
+												<div class="product-info">
+													<h6 class="product-title">
+														<a
+															th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}"
+															th:text="${eachRe.name}">Product Name</a>
+													</h6>
+													<div class="pro-rating">
+														<div th:if="${eachRe.rate == 1}">
+															<i class="zmdi zmdi-star"></i> <i
+																class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i>
+														</div>
+														<div th:if="${eachRe.rate == 2}">
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i>
+														</div>
+														<div th:if="${eachRe.rate == 3}">
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star"></i> <i
+																class="zmdi zmdi-star-outline"></i> <i
+																class="zmdi zmdi-star-outline"></i>
+														</div>
+														<div th:if="${eachRe.rate == 4}">
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star-outline"></i>
+														</div>
+														<div th:if="${eachRe.rate == 5}">
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+															<i class="zmdi zmdi-star"></i>
+														</div>
+													</div>
+													<h3 class="pro-price"
+														th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
+													<ul class="action-button">
+														<li><a href="#" title="Wishlist"><i
+																class="zmdi zmdi-favorite"></i></a></li>
+														<li><a
+															th:onclick="'quickView(\'' + ${eachRe.id} + '\')'"
+															data-toggle="modal" data-target="#productModal"
+															title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
+														<li><a href="#" title="Add to cart"><i
+																class="zmdi zmdi-shopping-cart-plus"></i></a></li>
+													</ul>
+												</div>
+											</div>
+										</div>
+										<!-- product-item end -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<!-- widget-categories -->
+							<aside class="widget widget-categories box-shadow mb-30">
+								<h6 class="widget-title border-left mb-20">Danh mục sản
+									phẩm</h6>
+								<div id="cat-treeview" class="product-cat"
+									th:each="eachCate,iterStat : ${session.categoryNav}">
+									<ul>
+										<li th:class="${iterStat.index == 0} ? 'open'"><a
+											href="#" th:text="${eachCate.value[0]}">Điện thoại</a>
+											<ul th:each="cateChilren : ${eachCate.value[1]}">
+												<li><a
+													th:href="@{/home/{id}/product.html(id = ${cateChilren[0]})}"
+													th:text="${cateChilren[1]}">Iphone</a></li>
+											</ul></li>
+									</ul>
+								</div>
+							</aside>
+							<aside class="widget widget-product box-shadow">
+								<h6 class="widget-title border-left mb-20">Sản phẩm mới
+									nhất</h6>
+								<!-- product-item start -->
+								<div class="product-item" th:each="eachNew : ${newProduct}">
+									<div class="product-img">
+										<a
+											th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
+											<img th:src="@{/{image}(image = ${eachNew.mainImg})}" alt="" />
+										</a>
+									</div>
+									<div class="product-info">
+										<h6 class="product-title">
+											<a
+												th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}"
+												th:text="${eachNew.name}">Product Name</a>
+										</h6>
+										<h3 class="pro-price"
+											th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">&nbsp;Vnđ</h3>
+									</div>
+								</div>
+								<!-- product-item end -->
+							</aside>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- SHOP SECTION END -->
 
-    </section>
-    <!-- End page content -->
+		</section>
+		<!-- End page content -->
 
-    <!-- START FOOTER AREA -->
-    <div th:replace="fragments/navHome :: footer"></div>
-    <!-- END FOOTER AREA -->
+		<!-- START FOOTER AREA -->
+		<div th:replace="fragments/navHome :: footer"></div>
+		<!-- END FOOTER AREA -->
 
-    <div id="quickview-wrapper">
-        <!-- Modal -->
-        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-product clearfix">
-                            <div class="product-images">
-                                <div class="main-image images">
-                                    <img alt="" th:src="@{/assets/teamplates/img/product/quickview.jpg}">
-                                </div>
-                            </div><!-- .product-images -->
-                            <div class="product-info">
-                                <h1 id="name">SamSung A50</h1>
-                                <div class="price-box-3">
-                                    <div class="s-price-box">
-                                        <span class="new-price" id="price"></span>
-                                        <span class="old-price" id="price_sale"></span>
-                                    </div>
-                                </div>
-                                <label id="status" class="see-all"></label>
-                                <div class="quick-add-to-cart">
-                                    <form method="post" class="cart">
-                                        <div class="numbers-row">
-                                            <input type="number" id="french-hens" value="1">
-                                        </div>
-                                        <button class="single_add_to_cart_button" type="submit">Thêm vào giỏ</button>
-                                    </form>
-                                </div>
-                                <div class="quick-desc" id="descriptionQuick">
-                                    Hello, Every body.
-                                </div>
-                                <div class="social-sharing">
-                                    <div class="widget widget_socialsharing_widget">
-                                        <h3 class="widget-title-modal">Chia sẻ sản phẩm</h3>
-                                        <ul class="social-icons clearfix">
-                                            <li>
-                                                <a class="facebook" href="#" target="_blank" title="Facebook">
-                                                    <i class="zmdi zmdi-facebook"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="twitter" href="#" target="_blank" title="Skype">
-                                                    <i class="zmdi zmdi-skype"></i>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a class="twitter" href="#" target="_blank" title="Instagram">
-                                                    <i class="zmdi zmdi-instagram"></i>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div><!-- .product-info -->
-                        </div><!-- .modal-product -->
-                    </div><!-- .modal-body -->
-                </div><!-- .modal-content -->
-            </div><!-- .modal-dialog -->
-        </div>
-        <!-- END Modal -->
-    </div>
-    <!-- END QUICKVIEW PRODUCT -->
-</div>
-<!-- Body main wrapper end -->
+		<div id="quickview-wrapper">
+			<!-- Modal -->
+			<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="modal-product clearfix">
+								<div class="product-images">
+									<div class="main-image images">
+										<img alt=""
+											th:src="@{/assets/teamplates/img/product/quickview.jpg}">
+									</div>
+								</div>
+								<!-- .product-images -->
+								<div class="product-info">
+									<h1 id="name">SamSung A50</h1>
+									<div class="price-box-3">
+										<div class="s-price-box">
+											<span class="new-price" id="price"></span> <span
+												class="old-price" id="price_sale"></span>
+										</div>
+									</div>
+									<label id="status" class="see-all"></label>
+									<div class="quick-add-to-cart">
+										<form method="post" class="cart">
+											<div class="numbers-row">
+												<input type="number" id="french-hens" value="1">
+											</div>
+											<button class="single_add_to_cart_button" type="submit">Thêm
+												vào giỏ</button>
+										</form>
+									</div>
+									<div class="quick-desc" id="descriptionQuick">Hello,
+										Every body.</div>
+									<div class="social-sharing">
+										<div class="widget widget_socialsharing_widget">
+											<h3 class="widget-title-modal">Chia sẻ sản phẩm</h3>
+											<ul class="social-icons clearfix">
+												<li><a class="facebook" href="#" target="_blank"
+													title="Facebook"> <i class="zmdi zmdi-facebook"></i>
+												</a></li>
+												<li><a class="twitter" href="#" target="_blank"
+													title="Skype"> <i class="zmdi zmdi-skype"></i>
+												</a></li>
+												<li><a class="twitter" href="#" target="_blank"
+													title="Instagram"> <i class="zmdi zmdi-instagram"></i>
+												</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- .product-info -->
+							</div>
+							<!-- .modal-product -->
+						</div>
+						<!-- .modal-body -->
+					</div>
+					<!-- .modal-content -->
+				</div>
+				<!-- .modal-dialog -->
+			</div>
+			<!-- END Modal -->
+		</div>
+		<!-- END QUICKVIEW PRODUCT -->
+	</div>
+	<!-- Body main wrapper end -->
 
-<div th:replace="fragments/initHome :: commonScript"></div>
-<script th:inline="javascript">
-    var currUrl = /*[[@{/}]]*/ "";
-    var pageIndex = /*[[${session.pageIndex}]]*/ "";
-</script>
-<!--Start QuickView-->
-<script>
-    function quickView(id) {
-        $.ajax({
-            url: currUrl + '/home/single-product.html',
-            method: 'GET',
-            data: {'id': id},
-            contentType: 'application/x-www-form-urlencoded',
-            success: function (response) {
-                var data = JSON.parse(response);
-                $('#name').text(data.name);
-                $('#price').text(formatPriceString(data.price) + '' + ' Vnđ');
-                $('#price_sale').text(formatPriceString(data.priceSale) + ' Vnđ');
-                $('#descriptionQuick').text(data.description);
-                if(data.status === 1){
-                    $('#status').text("Còn hàng");
-                    $('#status').addClass("status-success")
-                    $('#status').removeClass("status-warning")
-                }else{
-                    $('#status').text("Hết hàng");
-                    $('#status').addClass("status-warning")
-                    $('#status').removeClass("status-success")
-                }
-            }
-        })
-    }
+	<div th:replace="fragments/initHome :: commonScript"></div>
+	<script th:inline="javascript">
+		var currUrl = /*[[@{/}]]*/"";
+		var pageIndex = /*[[${session.pageIndex}]]*/"";
+	</script>
+	<!--Start QuickView-->
+	<script>
+		function quickView(id) {
+			$.ajax({
+				url : currUrl + '/home/single-product.html',
+				method : 'GET',
+				data : {
+					'id' : id
+				},
+				contentType : 'application/x-www-form-urlencoded',
+				success : function(response) {
+					var data = JSON.parse(response);
+					$('#name').text(data.name);
+					$('#price').text(
+							formatPriceString(data.price) + '' + ' Vnđ');
+					$('#price_sale').text(
+							formatPriceString(data.priceSale) + ' Vnđ');
+					$('#descriptionQuick').text(data.description);
+					if (data.status === 1) {
+						$('#status').text("Còn hàng");
+						$('#status').addClass("status-success")
+						$('#status').removeClass("status-warning")
+					} else {
+						$('#status').text("Hết hàng");
+						$('#status').addClass("status-warning")
+						$('#status').removeClass("status-success")
+					}
+				}
+			})
+		}
 
-    function formatPriceString(priceStr) {
-        if (typeof priceStr === 'number') {
-            priceStr = priceStr.toString();
-            if (priceStr.startsWith('-')) {
-                priceStr = priceStr.substring(1, priceStr.length);
-            }
-        }
-        return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
-    }
-</script>
-<!--End QuickView-->
+		function formatPriceString(priceStr) {
+			if (typeof priceStr === 'number') {
+				priceStr = priceStr.toString();
+				if (priceStr.startsWith('-')) {
+					priceStr = priceStr.substring(1, priceStr.length);
+				}
+			}
+			return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+		}
+	</script>
+	<!--End QuickView-->
 </body>
 
 </html>

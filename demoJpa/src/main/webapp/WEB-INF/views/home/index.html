@@ -31,7 +31,8 @@
 		<!-- START HEADER AREA -->
 		<header class="header-area header-wrapper">
 			<!-- header-top-bar -->
-			<div th:replace="fragments/navHome :: header(cart = ${session.myCartItems},total = ${session.myCartTotal},size = ${session.myCartNum})"></div>
+			<div
+				th:replace="fragments/navHome :: header"></div>
 			<!-- header-middle-area -->
 		</header>
 		<!-- END HEADER AREA -->
@@ -287,12 +288,12 @@
 									</div>
 									<label id="status" class="see-all"></label>
 									<div class="quick-add-to-cart">
-										<form class="cart">
+										<form class="cart" th:action="@{/cart/add/{productId}.html(productId = id)}">
 											<div class="numbers-row">
 												<input type="number" id="french-hens" value="1">
 											</div>
-											<a th:href="@{/cart/add/{productId}.html(productId = ${id})}"><button class="single_add_to_cart_button" type="submit">Thêm
-												vào giỏ</button></a>
+											<button class="single_add_to_cart_button" type="submit">Thêm
+												vào giỏ</button>
 										</form>
 									</div>
 									<div class="quick-desc" id="description">Hello, Every
@@ -336,6 +337,7 @@
 	</script>
 	<script>
 		function quickView(id) {
+			var id = id;
 			$.ajax({
 				url : currUrl + '/home/single-product.html',
 				method : 'GET',
@@ -345,7 +347,6 @@
 				contentType : 'application/x-www-form-urlencoded',
 				success : function(response) {
 					var data = JSON.parse(response);
-					$('#id').text(data.id);
 					$('#name').text(data.name);
 					$('#price').text(
 							formatPriceString(data.price) + '' + ' Vnđ');
