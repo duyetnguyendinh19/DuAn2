@@ -27,7 +27,7 @@ public interface CategoryService {
 
 	Page<Category> findAllCatePage(String name, String delete, String active, Pageable pageable);
 
-	List<Category> findAllCateList(long id, String name, String delete, String active, Category parent);
+	List<Category> findAllCateList(long id, String name, String delete, String active);
 
 	List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete);
 }

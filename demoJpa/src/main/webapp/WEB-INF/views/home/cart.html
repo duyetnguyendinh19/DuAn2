@@ -16,8 +16,7 @@
 		<!-- START HEADER AREA -->
 		<header class="header-area header-wrapper">
 			<!-- header-top-bar -->
-			<div
-				th:replace="fragments/navHome :: header(cart = ${session.myCartItems},total = ${session.myCartTotal},size = ${session.myCartNum})"></div>
+			<div th:replace="fragments/navHome :: header"></div>
 			<!-- header-middle-area -->
 		</header>
 		<!-- END HEADER AREA -->
@@ -98,21 +97,23 @@
 																	<h6 class="product-title-2">
 																		<a href="#" th:text="${cart.value.product.name}"></a>
 																	</h6>
-																	<p
-																		th:text="${cart.value.product.category.name}"></p>
+																	<p th:text="${cart.value.product.category.name}"></p>
 																	<p
 																		th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></p>
 																</div>
 															</td>
-															<td class="product-price">5.600.000</td>
+															<td class="product-price"
+																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
 															<td class="product-quantity">
 																<div class="cart-plus-minus f-left">
-																	<input type="text" value="1" name="payment"
-																		class="cart-plus-minus-box">
+																	<input type="text" th:value="${cart.value.quantity}"
+																		name="payment" class="cart-plus-minus-box">
 																</div>
 															</td>
-															<td class="product-subtotal">5.000.000</td>
-															<td class="product-remove"><a href="#"><i
+															<td class="product-subtotal"
+																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
+															<td class="product-remove"><a
+																th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"><i
 																	class="zmdi zmdi-close" title="Xóa"></i></a></td>
 														</tr>
 
@@ -138,19 +139,21 @@
 														<table>
 															<tr>
 																<td class="td-title-1">Tiền sản phẩm</td>
-																<td class="td-title-2">1.000.000 Vnđ</td>
+																<td class="td-title-2"
+																	th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															</tr>
-															<tr>
+															<!-- <tr>
 																<td class="td-title-1">Phí ship</td>
 																<td class="td-title-2">150.000 Vnđ</td>
 															</tr>
 															<tr>
 																<td class="td-title-1">Thuế</td>
 																<td class="td-title-2">500.000 Vnđ</td>
-															</tr>
+															</tr> -->
 															<tr>
 																<td class="order-total">Thành tiền</td>
-																<td class="order-total-price">1.650.000 Vnđ</td>
+																<td class="order-total-price"
+																	th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															</tr>
 														</table>
 													</div>

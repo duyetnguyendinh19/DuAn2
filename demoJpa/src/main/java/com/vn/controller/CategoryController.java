@@ -112,7 +112,7 @@ public class CategoryController {
             model.addAttribute("title", "Sửa danh mục");
         }
 
-		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y", null));
+		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
 
         return "admin/categorys/cate_edit";
     }

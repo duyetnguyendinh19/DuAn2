@@ -29,8 +29,8 @@ public interface CategoryRepo extends JpaRepository<Category, Long> {
 
 	@Query(value = "SELECT c FROM Category c WHERE c.id != :id "
 			+ " AND (:name IS NULL OR :name = '' OR c.name LIKE CONCAT('%', :name, '%'))"
-			+ " AND (c.isDelete = :isDelete)" + " AND (c.isActive = :isActive)" + " AND (c.parent) =:parent ")
+			+ " AND (c.isDelete = :isDelete)" + " AND (c.isActive = :isActive)" + " AND (c.parent is null) ")
 	List<Category> findAllCateList(@Param("id") long id, @Param("name") String name, @Param("isDelete") String delete,
-			@Param("isActive") String active, @Param("parent") Category parent);
+			@Param("isActive") String active);
 
 }

@@ -50,7 +50,7 @@
 									<input class="form-control" type="text" id="form-field-name"
 										th:field="*{name}" maxlength="64" />
 								</div>
-								<label>Nhóm danh mục</label>
+								<br /> <label>Nhóm danh mục</label>
 								<div>
 									<select id="form-field-parent" class="form-control"
 										th:field="*{parent}">
@@ -67,8 +67,7 @@
 								th:field="*{isActive}">
 								<option value="Y">Hoạt động</option>
 								<option value="N">Không hoạt động</option>
-							</select> <label>Ngày tạo</label>
-
+							</select> <br /> <label>Ngày tạo</label>
 							<div th:if="${date == null}">
 								<input type="text" name="date" class="form-control"
 									th:value="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy HH:mm:ss')}"
@@ -82,7 +81,8 @@
 								<input class="form-control" type="hidden" th:field="*{isDelete}" />
 							</div>
 						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-12 ">
+							<br />
 							<div class="form-group">
 								<button type="submit" class="btn btn-info">Lưu</button>
 								<a th:href="@{/category/list.html}" href="/category/list"

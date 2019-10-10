@@ -72,8 +72,8 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public List<Category> findAllCateList(long id, String name, String delete, String active, Category parent) {
-		return categoryRepo.findAllCateList(id, name, delete, active, parent);
+	public List<Category> findAllCateList(long id, String name, String delete, String active) {
+		return categoryRepo.findAllCateList(id, name, delete, active);
 	}
 
 }
