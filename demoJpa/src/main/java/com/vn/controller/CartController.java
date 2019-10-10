@@ -23,6 +23,7 @@ public class CartController {
 	@Resource
 	private ProductService productSerivce;
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "add/{productId}.html", method = RequestMethod.GET)
 	public String viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
@@ -49,6 +50,7 @@ public class CartController {
 		return "redirect:/";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "sub/{productId}.html", method = RequestMethod.GET)
 	public String viewUpdate(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
@@ -59,6 +61,7 @@ public class CartController {
 		return "redirect:/";
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "remove/{productId}.html", method = RequestMethod.GET)
 	public String viewRemove(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
