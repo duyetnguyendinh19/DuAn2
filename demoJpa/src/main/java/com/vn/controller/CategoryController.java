@@ -2,12 +2,13 @@ package com.vn.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import com.google.common.base.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,9 +32,10 @@ import com.vn.validation.service.CategoryFormValidator;
 @RequestMapping("/category/")
 public class CategoryController {
 
-	@Resource
-	private CategoryService categoryService;
+    @Resource
+    private CategoryService categoryService;
 
+<<<<<<< HEAD
 	@Resource
 	private CategoryFormValidator categoryFormValidator;
 
@@ -58,39 +60,73 @@ public class CategoryController {
 		model.addAttribute("not_found_message", not_found_message);
 		return "admin/categorys/cate_list";
 	}
+=======
+    @Resource
+    private CategoryFormValidator categoryFormValidator;
+>>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
-	@RequestMapping(value = "delete/{id}/list.html", method = RequestMethod.GET)
+    private String DELETE = "N";
+    private String ISACTVE = "Y";
+
+    @RequestMapping(value = "list.html", method = {RequestMethod.GET, RequestMethod.POST})
+//    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    private String listCategory(Model model, Pageable pageable,
+                                @RequestParam(value = "txtName", defaultValue = "") String txtName, HttpServletRequest request, HttpSession session) {
+        String not_found_message = "";
+        if (Strings.isNullOrEmpty(txtName) && request.getMethod().equalsIgnoreCase("GET")) {
+            model.addAttribute("txtName", "");
+        }
+        if (request.getMethod().equalsIgnoreCase("POST")) {
+            model.addAttribute("txtName", txtName);
+        }
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "id"));
+        Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
+        Page<Category> pageTop = categoryService.findAllCatePage(txtName, DELETE, ISACTVE, _pageable);
+        if (pageTop.getContent().size() == 0) {
+            not_found_message = "Không tìm thấy dữ liệu";
+        }
+        model.addAttribute("page", pageTop);
+        model.addAttribute("not_found_message", not_found_message);
+        return "admin/categorys/cate_list";
+    }
+
+    @RequestMapping(value = "delete/{id}/list.html", method = RequestMethod.GET)
 //    @PreAuthorize("hasAnyAuthority('Administrators')")
-	public String deleteCategory(@PathVariable("id") long id) {
-		Category category = categoryService.findOne(id);
-		if (category == null) {
-			return "403";
-		}
-		category.setIsDelete("Y");
-		categoryService.update(category);
-		return "redirect:/category/list.html";
-	}
+    public String deleteCategory(@PathVariable("id") long id) {
+        Category category = categoryService.findOne(id);
+        if (category == null) {
+            return "403";
+        }
+        category.setIsDelete("Y");
+        categoryService.update(category);
+        return "redirect:/category/list.html";
+    }
 
-	@RequestMapping(value = "{id}/edit.html", method = RequestMethod.GET)
-	public String editCategory(Model model, @PathVariable("id") long id) {
-		if (id == 0) {
-			Category category = new Category();
-			category.setIsActive("Y");
-			model.addAttribute("category", category);
-			model.addAttribute("title", "Thêm mới danh mục");
-		} else {
-			Category category = categoryService.findOne(id);
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-			model.addAttribute("category", category);
-			model.addAttribute("date", sdf.format(category.getDate()));
-			model.addAttribute("title", "Sửa danh mục");
-		}
+    @RequestMapping(value = "{id}/edit.html", method = RequestMethod.GET)
+    public String editCategory(Model model, @PathVariable("id") long id) {
+        if (id == 0) {
+            Category category = new Category();
+            category.setIsActive("Y");
+            model.addAttribute("category", category);
+            model.addAttribute("title", "Thêm mới danh mục");
+        } else {
+            Category category = categoryService.findOne(id);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            model.addAttribute("category", category);
+            model.addAttribute("date", sdf.format(category.getDate()));
+            model.addAttribute("title", "Sửa danh mục");
+        }
 
+<<<<<<< HEAD
 		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y", null));
+=======
+        model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
+>>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
-		return "admin/categorys/cate_edit";
-	}
+        return "admin/categorys/cate_edit";
+    }
 
+<<<<<<< HEAD
 	@RequestMapping(value = "save.html", method = RequestMethod.POST)
 	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,
 			@RequestParam("date") String date, Model model) throws ParseException {
@@ -113,5 +149,28 @@ public class CategoryController {
 		}
 		return "redirect:/category/list.html";
 	}
+=======
+    @RequestMapping(value = "save.html", method = RequestMethod.POST)
+    public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result, @RequestParam("date") String date, Model model) throws ParseException {
+        categoryFormValidator.validateCategoryForm(category, result);
+        if (result.hasErrors()) {
+            if (category.getId() == null) {
+                model.addAttribute("title", "Thêm mới danh mục");
+            } else {
+                model.addAttribute("title", "Sửa danh mục");
+            }
+            return "admin/categorys/cate_edit";
+        }
+        if (category.getId() == null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+            category.setIsDelete("N");
+            category.setDate(sdf.parse(date));
+            categoryService.insert(category);
+        } else {
+            categoryService.update(category);
+        }
+        return "redirect:/category/list.html";
+    }
+>>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
 }

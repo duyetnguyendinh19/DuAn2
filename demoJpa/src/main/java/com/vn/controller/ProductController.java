@@ -4,6 +4,8 @@ import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
+import com.vn.common.FileUtils;
+import com.vn.common.FileUtils.DescriptionBase64File;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
 import com.vn.model.CategoryModel;
@@ -110,6 +112,19 @@ public class ProductController {
         }
         model.addAttribute("category", lsModel);
         return "admin/product/add";
+    }
+
+    @RequestMapping(value = "add.html", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String addProduct(@RequestBody(required = false) ProductModel model) {
+        try {
+            Product product = new Product();
+            FileUtils.Result result = FileUtils.storageFile("",model.getMainImg(),false,false);
+            product.setMainImg(result.getResult());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/product/list.html";
     }
 
     @RequestMapping(value = "categoryChildren.html", method = RequestMethod.GET)

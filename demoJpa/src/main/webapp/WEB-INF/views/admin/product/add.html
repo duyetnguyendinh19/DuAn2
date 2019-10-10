@@ -262,6 +262,7 @@
                                             </label>
                                         </div>
                                     </div>
+                                    <input type="text" name="mainImg" id="mainImg" hidden/>
                                 </div>
                             </div>
                         </div>
@@ -364,7 +365,8 @@
                     <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <button type="submit" class="btn btn-info">Thêm</button>
+<!--                                <label class="btn btn-success" id="addProduct">Test</label>-->
+                                <button type="submit" id="addProduct" class="btn btn-info">Thêm</button>
                                 <a th:href="@{/product/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
                                    href="/account/list" class="btn btn-warning">Bỏ qua</a>
                             </div>
@@ -476,80 +478,118 @@
     });
 </script>
 <script type="text/javascript">
+    var mainImg = '';
     var that = this;
-    $('input[type="file"].imgUpload')
-        .each(
-            function () {
-                var $file = $(this), $label = $file.next('label'), $labelText = $label
-                    .find('span'), labelDefault = $labelText.text();
-                $file
-                    .on(
-                        'change',
-                        function (event) {
-                            var fileName = $file.val().split('\\').pop(),
-                                tmppath = URL.createObjectURL(event.target.files[0]);
-                            if (fileName) {
-                                $label.addClass('file-ok').css(
-                                    'background-image',
-                                    'url(' + tmppath + ')');
-                                $labelText.removeClass('red');
-                                $labelText.text(fileName);
-                                // that.dataValueClone.image1 = fileName;
-                            } else {
-                                $label.removeClass('file-ok');
-                                $labelText.text(labelDefault);
-                            }
-                        });
+    $('input[type="file"].imgUpload').each(
+        function () {
+            var $file = $(this), $label = $file.next('label'),
+                $labelText = $label.find('span'), labelDefault = $labelText.text();
+            $file.on('change', function (event) {
+                var reader = new FileReader();
+                var objectResult = {};
+                var dataFile = this.files[0];
+                reader.readAsDataURL(dataFile);
+                reader.onload = function () {
+                    setTimeout(function () {
+                        objectResult.fileName = dataFile.name;
+                        var readerResult = reader.result;
+                        objectResult.content = readerResult.split(',')[1];
+                        var tmppath = URL.createObjectURL(dataFile);
+                        if (readerResult) {
+                            $label.addClass('file-ok').css('background-image', 'url(' + readerResult + ')');
+                            $labelText.removeClass('red');
+                            $labelText.text(dataFile.name);
+                            // $('#mainImg').text(objectResult);
+                            mainImg = objectResult;
+                        } else {
+                            $label.removeClass('file-ok');
+                            $labelText.text(labelDefault);
+                        }
+                    }, 500);
+                };
+                reader.onerror = function (error) {
+                };
             });
-</script>
-<script>
-    var imagesAdded = [];
+        });
+
+    var subImages = [];
+    var indexOfImageToAdd = 0;
     $('#addSubImage').on('change', function (event) {
         var that = this;
-        var indexOfImageToAdd = imagesAdded.length;
-        var html = `<div class="wrap-custom-file" id="idAddSubImage_${indexOfImageToAdd}" data-index>
+        var html = `<div class="wrap-custom-file" id="idAddSubImage_${indexOfImageToAdd}">
             <label style="display:flex;
             justify-content:center;
             align-items:center;">
-        <span id="removeAdded_${indexOfImageToAdd}" class="removeIMGAdd" style="display:none;border:2px solid #fff;
+        <span id="removeAdded_${indexOfImageToAdd}" data-id="${indexOfImageToAdd}" class="removeIMGAdd" style="display:none;border:2px solid #fff;
             font-size: 15px;color: white;padding: 3px;width: calc(100% - 15px);align-items: center;justify-content: center;
             margin-top: 0!important;cursor:pointer;">REMOVE FILE</span>
             <span id="loading-add-image-span" class="fa fa-spinner fa-spin" style="margin-top:0!important"></span>
             <span class="nameFile" style="position:absolute;bottom:0;left:0;width:100%;padding:0.3rem;font-size:1.1rem;color:#6a0700;background-color: rgba(255, 255, 255, 0.7);height:28px;"></span>
             </label></div>`;
         var reader = new FileReader();
+        var imageGetted = [];
         var objectResult = {};
         var dataFile = this.files[0];
         reader.readAsDataURL(dataFile);
+        var htmlAppend = $(html);
         reader.onload = function () {
             setTimeout(function () {
                 objectResult.fileName = dataFile.name;
                 var readerResult = reader.result;
                 objectResult.content = readerResult.split(',')[1];
-                imagesAdded.push(objectResult);
+                $('#loading-add-image-span').remove();
+                imageGetted.push(indexOfImageToAdd, objectResult);
+                subImages.push(imageGetted);
                 var tmppath = URL.createObjectURL(dataFile);
-                var htmlAppend = $(html);
                 htmlAppend.find('label').css('background-image', 'url(' + readerResult + ')');
                 htmlAppend.find('.nameFile').text(dataFile.name);
-                $('#addSubImages').before(htmlAppend);
-                $('#loading-add-image-span').remove();
+                indexOfImageToAdd++;
             }, 500);
+            $('#addSubImages').before(htmlAppend);
         };
         reader.onerror = function (error) {
         };
         // $(that).val('');
     });
+
+    $('body').on('click', '.wrap-custom-file label span[id^="removeAdded_"]', function () {
+        let id = $(this).attr('data-id');
+        let indexDelete = '';
+        for (let i = 0; i < subImages.length; i++) {
+            console.log(id)
+            if (subImages[i][0] == id) {
+                indexDelete = i;
+                subImages.splice(i, 1);
+                break;
+            }
+        }
+        console.log(indexDelete);
+        $(this).parent().parent().remove();
+    });
+
+    $('#addProduct').on('click', function () {
+        var dataObject = {};
+        dataObject.mainImg = mainImg;
+        dataObject.subImg = subImages;
+        $.ajax({
+            url: currUrl + 'product/add.html',
+            method: 'POST',
+            data: dataObject,
+            contentType: 'application/jsson',
+            success: function (response) {
+
+            }
+        });
+    });
+</script>
+<script>
+
 </script>
 <script> //xóa subImg
 var that = this;
 $('body').on('click', '.wrap-custom-file label span[id^="remove_"]', function () {
     var data_index = $(this).parent().parent().attr('data-index');
-    that.remove.push(that.subImageGetted[data_index]);
-    $(this).parent().parent().remove();
-});
-</script>
-<script>  //Xóa subImgAdd
-$('body').on('click', '.wrap-custom-file label span[id^="removeAdded_"]', function () {
+    // that.remove.push(that.subImageGetted[data_index]);
     $(this).parent().parent().remove();
 });
 </script>

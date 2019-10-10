@@ -2,7 +2,10 @@ package com.vn.model;
 
 import com.vn.jpa.Product;
 
+import javax.persistence.ManyToOne;
+
 public class Cart {
+
 	private Product product;
 	private int quantity;
 

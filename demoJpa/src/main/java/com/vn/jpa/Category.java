@@ -32,14 +32,14 @@ public class Category implements Serializable {
 	@OneToMany(mappedBy = "parent" , fetch = FetchType.LAZY)
 	private List<Category> children = new ArrayList<Category>();
 
-	@Column(name = "isactive" , columnDefinition = "CHAR(1)")
+	@Column(name = "isactive" , columnDefinition = "CHAR")
 	private String isActive;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created_date")
 	private Date date;
 
-	@Column(name = "isdelete", columnDefinition = "CHAR(1)")
+	@Column(name = "isdelete", columnDefinition = "CHAR")
 	private String isDelete;
 
 	public Category() {
