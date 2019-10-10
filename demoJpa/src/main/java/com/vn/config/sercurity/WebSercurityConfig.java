@@ -52,7 +52,7 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity security) throws Exception {
         security.ignoring().antMatchers("/webjars/**", "/resources/**", "/static/**", "/repository/**", "/assets/**",
-                "/fonts/**","/","/home/**");
+                "/fonts/**","/","/home/**","/cart/**");
     }
 
     @Override
