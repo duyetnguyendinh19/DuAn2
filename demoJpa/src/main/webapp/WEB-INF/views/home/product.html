@@ -96,7 +96,7 @@
 												<div class="product-img">
 													<a
 														th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
-														<img th:src="@{/{image}(image = ${eachPro.mainImg})}"
+														<img th:src="${eachPro.mainImg}"
 														alt="" />
 													</a>
 												</div>
@@ -137,7 +137,10 @@
 															<i class="zmdi zmdi-star"></i>
 														</div>
 													</div>
-													<h3 class="pro-price"
+													<h3 th:if="${eachPro.rate == 0}" class="pro-price" style="margin-top: 33px;"
+														th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
+														&nbsp;Vnđ</h3>
+													<h3 th:if="${eachPro.rate != 0}" class="pro-price"
 														th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
 														&nbsp;Vnđ</h3>
 													<ul class="action-button">
