@@ -35,7 +35,6 @@ public class CategoryController {
     @Resource
     private CategoryService categoryService;
 
-<<<<<<< HEAD
 	@Resource
 	private CategoryFormValidator categoryFormValidator;
 
@@ -60,10 +59,6 @@ public class CategoryController {
 		model.addAttribute("not_found_message", not_found_message);
 		return "admin/categorys/cate_list";
 	}
-=======
-    @Resource
-    private CategoryFormValidator categoryFormValidator;
->>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
     private String DELETE = "N";
     private String ISACTVE = "Y";
@@ -117,16 +112,11 @@ public class CategoryController {
             model.addAttribute("title", "Sửa danh mục");
         }
 
-<<<<<<< HEAD
 		model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y", null));
-=======
-        model.addAttribute("lstCate", categoryService.findAllCateList(id, "", "N", "Y"));
->>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
         return "admin/categorys/cate_edit";
     }
 
-<<<<<<< HEAD
 	@RequestMapping(value = "save.html", method = RequestMethod.POST)
 	public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result,
 			@RequestParam("date") String date, Model model) throws ParseException {
@@ -149,28 +139,5 @@ public class CategoryController {
 		}
 		return "redirect:/category/list.html";
 	}
-=======
-    @RequestMapping(value = "save.html", method = RequestMethod.POST)
-    public String saveCategory(@ModelAttribute(value = "category") @Valid Category category, BindingResult result, @RequestParam("date") String date, Model model) throws ParseException {
-        categoryFormValidator.validateCategoryForm(category, result);
-        if (result.hasErrors()) {
-            if (category.getId() == null) {
-                model.addAttribute("title", "Thêm mới danh mục");
-            } else {
-                model.addAttribute("title", "Sửa danh mục");
-            }
-            return "admin/categorys/cate_edit";
-        }
-        if (category.getId() == null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-            category.setIsDelete("N");
-            category.setDate(sdf.parse(date));
-            categoryService.insert(category);
-        } else {
-            categoryService.update(category);
-        }
-        return "redirect:/category/list.html";
-    }
->>>>>>> b87ab10c436c793c39dfb7d47dd0838a7adb69e5
 
 }
