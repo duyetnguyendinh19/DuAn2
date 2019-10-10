@@ -52,7 +52,7 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity security) throws Exception {
         security.ignoring().antMatchers("/webjars/**", "/resources/**", "/static/**", "/repository/**", "/assets/**",
-                "/fonts/**","/","/home/**","/cart/**");
+                "/fonts/**","/","/home/**","/cart/**", "/main-img/**","/sub-img/**");
     }
 
     @Override
@@ -101,6 +101,7 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
                     .expiredUrl("/admin/login.html?exprired=true")
                     .maxSessionsPreventsLogin(false) //Không cho đăng nhập khi đã tồn tại session
                 .and()
-                    .enableSessionUrlRewriting(false);
+                    .enableSessionUrlRewriting(false)
+                .and().csrf().disable();
     }
 }

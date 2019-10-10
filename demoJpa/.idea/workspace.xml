@@ -8,10 +8,12 @@
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/MailConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/WebMvcConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/add.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -208,7 +210,7 @@
       <workItem from="1570584776801" duration="3354000" />
       <workItem from="1570588184773" duration="28712000" />
       <workItem from="1570630867242" duration="3110000" />
-      <workItem from="1570671122882" duration="12597000" />
+      <workItem from="1570671122882" duration="26983000" />
     </task>
     <task id="LOCAL-00001" summary="update code">
       <created>1570284518987</created>
@@ -287,7 +289,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570677467372</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="update code">
+      <created>1570684151994</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1570684151994</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -315,8 +324,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java</url>
-          <line>120</line>
-          <option name="timeStamp" value="20" />
+          <line>155</line>
+          <option name="timeStamp" value="22" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -86,7 +86,7 @@
 								<div class="product-img">
 									<a
 										th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
-										<img th:src="@{/{image}(image = ${eachNew.mainImg})}" alt="" />
+										<img th:src="${eachNew.mainImg}" alt="" />
 									</a>
 								</div>
 								<div class="product-info">
@@ -96,6 +96,9 @@
 											th:text="${eachNew.name}">Product Name</a>
 									</h6>
 									<div class="pro-rating">
+										<div th:if="${eachNew.rate == null}">
+											&nbsp;
+										</div>
 										<div th:if="${eachNew.rate == 1}">
 											<i class="zmdi zmdi-star"></i> <i
 												class="zmdi zmdi-star-outline"></i> <i

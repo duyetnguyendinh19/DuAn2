@@ -315,7 +315,7 @@
                             <div class="form-group">
                                 <label>Tên sản phẩm</label>
                                 <div>
-                                    <input type="text" class="form-control" placeholder="Tên sản phẩm"/>
+                                    <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm"/>
                                 </div>
                             </div>
                         </div>
@@ -347,7 +347,7 @@
                             <div class="form-group" style="height: 100px;">
                                 <label>Nội dung sản phẩm</label>
                                 <div style="height: 100px;">
-                                    <textarea class="form-control" placeholder="Nội dung sản phẩm"
+                                    <textarea class="form-control" placeholder="Nội dung sản phẩm" id="description"
                                               style="height: 100px;"></textarea>
                                 </div>
                             </div>
@@ -356,7 +356,7 @@
                             <div class="form-group">
                                 <label>Thông tin sản phẩm</label>
                                 <div>
-                                    <textarea class="form-control" placeholder="Thông tin sản phẩm"
+                                    <textarea class="form-control" placeholder="Thông tin sản phẩm" id="info"
                                               style="height: 100px;"></textarea>
                                 </div>
                             </div>
@@ -366,7 +366,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
 <!--                                <label class="btn btn-success" id="addProduct">Test</label>-->
-                                <button type="submit" id="addProduct" class="btn btn-info">Thêm</button>
+                                <button type="button" id="addProduct" class="btn btn-info">Thêm</button>
                                 <a th:href="@{/product/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
                                    href="/account/list" class="btn btn-warning">Bỏ qua</a>
                             </div>
@@ -568,16 +568,28 @@
     });
 
     $('#addProduct').on('click', function () {
+        let subImamgeObject = [];
+        for(let i of subImages){
+            subImamgeObject.push(i[1]);
+        }
         var dataObject = {};
         dataObject.mainImg = mainImg;
-        dataObject.subImg = subImages;
+        dataObject.subImg = subImamgeObject;
+        dataObject.name = $('#name').val();
+        dataObject.idCate = $('#form-field-cate-children option:selected').val();
+        dataObject.description = $('#description').val();
+        dataObject.info = $('#info').val();
+        dataObject.quantity = $('#quantity').val();
+        dataObject.price = $('#price').val().replace(/,/g, '');
+        dataObject.priceSale = $('#priceSale').val().replace(/,/g, '');
         $.ajax({
             url: currUrl + 'product/add.html',
             method: 'POST',
-            data: dataObject,
-            contentType: 'application/jsson',
+            data: JSON.stringify(dataObject),
+            dataType: 'json',
+            contentType: 'application/json;charset=utf-8',
             success: function (response) {
-
+                console.log(response)
             }
         });
     });

@@ -40,6 +40,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         registry.addResourceHandler("/assets/**").addResourceLocations("/", "/assets/", "classpath:/META-INF/web-/assets/");
         registry.addResourceHandler("/static/**").addResourceLocations("/", "/static/", "classpath:/META-INF/web-static/");
+        registry.addResourceHandler("/main-img/**").addResourceLocations("file:///C:/otoke-image/main-img/");
+        registry.addResourceHandler("/sub-img/**").addResourceLocations("file:///C:/otoke-image/sub-img/");
     }
 
     @Bean

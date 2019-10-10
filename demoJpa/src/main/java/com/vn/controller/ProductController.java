@@ -13,6 +13,7 @@ import com.vn.model.ProductModel;
 import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
 import org.joda.time.DateTime;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,9 +30,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 @RequestMapping("/product/")
@@ -42,6 +41,21 @@ public class ProductController {
 
     @Resource
     private ProductService productService;
+
+    @Value("${otoke.root.folder}")
+    private String ROOT_FOLDER;
+
+    @Value("${host.address}")
+    private String HOST_ADDRESS;
+
+    @Value("${main.images.folder}")
+    private String MAIN_ADDRESS;
+
+    @Value("${sub.images.folder}")
+    private String SUB_ADDRESS;
+
+//    private String MAIN_IMG_SOURCE_WEB = "/main-img/";
+//    private String SUB_IMG_SOURCE_WEB = "/sub-img";
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private String DELETE = "N";
@@ -118,18 +132,38 @@ public class ProductController {
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String addProduct(@RequestBody(required = false) ProductModel model) {
         try {
+            Map<String, Object> responeseMap = new HashMap<>();
+            String filePathMain = ROOT_FOLDER + MAIN_ADDRESS;
+            String sorceWebPathMain = HOST_ADDRESS + MAIN_ADDRESS;
+            String filePathSub = ROOT_FOLDER + SUB_ADDRESS;
+            String sorceWebPathSub = HOST_ADDRESS + SUB_ADDRESS;
+            FileUtils.Result resultMain = FileUtils.storageFile(filePathMain, model.getMainImg(), false, false, sorceWebPathMain);
+            FileUtils.Result resultSub = FileUtils.storageFile(filePathSub, model.getSubImg(), false, false, sorceWebPathSub);
             Product product = new Product();
-            FileUtils.Result result = FileUtils.storageFile("",model.getMainImg(),false,false);
-            product.setMainImg(result.getResult());
-        }catch (Exception e){
+            Category category = new Category();
+            category.setId(model.getIdCate());
+            product.setIsdelete("N");
+            product.setCategory(category);
+            product.setDescription(model.getDescription());
+            product.setInfo(model.getInfo());
+            product.setName(model.getName());
+            product.setPrice(model.getPrice());
+            product.setPriceSale(model.getPriceSale());
+            product.setQuantity(model.getQuantity());
+            product.setStatus(1);
+            product.setMainImg(resultMain.getResult());
+            product.setSubImg(resultSub.getResult());
+            productService.insert(product);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/product/list.html";
+        return "";
     }
 
     @RequestMapping(value = "categoryChildren.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public @ResponseBody String lsCategoryChildren(@RequestParam("parent_id") Long id){
+    public @ResponseBody
+    String lsCategoryChildren(@RequestParam("parent_id") Long id) {
         try {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             List<Category> category = categoryService.findByParentIdAndIsActiveAndIsDelete(id, ACTIVE, DELETE);
@@ -141,7 +175,7 @@ public class ProductController {
                 lsModel.add(categoryModel);
             }
             return gson.toJson(lsModel);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/product/list.html";
         }
