@@ -31,7 +31,7 @@
 		<!-- START HEADER AREA -->
 		<header class="header-area header-wrapper">
 			<!-- header-top-bar -->
-			<div th:replace="fragments/navHome :: header"></div>
+			<div th:replace="fragments/navHome :: header(cart = ${session.myCartItems},total = ${session.myCartTotal},size = ${session.myCartNum})"></div>
 			<!-- header-middle-area -->
 		</header>
 		<!-- END HEADER AREA -->
