@@ -209,6 +209,18 @@ public class ProductController {
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String update(Model model, @PathVariable("id") Long id, @ModelAttribute("product") @Valid ProductModel productModel, BindingResult result) {
         Product product = productService.findOne(id);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        List<Category> category = categoryService.findByParentIdAndIsActiveAndIsDelete(null, ACTIVE, DELETE);
+        List<CategoryModel> lsModel = new ArrayList<>();
+        for (Category each : category) {
+            CategoryModel categoryModel = new CategoryModel();
+            categoryModel.setId(each.getId());
+            categoryModel.setName(each.getName());
+            lsModel.add(categoryModel);
+        }
+        model.addAttribute("category", lsModel);
+        model.addAttribute("product", product);
+        model.addAttribute("subImg", gson.toJson(product.getSubImg()));
         return "admin/product/update";
     }
 
