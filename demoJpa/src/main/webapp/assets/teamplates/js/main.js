@@ -310,11 +310,12 @@
         var inp = $button.parent().find("input");
         var oldValue = inp[0].value;
         var currUrl = /*[[@{/}]]*/"";
+        var path = window.location.pathname.split("/")[1];
         var id = inp[1].value;
         if ($button.text() == "+") {
             var newVal = parseFloat(oldValue) + 1;
             $.ajax({
-                url: currUrl + 'cart/add/' + id + '.html',
+                url: currUrl + '/' + path + '/cart/add/' + id + '.html',
                 method: 'GET'
                 })
         } 
@@ -323,7 +324,7 @@
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
                 $.ajax({
-                    url: currUrl + 'cart/sub/' + id + '.html',
+                    url: currUrl + '/' + path + '/cart/sub/' + id + '.html',
                     method: 'GET'
                     })
             } 
@@ -332,6 +333,7 @@
             }
         }
         $button.parent().find("input").val(newVal);
+        location.reload();
     });
 
 	/* ********************************************

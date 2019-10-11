@@ -11,7 +11,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vn.jpa.Product;
 import com.vn.model.Cart;
 import com.vn.service.ProductService;
@@ -25,7 +29,8 @@ public class CartController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "add/{productId}.html", method = RequestMethod.GET)
-	public String viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
+	public @ResponseBody
+	void viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId,@RequestParam(value = "quantity", defaultValue = "1") int quantity) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
 		if (cartItems == null) {
 			cartItems = new HashMap<>();
@@ -45,15 +50,14 @@ public class CartController {
 			}
 		}
 		String size;
-		if(cartItems.size() < 10){
+		if (cartItems.size() < 10) {
 			size = "0" + cartItems.size();
-		}else{
+		} else {
 			size = String.valueOf(cartItems.size());
 		}
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
 		session.setAttribute("myCartNum", size);
-		return "redirect:/";
 	}
 
 	@SuppressWarnings("unchecked")
@@ -63,7 +67,28 @@ public class CartController {
 		if (cartItems == null) {
 			cartItems = new HashMap<>();
 		}
+		Product product = productSerivce.findOne(productId);
+		if (product != null) {
+			if (cartItems.containsKey(productId)) {
+				Cart item = cartItems.get(productId);
+				if(item.getQuantity() > 1) {
+					item.setProduct(product);
+					item.setQuantity(item.getQuantity() - 1);
+					cartItems.put(productId, item);
+				}else {
+					cartItems.remove(productId);
+				}
+			} 
+		}
+		String size;
+		if (cartItems.size() < 10) {
+			size = "0" + cartItems.size();
+		} else {
+			size = String.valueOf(cartItems.size());
+		}
 		session.setAttribute("myCartItems", cartItems);
+		session.setAttribute("myCartTotal", totalPrice(cartItems));
+		session.setAttribute("myCartNum", size);
 		return "redirect:/";
 	}
 
@@ -78,9 +103,9 @@ public class CartController {
 			cartItems.remove(productId);
 		}
 		String size;
-		if(cartItems.size() < 10){
+		if (cartItems.size() < 10) {
 			size = "0" + cartItems.size();
-		}else{
+		} else {
 			size = String.valueOf(cartItems.size());
 		}
 		session.setAttribute("myCartItems", cartItems);
