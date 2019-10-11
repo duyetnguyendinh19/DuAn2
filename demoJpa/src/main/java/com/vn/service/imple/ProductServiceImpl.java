@@ -64,4 +64,9 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAllProduct(Date fromDate, Date toDate, String name, String isDelete, Pageable pageable) {
         return productRepo.findAllProduct(fromDate, toDate, name, isDelete, pageable);
     }
+
+    @Override
+    public Product findByName(String name) {
+        return productRepo.findByName(name);
+    }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Repository(value = "productRepo")
 public interface ProductRepo extends JpaRepository<Product, Long> {
 
-    @Query(value = "SELECT * FROM Product ORDER BY id DESC LIMIT 10", nativeQuery = true)
+    @Query(value = "SELECT * FROM Product ORDER BY id DESC LIMIT 8", nativeQuery = true)
     List<Product> lsProductDateDesc();
 
     List<Product> findProductByCategoryId(Long id);
@@ -30,4 +30,5 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
                                  @Param("isDelete") String delete,
                                  Pageable pageable);
 
+    Product findByName(String name);
 }

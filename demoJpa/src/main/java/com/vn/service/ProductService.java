@@ -12,7 +12,6 @@ public interface ProductService {
 
     Page<Product> findAll(Pageable pageable);
 
-
     Product insert(Product product);
 
     Product update(Product product);
@@ -29,4 +28,5 @@ public interface ProductService {
 
     Page<Product> findAllProduct(Date fromDate, Date toDate, String name,String isDelete, Pageable pageable);
 
+    Product findByName(String name);
 }

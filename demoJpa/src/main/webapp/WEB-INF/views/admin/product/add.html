@@ -4,6 +4,10 @@
     <title>Title List</title>
 </head>
 <style>
+    .error {
+        color: red;
+    }
+
     /*---------upload ảnh------------*/
     .wrap-custom-file {
         position: relative;
@@ -214,6 +218,7 @@
 </style>
 <body>
 <div id="wrapper">
+    <input type="hidden" id="contextPath" th:value="@{/}">
     <div id="nav_id" th:replace="nav :: div">
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -246,12 +251,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <form>
-                    <!--                    <div class="alert alert-danger" style="text-align:left; color: red; font-weight: bold; font-size: 13px;" th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>-->
-                    <!--                    <input type="hidden" name="id" id="id" th:value="*{id}" />-->
+                    <div style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
+                         id="error"></div>
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="form-group">
-                                <label>Hình ảnh đại diện</label>
+                                <label>Hình ảnh đại diện</label><span class="error"> *</span>
                                 <div>
                                     <div class="group-hinhanh">
                                         <div class="wrap-custom-file">
@@ -268,7 +273,7 @@
                         </div>
                         <div class="col-lg-9">
                             <div class="form-group">
-                                <label>Hình ảnh chi tiết</label>
+                                <label>Hình ảnh chi tiết</label><span class="error"> *</span>
                                 <div>
                                     <div class="detail-step row-card-hinhanh-chit-tiet">
                                         <div class="group-hinhanh">
@@ -303,17 +308,17 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Loại DM</label>
+                                <label>Loại DM</label><span class="error"> *</span>
                                 <div>
                                     <select class="form-control" id="form-field-cate-children">
-                                        <option>Chọn loại DM</option>
+                                        <option value="">Chọn loại DM</option>
                                     </select>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Tên sản phẩm</label>
+                                <label>Tên sản phẩm</label><span class="error"> *</span>
                                 <div>
                                     <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm"/>
                                 </div>
@@ -321,7 +326,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Số lượng</label>
+                                <label>Số lượng</label><span class="error"> *</span>
                                 <div>
                                     <input type="text" class="form-control" id="quantity" value="1"/>
                                 </div>
@@ -329,7 +334,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Giá sản phẩm</label>
+                                <label>Giá sản phẩm</label><span class="error"> *</span>
                                 <div>
                                     <input type="text" class="form-control" placeholder="Giá sản phẩm" id="price"/>
                                 </div>
@@ -354,7 +359,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Thông tin sản phẩm</label>
+                                <label>Thông tin sản phẩm</label><span class="error"> *</span>
                                 <div>
                                     <textarea class="form-control" placeholder="Thông tin sản phẩm" id="info"
                                               style="height: 100px;"></textarea>
@@ -365,7 +370,7 @@
                     <div class="row" style="margin-bottom: 15px;margin-top: 10px;">
                         <div class="col-lg-6">
                             <div class="form-group">
-<!--                                <label class="btn btn-success" id="addProduct">Test</label>-->
+                                <!--                                <label class="btn btn-success" id="addProduct">Test</label>-->
                                 <button type="button" id="addProduct" class="btn btn-info">Thêm</button>
                                 <a th:href="@{/product/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
                                    href="/account/list" class="btn btn-warning">Bỏ qua</a>
@@ -569,29 +574,61 @@
 
     $('#addProduct').on('click', function () {
         let subImamgeObject = [];
-        for(let i of subImages){
+        for (let i of subImages) {
             subImamgeObject.push(i[1]);
         }
-        var dataObject = {};
-        dataObject.mainImg = mainImg;
-        dataObject.subImg = subImamgeObject;
-        dataObject.name = $('#name').val();
-        dataObject.idCate = $('#form-field-cate-children option:selected').val();
-        dataObject.description = $('#description').val();
-        dataObject.info = $('#info').val();
-        dataObject.quantity = $('#quantity').val();
-        dataObject.price = $('#price').val().replace(/,/g, '');
-        dataObject.priceSale = $('#priceSale').val().replace(/,/g, '');
-        $.ajax({
-            url: currUrl + 'product/add.html',
-            method: 'POST',
-            data: JSON.stringify(dataObject),
-            dataType: 'json',
-            contentType: 'application/json;charset=utf-8',
-            success: function (response) {
-                console.log(response)
+        var errorMessage = '';
+        if (mainImg == null || mainImg == '') {
+            errorMessage = "Ảnh đại diện sản phẩm không để trống";
+        }
+        if (subImamgeObject.length === 0) {
+            errorMessage = "Ảnh chi tiết sản phẩm không để trống";
+        }
+        if (errorMessage != '') {
+            $('#error').text(errorMessage);
+            $('#error').addClass('alert alert-danger');
+            $("#error").hide().fadeIn(0).delay(3000).fadeOut(1000);
+        } else {
+            var pricesale = $('#priceSale').val().replace(/,/g, '');
+            if(pricesale == null || pricesale == ''){
+                pricesale = 0;
+            }else{
+                pricesale = $('#priceSale').val().replace(/,/g, '');
             }
-        });
+            var dataObject = {};
+            dataObject.mainImg = mainImg;
+            dataObject.subImg = subImamgeObject;
+            dataObject.name = $('#name').val();
+            dataObject.idCate = $('#form-field-cate-children option:selected').val();
+            dataObject.description = $('#description').val();
+            dataObject.info = $('#info').val();
+            dataObject.quantity = $('#quantity').val();
+            dataObject.price = $('#price').val().replace(/,/g, '');
+            dataObject.priceSale = pricesale;
+            console.log(dataObject)
+            $.ajax({
+                url: currUrl + 'product/add.html',
+                method: 'POST',
+                data: JSON.stringify(dataObject),
+                // dataType: 'text/plain',
+                contentType: 'application/json;charset=utf-8',
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    console.log(data)
+                    var error = '';
+                    for(var each of data){
+                        if(each.returnCode === -1){
+                            error += each.result + '<br>';
+                        } else{
+                            window.location.href = $('#contextPath').val() + "product/list.html";
+                        }
+                    }
+                    $('#error').html(error);
+                    $('#error').addClass('alert alert-danger');
+                    $("#error").hide().fadeIn(0).delay(3000).fadeOut(1000);
+                }
+            });
+        }
     });
 </script>
 <script>

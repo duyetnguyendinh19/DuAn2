@@ -274,8 +274,8 @@
                         <div class="modal-product clearfix">
                             <div class="product-images">
                                 <div class="main-image images">
-                                    <img alt=""
-                                         th:src="@{/assets/teamplates/img/product/quickview.jpg}">
+                                    <img alt="" id="imageQuick"
+                                         src="">
                                 </div>
                             </div>
                             <!-- .product-images -->
@@ -350,6 +350,7 @@
             contentType: 'application/x-www-form-urlencoded',
             success: function (response) {
                 var data = JSON.parse(response);
+                $('#imageQuick').attr('src',data.mainImg);
                 $('#name').text(data.name);
                 $('#price').text(
                     formatPriceString(data.price) + '' + ' Vnđ');
