@@ -2,388 +2,399 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <div th:replace="fragments/initHome :: head"></div>
+<div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
-    .status-success {
-        color: white !important;
-        background: #0fa145 !important;
-        text-decoration: none !important;
-        width: 75px;
-        padding: 5px;
-        border-radius: 5px;
-    }
+.status-success {
+	color: white !important;
+	background: #0fa145 !important;
+	text-decoration: none !important;
+	width: 75px;
+	padding: 5px;
+	border-radius: 5px;
+}
 
-    .status-warning {
-        color: white !important;
-        background: #ff9800 !important;
-        text-decoration: none !important;
-        width: 70px;
-        padding: 5px;
-        border-radius: 5px;
-    }
+.status-warning {
+	color: white !important;
+	background: #ff9800 !important;
+	text-decoration: none !important;
+	width: 70px;
+	padding: 5px;
+	border-radius: 5px;
+}
 </style>
 
 <body>
-<!-- Body main wrapper start -->
-<div class="wrapper">
+	<!-- Body main wrapper start -->
+	<div class="wrapper">
 
-    <!-- START HEADER AREA -->
-    <header class="header-area header-wrapper">
-        <!-- header-top-bar -->
-        <div
-                th:replace="fragments/navHome :: header"></div>
-        <!-- header-middle-area -->
-    </header>
-    <!-- END HEADER AREA -->
+		<!-- START HEADER AREA -->
+		<header class="header-area header-wrapper">
+			<!-- header-top-bar -->
+			<div th:replace="fragments/navHome :: header"></div>
+			<!-- header-middle-area -->
+		</header>
+		<!-- END HEADER AREA -->
 
-    <!-- START MOBILE MENU AREA -->
-    <div th:replace="fragments/navHome :: menuMobile"></div>
-    <!-- END MOBILE MENU AREA -->
-    <input type="hidden" th:value="@{/}" id="path"/>
-    <div class="slider-area bg-3 bg-opacity-black-60 ptb-150 mb-80">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="slider-desc-3 slider-desc-4  text-center">
-                        <div class="wow fadeInUp" data-wow-duration="1s"
-                             data-wow-delay="1s">
-                            <h1 class="slider2-title-2 cd-headline clip is-full-width">
-                                <span>New smart phone</span> <span class="cd-words-wrapper">
+		<!-- START MOBILE MENU AREA -->
+		<div th:replace="fragments/navHome :: menuMobile"></div>
+		<!-- END MOBILE MENU AREA -->
+		<input type="hidden" th:value="@{/}" id="path" />
+		<div class="slider-area bg-3 bg-opacity-black-60 ptb-150 mb-80">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="slider-desc-3 slider-desc-4  text-center">
+							<div class="wow fadeInUp" data-wow-duration="1s"
+								data-wow-delay="1s">
+								<h1 class="slider2-title-2 cd-headline clip is-full-width">
+									<span>New smart phone</span> <span class="cd-words-wrapper">
 										<b class="is-visible">Samsung</b> <b>Iphone</b> <b>Microsoft</b>
 										<b>Nokia</b> <b>Sony</b>
 									</span>
-                            </h1>
-                        </div>
-                        <div class="wow fadeInUp" data-wow-duration="1s"
-                             data-wow-delay="1.5s">
-                            <h2 class="slider2-title-3">Samsung Galaxy S10+</h2>
-                        </div>
-                        <div class="slider-button wow fadeInUp" data-wow-duration="1s"
-                             data-wow-delay="2.5s">
-                            <a href="#" class="button extra-small button-white">
-                                <!--                                <span class="text-uppercase">Buy now</span>-->
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+								</h1>
+							</div>
+							<div class="wow fadeInUp" data-wow-duration="1s"
+								data-wow-delay="1.5s">
+								<h2 class="slider2-title-3">Samsung Galaxy S10+</h2>
+							</div>
+							<div class="slider-button wow fadeInUp" data-wow-duration="1s"
+								data-wow-delay="2.5s">
+								<a href="#" class="button extra-small button-white"> <!--                                <span class="text-uppercase">Buy now</span>-->
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <div class="featured-product-section mb-50">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-title text-left mb-40">
-                        <h2 class="uppercase">Sản phẩm mới</h2>
-                    </div>
-                </div>
-            </div>
-            <div class="featured-product">
-                <div class="row active-featured-product slick-arrow-2">
-                    <!-- product-item start -->
-                    <div class="col-xs-12" th:each="eachNew : ${newProduct}">
-                        <div class="product-item">
-                            <div class="product-img">
-                                <a
-                                        th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
-                                    <img th:src="${eachNew.mainImg}" alt="${eachNew.name}"
-                                         style="height: 350px;object-fit: cover;"/>
-                                </a>
-                            </div>
-                            <div class="product-info">
-                                <h6 class="product-title">
-                                    <a
-                                            th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}"
-                                            th:text="${eachNew.name}">Product Name</a>
-                                </h6>
-                                <div class="pro-rating">
-                                    <div th:if="${eachNew.rate == 1}">
-                                        <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star-outline"></i>
-                                        <i class="zmdi zmdi-star-outline"></i> <i
-                                            class="zmdi zmdi-star-outline"></i> <i
-                                            class="zmdi zmdi-star-outline"></i>
-                                    </div>
-                                    <div th:if="${eachNew.rate == 2}">
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star-outline"></i> <i
-                                            class="zmdi zmdi-star-outline"></i> <i
-                                            class="zmdi zmdi-star-outline"></i>
-                                    </div>
-                                    <div th:if="${eachNew.rate == 3}">
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star"></i> <i
-                                            class="zmdi zmdi-star-outline"></i> <i
-                                            class="zmdi zmdi-star-outline"></i>
-                                    </div>
-                                    <div th:if="${eachNew.rate == 4}">
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star-outline"></i>
-                                    </div>
-                                    <div th:if="${eachNew.rate == 5}">
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                        <i class="zmdi zmdi-star"></i>
-                                    </div>
-                                </div>
-                                <h3 th:if="${eachNew.rate == 0}" class="pro-price" style="margin-top: 33px;"
-                                    th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">
-                                    &nbsp;Vnđ</h3>
-                                <h3 th:if="${eachNew.rate != 0}" class="pro-price"
-                                    th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">
-                                    &nbsp;Vnđ</h3>
-                                <ul class="action-button">
-                                    <li><a href="#" title="Wishlist"><i
-                                            class="zmdi zmdi-favorite"></i></a></li>
-                                    <li><a
-                                            th:onclick="'quickView(\'' + ${eachNew.id} + '\')'"
-                                            data-toggle="modal" data-target="#productModal"
-                                            title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
-                                    <li><a
-                                            th:href="@{/cart/add/{productId}.html(productId = ${eachNew.id})}"
-                                            title="Add to cart"><i
-                                            class="zmdi zmdi-shopping-cart-plus"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- product-item end -->
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="featured-product-section mb-50">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="section-title text-left mb-40">
+							<h2 class="uppercase">Sản phẩm mới</h2>
+						</div>
+					</div>
+				</div>
+				<div class="featured-product">
+					<div class="row active-featured-product slick-arrow-2">
+						<!-- product-item start -->
+						<div class="col-xs-12" th:each="eachNew : ${newProduct}">
+							<div class="product-item">
+								<div class="product-img">
+									<a
+										th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
+										<img th:src="${eachNew.mainImg}" alt="${eachNew.name}"
+										style="height: 350px; object-fit: cover;" />
+									</a>
+								</div>
+								<div class="product-info">
+									<h6 class="product-title">
+										<a
+											th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}"
+											th:text="${eachNew.name}">Product Name</a>
+									</h6>
+									<div class="pro-rating">
+										<div th:if="${eachNew.rate == 1}">
+											<i class="zmdi zmdi-star"></i> <i
+												class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i>
+										</div>
+										<div th:if="${eachNew.rate == 2}">
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i>
+										</div>
+										<div th:if="${eachNew.rate == 3}">
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star"></i> <i
+												class="zmdi zmdi-star-outline"></i> <i
+												class="zmdi zmdi-star-outline"></i>
+										</div>
+										<div th:if="${eachNew.rate == 4}">
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star-outline"></i>
+										</div>
+										<div th:if="${eachNew.rate == 5}">
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+											<i class="zmdi zmdi-star"></i>
+										</div>
+									</div>
+									<h3 th:if="${eachNew.rate == 0}" class="pro-price"
+										style="margin-top: 33px;"
+										th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">
+										&nbsp;Vnđ</h3>
+									<h3 th:if="${eachNew.rate != 0}" class="pro-price"
+										th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">
+										&nbsp;Vnđ</h3>
+									<ul class="action-button">
+										<li><a href="#" title="Wishlist"><i
+												class="zmdi zmdi-favorite"></i></a></li>
+										<li><a
+											th:onclick="'quickView(\'' + ${eachNew.id} + '\')'"
+											data-toggle="modal" data-target="#productModal"
+											title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
+										<li><a
+											th:href="@{/cart/add/{productId}.html(productId = ${eachNew.id})}"
+											title="Add to cart"><i
+												class="zmdi zmdi-shopping-cart-plus"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<!-- product-item end -->
+					</div>
+				</div>
+			</div>
+		</div>
 
-    <!-- Start page content -->
-    <section id="page-content" class="page-wrapper">
-        <!-- PRODUCT TAB SECTION START -->
-        <div class="product-tab-section mb-50">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-12 col-xs-12">
-                        <div class="section-title text-left mb-40">
-                            <h2 class="uppercase">Danh sách sản phảm</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-tab">
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <!-- popular-product start -->
-                        <div class="tab-pane active" id="popular-product">
-                            <div class="row">
-                                <!-- product-item start -->
-                                <div class="col-md-3 col-sm-4 col-xs-12"
-                                     th:each="eachPro : ${page.content}">
-                                    <div class="product-item">
-                                        <div class="product-img">
-                                            <a
-                                                    th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
-                                                <img th:src="${eachPro.mainImg}"
-                                                     alt="" style="height: 300px;"/>
-                                            </a>
-                                        </div>
-                                        <div class="product-info">
-                                            <h6 class="product-title">
-                                                <a
-                                                        th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}"
-                                                        th:text="${eachPro.name}">Product Name</a>
-                                            </h6>
-                                            <div class="pro-rating">
-                                                <div th:if="${eachPro.rate == 1}">
-                                                    <i class="zmdi zmdi-star"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${eachPro.rate == 2}">
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${eachPro.rate == 3}">
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i> <i
-                                                        class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${eachPro.rate == 4}">
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star-outline"></i>
-                                                </div>
-                                                <div th:if="${eachPro.rate == 5}">
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
-                                                    <i class="zmdi zmdi-star"></i>
-                                                </div>
-                                            </div>
-                                            <h3 class="pro-price" th:if="${eachPro.rate == 0}" style="margin-top: 33px;"
-                                                th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
-                                                &nbsp;Vnđ</h3>
-                                            <h3 class="pro-price" th:if="${eachPro.rate != 0}"
-                                                th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
-                                                &nbsp;Vnđ</h3>
-                                            <ul class="action-button">
-                                                <li><a href="#" title="Wishlist"><i
-                                                        class="zmdi zmdi-favorite"></i></a></li>
-                                                <li><a
-                                                        th:onclick="'quickView(\'' + ${eachPro.id} + '\')'"
-                                                        data-toggle="modal" data-target="#productModal"
-                                                        title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
-                                                <li><a
-                                                        th:href="@{/cart/add/{productId}.html(productId = ${eachPro.id})}"
-                                                        title="Add to cart"><i
-                                                        class="zmdi zmdi-shopping-cart-plus"></i></a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- product-item end -->
-                            </div>
-                            <div
-                                    th:replace="fragments/panigatorHome :: content(page = ${page})"></div>
-                        </div>
-                        <!-- popular-product end -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- PRODUCT TAB SECTION END -->
-        <!-- BLOG SECTION END -->
-    </section>
-    <!-- End page content -->
+		<!-- Start page content -->
+		<section id="page-content" class="page-wrapper">
+			<!-- PRODUCT TAB SECTION START -->
+			<div class="product-tab-section mb-50">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6 col-sm-12 col-xs-12">
+							<div class="section-title text-left mb-40">
+								<h2 class="uppercase">Danh sách sản phảm</h2>
+							</div>
+						</div>
+					</div>
+					<div class="product-tab">
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<!-- popular-product start -->
+							<div class="tab-pane active" id="popular-product">
+								<div class="row">
+									<!-- product-item start -->
+									<div class="col-md-3 col-sm-4 col-xs-12"
+										th:each="eachPro : ${page.content}">
+										<div class="product-item">
+											<div class="product-img">
+												<a
+													th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
+													<img th:src="${eachPro.mainImg}" alt=""
+													style="height: 300px;" />
+												</a>
+											</div>
+											<div class="product-info">
+												<h6 class="product-title">
+													<a
+														th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}"
+														th:text="${eachPro.name}">Product Name</a>
+												</h6>
+												<div class="pro-rating">
+													<div th:if="${eachPro.rate == 1}">
+														<i class="zmdi zmdi-star"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${eachPro.rate == 2}">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${eachPro.rate == 3}">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i
+															class="zmdi zmdi-star-outline"></i> <i
+															class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${eachPro.rate == 4}">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star-outline"></i>
+													</div>
+													<div th:if="${eachPro.rate == 5}">
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i> <i class="zmdi zmdi-star"></i>
+														<i class="zmdi zmdi-star"></i>
+													</div>
+												</div>
+												<h3 class="pro-price" th:if="${eachPro.rate == 0}"
+													style="margin-top: 33px;"
+													th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
+													&nbsp;Vnđ</h3>
+												<h3 class="pro-price" th:if="${eachPro.rate != 0}"
+													th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
+													&nbsp;Vnđ</h3>
+												<ul class="action-button">
+													<li><a href="#" title="Wishlist"><i
+															class="zmdi zmdi-favorite"></i></a></li>
+													<li><a
+														th:onclick="'quickView(\'' + ${eachPro.id} + '\')'"
+														data-toggle="modal" data-target="#productModal"
+														title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
+													<li><a
+														th:href="@{/cart/add/{productId}.html(productId = ${eachPro.id})}"
+														title="Add to cart"><i
+															class="zmdi zmdi-shopping-cart-plus"></i></a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<!-- product-item end -->
+								</div>
+								<div
+									th:replace="fragments/panigatorHome :: content(page = ${page})"></div>
+							</div>
+							<!-- popular-product end -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- PRODUCT TAB SECTION END -->
+			<!-- BLOG SECTION END -->
+		</section>
+		<!-- End page content -->
 
-    <!-- START FOOTER AREA -->
-    <div th:replace="fragments/navHome :: footer"></div>
-    <!-- END FOOTER AREA -->
+		<!-- START FOOTER AREA -->
+		<div th:replace="fragments/navHome :: footer"></div>
+		<!-- END FOOTER AREA -->
 
-    <!-- START QUICKVIEW PRODUCT -->
-    <div id="quickview-wrapper">
-        <!-- Modal -->
-        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"
-                                aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="modal-product clearfix">
-                            <div class="product-images">
-                                <div class="main-image images">
-                                    <img alt="" id="imageQuick"
-                                         src="">
-                                </div>
-                            </div>
-                            <!-- .product-images -->
-                            <div class="product-info">
-                                <h1 id="name">SamSung A50</h1>
-                                <div class="price-box-3">
-                                    <div class="s-price-box">
-                                        <span class="new-price" id="price"></span> <span
-                                            class="old-price" id="price_sale"></span>
-                                    </div>
-                                </div>
-                                <label id="status" class="see-all"></label>
-                                <div class="quick-add-to-cart">
-                                    <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="1">
-                                    </div>
-                                    <a href="" style="line-height: 45px;margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
-                                       id="quickCart" class="btn btn-warning" type="submit">Thêm
-                                        vào giỏ
-                                    </a>
-                                </div>
-                                <div class="quick-desc" id="info">Hello, Every
-                                    body.
-                                </div>
-                                <div class="social-sharing">
-                                    <div class="widget widget_socialsharing_widget">
-                                        <h3 class="widget-title-modal">Chia sẻ sản phẩm</h3>
-                                        <ul class="social-icons clearfix">
-                                            <li><a class="facebook" href="#" target="_blank"
-                                                   title="Facebook"> <i class="zmdi zmdi-facebook"></i>
-                                            </a></li>
-                                            <li><a class="twitter" href="#" target="_blank"
-                                                   title="Skype"> <i class="zmdi zmdi-skype"></i>
-                                            </a></li>
-                                            <li><a class="twitter" href="#" target="_blank"
-                                                   title="Instagram"> <i class="zmdi zmdi-instagram"></i>
-                                            </a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- .product-info -->
-                        </div>
-                        <!-- .modal-product -->
-                    </div>
-                    <!-- .modal-body -->
-                </div>
-                <!-- .modal-content -->
-            </div>
-            <!-- .modal-dialog -->
-        </div>
-        <!-- END Modal -->
-    </div>
-    <!-- END QUICKVIEW PRODUCT -->
-</div>
-<!-- Body main wrapper end -->
-<div th:replace="fragments/initHome :: commonScript"></div>
-<script th:inline="javascript">
-    var currUrl = /*[[@{/}]]*/"";
-    var pageIndex = /*[[${session.pageIndex}]]*/"";
-</script>
-<script>
-    function quickView(id) {
-        var id = id;
-        $.ajax({
-            url: currUrl + '/home/single-product.html',
-            method: 'GET',
-            data: {
-                'id': id
-            },
-            contentType: 'application/x-www-form-urlencoded',
-            success: function (response) {
-                var data = JSON.parse(response);
-                $('#quickCart').attr('href', window.location.origin + $('#path').val() + 'cart/add/' + id + '.html');
-                $('#imageQuick').attr('src', data.mainImg);
-                $('#name').text(data.name);
-                $('#price').text(
-                    formatPriceString(data.price) + '' + ' Vnđ');
-                $('#price_sale').text(
-                    formatPriceString(data.priceSale) + ' Vnđ');
-                $('#info').text(data.info);
-                if (data.status === 1) {
-                    $('#status').text("Còn hàng");
-                    $('#status').addClass("status-success")
-                    $('#status').removeClass("status-warning")
-                } else {
-                    $('#status').text("Hết hàng");
-                    $('#status').addClass("status-warning")
-                    $('#status').removeClass("status-success")
-                }
-            }
-        })
-    }
+		<!-- START QUICKVIEW PRODUCT -->
+		<div id="quickview-wrapper">
+			<!-- Modal -->
+			<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div class="modal-product clearfix">
+								<div class="product-images">
+									<div class="main-image images">
+										<img alt="" id="imageQuick" src="">
+									</div>
+								</div>
+								<!-- .product-images -->
+								<div class="product-info">
+									<h1 id="name">SamSung A50</h1>
+									<div class="price-box-3">
+										<div class="s-price-box">
+											<span class="new-price" id="price"></span> <span
+												class="old-price" id="price_sale"></span>
+										</div>
+									</div>
+									<label id="status" class="see-all"></label>
+									<div class="quick-add-to-cart">
+										<div class="numbers-row">
+											<input type="number" id="french-hens" value="1">
+										</div>
+										<a href=""
+											style="line-height: 45px; margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
+											id="quickCart" class="btn btn-warning" type="submit">Thêm
+											vào giỏ </a>
+									</div>
+									<div class="quick-desc" id="info">Hello, Every body.</div>
+									<div class="social-sharing">
+										<div class="widget widget_socialsharing_widget">
+											<h3 class="widget-title-modal">Chia sẻ sản phẩm</h3>
+											<ul class="social-icons clearfix">
+												<li><a class="facebook" href="#" target="_blank"
+													title="Facebook"> <i class="zmdi zmdi-facebook"></i>
+												</a></li>
+												<li><a class="twitter" href="#" target="_blank"
+													title="Skype"> <i class="zmdi zmdi-skype"></i>
+												</a></li>
+												<li><a class="twitter" href="#" target="_blank"
+													title="Instagram"> <i class="zmdi zmdi-instagram"></i>
+												</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<!-- .product-info -->
+							</div>
+							<!-- .modal-product -->
+						</div>
+						<!-- .modal-body -->
+					</div>
+					<!-- .modal-content -->
+				</div>
+				<!-- .modal-dialog -->
+			</div>
+			<!-- END Modal -->
+		</div>
+		<!-- END QUICKVIEW PRODUCT -->
+	</div>
+	<!-- Body main wrapper end -->
+	<div th:replace="fragments/initHome :: commonScript"></div>
+	<script th:inline="javascript">
+		var currUrl = /*[[@{/}]]*/"";
+		var pageIndex = /*[[${session.pageIndex}]]*/"";
+	</script>
+	<script>
+		function quickView(id) {
+			var id = id;
+			$.ajax({
+				url : currUrl + '/home/single-product.html',
+				method : 'GET',
+				data : {
+					'id' : id
+				},
+				contentType : 'application/x-www-form-urlencoded',
+				success : function(response) {
+					var data = JSON.parse(response);
+					$('#imageQuick').attr('src', data.mainImg);
+					$('#name').text(data.name);
+					$('#price').text(
+							formatPriceString(data.price) + '' + ' Vnđ');
+					$('#price_sale').text(
+							formatPriceString(data.priceSale) + ' Vnđ');
+					$('#info').text(data.info);
+					if (data.status === 1) {
+						$('#status').text("Còn hàng");
+						$('#status').addClass("status-success")
+						$('#status').removeClass("status-warning")
+					} else {
+						$('#status').text("Hết hàng");
+						$('#status').addClass("status-warning")
+						$('#status').removeClass("status-success")
+					}
+				}
+			})
+			
+			var quantity = $('#french-hens').val();
+			$('#quickCart').click(
+					function() {
+						$.ajax({
+							url : window.location.origin
+									+ $('#path').val() + 'cart/add/'
+									+ id + '.html',
+							method : 'GET',
+							data : {
+								'quantity' : quantity
+							}
+						});
+						location.href("/");
+					});
+		}
 
-    function formatPriceString(priceStr) {
-        if (typeof priceStr === 'number') {
-            priceStr = priceStr.toString();
-            if (priceStr.startsWith('-')) {
-                priceStr = priceStr.substring(1, priceStr.length);
-            }
-        }
-        return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
-    }
-</script>
+		function formatPriceString(priceStr) {
+			if (typeof priceStr === 'number') {
+				priceStr = priceStr.toString();
+				if (priceStr.startsWith('-')) {
+					priceStr = priceStr.substring(1, priceStr.length);
+				}
+			}
+			return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+		}
+	</script>
 </body>
 
 </html>
