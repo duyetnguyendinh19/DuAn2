@@ -26,6 +26,7 @@
 
 
 <body>
+<input type="hidden" th:value="@{/}" id="path"/>
 	<!-- Body main wrapper start -->
 	<div class="wrapper">
 
@@ -438,8 +439,10 @@
 											<div class="numbers-row">
 												<input type="number" id="french-hens" value="1">
 											</div>
-											<button class="single_add_to_cart_button" type="submit">Thêm
-												vào giỏ</button>
+                                            <a href="" style="line-height: 45px;margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
+                                               id="quickCart" class="btn btn-warning" type="submit">Thêm
+                                                vào giỏ
+                                            </a>
 										</form>
 									</div>
 									<div class="quick-desc" id="descriptionQuick">Hello,
@@ -494,6 +497,7 @@
 				contentType : 'application/x-www-form-urlencoded',
 				success : function(response) {
 					var data = JSON.parse(response);
+                    $('#quickCart').attr('href', window.location.origin + $('#path').val() + 'cart/add/' + id + '.html');
 					$('#imageQuick').attr('src', data.mainImg);
 					$('#name').text(data.name);
 					$('#price').text(

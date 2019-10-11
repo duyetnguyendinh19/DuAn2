@@ -124,6 +124,7 @@ public class HomeController {
         viewModel.setPriceSale(product.getPriceSale());
         viewModel.setMainImg(product.getMainImg());
         viewModel.setStatus(product.getStatus());
+        viewModel.setInfo(product.getInfo());
         return gson.toJson(viewModel);
     }
 

@@ -77,9 +77,15 @@ public class CartController {
 		if (cartItems.containsKey(productId)) {
 			cartItems.remove(productId);
 		}
+		String size;
+		if(cartItems.size() < 10){
+			size = "0" + cartItems.size();
+		}else{
+			size = String.valueOf(cartItems.size());
+		}
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
-		session.setAttribute("myCartNum", cartItems.size());
+		session.setAttribute("myCartNum", size);
 		return "redirect:/";
 	}
 
