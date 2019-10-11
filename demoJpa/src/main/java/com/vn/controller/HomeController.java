@@ -101,7 +101,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/{id}/product.html", method = {RequestMethod.GET})
-    public ModelAndView product(Model model, @PathVariable("id") Long id, Pageable pageable) {
+    public String product(Model model, @PathVariable("id") Long id, Pageable pageable) {
         Category category = categoryService.findOne(id);
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC,"id"));
         Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
@@ -109,7 +109,7 @@ public class HomeController {
         model.addAttribute("name" , category.getName());
         model.addAttribute("page", page);
         ModelAndView modelAndView = new ModelAndView("home/product");
-        return modelAndView;
+        return "home/product";
     }
 
     @RequestMapping(value = "/home/single-product.html", method = RequestMethod.GET)
