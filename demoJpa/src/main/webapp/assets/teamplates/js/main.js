@@ -307,14 +307,25 @@
     $(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
     $(".qtybutton").on("click", function() {
         var $button = $(this);
-        var oldValue = $button.parent().find("input").val();
+        var inp = $button.parent().find("input");
+        var oldValue = inp[0].value;
+        var currUrl = /*[[@{/}]]*/"";
+        var id = inp[1].value;
         if ($button.text() == "+") {
             var newVal = parseFloat(oldValue) + 1;
+            $.ajax({
+                url: currUrl + 'cart/add/' + id + '.html',
+                method: 'GET'
+                })
         } 
         else {
             // Don't allow decrementing below zero
             if (oldValue > 0) {
                 var newVal = parseFloat(oldValue) - 1;
+                $.ajax({
+                    url: currUrl + 'cart/sub/' + id + '.html',
+                    method: 'GET'
+                    })
             } 
             else {
                 newVal = 0;
