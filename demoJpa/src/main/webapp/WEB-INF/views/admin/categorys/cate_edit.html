@@ -45,7 +45,7 @@
 							th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
 						<div class="col-lg-6">
 							<div class="form-group">
-								<label>Tên danh mục</label>
+								<label>Tên danh mục <font color="red">*</font></label>
 								<div>
 									<input class="form-control" type="text" id="form-field-name"
 										th:field="*{name}" maxlength="64" />

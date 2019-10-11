@@ -38,27 +38,6 @@ public class CategoryController {
 	@Resource
 	private CategoryFormValidator categoryFormValidator;
 
-	@RequestMapping(value = "list.html")
-//	@PreAuthorize("hasAnyAuthority('Administrators')")
-	private String listCategory(Model model, Pageable pageable,
-			@RequestParam(value = "txtName", defaultValue = "") String txtName, HttpServletRequest request) {
-		String not_found_message = "";
-		if (request.getMethod().equalsIgnoreCase("GET")) {
-			model.addAttribute("txtName", "");
-		}
-		if (request.getMethod().equalsIgnoreCase("POST")) {
-			model.addAttribute("txtName", txtName);
-		}
-		Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC, "id"));
-		Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-		Page<Category> pageTop = categoryService.findAllCatePage(txtName, "N", "Y", _pageable);
-		if (pageTop.getContent().size() == 0) {
-			not_found_message = "Không tìm thấy dữ liệu";
-		}
-		model.addAttribute("page", pageTop);
-		model.addAttribute("not_found_message", not_found_message);
-		return "admin/categorys/cate_list";
-	}
 
     private String DELETE = "N";
     private String ISACTVE = "Y";
