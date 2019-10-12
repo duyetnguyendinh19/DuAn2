@@ -105,7 +105,9 @@ public class CartController {
 		String size;
 		if (cartItems.size() < 10) {
 			size = "0" + cartItems.size();
-		} else {
+		} else if (cartItems.size() == 0) {
+			size = null;
+		}else{
 			size = String.valueOf(cartItems.size());
 		}
 		session.setAttribute("myCartItems", cartItems);

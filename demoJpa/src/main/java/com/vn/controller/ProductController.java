@@ -62,7 +62,6 @@ public class ProductController {
     private String ACTIVE = "Y";
 
 
-
     @RequestMapping(value = "list.html", method = {RequestMethod.GET, RequestMethod.POST})
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String list(Model model, HttpSession session, HttpServletRequest request,
@@ -135,52 +134,48 @@ public class ProductController {
     public @ResponseBody
     String addProduct(@RequestBody(required = false) ProductModel model) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        List<ResponseData> lsResponse = new ArrayList<>();
+        Map<String, Object> responseMap = new HashMap<>();
         String filePathMain = ROOT_FOLDER + MAIN_ADDRESS;
         String sorceWebPathMain = HOST_ADDRESS + MAIN_ADDRESS;
         String filePathSub = ROOT_FOLDER + SUB_ADDRESS;
         String sorceWebPathSub = HOST_ADDRESS + SUB_ADDRESS;
         try {
             if (model.getIdCate() == null) {
-                lsResponse.add(new ResponseData(-1,"Danh mục sản phẩm không được để trống"));
+                responseMap.put("idCate", "Danh mục sản phẩm không được để trống");
+            } else if (Strings.isNullOrEmpty(model.getName())) {
+                responseMap.put("name", "Tên sản phẩm không được để trống");
+            } else if (productService.findByName(model.getName().trim()) != null) {
+                responseMap.put("name", "Tên sản phẩm đã tồn tại");
+            } else if (Strings.isNullOrEmpty(String.valueOf(model.getQuantity()))) {
+                responseMap.put("quantity", "Số lượng không được để trống");
+            } else if (model.getPrice() == 0) {
+                responseMap.put("price", "Giá sản phẩm không được để trống");
+            } else if (Strings.isNullOrEmpty(model.getInfo())) {
+                responseMap.put("info", "Thông tin sản phẩm không được để trống");
+            } else {
+                FileUtils.Result resultMain = FileUtils.storageFile(filePathMain, model.getMainImg(), false, false, sorceWebPathMain);
+                FileUtils.Result resultSub = FileUtils.storageFile(filePathSub, model.getSubImg(), false, false, sorceWebPathSub);
+                Product product = new Product();
+                Category category = new Category();
+                category.setId(model.getIdCate());
+                product.setIsdelete("N");
+                product.setCategory(category);
+                product.setDescription(model.getDescription());
+                product.setInfo(model.getInfo());
+                product.setName(model.getName());
+                product.setPrice(model.getPrice());
+                product.setPriceSale(model.getPriceSale());
+                product.setQuantity(model.getQuantity());
+                product.setStatus(1);
+                product.setMainImg(resultMain.getResult());
+                product.setSubImg(resultSub.getResult());
+                productService.insert(product);
+                responseMap.put("success", "Thêm sản phẩm thành công");
             }
-            if (Strings.isNullOrEmpty(model.getName())) {
-                lsResponse.add(new ResponseData(-1,"Tên sản phẩm không được để trống"));
-            }
-            if (productService.findByName(model.getName().trim()) != null) {
-                lsResponse.add(new ResponseData(-1,"Tên sản phẩm đã tồn tại"));
-            }
-            if (Strings.isNullOrEmpty(String.valueOf(model.getQuantity()))) {
-                lsResponse.add(new ResponseData(-1,"Số lượng không được để trống"));
-            }
-            if (model.getPrice() == null) {
-                lsResponse.add(new ResponseData(-1,"Giá sản phẩm không được để trống"));
-            }
-            if (Strings.isNullOrEmpty(model.getInfo())) {
-                lsResponse.add(new ResponseData(-1,"Thông tin sản phẩm không được để trống"));
-            }
-            FileUtils.Result resultMain = FileUtils.storageFile(filePathMain, model.getMainImg(), false, false, sorceWebPathMain);
-            FileUtils.Result resultSub = FileUtils.storageFile(filePathSub, model.getSubImg(), false, false, sorceWebPathSub);
-            Product product = new Product();
-            Category category = new Category();
-            category.setId(model.getIdCate());
-            product.setIsdelete("N");
-            product.setCategory(category);
-            product.setDescription(model.getDescription());
-            product.setInfo(model.getInfo());
-            product.setName(model.getName());
-            product.setPrice(model.getPrice());
-            product.setPriceSale(model.getPriceSale());
-            product.setQuantity(model.getQuantity());
-            product.setStatus(1);
-            product.setMainImg(resultMain.getResult());
-            product.setSubImg(resultSub.getResult());
-            productService.insert(product);
-            lsResponse.add(new ResponseData(1,"Thêm sản phẩm thành công"));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return gson.toJson(lsResponse);
+        return gson.toJson(responseMap);
     }
 
     @RequestMapping(value = "categoryChildren.html", method = RequestMethod.GET)
