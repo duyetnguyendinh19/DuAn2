@@ -29,8 +29,7 @@ public class CartController {
 
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "add/{productId}.html", method = RequestMethod.GET)
-	public @ResponseBody
-	void viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId,@RequestParam(value = "quantity", defaultValue = "1") int quantity) {
+	public String viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
 		if (cartItems == null) {
 			cartItems = new HashMap<>();
@@ -58,6 +57,7 @@ public class CartController {
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
 		session.setAttribute("myCartNum", size);
+		return "redirect:/";
 	}
 
 	@SuppressWarnings("unchecked")
