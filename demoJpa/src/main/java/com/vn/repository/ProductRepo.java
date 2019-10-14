@@ -21,7 +21,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     List<Product> findProductByCategoryId(Long id);
 
-    Page<Product> findAllByCategoryId(Long id, Pageable pageable);
+    Page<Product> findAllByCategoryIdAndIsdelete(Long id, Pageable pageable, String isdelete);
 
     @Query(value = "SELECT p FROM Product p WHERE (p.createDate BETWEEN :fromDate AND :toDate)" +
             "AND (:name IS NULL OR :name = '' OR p.name LIKE CONCAT('%', :name, '%'))" +

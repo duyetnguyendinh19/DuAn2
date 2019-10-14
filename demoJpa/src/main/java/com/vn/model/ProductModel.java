@@ -3,6 +3,7 @@ package com.vn.model;
 
 import com.vn.common.FileUtils.DescriptionBase64File;
 
+import javax.validation.constraints.Null;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -16,6 +17,7 @@ public class ProductModel implements Serializable {
     private String description;
     private Float priceSale;
     private Integer status;
+    private String removeSub;
     private DescriptionBase64File mainImg;
     private DescriptionBase64File[] subImg;
     private String isDelete;
@@ -40,6 +42,14 @@ public class ProductModel implements Serializable {
         this.info = info;
         this.rate = rate;
         this.idCate = idCate;
+    }
+
+    public String getRemoveSub() {
+        return removeSub;
+    }
+
+    public void setRemoveSub(String removeSub) {
+        this.removeSub = removeSub;
     }
 
     public Long getId() {

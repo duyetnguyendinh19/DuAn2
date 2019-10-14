@@ -24,7 +24,7 @@ public interface ProductService {
 
     List<Product> findProductByCategoryId(Long id);
 
-    Page<Product> findAllByCategoryId(Long id, Pageable pageable);
+    Page<Product> findAllByCategoryIdAndIsdelete(Long id, Pageable pageable, String isdelete);
 
     Page<Product> findAllProduct(Date fromDate, Date toDate, String name,String isDelete, Pageable pageable);
 

@@ -265,10 +265,10 @@
                                         </div>
                                     </div>
                                     <input type="text" name="mainImg" id="mainImg" hidden/>
+                                    <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
+                                          id="mainError"></span>
                                 </div>
                             </div>
-                            <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
-                                  id="mainError"></span>
                         </div>
                         <div class="col-lg-9">
                             <div class="form-group">
@@ -287,9 +287,9 @@
                                                 </label>
                                             </div>
                                         </div>
+                                        <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
+                                              id="subError"></span>
                                     </div>
-                                    <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
-                                          id="subError"></span>
                                 </div>
                             </div>
                         </div>
@@ -509,21 +509,25 @@
                 var dataFile = this.files[0];
                 reader.readAsDataURL(dataFile);
                 reader.onload = function () {
-                    setTimeout(function () {
-                        objectResult.fileName = dataFile.name;
-                        var readerResult = reader.result;
-                        objectResult.content = readerResult.split(',')[1];
-                        var tmppath = URL.createObjectURL(dataFile);
-                        if (readerResult) {
-                            $label.addClass('file-ok').css('background-image', 'url(' + readerResult + ')');
-                            $labelText.removeClass('red');
-                            $labelText.text(dataFile.name);
-                            mainImg = objectResult;
-                        } else {
-                            $label.removeClass('file-ok');
-                            $labelText.text(labelDefault);
-                        }
-                    }, 500);
+                    if (dataFile.size < 15728640) {
+                        setTimeout(function () {
+                            objectResult.fileName = dataFile.name;
+                            var readerResult = reader.result;
+                            objectResult.content = readerResult.split(',')[1];
+                            var tmppath = URL.createObjectURL(dataFile);
+                            if (readerResult) {
+                                $label.addClass('file-ok').css('background-image', 'url(' + readerResult + ')');
+                                $labelText.removeClass('red');
+                                $labelText.text(dataFile.name);
+                                mainImg = objectResult;
+                            } else {
+                                $label.removeClass('file-ok');
+                                $labelText.text(labelDefault);
+                            }
+                        }, 500);
+                    }else{
+                        $('#mainError').text('Ảnh không quá 15Mb');
+                    }
                 };
                 reader.onerror = function (error) {
                 };
@@ -551,18 +555,22 @@
         reader.readAsDataURL(dataFile);
         var htmlAppend = $(html);
         reader.onload = function () {
-            setTimeout(function () {
-                objectResult.fileName = dataFile.name;
-                var readerResult = reader.result;
-                objectResult.content = readerResult.split(',')[1];
-                $('#loading-add-image-span').remove();
-                imageGetted.push(indexOfImageToAdd, objectResult);
-                subImages.push(imageGetted);
-                var tmppath = URL.createObjectURL(dataFile);
-                htmlAppend.find('label').css('background-image', 'url(' + readerResult + ')');
-                htmlAppend.find('.nameFile').text(dataFile.name);
-                indexOfImageToAdd++;
-            }, 500);
+            if (dataFile.size < 15728640) {
+                setTimeout(function () {
+                    objectResult.fileName = dataFile.name;
+                    var readerResult = reader.result;
+                    objectResult.content = readerResult.split(',')[1];
+                    $('#loading-add-image-span').remove();
+                    imageGetted.push(indexOfImageToAdd, objectResult);
+                    subImages.push(imageGetted);
+                    var tmppath = URL.createObjectURL(dataFile);
+                    htmlAppend.find('label').css('background-image', 'url(' + readerResult + ')');
+                    htmlAppend.find('.nameFile').text(dataFile.name);
+                    indexOfImageToAdd++;
+                }, 500);
+            }else{
+                $('#subError').text("Ảnh không quá 15Mb");
+            }
             $('#addSubImages').before(htmlAppend);
         };
         reader.onerror = function (error) {
@@ -653,6 +661,11 @@
                             $('#priceError').text(data.price);
                         }else{
                             $('#priceError').text('');
+                        }
+                        if (data.quantity != null) {
+                            $('#quantityError').text(data.quantity);
+                        }else{
+                            $('#quantityError').text('');
                         }
                         if(data.success != null){
                             window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';

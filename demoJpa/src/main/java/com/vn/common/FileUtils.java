@@ -8,7 +8,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class FileUtils {
     public static Result executeStorage(String uploadingDirectory,
@@ -192,6 +194,26 @@ public class FileUtils {
             }
             if (!filePath.contains(rootFolderPath)) {
                 result = rootFolderPath + filePath;
+            }
+        }
+        return result;
+    }
+
+    public static List<String> getImgPathFromString(String input) {
+        List<String> result = new ArrayList<>();
+        if (input != null && !input.trim().isEmpty()) {
+            if (input.startsWith("[")) {
+                input = input.substring(1);
+            }
+            if (input.endsWith("]")) {
+                input = input.substring(0, input.length() - 1);
+            }
+            String[] inputArray = input.split(",");
+            for (String string : inputArray) {
+                if (string != null && !string.trim().isEmpty()) {
+                    string = string.replace("\"", "");
+                    result.add(string);
+                }
             }
         }
         return result;

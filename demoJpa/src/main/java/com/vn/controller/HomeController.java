@@ -106,7 +106,7 @@ public class HomeController {
         Category category = categoryService.findOne(id);
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
         Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-        Page<Product> page = productService.findAllByCategoryId(id, _page);
+        Page<Product> page = productService.findAllByCategoryIdAndIsdelete(id, _page, "N");
         model.addAttribute("name", category.getName());
         model.addAttribute("page", page);
         ModelAndView modelAndView = new ModelAndView("home/product");
