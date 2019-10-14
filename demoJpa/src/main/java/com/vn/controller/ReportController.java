@@ -119,5 +119,10 @@ public class ReportController {
            return "redirect:/report/list.html";
        }
     }
+    
+    @RequestMapping(value = "save.html" , method = RequestMethod.POST)
+    public String saveReply(@ModelAttribute("report") Report report) {
+    	return "";
+    }
 
 }
