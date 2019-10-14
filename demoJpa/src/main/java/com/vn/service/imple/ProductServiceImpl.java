@@ -21,8 +21,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepo productRepo;
 
     @Override
-    public Page<Product> findAll(Pageable pageable) {
-        return productRepo.findAll(pageable);
+    public Page<Product> findAllByIsdelete(String isdelete,Pageable pageable) {
+        return productRepo.findAllByIsdelete(isdelete,pageable);
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findByName(String name) {
-        return productRepo.findByName(name);
+    public Product findAllByNameAndIsdelete(String name, String isdelete) {
+        return productRepo.findAllByNameAndIsdelete(name, isdelete);
     }
 }

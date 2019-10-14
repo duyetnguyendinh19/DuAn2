@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
 import com.vn.common.FileUtils;
-import com.vn.common.ResponseData;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
 import com.vn.model.CategoryModel;
@@ -142,17 +141,25 @@ public class ProductController {
         try {
             if (model.getIdCate() == null) {
                 responseMap.put("idCate", "Danh mục sản phẩm không được để trống");
-            } else if (Strings.isNullOrEmpty(model.getName())) {
+            }
+            if (Strings.isNullOrEmpty(model.getName())) {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
-            } else if (productService.findByName(model.getName().trim()) != null) {
-                responseMap.put("name", "Tên sản phẩm đã tồn tại");
-            } else if (Strings.isNullOrEmpty(String.valueOf(model.getQuantity()))) {
+            }
+            if(!Strings.isNullOrEmpty(model.getName())){
+                if (productService.findAllByNameAndIsdelete(model.getName().trim(), "N") != null) {
+                    responseMap.put("name", "Tên sản phẩm đã tồn tại");
+                }
+            }
+            if (Strings.isNullOrEmpty(String.valueOf(model.getQuantity()))) {
                 responseMap.put("quantity", "Số lượng không được để trống");
-            } else if (model.getPrice() == 0) {
+            }
+            if (model.getPrice() == 0) {
                 responseMap.put("price", "Giá sản phẩm không được để trống");
-            } else if (Strings.isNullOrEmpty(model.getInfo())) {
+            }
+            if (Strings.isNullOrEmpty(model.getInfo())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");
-            } else {
+            }
+            if (responseMap.size() == 0) {
                 FileUtils.Result resultMain = FileUtils.storageFile(filePathMain, model.getMainImg(), false, false, sorceWebPathMain);
                 FileUtils.Result resultSub = FileUtils.storageFile(filePathSub, model.getSubImg(), false, false, sorceWebPathSub);
                 Product product = new Product();

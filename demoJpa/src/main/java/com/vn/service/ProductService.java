@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    Page<Product> findAll(Pageable pageable);
+    Page<Product> findAllByIsdelete(String isdelete, Pageable pageable);
 
     Product insert(Product product);
 
@@ -28,5 +28,5 @@ public interface ProductService {
 
     Page<Product> findAllProduct(Date fromDate, Date toDate, String name,String isDelete, Pageable pageable);
 
-    Product findByName(String name);
+    Product findAllByNameAndIsdelete(String name, String isdelete);
 }

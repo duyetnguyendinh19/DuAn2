@@ -214,7 +214,6 @@
     .detail-step.row-card-hinhanh-chit-tiet .wrap-custom-file[id^="idAddSubImage_"] label:hover span {
         display: block !important;
     }
-
 </style>
 <body>
 <div id="wrapper">
@@ -308,7 +307,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" style="margin-bottom: 20px;">
                             <div class="form-group">
                                 <label>Loại DM</label><span class="error"> *</span>
                                 <div>
@@ -330,7 +329,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" style="margin-bottom: 20px;">
                             <div class="form-group">
                                 <label>Số lượng</label><span class="error"> *</span>
                                 <div>
@@ -350,7 +349,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" style="margin-bottom: 20px;">
                             <div class="form-group">
                                 <label>Giảm giá</label>
                                 <div>
@@ -625,7 +624,6 @@
                     contentType: 'application/json;charset=utf-8',
                     success: function (response) {
                         var data = JSON.parse(response);
-                        console.log(data)
                         if (data.name != null) {
                             $('#nameError').text(data.name);
                         } else {
@@ -638,15 +636,26 @@
                         }
                         if (data.info != null) {
                             $('#infoError').text(data.info);
+                        }else{
+                            $('#infoError').text('');
                         }
                         if (data.description != null) {
                             $('#descriptionError').text(data.description);
+                        }else{
+                            $('#descriptionError').text('');
                         }
                         if (data.priceSale != null) {
-                            $('#priceSaleError').text(data.priceSale);
+                            $('#priceSaleError').text('');
+                        }else{
+                            $('#priceSaleError').text('');
                         }
                         if (data.price != null) {
                             $('#priceError').text(data.price);
+                        }else{
+                            $('#priceError').text('');
+                        }
+                        if(data.success != null){
+                            window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';
                         }
                     }
                 }

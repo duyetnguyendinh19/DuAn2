@@ -47,14 +47,14 @@ public class HomeController {
         return modelAndView;
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	@RequestMapping(value = {"/"}, method = RequestMethod.GET)
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    @RequestMapping(value = {"/"}, method = RequestMethod.GET)
     public ModelAndView index(Model model, Pageable pageable, HttpSession session) {
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
         Pageable _pageable = new PageRequest(pageable.getPageNumber(), 8, sort);
-        Page<Product> product = productService.findAll(_pageable);
+        Page<Product> product = productService.findAllByIsdelete("N", _pageable);
         List<Product> newProduct = productService.lsProductDateDesc();
-        List<Category> category = categoryService.findAllByIsDeleteAndIsActive("N","Y");
+        List<Category> category = categoryService.findAllByIsDeleteAndIsActive("N", "Y");
         Map<Long, List> mapLsId = new HashMap<>();
         for (Category each : category) {
             if (each.getParent() == null) {
@@ -86,8 +86,9 @@ public class HomeController {
         Product product = productService.findOne(id);
         List<Product> newProduct = productService.lsProductDateDesc();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        if(product.getSubImg() != null || product.getSubImg() != ""){
-            String[] subImg = gson.fromJson(product.getSubImg(), new TypeToken<String[]>() {}.getType());
+        if (product.getSubImg() != null || product.getSubImg() != "") {
+            String[] subImg = gson.fromJson(product.getSubImg(), new TypeToken<String[]>() {
+            }.getType());
             model.addAttribute("subImg", subImg);
         }
         List<Review> lsReview = reviewService.findAllByProductIdAndStatus(product.getId(), Review.status.ACTIVE.value());
@@ -103,10 +104,10 @@ public class HomeController {
     @RequestMapping(value = "/home/{id}/product.html", method = {RequestMethod.GET})
     public String product(Model model, @PathVariable("id") Long id, Pageable pageable) {
         Category category = categoryService.findOne(id);
-        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC,"id"));
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
         Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
         Page<Product> page = productService.findAllByCategoryId(id, _page);
-        model.addAttribute("name" , category.getName());
+        model.addAttribute("name", category.getName());
         model.addAttribute("page", page);
         ModelAndView modelAndView = new ModelAndView("home/product");
         return "home/product";
