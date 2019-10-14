@@ -99,20 +99,20 @@
 																	</h6>
 																	<p th:text="${cart.value.product.category.name}"></p>
 																	<p
-																		th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></p>
+																		th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + 'VND'"></p>
 																</div>
 															</td>
 															<td class="product-price"
-																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
+																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															<td class="product-quantity">
 																<div class="cart-plus-minus f-left">
 																	<input type="text" th:value="${cart.value.quantity}"
-																		name="payment" class="cart-plus-minus-box">
+																		name="payment" class="cart-plus-minus-box" readonly="readonly">
 																		<input type="hidden" th:value="${cart.value.product.id}" class="cart-plus-minus-box">
 																</div>
 															</td>
 															<td class="product-subtotal"
-																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
+																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															<td class="product-remove"><a
 																th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"><i
 																	class="zmdi zmdi-close" title="Xóa"></i></a></td>
@@ -187,15 +187,11 @@
 														<h6 class="widget-title border-left mb-20">Đơn hàng
 															của bạn</h6>
 														<table>
-															<tr>
-																<td class="td-title-1">Iphone 5 x 2</td>
-																<td class="td-title-2">15.000.000 Vnđ</td>
+															<tr th:each="cart : ${session.myCartItems}">
+																<td class="td-title-1" th:text="${cart.value.product.name + ' x ' + cart.value.quantity}"></td>
+																<td class="td-title-2" th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															</tr>
-															<tr>
-																<td class="td-title-1">SamSung A50</td>
-																<td class="td-title-2">5.500.000 Vnđ</td>
-															</tr>
-															<tr>
+															<!-- <tr>
 																<td class="td-title-1">Tổng tiền</td>
 																<td class="td-title-2">20.500.000 Vnđ</td>
 															</tr>
@@ -206,10 +202,10 @@
 															<tr>
 																<td class="td-title-1">Thuế</td>
 																<td class="td-title-2">500.000 Vnđ</td>
-															</tr>
+															</tr> -->
 															<tr>
 																<td class="order-total">Thành tiền</td>
-																<td class="order-total-price">21.050.000 Vnđ</td>
+																<td class="order-total-price" th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
 															</tr>
 														</table>
 													</div>

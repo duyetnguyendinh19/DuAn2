@@ -294,7 +294,7 @@
                                 <label id="status" class="see-all"></label>
                                 <div class="quick-add-to-cart">
                                     <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="1">
+                                        <input type="number" id="french-hens" value="1" readonly="readonly">
                                     </div>
                                     <a href=""
                                        style="line-height: 45px; margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
@@ -370,15 +370,15 @@
             }
         })
 
-        var quantity = $('#french-hens').val();
+        /* var quantity = $('#french-hens').val(); */
         $('#quickCart').click(
             function () {
                 $.ajax({
                     url: window.location.origin + $('#path').val() + 'cart/add/' + id + '.html',
                     method: 'GET',
-                    data: {
+                   /*  data: {
                         'quantity': quantity
-                    }
+                    } */
                 });
                 location.href("/");
             });
