@@ -132,6 +132,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home/cart.html", method = RequestMethod.GET)
     public ModelAndView viewCart() {
+
         ModelAndView modelAndView = new ModelAndView("home/cart");
         return modelAndView;
     }

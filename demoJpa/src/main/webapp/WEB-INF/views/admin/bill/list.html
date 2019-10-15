@@ -108,7 +108,10 @@
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
                                     <td class="text-table-body" th:text="${eachRow.createBy}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.payment}"></td>
+                                    <td class="text-table-body">
+                                        <span th:if="${eachRow.payment == 0}" th:text="Thanh toán trực tiếp"></span>
+                                        <span th:if="${eachRow.payment == 1}" th:text="Thanh toán online"></span>
+                                    </td>
                                     <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
                                     <td class="text-table-body" style="text-align: center;">
                                         <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán</button>

@@ -2,242 +2,358 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<div th:replace="fragments/initHome :: head"></div>
-<style type="text/css">
-.mb-50 {
-	margin-bottom: 15px !important;
-}
-</style>
+    <div th:replace="fragments/initHome :: head"></div>
+    <style type="text/css">
+        .mb-50 {
+            margin-bottom: 15px !important;
+        }
+
+        input[type="text"], input[type="password"] {
+            margin-bottom: 0px !important;
+            margin-top: 20px;
+        }
+
+        .custom-select {
+            margin-top: 20px;
+            margin-bottom: 0px !important;
+        }
+
+        textarea {
+            margin-top: 20px;
+        }
+
+        .submit-btn-1 {
+            margin-top: 10px;
+        }
+    </style>
 </head>
 
 <body>
-	<!-- Body main wrapper start -->
-	<div class="wrapper">
-		<!-- START HEADER AREA -->
-		<header class="header-area header-wrapper">
-			<!-- header-top-bar -->
-			<div th:replace="fragments/navHome :: header"></div>
-			<!-- header-middle-area -->
-		</header>
-		<!-- END HEADER AREA -->
+<!-- Body main wrapper start -->
+<div class="wrapper">
+    <!-- START HEADER AREA -->
+    <header class="header-area header-wrapper">
+        <!-- header-top-bar -->
+        <div th:replace="fragments/navHome :: header"></div>
+        <!-- header-middle-area -->
+    </header>
+    <!-- END HEADER AREA -->
 
-		<!-- START MOBILE MENU AREA -->
-		<div th:replace="fragments/navHome :: menuMobile"></div>
-		<!-- END MOBILE MENU AREA -->
+    <!-- START MOBILE MENU AREA -->
+    <div th:replace="fragments/navHome :: menuMobile"></div>
+    <!-- END MOBILE MENU AREA -->
 
-		<!-- BREADCRUMBS SETCTION START -->
-		<div class="breadcrumbs-section plr-200 mb-80">
-			<div class="breadcrumbs overlay-bg">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="breadcrumbs-inner">
-								<h1 class="breadcrumbs-title">Giỏ hàng của bạn</h1>
-								<ul class="breadcrumb-list">
-									<li><a th:href="@{/}">Trang chủ</a></li>
-									<li>Giỏ hàng</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- BREADCRUMBS SETCTION END -->
+    <!-- BREADCRUMBS SETCTION START -->
+    <div class="breadcrumbs-section plr-200 mb-80">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Giỏ hàng của bạn</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a th:href="@{/}">Trang chủ</a></li>
+                                <li>Giỏ hàng</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BREADCRUMBS SETCTION END -->
 
-		<!-- Start page content -->
-		<section id="page-content" class="page-wrapper">
+    <!-- Start page content -->
+    <section id="page-content" class="page-wrapper">
 
-			<!-- SHOP SECTION START -->
-			<div class="shop-section mb-80">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-2 col-sm-12">
-							<ul class="cart-tab">
-								<li><a class="active" href="#shopping-cart"
-									data-toggle="tab"> <span>01</span> Giỏ của bạn
-								</a></li>
-								<li><a href="#checkout" data-toggle="tab"> <span>02</span>
-										Thanh toán
-								</a></li>
-								<!--                            <li>-->
-								<!--                                <a href="#order-complete" data-toggle="tab">-->
-								<!--                                    <span>03</span>-->
-								<!--                                    Kết thúc-->
-								<!--                                </a>-->
-								<!--                            </li>-->
-							</ul>
-						</div>
-						<div class="col-md-10 col-sm-12">
-							<!-- Tab panes -->
-							<div class="tab-content">
-								<!-- shopping-cart start -->
-								<div class="tab-pane active" id="shopping-cart">
-									<div class="shopping-cart-content">
-										<form action="#">
-											<div class="table-content table-responsive mb-50">
-												<table class="text-center">
-													<thead>
-														<tr>
-															<th class="product-thumbnail">Sản phẩm</th>
-															<th class="product-price">Giá (Vnđ)</th>
-															<th class="product-quantity">Số lượng</th>
-															<th class="product-subtotal">Thành tiền (Vnđ)</th>
-															<th class="product-remove">Xóa</th>
-														</tr>
-													</thead>
-													<tbody>
-														<!-- tr -->
-														<tr th:each="cart : ${session.myCartItems}">
-															<td class="product-thumbnail">
-																<div class="pro-thumbnail-img">
-																	<img th:src="${cart.value.product.mainImg}" alt="">
-																</div>
-																<div class="pro-thumbnail-info text-left">
-																	<h6 class="product-title-2">
-																		<a href="#" th:text="${cart.value.product.name}"></a>
-																	</h6>
-																	<p th:text="${cart.value.product.category.name}"></p>
-																	<p
-																		th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + 'VND'"></p>
-																</div>
-															</td>
-															<td class="product-price"
-																th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
-															<td class="product-quantity">
-																<div class="cart-plus-minus f-left">
-																	<input type="text" th:value="${cart.value.quantity}"
-																		name="payment" class="cart-plus-minus-box"
-																		readonly="readonly"> <input type="hidden"
-																		th:value="${cart.value.product.id}"
-																		class="cart-plus-minus-box">
-																</div>
-															</td>
-															<td class="product-subtotal" th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
-																th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')} + ' VND'"></td>
-															<td class="product-remove"><a
-																th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"><i
-																	class="zmdi zmdi-close" title="Xóa"></i></a></td>
-														</tr>
+        <!-- SHOP SECTION START -->
+        <div class="shop-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-2 col-sm-12">
+                        <ul class="cart-tab">
+                            <li><a class="active" href="#shopping-cart"
+                                   data-toggle="tab"> <span>01</span> Giỏ của bạn
+                            </a></li>
+                            <li><a href="#checkout" data-toggle="tab"> <span>02</span>
+                                Thanh toán
+                            </a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- shopping-cart start -->
+                            <div class="tab-pane active" id="shopping-cart">
+                                <div class="shopping-cart-content">
+                                    <form action="#">
+                                        <div class="table-content table-responsive mb-50">
+                                            <table class="text-center">
+                                                <thead>
+                                                <tr>
+                                                    <th class="product-thumbnail">Sản phẩm</th>
+                                                    <th class="product-price">Giá (Vnđ)</th>
+                                                    <th class="product-quantity">Số lượng</th>
+                                                    <th class="product-subtotal">Thành tiền (Vnđ)</th>
+                                                    <th class="product-remove">Xóa</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <!-- tr -->
+                                                <tr th:each="cart : ${session.myCartItems}">
+                                                    <td class="product-thumbnail">
+                                                        <div class="pro-thumbnail-img">
+                                                            <img th:src="${cart.value.product.mainImg}" alt="">
+                                                        </div>
+                                                        <div class="pro-thumbnail-info text-left">
+                                                            <h6 class="product-title-2">
+                                                                <a href="#" th:text="${cart.value.product.name}"></a>
+                                                            </h6>
+                                                            <p th:text="${cart.value.product.category.name}"></p>
+                                                            <p
+                                                                    th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></p>
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-price"
+                                                        th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
+                                                    <td class="product-quantity">
+                                                        <div class="cart-plus-minus f-left">
+                                                            <input type="text" th:value="${cart.value.quantity}"
+                                                                   name="payment" class="cart-plus-minus-box"
+                                                                   readonly="readonly" style="margin-top: 0px!important;"> <input type="hidden"
+                                                                                               th:value="${cart.value.product.id}"
+                                                                                               class="cart-plus-minus-box">
+                                                        </div>
+                                                    </td>
+                                                    <td class="product-subtotal"
+                                                        th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
+                                                        th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')}"></td>
+                                                    <td class="product-remove"><a
+                                                            th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"><i
+                                                            class="zmdi zmdi-close" title="Xóa"></i></a></td>
+                                                </tr>
 
-													</tbody>
-												</table>
-											</div>
-											<div class="row">
-												<div class="col-md-6">
-													<div class="coupon-discount box-shadow p-30 mb-50">
-														<h6 class="widget-title border-left mb-20">Mã giảm
-															giá</h6>
-														<p>Vui lòng nhập mã giảm giá nếu có!</p>
-														<input type="text" name="name"
-															placeholder="Nhập mã giảm giá tại đây.">
-														<button class="submit-btn-1 black-bg btn-hover-2"
-															type="submit">Gửi mã</button>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<div class="payment-details box-shadow p-30 mb-50">
-														<h6 class="widget-title border-left mb-20">Chi tiết
-															thanh toán</h6>
-														<table>
-															<tr>
-																<td class="td-title-1">Tiền sản phẩm</td>
-																<td class="td-title-2"
-																	th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
-															</tr>
-															<!-- <tr>
-																<td class="td-title-1">Phí ship</td>
-																<td class="td-title-2">150.000 Vnđ</td>
-															</tr>
-															<tr>
-																<td class="td-title-1">Thuế</td>
-																<td class="td-title-2">500.000 Vnđ</td>
-															</tr> -->
-															<tr>
-																<td class="order-total">Thành tiền</td>
-																<td class="order-total-price"
-																	th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
-															</tr>
-														</table>
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-								<!-- shopping-cart end -->
-								<!-- checkout start -->
-								<div class="tab-pane" id="checkout">
-									<div class="checkout-content box-shadow p-30">
-										<form action="#">
-											<div class="row">
-												<!-- billing details -->
-												<div class="col-md-6">
-													<div class="billing-details pr-10">
-														<h6 class="widget-title border-left mb-20">Thông tin
-															người nhận</h6>
-														<input type="text" name="name"
-															placeholder="Tên của bạn..."> <input type="text"
-															name="email" placeholder="Email..."> <input
-															type="text" name="sdt" placeholder="Số điện thoại...">
-														<textarea class="custom-textarea" placeholder="Địa chỉ..."></textarea>
-													</div>
-												</div>
-												<div class="col-md-6">
-													<!-- our order -->
-													<div class="payment-details pl-10 mb-50">
-														<h6 class="widget-title border-left mb-20">Đơn hàng
-															của bạn</h6>
-														<table>
-															<tr th:each="cart : ${session.myCartItems}">
-																<td class="td-title-1"
-																	th:text="${cart.value.product.name + ' x ' + cart.value.quantity}"></td>
-																<td class="td-title-2" th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
-																	th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 2, 'POINT')} + ' VND'"></td>
-															</tr>
-															<!-- <tr>
-																<td class="td-title-1">Tổng tiền</td>
-																<td class="td-title-2">20.500.000 Vnđ</td>
-															</tr>
-															<tr>
-																<td class="td-title-1">Phí ship</td>
-																<td class="td-title-2">50.000 Vnđ</td>
-															</tr>
-															<tr>
-																<td class="td-title-1">Thuế</td>
-																<td class="td-title-2">500.000 Vnđ</td>
-															</tr> -->
-															<tr>
-																<td class="order-total">Thành tiền</td>
-																<td class="order-total-price"
-																	th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
-															</tr>
-														</table>
-													</div>
-													<button class="submit-btn-1 mt-30 btn-hover-1"
-														type="submit">Thanh toán</button>
-													<button class="submit-btn-1 mt-30 btn-hover-1"
-														type="submit">Hủy bỏ</button>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-								<!-- checkout end -->
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- SHOP SECTION END -->
-		</section>
-		<!-- End page content -->
-		<!-- START FOOTER AREA -->
-		<div th:replace="fragments/navHome :: footer"></div>
-		<!-- END FOOTER AREA -->
-	</div>
-	<!-- Body main wrapper end -->
-	<div th:replace="fragments/initHome :: commonScript"></div>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="coupon-discount box-shadow p-30 mb-50">
+                                                    <h6 class="widget-title border-left mb-20">Mã giảm
+                                                        giá</h6>
+                                                    <p>Vui lòng nhập mã giảm giá nếu có!</p>
+                                                    <input type="text" name="name"
+                                                           placeholder="Nhập mã giảm giá tại đây.">
+                                                    <button class="submit-btn-1 black-bg btn-hover-2"
+                                                            type="submit">Gửi mã
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="payment-details box-shadow p-30 mb-50">
+                                                    <h6 class="widget-title border-left mb-20">Chi tiết
+                                                        thanh toán</h6>
+                                                    <table>
+                                                        <tr>
+                                                            <td class="td-title-1">Tiền sản phẩm</td>
+                                                            <td class="td-title-2"
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td-title-1">Phí ship</td>
+                                                            <td class="td-title-2">0 Vnđ</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td-title-1">Thuế</td>
+                                                            <td class="td-title-2"
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="order-total">Thành tiền</td>
+                                                            <td class="order-total-price"
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- shopping-cart end -->
+                            <!-- checkout start -->
+                            <div class="tab-pane" id="checkout">
+                                <div class="checkout-content box-shadow p-30">
+                                    <form action="#">
+                                        <div class="row">
+                                            <!-- billing details -->
+                                            <div class="col-md-6">
+                                                <div class="billing-details pr-10">
+                                                    <h6 class="widget-title border-left mb-20">Thông tin
+                                                        người nhận</h6>
+                                                    <input type="text" id="name" name="name"
+                                                           placeholder="Tên của bạn...">
+                                                    <span style="color: red;font-size: 13px;" id="nameError"></span>
+                                                    <input type="text" id="email" name="email" placeholder="Email...">
+                                                    <span style="color: red;font-size: 13px;" id="emailError"></span>
+                                                    <select id="payment" name="payment" class="custom-select">
+                                                        <option value="">Chọn phương thức</option>
+                                                        <option value="0">Thanh toán trực tiếp</option>
+                                                        <option value="1">Thanh toán online</option>
+                                                    </select>
+                                                    <span style="color: red;font-size: 13px;" id="paymentError"></span>
+                                                    <input type="text" id="mobile" name="mobile"
+                                                           placeholder="Số điện thoại...">
+                                                    <span style="color: red;font-size: 13px;" id="mobileError"></span>
+                                                    <textarea class="custom-textarea" id="address"
+                                                              placeholder="Địa chỉ..."></textarea>
+                                                    <span style="color: red;font-size: 13px;" id="addressError"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <!-- our order -->
+                                                <div class="payment-details pl-10 mb-50">
+                                                    <h6 class="widget-title border-left mb-20">Đơn hàng
+                                                        của bạn</h6>
+                                                    <table>
+                                                        <tr th:each="cart : ${session.myCartItems}">
+                                                            <td class="td-title-1"
+                                                                th:text="${cart.value.product.name + ' x ' + cart.value.quantity}"></td>
+                                                            <td class="td-title-2"
+                                                                th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
+                                                                th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td-title-1">Phí ship</td>
+                                                            <td class="td-title-2">0 Vnđ</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="td-title-1">Thuế (1%)</td>
+                                                            <td class="td-title-2"
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'">
+                                                                Vnđ
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="order-total">Thành tiền</td>
+                                                            <td class="order-total-price"
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <button id="submitPayment" class="submit-btn-1 mt-30 btn-hover-1"
+                                                        style="border-radius: 5px;" type="button">Thanh toán
+                                                </button>
+                                                <a th:href="@{/}"
+                                                   style="background: #aaa; color: white;padding: 8px 15px; border-radius: 5px;font-size: 15px;">Hủy
+                                                    bỏ
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <!-- checkout end -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- SHOP SECTION END -->
+    </section>
+    <!-- End page content -->
+    <!-- START FOOTER AREA -->
+    <div th:replace="fragments/navHome :: footer"></div>
+    <!-- END FOOTER AREA -->
+</div>
+<!-- Body main wrapper end -->
+<div th:replace="fragments/initHome :: commonScript"></div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var currUrl = /*[[@{/}]]*/ "";
+    /*]]>*/
+</script>
+<script>
+    $('#submitPayment').on('click', function () {
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var payment = $('#payment').val();
+        var mobile = $('#mobile').val();
+        var address = $('#address').val();
+        var errorMessage = '';
+        var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        var regexMobile = /^([+0-9]{10,12})+$/;
+        if (name === null || name === '') {
+            errorMessage = "Tên không được để trống";
+            $('#nameError').text(errorMessage);
+        } else if (name.length > 64) {
+			errorMessage = "Tên không quá 64 kí tự";
+			$('#nameError').text(errorMessage);
+        } else {
+            errorMessage = '';
+            $('#nameError').text(errorMessage);
+        }
+
+        if (email === null || email === '') {
+            errorMessage = "Email không được để trống";
+            $('#emailError').text(errorMessage);
+        }else if(!regexEmail.test(email)){
+			errorMessage = "Sai định dạng email";
+			$('#emailError').text(errorMessage);
+		}else{
+			errorMessage = "";
+			$('#emailError').text(errorMessage);
+		}
+
+        if (payment === null || payment === '') {
+            errorMessage = "Phương thức thanh toán không được để trống";
+            $('#paymentError').text(errorMessage);
+        }else{
+			errorMessage = "";
+			$('#paymentError').text(errorMessage);
+		}
+
+        if (mobile === null || mobile === '') {
+            errorMessage = "Số điện thoại không được để trống";
+            $('#mobileError').text(errorMessage);
+        }else if(!regexMobile.test(mobile)){
+			errorMessage = "Sai định dạng số điện thoại";
+			$('#mobileError').text(errorMessage);
+		}else{
+			errorMessage = "";
+			$('#mobileError').text(errorMessage);
+		}
+
+        if (address === null || address === '') {
+            errorMessage = "Địa chỉ không được để trống";
+            $('#addressError').text(errorMessage);
+        }else{
+			errorMessage = "";
+			$('#addressError').text(errorMessage);
+		}
+
+        if (errorMessage == '') {
+            var dataObject = {};
+            dataObject.name = name;
+            dataObject.email = email;
+            dataObject.payment = payment;
+            dataObject.mobile = mobile;
+            dataObject.address = address;
+            if(payment === 0){
+            	$.ajax({
+					url: currUrl + 'payment/add.html',
+					method: 'POST',
+					data: JSON.stringify(dataObject),
+					contentType: 'application/json;charset=utf-8',
+					success: function (response) {
+
+					}
+				})
+			}
+        }
+    })
+</script>
 </body>
 
 </html>

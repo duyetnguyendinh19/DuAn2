@@ -20,8 +20,8 @@ public class Bill implements Serializable {
     @Column(name = "total")
     private Float total;
 
-    @Column(name = "payment")
-    private String payment;
+    @Column(name = "payment", columnDefinition = "TINYINT")
+    private int payment;
 
     @Column(name = "status", columnDefinition = "TINYINT")
     private int status;
@@ -46,7 +46,7 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(Float total, String payment, int status, Date createDate, String createBy, String isDelete, List<Product_Bill> product_bills, AuthUser authUser) {
+    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, List<Product_Bill> product_bills, AuthUser authUser) {
         this.total = total;
         this.payment = payment;
         this.status = status;
@@ -81,11 +81,11 @@ public class Bill implements Serializable {
         this.total = total;
     }
 
-    public String getPayment() {
+    public int getPayment() {
         return payment;
     }
 
-    public void setPayment(String payment) {
+    public void setPayment(int payment) {
         this.payment = payment;
     }
 
@@ -135,4 +135,16 @@ public class Bill implements Serializable {
             this.createDate = new Date();
         }
     }
+
+    public static enum payment{
+        LIVE(0), ONLINE(1);
+        private final Integer value;
+		private payment(Integer value) {
+            this.value = value;
+        }
+        public Integer value() {
+            return this.value;
+        }
+    }
+
 }
