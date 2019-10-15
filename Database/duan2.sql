@@ -144,7 +144,7 @@ DROP TABLE IF EXISTS `bill`;
 CREATE TABLE `bill` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `total` float DEFAULT NULL,
-  `payment` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
+  `payment` tinyint(4) DEFAULT NULL,
   `status` tinyint(4) DEFAULT NULL,
   `created_date` datetime DEFAULT NULL,
   `created_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -160,7 +160,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,10000000,'Thanh toán online',1,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL),(2,18000000,'Nhận hàng thanh toán',2,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL);
+INSERT INTO `bill` VALUES (1,10000000,0,1,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL),(2,18000000,1,2,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +348,7 @@ CREATE TABLE `report` (
 
 LOCK TABLES `report` WRITE;
 /*!40000 ALTER TABLE `report` DISABLE KEYS */;
-INSERT INTO `report` VALUES (1,'Bùi Văn Tấn','tanbv.dev@gmail.com','Test ','0338070700','Ok','2019-10-07 10:05:50',NULL),(2,'Nguyễn Đình Duyệt','duyetnd@gmail.com','test','012312312','Demo','2019-10-06 00:00:00',NULL);
+INSERT INTO `report` VALUES (1,'Bùi Văn Tấn','tanbv.dev@gmail.com','Test ','0338070700','Ok','2019-10-07 10:05:50','abx'),(2,'Nguyễn Đình Duyệt','duyetnd@gmail.com','test','012312312','Demo','2019-10-06 00:00:00',NULL);
 /*!40000 ALTER TABLE `report` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,7 +369,7 @@ CREATE TABLE `review` (
   `rate` tinyint(4) DEFAULT NULL,
   `id_product` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,7 +378,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'Nguyễn Văn A','2019-10-07 08:30:52','Chất lượng tốt, sản phẩm đẹp, dùng ok',NULL,1,NULL,2),(2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(3,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2);
+INSERT INTO `review` VALUES (2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(3,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này','',1,NULL,2);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -391,4 +391,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-15 11:47:26
+-- Dump completed on 2019-10-15 16:32:59
