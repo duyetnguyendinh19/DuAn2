@@ -21,6 +21,11 @@ public class PaymentController {
     @Resource
     private BillService billService;
 
+    @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
+    public String paymentOnline(){
+        return "home/payment";
+    }
+
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public String paymentLive(@RequestBody(required = false) BillModel billModel, HttpSession session, HttpServletRequest request) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

@@ -31,6 +31,7 @@
 <body>
 <!-- Body main wrapper start -->
 <div class="wrapper">
+    <input type="hidden" id="contextPath" th:value="@{/}"/>
     <!-- START HEADER AREA -->
     <header class="header-area header-wrapper">
         <!-- header-top-bar -->
@@ -236,7 +237,7 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="order-total">Thành tiền</td>
-                                                            <td class="order-total-price"
+                                                            <td class="order-total-price" id="total"
                                                                 th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
                                                         </tr>
                                                     </table>
@@ -281,6 +282,7 @@
         var payment = $('#payment').val();
         var mobile = $('#mobile').val();
         var address = $('#address').val();
+        var total = $('#total').text();
         var errorMessage = '';
         var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var regexMobile = /^([+0-9]{10,12})+$/;
@@ -340,16 +342,20 @@
             dataObject.payment = payment;
             dataObject.mobile = mobile;
             dataObject.address = address;
+            dataObject.total = total;
             if(payment === 0){
-            	$.ajax({
-					url: currUrl + 'payment/add.html',
-					method: 'POST',
-					data: JSON.stringify(dataObject),
-					contentType: 'application/json;charset=utf-8',
-					success: function (response) {
-
-					}
-				})
+                console.log(dataObject)
+            	// $.ajax({
+				// 	url: currUrl + 'payment/add.html',
+				// 	method: 'POST',
+				// 	data: JSON.stringify(dataObject),
+				// 	contentType: 'application/json;charset=utf-8',
+				// 	success: function (response) {
+                //
+				// 	}
+				// })
+			}else{
+            	window.location.href =  window.location.origin + $('#contextPath').val() + 'payment/online/list.html';
 			}
         }
     })
