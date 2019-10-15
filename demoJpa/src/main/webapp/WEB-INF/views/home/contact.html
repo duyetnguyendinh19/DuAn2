@@ -90,25 +90,25 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="message-box box-shadow white-bg">
-                            <form id="contact-form" action="" method="post">
+                            <form id="contact-form" th:object="${report}" th:action="@{/report/save.html}" method="post">
                                 <div class="row">
                                     <div class="col-md-12">
                                         <h4 class="blog-section-title border-left mb-30">Phản hồi</h4>
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="name" placeholder="Tên của bạn...">
+                                        <input type="text" th:field="*{name}" name="name" placeholder="Tên của bạn...">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="email" placeholder="Email...">
+                                        <input type="text" th:field="*{email}" name="email" placeholder="Email...">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="subject" placeholder="Vấn đề của bạn...">
+                                        <input type="text" th:field="*{problem}" name="subject" placeholder="Vấn đề của bạn...">
                                     </div>
                                     <div class="col-md-6">
-                                        <input type="text" name="phone" placeholder="Số điện thoại...">
+                                        <input type="text" th:field="*{mobile}" name="phone" placeholder="Số điện thoại...">
                                     </div>
                                     <div class="col-md-12">
-                                        <textarea class="custom-textarea" name="message" placeholder="Ý kiến của bạn"></textarea>
+                                        <textarea class="custom-textarea" th:field="*{opinion}" name="message" placeholder="Ý kiến của bạn"></textarea>
                                         <button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Gửi phản hồi
                                         </button>
                                     </div>

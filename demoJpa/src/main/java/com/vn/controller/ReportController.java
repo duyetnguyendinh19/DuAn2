@@ -5,6 +5,8 @@ import com.vn.common.Constants;
 import com.vn.jpa.Report;
 import com.vn.model.ReportModel;
 import com.vn.service.ReportService;
+import com.vn.validation.service.ReportFormValidator;
+
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -31,6 +34,9 @@ public class ReportController {
 
     @Resource
     private ReportService reportService;
+    
+    @Resource
+    private ReportFormValidator reportFormValidator;
 
     private SimpleDateFormat sdf_ddMMyyyHHmm = new SimpleDateFormat("dd/MM/yyy HH:mm");
 
@@ -121,8 +127,14 @@ public class ReportController {
     }
     
     @RequestMapping(value = "save.html" , method = RequestMethod.POST)
-    public String saveReply(@ModelAttribute("report") Report report) {
-    	return "";
+    public String saveReply(@ModelAttribute("report") Report report, BindingResult result) {
+    	reportFormValidator.validateReportForm(report, result);
+    	if(result.hasErrors()) {
+    		return "home/contact";
+    	}else {
+    		reportService.insert(report);
+    		return "redirect:/home/contact.html";
+    	}
     }
 
 }

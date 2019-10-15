@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.vn.common.Constants;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
+import com.vn.jpa.Report;
 import com.vn.jpa.Review;
 import com.vn.model.ProductQuickViewModel;
 import com.vn.service.CategoryService;
@@ -142,7 +143,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/contact.html", method = RequestMethod.GET)
-    public ModelAndView viewContact() {
+    public ModelAndView viewContact(Model model) {
+    	model.addAttribute("report", new Report());
         ModelAndView modelAndView = new ModelAndView("home/contact");
         return modelAndView;
     }
