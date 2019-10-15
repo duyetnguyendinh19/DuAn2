@@ -116,14 +116,14 @@
                                         <button class="btn btn-warning" th:if="${eachRow.status == 0}">Chưa duyệt</button>
                                     </td>
                                     <td class="text-table-body">
-                                        <a href="#" th:if="${eachRow.reply} == null"
+                                        <a th:href="@{/review/reply/{id}/list.html(id=${eachRow.id})}" th:if="${eachRow.reply} == null"
                                            data-toggle="tooltip" title="Phản hồi">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-reply"></i></button>
                                         </a>
                                         <label th:if="${eachRow.reply} != null">&nbsp;</label>
                                     </td>
                                     <td class="text-table-body">
-                                        <a href="#" th:if="${eachRow.status} == 0"
+                                        <a th:onclick="'acceptReview(\'' + ${eachRow.name} + '\',\'' + ${eachRow.id} + '\');'" th:if="${eachRow.status} == 0"
                                            data-toggle="tooltip" title="Duyệt">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
                                         </a>
@@ -208,10 +208,31 @@
 </script>
 
 <script type="text/javascript">
+    function acceptReview(name, id) {
+        BootstrapDialog.show({
+            title: 'Xác Nhận duyệt Đánh giá',
+            message: 'Bạn có muốn duyệt Đánh giá của KH có tên là ' + name + ' không ? Bấm Duyệt để xác nhận.',
+            buttons: [{
+                label: 'Bỏ qua',
+                action: function (dialogItself) {
+                    dialogItself.close();
+                }
+            }, {
+                label: 'Duyệt',
+                cssClass: 'btn-primary',
+                action: function (dialogItself) {
+                    window.location.href = currUrl + 'review/accept/' + id + '/list.html';
+                }
+            }]
+        });
+    }
+</script>
+
+<script type="text/javascript">
     function deleteConfirm(name, id) {
         BootstrapDialog.show({
             title: 'Xác Nhận xóa Tài Khoản',
-            message: 'Bạn có chắc chắn muốn xóa Đánh giá có tên là ' + name + ' không ? Bấm Delete để xách nhận.',
+            message: 'Bạn có chắc chắn muốn xóa Đánh giá có tên là ' + name + ' không ? Bấm Delete để xác nhận.',
             buttons: [{
                 label: 'Bỏ qua',
                 action: function (dialogItself) {

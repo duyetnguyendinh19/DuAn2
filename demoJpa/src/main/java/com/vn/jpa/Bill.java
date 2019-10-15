@@ -39,10 +39,14 @@ public class Bill implements Serializable {
     @OneToMany(mappedBy = "bill")
     private List<Product_Bill> product_bills = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_auth_user")
+    private AuthUser authUser;
+
     public Bill() {
     }
 
-    public Bill(Float total, String payment, int status, Date createDate, String createBy, String isDelete, List<Product_Bill> product_bills) {
+    public Bill(Float total, String payment, int status, Date createDate, String createBy, String isDelete, List<Product_Bill> product_bills, AuthUser authUser) {
         this.total = total;
         this.payment = payment;
         this.status = status;
@@ -50,6 +54,15 @@ public class Bill implements Serializable {
         this.createBy = createBy;
         this.isDelete = isDelete;
         this.product_bills = product_bills;
+        this.authUser = authUser;
+    }
+
+    public AuthUser getAuthUser() {
+        return authUser;
+    }
+
+    public void setAuthUser(AuthUser authUser) {
+        this.authUser = authUser;
     }
 
     public Long getId() {
