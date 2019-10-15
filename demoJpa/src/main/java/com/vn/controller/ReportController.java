@@ -7,6 +7,7 @@ import com.vn.model.ReportModel;
 import com.vn.service.ReportService;
 import com.vn.validation.service.ReportFormValidator;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -27,6 +29,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 
 @Controller
 @RequestMapping(value = "/report/")
@@ -129,12 +132,20 @@ public class ReportController {
     }
     
     @RequestMapping(value = "save.html" , method = RequestMethod.POST)
-    public String saveReply(@ModelAttribute("report") Report report, BindingResult result) {
+    public String saveReply(@ModelAttribute("report") Report report, BindingResult result,Model model) {
     	reportFormValidator.validateReportForm(report, result);
+    	Map<String, String> mapError = new HashedMap<String, String>();
     	if(result.hasErrors()) {
+    		for(Object obj : result.getAllErrors()) {
+    			if(obj instanceof ObjectError) {
+    				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
+    			}
+    		}
+    		model.addAttribute("mapError", mapError);
     		return "home/contact";
     	}else {
     		reportService.insert(report);
+    		model.addAttribute("mapError", mapError);
     		return "redirect:/home/contact.html";
     	}
     }
