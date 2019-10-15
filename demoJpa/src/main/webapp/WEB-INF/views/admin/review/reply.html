@@ -4,8 +4,8 @@
     <title>Title List</title>
 </head>
 <style>
-    .readonly{
-        background: white!important;
+    .readonly {
+        background: white !important;
     }
 </style>
 <body>
@@ -39,77 +39,64 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <form th:object="${report}" th:action="@{/report/{id}/reply.html(id=${report.id})}" method="POST">
+                <form th:object="${review}" th:action="@{/review/{id}/reply.html(id=${review.id})}" method="POST">
                     <input type="hidden" name="id" id="id" th:value="*{id}"/>
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="form-group">
-                                <label>Tên</label>
+                                <label>Tên KH</label>
                                 <div>
-                                    <input class="form-control readonly" type="text" id="form-field-name" th:field="*{name}" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <div>
-                                    <input class="form-control readonly" type="text" id="form-field-email" th:field="*{email}" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>SĐT</label>
-                                <div>
-                                    <input class="form-control readonly" type="text" id="form-field-mobile"
-                                           th:field="*{mobile}" readonly/>
+                                    <input class="form-control readonly" type="text" id="form-field-name"
+                                           th:field="*{name}" readonly/>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6" style="height: 182px;">
-                            <div class="form-group" style="height: 100%;">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label>Tên SP</label>
+                                <div>
+                                    <input class="form-control readonly" type="text" id="form-field-nameProduct"
+                                           th:field="*{product.name}" readonly/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="height: 130px;">
+                            <div class="form-group" style="height: 75%;">
                                 <label>Ý kiến</label>
                                 <div style="height: 100%;">
-                                    <textarea placeholder="Ý kiến..." class="form-control readonly" id="form-field-opinion"
-                                              th:field="*{opinion}" style="height: 100%;" readonly/>
+                                    <textarea placeholder="Ý kiến..." class="form-control readonly"
+                                              id="form-field-opinion"
+                                              th:field="*{description}" style="height: 100%;" readonly/>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-6" style="height: 120px;">
-                            <div class="form-group" style="height: 70%;">
-                                <label>Vấn đề</label>
-                                <div style="height: 100%;">
-                                    <textarea placeholder="Vấn đề được phản hồi..." class="form-control readonly"
-                                              id="form-field-problem" th:field="*{problem}" style="height: 100%;" readonly/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6" style="height: 120px;">
-                            <div class="form-group" style="height: 70%;">
+                        <div class="col-lg-6" style="height: 130px;">
+                            <div class="form-group" style="height: 75%;">
                                 <label>Trả lời</label>
                                 <div style="height: 100%;">
-                                    <textarea placeholder="Trả lời phản hồi..." class="form-control"
+                                    <textarea placeholder="Trả lời đánh giá..." class="form-control"
                                               id="form-field-reply" th:field="*{reply}" style="height: 100%;"/>
                                     <div th:if="${err} != null"
-                                         style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:5px;" th:text="${err}"></div>
+                                         style="color: red; font-weight: bold; font-size: 13px;margin-top:5px;"
+                                         th:text="${err}"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-info">Cập nhật</button>
-                                <a th:href="@{/report/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
-                                   href="/report/list" class="btn btn-warning">Bỏ qua</a>
+                                <a th:href="@{/review/list.html?page={pageIdx}(pageIdx=${session.pageIndex})}"
+                                   href="/review/list" class="btn btn-warning">Bỏ qua</a>
                             </div>
                         </div>
                     </div>
+                </form>
             </div>
-            </form>
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
+        <!-- /.col-lg-6 -->
     </div>
-    <!-- /.col-lg-6 -->
-</div>
-<!-- /.row -->
+    <!-- /.row -->
 </div>
 <!-- /#page-wrapper -->
 

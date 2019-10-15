@@ -117,13 +117,15 @@ public class ReportController {
                return "admin/report/update";
            }
            Report report1 = reportService.findOne(id);
-           report1.setRepply(report.getReply());
-           reportService.update(report1);
-           return "redirect:/report/list.html";
+           if(report1 != null){
+               report1.setRepply(report.getReply());
+               reportService.update(report1);
+               return "redirect:/report/list.html";
+           }
        }catch (Exception e){
            e.printStackTrace();
-           return "redirect:/report/list.html";
        }
+        return "redirect:/report/list.html";
     }
     
     @RequestMapping(value = "save.html" , method = RequestMethod.POST)

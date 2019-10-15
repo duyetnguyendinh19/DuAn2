@@ -3,6 +3,7 @@ package com.vn.controller;
 import com.google.common.base.Strings;
 import com.vn.common.Constants;
 import com.vn.jpa.Review;
+import com.vn.model.ReviewModel;
 import com.vn.service.ReviewService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
@@ -13,14 +14,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -78,10 +77,65 @@ public class ReviewController {
             model.addAttribute("page", page);
             session.setAttribute("from_date", sdf.format(_fromDate));
             session.setAttribute("to_date", sdf.format(_toDate));
+            session.setAttribute("pageIdx", pageable.getPageNumber());
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "admin/review/list";
+    }
+
+    @RequestMapping(value = "reply/{id}/list.html",method =  RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String reply(Model model, @PathVariable("id") Long id){
+        try {
+            Review review = reviewService.findOne(id);
+            ReviewModel reviewModel = new ReviewModel();
+            reviewModel.setId(review.getId());
+            reviewModel.setStatus(review.getStatus());
+            reviewModel.setCreatedDate(review.getCreateDate());
+            reviewModel.setDescription(review.getDescription());
+            reviewModel.setProduct(review.getProduct());
+            reviewModel.setName(review.getName());
+            reviewModel.setRate(review.getRate());
+            reviewModel.setReply(review.getReply());
+            model.addAttribute("review", reviewModel);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "admin/review/reply";
+    }
+
+    @RequestMapping(value = "{id}/reply.html",method =  RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String replyPOST(Model model, @ModelAttribute("review") @Valid ReviewModel reviewModel){
+        try {
+            if(Strings.isNullOrEmpty(reviewModel.getReply())){
+                model.addAttribute("err", "Trả lời không được để trống");
+                model.addAttribute("review", reviewModel);
+                return "admin/review/reply";
+            }
+            Review review = reviewService.findOne(reviewModel.getId());
+            if(review != null){
+                review.setReply(reviewModel.getReply());
+                reviewService.update(review);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/review/list.html";
+    }
+
+    @RequestMapping(value = "accept/{id}/list.html")
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String accept(Model model, @PathVariable("id") Long id){
+        try {
+            Review review = reviewService.findOne(id);
+            review.setStatus(1);
+            reviewService.update(review);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/review/list.html";
     }
 
     @RequestMapping(value = "delete/{id}/list.html")

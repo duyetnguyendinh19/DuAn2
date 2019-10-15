@@ -11,12 +11,12 @@
                     <a th:href="@{${pageUrl}(page=${0},size=${page.size},user_list_ss=${user_list_ss})}"
                        href="#"> First </a>
                 </li>
-                <li class="prev" th:if="${page.hasPrevious()}">
-                    <a th:href="@{${pageUrl}(page=${page.number-1},size=${page.size},user_list_ss=${user_list_ss})}"
-                       href="#">
-                        <i class="icon-double-angle-left"></i>
-                    </a>
-                </li>
+<!--                <li class="prev" th:if="${page.hasPrevious()}">-->
+<!--                    <a th:href="@{${pageUrl}(page=${page.number-1},size=${page.size},user_list_ss=${user_list_ss})}"-->
+<!--                       href="#">-->
+<!--                        <i class="icon-double-angle-left"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
                 <th:block th:each="pageNumber : ${#numbers.sequence(page.number - 5, page.number + 5)}">
                     <li class="active"
                         th:if="${pageNumber eq (page.number+1) and pageNumber gt 0 and  pageNumber lt (page.totalPages +1) }">
@@ -32,11 +32,11 @@
                            th:text="${pageNumber}"></a>
                     </li>
                 </th:block>
-                <li class="next" th:if="${page.hasNext()}">
-                    <a th:href="@{${pageUrl}(page=${page.number+1},size=${page.size},user_list_ss=${user_list_ss})}"
-                       href="#"> <i class="icon-double-angle-right"></i>
-                    </a>
-                </li>
+<!--                <li class="next" th:if="${page.hasNext()}">-->
+<!--                    <a th:href="@{${pageUrl}(page=${page.number+1},size=${page.size},user_list_ss=${user_list_ss})}"-->
+<!--                       href="#"> <i class="icon-double-angle-right"></i>-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li class="Last " th:if="${not page.last}">
                     <a th:href="@{${pageUrl}(page=${page.totalPages-1},size=${page.size},user_list_ss=${user_list_ss})}"
                        href="#">Last</a>
