@@ -652,9 +652,9 @@
             subImamgeObject.push(i[1]);
         }
         var errorMessage = '';
-        // if (subImamgeObject.length === 0) {
-        //     errorMessage = "Ảnh chi tiết sản phẩm không để trống";
-        // }
+        if (subImamgeObject.length === 0 && (parseSub.length === removeSub.length)) {
+            errorMessage = "Ảnh chi tiết sản phẩm không để trống";
+        }
         if (errorMessage != '') {
             $('#subError').text(errorMessage);
             $("#error").hide().fadeIn(0).delay(3000).fadeOut(1000);

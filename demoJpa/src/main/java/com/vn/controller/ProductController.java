@@ -146,6 +146,9 @@ public class ProductController {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
             if (!Strings.isNullOrEmpty(model.getName())) {
+                if(model.getName().length() > 64){
+                    responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
+                }
                 if (productService.findAllByNameAndIsdelete(model.getName().trim(), "N") != null) {
                     responseMap.put("name", "Tên sản phẩm đã tồn tại");
                 }
@@ -245,6 +248,9 @@ public class ProductController {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
             if (!Strings.isNullOrEmpty(model.getName())) {
+                if(model.getName().length() > 64){
+                    responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
+                }
                 if (!model.getName().trim().equals(product.getName())) {
                     if(productService.findAllByNameAndIsdelete(model.getName(), "N") != null){
                         responseMap.put("name", "Tên sản phẩm đã tồn tại");
@@ -259,9 +265,6 @@ public class ProductController {
             }
             if (Strings.isNullOrEmpty(model.getInfo())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");
-            }
-            if(model.getSubImg() == null && model.getSubImg().length < 0 && product.getSubImg() == null){
-                responseMap.put("sub", "Ảnh chi tiết không được để trống");
             }
             if (responseMap.size() == 0) {
                 if (model.getMainImg() != null) {
