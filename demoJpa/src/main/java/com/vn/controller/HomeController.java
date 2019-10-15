@@ -12,6 +12,8 @@ import com.vn.model.ProductQuickViewModel;
 import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
 import com.vn.service.ReviewService;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -146,6 +148,7 @@ public class HomeController {
     @RequestMapping(value = "/home/contact.html", method = RequestMethod.GET)
     public ModelAndView viewContact(Model model) {
     	model.addAttribute("report", new Report());
+    	model.addAttribute("mapError", new HashedMap<String, String>());
         ModelAndView modelAndView = new ModelAndView("home/contact");
         return modelAndView;
     }
