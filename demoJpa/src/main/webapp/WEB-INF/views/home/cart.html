@@ -304,7 +304,7 @@
 			errorMessage = "Sai định dạng email";
 			$('#emailError').text(errorMessage);
 		}else{
-			errorMessage = "";
+			errorMessage = '';
 			$('#emailError').text(errorMessage);
 		}
 
@@ -312,7 +312,7 @@
             errorMessage = "Phương thức thanh toán không được để trống";
             $('#paymentError').text(errorMessage);
         }else{
-			errorMessage = "";
+			errorMessage = '';
 			$('#paymentError').text(errorMessage);
 		}
 
@@ -323,7 +323,7 @@
 			errorMessage = "Sai định dạng số điện thoại";
 			$('#mobileError').text(errorMessage);
 		}else{
-			errorMessage = "";
+			errorMessage = '';
 			$('#mobileError').text(errorMessage);
 		}
 
@@ -331,10 +331,9 @@
             errorMessage = "Địa chỉ không được để trống";
             $('#addressError').text(errorMessage);
         }else{
-			errorMessage = "";
+			errorMessage = '';
 			$('#addressError').text(errorMessage);
 		}
-
         if (errorMessage == '') {
             var dataObject = {};
             dataObject.name = name;
@@ -343,7 +342,7 @@
             dataObject.mobile = mobile;
             dataObject.address = address;
             dataObject.total = total;
-            if(payment === 0){
+            if(payment == 0){
                 console.log(dataObject)
             	// $.ajax({
 				// 	url: currUrl + 'payment/add.html',

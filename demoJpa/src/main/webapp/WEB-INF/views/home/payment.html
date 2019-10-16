@@ -5,6 +5,31 @@
     <div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
+    @keyframes bounceInDownCustom {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -200px, 0);
+            transform: translate3d(0, -200px, 0);
+        }
+        60% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 10px, 0);
+            transform: translate3d(0, 10px, 0);
+        }
+        75% {
+            -webkit-transform: translate3d(0, -10px, 0);
+            transform: translate3d(0, -10px, 0);
+        }
+        90% {
+            -webkit-transform: translate3d(0, 5px, 0);
+            transform: translate3d(0, 5px, 0);
+        }
+        100% {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
     @media (max-width: 520px) {
         .wrapper {
             width: 100% !important;
@@ -146,8 +171,13 @@
         }
 
         .infoLeft .group-imgATM {
-            margin-left: 19px !important;
+            margin-left: 15px !important;
         }
+    }
+
+    .custom-control-input {
+        float: left;
+        width: 30px;
     }
 
     .transaction-result-content {
@@ -340,8 +370,8 @@
     }
 
     .selectOptionPayment {
-        margin-left: auto;
-        margin-right: auto;
+        margin-left: 10px;
+        /*margin-right: auto;*/
         text-align: center;
         background: #ff9800 !important;
         color: white;
@@ -364,7 +394,7 @@
 
     .infoPayment {
         width: 85%;
-        font-size: 14px;
+        font-size: 13px;
         float: left;
         margin-bottom: 10px;
     }
@@ -383,7 +413,7 @@
         object-fit: cover;
         width: 100%;
         border-radius: 5px;
-        height: 200px;
+        height: 160px;
     }
 
     .infoRight .txtLeft {
@@ -412,6 +442,7 @@
         float: left;
         margin-left: 20px;
         margin-bottom: 10px;
+        margin-top: 10px;
     }
 
     .group-imgATM:hover {
@@ -505,6 +536,7 @@
     }
 
     .infoLeft .custom-control.custom-radio {
+        float: left;
         border-bottom: 1px dotted #E8E8E8 !important;
         margin-top: 15px !important;
         clear: both;
@@ -530,190 +562,276 @@
 </style>
 
 <body>
-<!-- Body main wrapper start -->
-<!--<div class="wrapper">-->
+<!-- START HEADER AREA -->
+<header class="header-area header-wrapper">
+    <!-- header-top-bar -->
+    <div th:replace="fragments/navHome :: header"></div>
+    <!-- header-middle-area -->
+</header>
+<!-- END HEADER AREA -->
 
-    <!-- START HEADER AREA -->
-    <header class="header-area header-wrapper">
-        <!-- header-top-bar -->
-        <div th:replace="fragments/navHome :: header"></div>
-        <!-- header-middle-area -->
-    </header>
-    <!-- END HEADER AREA -->
-
-    <!-- START MOBILE MENU AREA -->
-    <div th:replace="fragments/navHome :: menuMobile"></div>
-    <!-- END MOBILE MENU AREA -->
-    <!--    <div class="wrapper">-->
-    <div class="row" style="width: 85%!important;margin: 0px auto;margin-bottom: 30px;color: black;">
-        <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4 infoRight">
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="border-bottom: 1px solid #E8E8E8;margin-top: 0px;font-size: 17px;font-weight: bold;
+<!-- START MOBILE MENU AREA -->
+<div th:replace="fragments/navHome :: menuMobile"></div>
+<!-- END MOBILE MENU AREA -->
+<!--    <div class="wrapper">-->
+<div class="row" style="width: 85%!important;margin: 0px auto;margin-bottom: 30px;color: black;">
+    <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4 infoRight">
+        <div class="col col-xs-12 col-sm-12 col-md-12" style="border-bottom: 1px solid #E8E8E8;margin-top: 0px;font-size: 17px;font-weight: bold;
 					padding-bottom: 8px;padding-left: 0px;">
-                Thông tin sản phẩm
+            Thông tin sản phẩm
+        </div>
+        <div th:each="each : ${session.myCartItems}" style="margin-top: 10px;display: inline-flex;">
+            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px; width: 35%;">
+                <img th:src="${each.value.product.mainImg}"/>
             </div>
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
-                <img th:src="@{/assets/teamplates/img/product/1.jpg}"/>
-            </div>
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
-                <div class="txtLeft">Tên sản phẩm</div>
-                <div class="txtRight">IPhone</div>
-            </div>
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
-                <div class="txtLeft">Giá</div>
-                <div class="txtRight">50,000,000 VNĐ</div>
-            </div>
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
-                <div class="txtLeft">Số lượng</div>
-                <div class="txtRight">3</div>
-            </div>
-            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
-                <div class="txtLeft">Tổng tiền</div>
-                <div class="txtRight">500,000,000 VNĐ</div>
+            <div class="row" style="width: 60%;margin-left: 15px;line-height: 30px;">
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Tên sản phẩm</div>
+                    <div class="txtRight" th:text="${each.value.product.name}">IPhone</div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Giá</div>
+                    <div class="txtRight"
+                         th:text="${#numbers.formatDecimal(each.value.product.price, 0, 'COMMA', 0,'POINT')}">50,000,000
+                        VNĐ
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Số lượng</div>
+                    <div class="txtRight" th:text="${each.value.quantity}">3</div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Thuế VAT(1%)</div>
+                    <div class="txtRight"
+                         th:text="${#numbers.formatDecimal((each.value.product.price * each.value.quantity)*0.01, 0, 'COMMA', 0,'POINT')}">
+                        500,000,000 VNĐ
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Thành tiền</div>
+                    <div class="txtRight" th:with="subtotal=${each.value.product.price * each.value.quantity}"
+                         th:text="${#numbers.formatDecimal(subtotal + subtotal*0.01, 0, 'COMMA', 0, 'POINT')}">
+                        500,000,000 VNĐ
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8 infoLeft">
-            <div class="head">
-                <div class="upper-case" style="float: left;width: 74%;height: 30px;line-height: 30px;">
-                    <img th:src="@{/assets/img/tt_camket_ttoan.svg}" class="icon_camket"/>&nbsp;&nbsp;Thanh toán an toàn
+        <div style="border-top: 1px solid #E7E7E7;float: left;width: 100%;margin:20px 0px;">
+            <div style="margin-top: 10px;font-weight: bold">Thành tiền hóa đơn</div>
+            <div style="margin-top: 10px;line-height: 25px;">
+                <div th:each="cart : ${session.myCartItems}">
+                    <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                        <div class="txtLeft" th:text="${cart.value.product.name}">IPhone</div>
+                        <div class="txtRight" th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
+                             th:text="${#numbers.formatDecimal(subtotal + subtotal*0.01, 0, 'COMMA', 0, 'POINT')} + ' Vnđ'">
+                            500,000,000 VNĐ
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <img th:src="@{/assets/img/global_seal_110x45.png}" class="group-imgcheck"/>
-                    <img th:src="@{/assets/img/verify4.png}" class="group-imgcheck"/>
-                </div>
-                <div class="content-head">Website ÔTôKê được Bộ Công Thương cấp phép chính thức hoạt động thương mại
-                    điện tử, trên nền tảng thanh toán về giao dịch an toàn và không lưu trữ thông tin thẻ của bạn.
+                <div style="border-top: 2px solid #E8E8E8;float:left;width: 100%;margin-top: 10px;">
+                    <div class="txtLeft" style="font-weight: bold;margin-top: 10px;">Tổng tiền</div>
+                    <div class="txtRight" style="margin-top: 10px;" id="totalPayment"
+                         th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0, 'POINT')} + ' Vnđ'">
+                        500,000,000 VNĐ
+                    </div>
                 </div>
             </div>
-            <div class="content">
-                <div class="first-content row">
-                    <p class="icon-select">1</p>
-                    <h5>&nbsp;&nbsp;Thông tin khách hàng</h5>
-                    <div class="formFirst">
-                        <div class="col col-xs-12 col-sm-12 col-md-12">
-                            <input type="text" name="name" class="form-control"
-                                   placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)"/>
-                        </div>
-                        <div class="col col-xs-12 col-sm-12 col-md-12">
-                            <input type="text" name="email" class="form-control" placeholder="Email"/>
-                        </div>
-                        <div class="col col-xs-12 col-sm-12 col-md-12">
-                            <input type="text" name="mobile" class="form-control" placeholder="Số điện thoại"/>
-                        </div>
+        </div>
+
+    </div>
+    <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8 infoLeft">
+        <div class="head">
+            <div class="upper-case" style="float: left;width: 74%;height: 30px;line-height: 30px;">
+                <img th:src="@{/assets/img/tt_camket_ttoan.svg}" class="icon_camket"/>&nbsp;&nbsp;Thanh toán an toàn
+            </div>
+            <div>
+                <img th:src="@{/assets/img/global_seal_110x45.png}" class="group-imgcheck"/>
+                <img th:src="@{/assets/img/verify4.png}" class="group-imgcheck"/>
+            </div>
+            <div class="content-head">Website ÔTôKê được Bộ Công Thương cấp phép chính thức hoạt động thương mại
+                điện tử, trên nền tảng thanh toán về giao dịch an toàn và không lưu trữ thông tin thẻ của bạn.
+            </div>
+        </div>
+        <div class="content">
+            <div class="first-content row">
+                <p class="icon-select">1</p>
+                <h5>&nbsp;&nbsp;Thông tin khách hàng</h5>
+                <div class="formFirst">
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" name="name" class="form-control"
+                               placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)"/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" name="email" class="form-control" placeholder="Email"/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" name="mobile" class="form-control" placeholder="Số điện thoại"/>
                     </div>
                 </div>
-                <div class="row first-content">
-                    <p class="icon-select">2</p>
-                    <h5>&nbsp;&nbsp;Phương thức thanh toán</h5>
-                    <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <!--                            <b-form-group>-->
-                        <!--                                <b-form-radio v-model="selectedOptionATM" name="payment" value="1">-->
-                        <!--                                    <img src="/static/img/pttt_2.svg" class="icon-pttt" style="float: left;" />-->
-                        <!--                                    <p style="float: left;width: 85%;margin-bottom: 5px;">-->
-                        <!--                                        Chuyển khoản trực tiếp-->
-                        <!--                                    </p>-->
-                        <!--                                    <div class="infoPayment">Chuyển khoản đến tài khoản ngân hàng của Yohomestay tại quầy giao dịch ngân hàng, cây ATM, qua mobile banking, hoặc chuyển khoản qua internet.</div>-->
-                        <!--                                </b-form-radio>-->
-                        <!--                                <template v-if="selectedOptionATM == '1'">-->
-                        <!--                                    <div class="detailOptionPayment animated jackInTheBox">-->
-                        <!--                                        <div class="row">-->
-                        <!--                                            <div class="col col-xs-12 col-sm-12 col-md-12">-->
-                        <!--                                                <template v-for="item in dataBanks" v-key="item.id">-->
-                        <!--                                                    <div class="group-imgATM"-->
-                        <!--                                                         @click="getInfoBankById(item.bankInfo)" v-b-modal.modalShowInfoBank v-b-tooltip.hover :title="item.bankName">-->
-                        <!--                                                        <img :src="item.bankIcon" style="width: 100%;object-fit: cover;margin-top: 15px;" />-->
-                        <!--                                                    </div>-->
-                        <!--                                                </template>-->
-                        <!--                                                <b-modal id="modalShowInfoBank" title="Thông tin chuyển khoản đặt phòng" :hide-footer="true">-->
-                        <!--                                                    <div class="transaction-result-wrapper">-->
-                        <!--                                                        <div class="transaction-result-content">-->
-                        <!--                                                            <div class="transaction-result-content-wrapper">-->
-                        <!--                                                                <table style="margin-top: 0px!important;">-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td style="min-width: 100px;">Số tài khoản</td>-->
-                        <!--                                                                        <td>{{dataShowBank.atmNumber}}</td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td>Chủ tài khoản</td>-->
-                        <!--                                                                        <td>{{dataShowBank.name}}</td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td>Ngân hàng</td>-->
-                        <!--                                                                        <td>{{dataShowBank.bank_name}}</td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td>Số tiền chuyển khoản</td>-->
-                        <!--                                                                        <td style="color: #ff9800;">{{formatNumberVnd(bookingHistory.totalFee)}}&nbsp;đ</td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td>Nội dung chuyển khoản</td>-->
-                        <!--                                                                        <td style="color: #ff9800;">Thanh toan don dat phong ma {{bookingHistory.bookingCode}}</td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                    <tr>-->
-                        <!--                                                                        <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh toán tại quầy giao dịch ngân hàng, qua mobile banking, cây ATM, hoặc chuyển khoản qua internet tại <a :href="dataShowBank.urlIpay" target="_blank" style="color: #ff9800!important;">đây</a>.-->
-                        <!--                                                                        </td>-->
-                        <!--                                                                    </tr>-->
-                        <!--                                                                </table>-->
-                        <!--                                                            </div>-->
-                        <!--                                                        </div>-->
-                        <!--                                                    </div>-->
-                        <!--                                                </b-modal>-->
-                        <!--                                            </div>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-                        <!--                                <b-form-radio v-model="selectedOptionATM" name="payment" value="0">-->
-                        <!--                                    <img src="/static/img/pttt_1.svg" class="icon-pttt" style="float: left;" />-->
-                        <!--                                    <p style="float: left;width: 85%;margin-bottom: 5px;">-->
-                        <!--                                        Thanh toán online bằng thẻ ATM-->
-                        <!--                                    </p>-->
-                        <!--                                    <div class="infoPayment">Thực hiện theo tiêu chuẩn bảo mật PCI-DSS và không lưu thông tin thẻ của bạn.</div>-->
-                        <!--                                </b-form-radio>-->
-                        <!--                                <template v-if="selectedOptionATM == '0'">-->
-                        <!--                                    <div class="detailOptionPayment animated jackInTheBox">-->
-                        <!--                                        <div class="row">-->
-                        <!--                                            <div class="col col-xs-12 col-sm-12 col-md-12">-->
-                        <!--                                                <template v-for="item in dataBanks" v-key="item.id">-->
-                        <!--                                                    <div class="group-imgATM" id="bankSelect" @click="setIdBankSelected(item.id,item.bankCode)"-->
-                        <!--                                                         :class="{active : indexSelectBank == item.id}" v-b-tooltip.hover :title="item.bankName">-->
-                        <!--                                                        <img :src="item.bankIcon" style="width: 100%;object-fit: cover;margin-top: 15px;" />-->
-                        <!--                                                    </div>-->
-                        <!--                                                </template>-->
-                        <!--                                            </div>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-                        <!--                                <b-form-radio v-model="selectedOptionATM" name="payment" value="2">-->
-                        <!--                                    <img src="/static/img/pttt_3.svg" class="icon-pttt" style="float: left;" />-->
-                        <!--                                    <p style="float: left;width: 85%;margin-bottom: 5px;">Thanh toán online qua thẻ Visa/Master/JCB</p>-->
-                        <!--                                    <div class="infoPayment">Thực hiện theo tiêu chuẩn bảo mật PCI-DSS và không lưu thông tin thẻ của bạn.</div>-->
-                        <!--                                </b-form-radio>-->
-                        <!--                                <template v-if="selectedOptionATM == '2'">-->
-                        <!--                                    <div class="detailOptionPayment animated jackInTheBox">-->
-                        <!--                                        <div class="row">-->
-                        <!--                                            <div class="col col-xs-12 col-sm-12 col-md-12">-->
-                        <!--                                                <template v-for="item in dataBanks" v-key="item.id">-->
-                        <!--                                                    <div class="group-imgATM" id="bankSelect" @click="setIdBankSelected(item.id,item.bankCode)"-->
-                        <!--                                                         :class="{active : indexSelectBank == item.id}"-->
-                        <!--                                                         v-b-tooltip.hover :title="item.bankName">-->
-                        <!--                                                        <img :src="item.bankIcon" style="width: 100%;object-fit: cover;margin-top: 15px;" />-->
-                        <!--                                                    </div>-->
-                        <!--                                                </template>-->
-                        <!--                                            </div>-->
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-                        <!--                                </template>-->
-                        <!--                            </b-form-group>-->
-                    </div>
-                    <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;">
-                        <button class="selectOptionPayment btn">Thanh toán</button>
-                    </div>
+            </div>
+            <div class="row first-content">
+                <p class="icon-select">2</p>
+                <h5>&nbsp;&nbsp;Phương thức thanh toán</h5>
+                <div class="col col-xs-12 col-sm-12 col-md-12">
+                    <form id="paymentSelected">
+                        <div class="custom-control custom-radio" style="float:left;">
+                            <input type="radio" class="custom-control-input" name="payment" value="1">
+                            <img th:src="@{/assets/img/pttt_2.svg}" class="icon-pttt" style="float: left;"/>
+                            <p style="float: left;width: 85%;margin-bottom: 5px;font-size: 16px; color: black;">
+                                Chuyển khoản trực tiếp
+                            </p>
+                            <div class="infoPayment">Chuyển khoản đến tài khoản ngân hàng của Yohomestay tại quầy giao
+                                dịch ngân hàng, cây ATM, qua mobile banking, hoặc chuyển khoản qua internet.
+                            </div>
+                        </div>
+                        <div class="detailOptionPayment animated jackInTheBox">
+                            <div class="row">
+                                <div class="col col-xs-12 col-sm-12 col-md-12">
+                                    <div class="group-imgATM" data-toggle="modal" data-target="#modalPayment">
+                                        <img th:src="@{/static/bank/bidv_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="modal fade" id="modalPayment" tabindex="-1" role="dialog">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Thông tin chuyển khoản thanh toán</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <table style="margin-top: 0px!important;">
+                                                        <tr>
+                                                            <td style="min-width: 100px;">Số tài khoản</td>
+                                                            <td>123121231233</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Chủ tài khoản</td>
+                                                            <td>Nguyễn Văn A</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ngân hàng</td>
+                                                            <td>VIETCOMBANK</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Số tiền chuyển khoản</td>
+                                                            <td style="color: #ff9800;">20,000,000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Nội dung chuyển khoản</td>
+                                                            <td style="color: #ff9800;">Thanh toan san pham abc</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
+                                                                toán tại quầy giao dịch ngân hàng, qua mobile
+                                                                banking, cây ATM, hoặc chuyển khoản qua internet tại
+                                                                <a href="#" target="_blank"
+                                                                   style="color: #ff9800!important;">đây</a>.
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" value="0">
+                            <img th:src="@{/assets/img/pttt_1.svg}" class="icon-pttt" style="float: left;"/>
+                            <p style="float: left;width: 85%;margin-bottom: 5px;font-size: 16px;color: black;">
+                                Thanh toán online bằng thẻ ATM
+                            </p>
+                            <div class="infoPayment">Thực hiện theo tiêu chuẩn bảo mật PCI-DSS và không lưu thông tin
+                                thẻ của bạn.
+                            </div>
+                        </div>
+                        <div class="detailOptionPayment animated jackInTheBox">
+                            <div class="row">
+                                <div class="col col-xs-12 col-sm-12 col-md-12">
+                                    <div class="group-imgATM" id="bankSelect">
+<!--                                         th:class="${active : 0 == 0}">-->
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="custom-control custom-radio">
+                            <input type="radio" class="custom-control-input" name="payment" value="2">
+                            <img th:src="@{/assets/img/pttt_3.svg}" class="icon-pttt" style="float: left;"/>
+                            <p style="float: left;width: 85%;margin-bottom: 5px;font-size: 16px;color: black">Thanh toán
+                                online qua thẻ
+                                Visa/Master/JCB</p>
+                            <div class="infoPayment">Thực hiện theo tiêu chuẩn bảo mật PCI-DSS và không lưu thông tin
+                                thẻ của bạn.
+                            </div>
+                        </div>
+                        <div class="detailOptionPayment animated jackInTheBox">
+                            <div class="row">
+                                <div class="col col-xs-12 col-sm-12 col-md-12">
+                                    <div class="group-imgATM">
+                                        <!--                                             @click="setIdBankSelected(item.id,item.bankCode)"-->
+                                        <!--                                             :class="{active : indexSelectBank == item.id}"-->
+                                        <!--                                             v-b-tooltip.hover :title="item.bankName">-->
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                    <div class="group-imgATM">
+                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
+                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;margin-top: 10px;">
+                    <button class="selectOptionPayment btn">Thanh toán</button>
+                    <a th:href="@{/home/cart.html}" class="selectOptionPayment btn"
+                       style="padding-top: 5px;background: #E8E8E8!important;color: black">Hủy bỏ</a>
                 </div>
             </div>
         </div>
     </div>
-    <!-- START FOOTER AREA -->
-    <div th:replace="fragments/navHome :: footer"></div>
-    <!-- END FOOTER AREA -->
+</div>
+</div>
+<!-- START FOOTER AREA -->
+<div th:replace="fragments/navHome :: footer"></div>
+<!-- END FOOTER AREA -->
 
 <!--</div>-->
 <!-- Body main wrapper end -->
@@ -722,7 +840,12 @@
     var currUrl = /*[[@{/}]]*/"";
     var pageIndex = /*[[${session.pageIndex}]]*/"";
 </script>
+<script>
+    $('#paymentSelected input[name=payment]').on('change', function () {
+        var typeBank = $('input[name=payment]:checked', '#paymentSelected').val();
 
+    })
+</script>
 </body>
 
 </html>

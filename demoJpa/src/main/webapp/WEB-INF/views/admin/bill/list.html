@@ -109,8 +109,8 @@
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
                                     <td class="text-table-body" th:text="${eachRow.createBy}"></td>
                                     <td class="text-table-body">
-                                        <span th:if="${eachRow.payment == 0}" th:text="Thanh toán trực tiếp"></span>
-                                        <span th:if="${eachRow.payment == 1}" th:text="Thanh toán online"></span>
+                                        <span th:if="${eachRow.payment == 0}">Thanh toán trực tiếp</span>
+                                        <span th:if="${eachRow.payment == 1}">Thanh toán online</span>
                                     </td>
                                     <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
                                     <td class="text-table-body" style="text-align: center;">
@@ -125,10 +125,9 @@
                                         <label th:if="${eachRow.status} == 1">&nbsp;</label>
                                     </td>
                                     <td>
-<!--                                        <a type="button" class="btn btn-warning" href="#"-->
-<!--                                           th:onclick="'deleteConfirm(\'' + ${eachRow.name} + '\',\'' + ${eachRow.id} + '\' );'"-->
-<!--                                           data-toggle="tooltip" title="Xóa Đánh Giá"><i-->
-<!--                                                class="glyphicon glyphicon-trash"></i></a>-->
+                                        <a type="button" class="btn btn-warning" href="#"
+                                           data-toggle="tooltip" title="Xóa Hóa Đơn"><i
+                                                class="glyphicon glyphicon-trash"></i></a>
                                     </td>
                                 </tr>
                                 </tbody>
