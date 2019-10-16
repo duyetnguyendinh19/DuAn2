@@ -4,6 +4,8 @@ import com.vn.jpa.BankInfo;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface BankInfoService {
 
     Page<BankInfo> findAll(Pageable pageable);
@@ -15,5 +17,7 @@ public interface BankInfoService {
     void delete(BankInfo bankInfo);
 
     BankInfo findOne(Long id);
+
+    List<BankInfo> findAllByType(Integer type);
 
 }

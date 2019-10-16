@@ -562,6 +562,7 @@
 </style>
 
 <body>
+<input type="hidden" id="contextPath" th:value="@{/}"/>
 <!-- START HEADER AREA -->
 <header class="header-area header-wrapper">
     <!-- header-top-bar -->
@@ -684,61 +685,58 @@
                                 dịch ngân hàng, cây ATM, qua mobile banking, hoặc chuyển khoản qua internet.
                             </div>
                         </div>
-                        <div class="detailOptionPayment animated jackInTheBox">
+                        <div class="detailOptionPayment animated jackInTheBox" id="paymentType1" style="display: none;">
                             <div class="row">
-                                <div class="col col-xs-12 col-sm-12 col-md-12">
-                                    <div class="group-imgATM" data-toggle="modal" data-target="#modalPayment">
-                                        <img th:src="@{/static/bank/bidv_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                <div class="col col-xs-12 col-sm-12 col-md-12" id="paymentLive">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="modalPayment" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Thông tin chuyển khoản thanh toán</h5>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                     </div>
-                                    <div class="modal fade" id="modalPayment" tabindex="-1" role="dialog">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title">Thông tin chuyển khoản thanh toán</h5>
-                                                    <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <table style="margin-top: 0px!important;">
-                                                        <tr>
-                                                            <td style="min-width: 100px;">Số tài khoản</td>
-                                                            <td>123121231233</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Chủ tài khoản</td>
-                                                            <td>Nguyễn Văn A</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Ngân hàng</td>
-                                                            <td>VIETCOMBANK</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Số tiền chuyển khoản</td>
-                                                            <td style="color: #ff9800;">20,000,000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Nội dung chuyển khoản</td>
-                                                            <td style="color: #ff9800;">Thanh toan san pham abc</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
-                                                                toán tại quầy giao dịch ngân hàng, qua mobile
-                                                                banking, cây ATM, hoặc chuyển khoản qua internet tại
-                                                                <a href="#" target="_blank"
-                                                                   style="color: #ff9800!important;">đây</a>.
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="modal-body">
+                                        <table style="margin-top: 0px!important;">
+                                            <tr>
+                                                <td style="min-width: 100px;">Số tài khoản</td>
+                                                <td>123121231233</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chủ tài khoản</td>
+                                                <td>Nguyễn Văn A</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ngân hàng</td>
+                                                <td>VIETCOMBANK</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Số tiền chuyển khoản</td>
+                                                <td style="color: #ff9800;">20,000,000</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nội dung chuyển khoản</td>
+                                                <td style="color: #ff9800;">Thanh toan san pham abc</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
+                                                    toán tại quầy giao dịch ngân hàng, qua mobile
+                                                    banking, cây ATM, hoặc chuyển khoản qua internet tại
+                                                    <a href="#" target="_blank"
+                                                       style="color: #ff9800!important;">đây</a>.
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" value="0">
@@ -750,30 +748,9 @@
                                 thẻ của bạn.
                             </div>
                         </div>
-                        <div class="detailOptionPayment animated jackInTheBox">
+                        <div class="detailOptionPayment animated jackInTheBox" id="paymentType0" style="display: none;">
                             <div class="row">
-                                <div class="col col-xs-12 col-sm-12 col-md-12">
-                                    <div class="group-imgATM" id="bankSelect">
-<!--                                         th:class="${active : 0 == 0}">-->
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
+                                <div class="col col-xs-12 col-sm-12 col-md-12" id="paymentOn">
                                 </div>
                             </div>
                         </div>
@@ -788,32 +765,9 @@
                                 thẻ của bạn.
                             </div>
                         </div>
-                        <div class="detailOptionPayment animated jackInTheBox">
+                        <div class="detailOptionPayment animated jackInTheBox" id="paymentType2" style="display: none;">
                             <div class="row">
-                                <div class="col col-xs-12 col-sm-12 col-md-12">
-                                    <div class="group-imgATM">
-                                        <!--                                             @click="setIdBankSelected(item.id,item.bankCode)"-->
-                                        <!--                                             :class="{active : indexSelectBank == item.id}"-->
-                                        <!--                                             v-b-tooltip.hover :title="item.bankName">-->
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
-                                    <div class="group-imgATM">
-                                        <img th:src="@{/static/bank/vietcombank_logo.png}"
-                                             style="width: 100%;object-fit: cover;margin-top: 15px;"/>
-                                    </div>
+                                <div class="col col-xs-12 col-sm-12 col-md-12" id="paymentVisa">
                                 </div>
                             </div>
                         </div>
@@ -843,8 +797,39 @@
 <script>
     $('#paymentSelected input[name=payment]').on('change', function () {
         var typeBank = $('input[name=payment]:checked', '#paymentSelected').val();
-
-    })
+        if (typeBank == 0) {
+            $('#paymentType0').css('display', 'block');
+            $('#paymentType1').css('display', 'none');
+            $('#paymentType2').css('display', 'none');
+        } else if (typeBank == 1) {
+            $('#paymentType1').css('display', 'block');
+            $('#paymentType0').css('display', 'none');
+            $('#paymentType2').css('display', 'none');
+        } else {
+            $('#paymentType2').css('display', 'block');
+            $('#paymentType0').css('display', 'none');
+            $('#paymentType1').css('display', 'none');
+        }
+        $.ajax({
+            url: currUrl + 'bank/list.html',
+            method: 'GET',
+            data: {type: typeBank},
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                var data = JSON.parse(response);
+                var html = '';
+                var htmlLive = '';
+                for (var i of data) {
+                    var linkImage = window.location.origin + $('#contextPath').val() + i.icon;
+                    htmlLive += `<div class="group-imgATM" title="${i.name}" data-toggle="modal" data-target="#modalPayment"><img src="${linkImage}" class="image" title="${i.name}" style="width: 100%;object-fit: cover;margin-top: 15px;"/></div>`
+                    html += `<div class="group-imgATM" title="${i.name}"><img src="${linkImage}" class="image" style="width: 100%;object-fit: cover;margin-top: 15px;"/></div>`;
+                }
+                $('#paymentLive').html(htmlLive);
+                $('#paymentOn').html(html);
+                $('#paymentVisa').html(html);
+            }
+        });
+    });
 </script>
 </body>
 
