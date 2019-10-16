@@ -31,4 +31,6 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Long> {
                                   Pageable pageable);
 
     AuthUser findByEmail(String email);
+    
+    AuthUser findByUserNameAndPassword(String user,String pass);
 }

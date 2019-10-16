@@ -100,4 +100,9 @@ public class AuthUserSeviceImpl implements AuthUserService {
         }
         return userRoleids;
     }
+
+	@Override
+	public AuthUser findByUserNameANDPassword(String user, String pass) {
+		return authUserRepo.findByUserNameAndPassword(user, pass);
+	}
 }

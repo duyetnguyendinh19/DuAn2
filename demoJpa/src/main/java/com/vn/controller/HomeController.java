@@ -4,21 +4,26 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.vn.common.Constants;
+import com.vn.jpa.AuthUser;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
 import com.vn.jpa.Report;
 import com.vn.jpa.Review;
+import com.vn.model.AuthUserModel;
 import com.vn.model.ProductQuickViewModel;
+import com.vn.service.AuthUserService;
 import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
 import com.vn.service.ReviewService;
 
 import org.apache.commons.collections4.map.HashedMap;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -40,14 +45,38 @@ public class HomeController {
 
     @Resource
     private ReviewService reviewService;
+    
+    @Resource
+    private AuthUserService authUserService;
+    
+    @Autowired
+	private PasswordEncoder passwordEncoder;
 
     @Resource
     private JavaMailSender mailSender;
 
     @RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(Model model, Pageable pageable) {
+    	Map<String, String> mapError = new HashedMap<String, String>();
+    	model.addAttribute("athUser", new AuthUserModel());
+    	model.addAttribute("mapError", mapError);
         ModelAndView modelAndView = new ModelAndView("home/login");
         return modelAndView;
+    }
+    
+    @RequestMapping(value = "/home/login.html", method = RequestMethod.POST)
+    public String loginPageSuccsess(HttpSession session,@RequestParam("user") String user,@RequestParam("password") String pass,Model model) {
+    	AuthUser authUser = authUserService.findByUserNameANDPassword(user, passwordEncoder.encode(pass));
+    	if(authUser!=null) {
+    		session.setAttribute("userLogin", authUser);
+    		return "redirect:/";
+    	}else{
+    		Map<String, String> mapError = new HashedMap<String, String>();
+        	model.addAttribute("athUser", new AuthUserModel());
+        	model.addAttribute("mapError", mapError);
+    		model.addAttribute("errorLogin", "Sai tài khoản hoặc mật khẩu");
+    		return "home/login";
+    	}
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -154,9 +183,23 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
-    public ModelAndView profilePage() {
-        ModelAndView modelAndView = new ModelAndView("home/profile");
-        return modelAndView;
+    public ModelAndView profilePage(HttpSession session,Model model) {
+    	if(session.getAttribute("userLogin")==null) {
+    		Map<String, String> mapError = new HashedMap<String, String>();
+        	model.addAttribute("athUser", new AuthUserModel());
+        	model.addAttribute("mapError", mapError);
+    		ModelAndView modelAndView = new ModelAndView("home/login");
+            return modelAndView;
+    	}else {
+    		ModelAndView modelAndView = new ModelAndView("home/profile");
+            return modelAndView;
+    	}
+    }
+    
+    @RequestMapping(value = "/home/logout.html", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+    	session.removeAttribute("userLogin");
+    	return "redirect:/home/login.html";
     }
 
     @RequestMapping(value = "sendMail.html", method = RequestMethod.POST)

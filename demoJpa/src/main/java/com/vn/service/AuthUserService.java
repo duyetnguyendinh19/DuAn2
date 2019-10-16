@@ -26,4 +26,6 @@ public interface AuthUserService  {
     void delete(AuthUser authUser);
 
     List<Long> findRolesByUserId(Long userId);
+    
+    AuthUser findByUserNameANDPassword(String user,String pass);
 }

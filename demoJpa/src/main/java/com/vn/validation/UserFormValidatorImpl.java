@@ -44,24 +44,35 @@ public class UserFormValidatorImpl implements Validator, UserFormValidator {
         this.userNameValidate(user.getUserName(), errors, authUser);
         this.passwordValidate(user.getPassword(), user.getVerifyPassword(), errors, authUser);
         this.verifyPasswordValidate(user.getVerifyPassword(), user.getPassword(), errors, authUser);
+        this.genderValidate(user.getGender(), errors);
     }
 
     private void firstNameValidate(String firstName, Errors errors) {
-        if (this.checkLength(firstName, 15)) {
+        
+    	if(this.isBlank(firstName)) {
+    		errors.reject("firstName" , "Họ không được để trống");
+    	}
+    	else if (this.checkLength(firstName, 15)) {
             errors.reject("firstName", "Họ không được quá 15 ký tự");
         }
 
     }
 
     private void middleNameValidate(String middleName, Errors errors) {
-        if (this.checkLength(middleName, 15)) {
+    	if(this.isBlank(middleName)) {
+    		errors.reject("middleName" , "Tên không được để trống");
+    	}
+    	else if (this.checkLength(middleName, 15)) {
             errors.reject("middleName", "Tên đệm không được quá 15 ký tự");
         }
 
     }
 
     private void lastNameValidate(String lastName, Errors errors) {
-        if (this.checkLength(lastName, 15)) {
+    	if(this.isBlank(lastName)) {
+    		errors.reject("lastName" , "Tên không được để trống");
+    	}
+    	else if (this.checkLength(lastName, 15)) {
             errors.reject("lastName", "Tên không được quá 15 ký tự");
         }
 
@@ -119,6 +130,12 @@ public class UserFormValidatorImpl implements Validator, UserFormValidator {
             errors.reject("verifyPassword", "Phải điền mục xác nhận mật khẩu.");
         }
 
+    }
+    
+    private void genderValidate(String gender, Errors errors) {
+    	if(this.isBlank(gender)) {
+    		errors.reject("gender", "Phải chọn giới tính");
+    	}
     }
 
     private boolean isBlank(String string) {
