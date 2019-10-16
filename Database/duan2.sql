@@ -116,12 +116,13 @@ DROP TABLE IF EXISTS `bank_info`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `bank_info` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL,
   `bank_code` varchar(45) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `bank_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `bank_icon` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `bank_type` int(1) DEFAULT NULL,
+  `bank_info` text CHARACTER SET utf8 COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +131,7 @@ CREATE TABLE `bank_info` (
 
 LOCK TABLES `bank_info` WRITE;
 /*!40000 ALTER TABLE `bank_info` DISABLE KEYS */;
-INSERT INTO `bank_info` VALUES (1,'VIETCOMBANK','Ngân hàng Ngoại thương (Vietcombank)','/static/bank/vietcombank_logo.png'),(2,'VIETINBANK','Ngân hàng Công thương (Vietinbank)','/static/bank/vietinbank_logo.png'),(3,'BIDV','Ngân hàng đầu tư và phát triển Việt Nam (BIDV)','/static/bank/bidv_logo.png'),(4,'AGRIBANK','Ngân hàng Nông nghiệp (Agribank)','/static/bank/agribank_logo.png'),(5,'SACOMBANK','Ngân hàng TMCP Sài Gòn Thương Tín (SacomBank)','/static/bank/sacombank_logo.png'),(6,'TECHCOMBANK','Ngân hàng Kỹ thương Việt Nam (TechcomBank)	','/static/bank/techcombank_logo.png'),(7,'ACB','Ngân hàng ACB','/static/bank/acb_logo.png'),(8,'VPBANK','Ngân hàng Việt Nam Thịnh vượng (VPBank)','/static/bank/vpbank_logo.png'),(9,'DONGABANK	','Ngân hàng Đông Á (DongABank)','/static/bank/dongabank_logo.png'),(10,'EXIMBANK','Ngân hàng EximBank','/static/bank/eximbank_logo.png'),(11,'TPBANK','Ngân hàng Tiên Phong (TPBank)','/static/bank/tpbank_logo.png'),(12,'NCB','Ngân hàng Quốc dân (NCB)','/static/bank/ncb_logo.png'),(13,'OJB','Ngân hàng Đại Dương (OceanBank)	','/static/bank/ojb_logo.png'),(14,'MSBANK','Ngân hàng Hàng Hải (MSBANK)','/static/bank/msbank_logo.png'),(15,'HDBANK','Ngan hàng HDBank','/static/bank/hdbank_logo.png'),(16,'NAMABANK','Ngân hàng Nam Á (NamABank)','/static/bank/namabank_logo.png'),(17,'OCB','Ngân hàng Phương Đông (OCB)','/static/bank/ocb_logo.png'),(18,'VISA','Thẻ quốc tế Visa','/static/bank/visa_logo.png'),(19,'MASTERCARD','Thẻ quốc tế MasterCard','/static/bank/mastercard_logo.png'),(20,'JCB','Thẻ quốc tế JCB','/static/bank/jcb_logo.png'),(21,'VNMART','Ví điện tử VnMart','/static/bank/vnmart_logo.png'),(22,'SCB','Ngân hàng TMCP Sài Gòn (SCB)','/static/bank/scb_logo.png'),(23,'IVB','Ngân hàng TNHH Indovina (IVB)','/static/bank/ivb_logo.png'),(24,'ABBANK','Ngân hàng thương mại cổ phần An Bình (ABBANK)','/static/bank/abbank_logo.png'),(25,'SHB','Ngân hàng Thương mại cổ phần Sài Gòn (SHB)','/static/bank/shb_logo.png'),(26,'VIB','Ngân hàng Thương mại cổ phần Quốc tế Việt Nam (VIB)','/static/bank/vib_logo.png'),(27,'VNPAYQR','Cổng thanh toán VNPAYQR','/static/bank/CTT-VNPAY-QR.png'),(28,'VIETCAPITALBANK','Ngân Hàng Bản Việt','/static/bank/vccb_logo.png'),(29,'PVCOMBANK','Ngân hàng TMCP Đại Chúng Việt Nam','/static/bank/PVComBank_logo.png'),(30,'SAIGONBANK','Ngân hàng thương mại cổ phần Sài Gòn Công Thương','/static/bank/saigonbank_logo.png'),(31,'MBBANK','Ngân hàng thương mại cổ phần Quân đội','/static/bank/mbbank_logo.png'),(32,'BACABANK','Ngân Hàng TMCP Bắc Á','/static/bank/bacabank_logo.png'),(33,'UPI','UnionPay International','/static/bank/upi_logo.png');
+INSERT INTO `bank_info` VALUES (1,'VIETCOMBANK','Ngân hàng Ngoại thương (Vietcombank)','/static/bank/vietcombank_logo.png',0,''),(2,'VIETINBANK','Ngân hàng Công thương (Vietinbank)','/static/bank/vietinbank_logo.png',0,''),(3,'BIDV','Ngân hàng đầu tư và phát triển Việt Nam (BIDV)','/static/bank/bidv_logo.png',0,NULL),(4,'AGRIBANK','Ngân hàng Nông nghiệp (Agribank)','/static/bank/agribank_logo.png',0,NULL),(5,'SACOMBANK','Ngân hàng TMCP Sài Gòn Thương Tín (SacomBank)','/static/bank/sacombank_logo.png',0,NULL),(6,'TECHCOMBANK','Ngân hàng Kỹ thương Việt Nam (TechcomBank)	','/static/bank/techcombank_logo.png',0,NULL),(7,'ACB','Ngân hàng ACB','/static/bank/acb_logo.png',0,NULL),(8,'VPBANK','Ngân hàng Việt Nam Thịnh vượng (VPBank)','/static/bank/vpbank_logo.png',0,NULL),(9,'DONGABANK	','Ngân hàng Đông Á (DongABank)','/static/bank/dongabank_logo.png',0,NULL),(10,'EXIMBANK','Ngân hàng EximBank','/static/bank/eximbank_logo.png',0,NULL),(11,'TPBANK','Ngân hàng Tiên Phong (TPBank)','/static/bank/tpbank_logo.png',0,NULL),(12,'NCB','Ngân hàng Quốc dân (NCB)','/static/bank/ncb_logo.png',0,NULL),(13,'OJB','Ngân hàng Đại Dương (OceanBank)	','/static/bank/ojb_logo.png',0,NULL),(14,'MSBANK','Ngân hàng Hàng Hải (MSBANK)','/static/bank/msbank_logo.png',0,NULL),(15,'HDBANK','Ngan hàng HDBank','/static/bank/hdbank_logo.png',0,NULL),(16,'NAMABANK','Ngân hàng Nam Á (NamABank)','/static/bank/namabank_logo.png',0,NULL),(17,'OCB','Ngân hàng Phương Đông (OCB)','/static/bank/ocb_logo.png',0,NULL),(18,'VISA','Thẻ quốc tế Visa','/static/bank/visa_logo.png',2,NULL),(19,'MASTERCARD','Thẻ quốc tế MasterCard','/static/bank/mastercard_logo.png',2,NULL),(20,'JCB','Thẻ quốc tế JCB','/static/bank/jcb_logo.png',2,NULL),(21,'VNMART','Ví điện tử VnMart','/static/bank/vnmart_logo.png',0,NULL),(22,'SCB','Ngân hàng TMCP Sài Gòn (SCB)','/static/bank/scb_logo.png',0,NULL),(23,'IVB','Ngân hàng TNHH Indovina (IVB)','/static/bank/ivb_logo.png',0,NULL),(24,'ABBANK','Ngân hàng thương mại cổ phần An Bình (ABBANK)','/static/bank/abbank_logo.png',0,NULL),(25,'SHB','Ngân hàng Thương mại cổ phần Sài Gòn (SHB)','/static/bank/shb_logo.png',0,NULL),(26,'VIB','Ngân hàng Thương mại cổ phần Quốc tế Việt Nam (VIB)','/static/bank/vib_logo.png',0,NULL),(27,'VNPAYQR','Cổng thanh toán VNPAYQR','/static/bank/CTT-VNPAY-QR.png',0,NULL),(28,'VIETCAPITALBANK','Ngân Hàng Bản Việt','/static/bank/vccb_logo.png',0,NULL),(29,'PVCOMBANK','Ngân hàng TMCP Đại Chúng Việt Nam','/static/bank/PVComBank_logo.png',0,NULL),(30,'SAIGONBANK','Ngân hàng thương mại cổ phần Sài Gòn Công Thương','/static/bank/saigonbank.png',0,NULL),(31,'MBBANK','Ngân hàng thương mại cổ phần Quân đội','/static/bank/mbbank_logo.png',0,NULL),(32,'BACABANK','Ngân Hàng TMCP Bắc Á','/static/bank/bacabank_logo.png',0,NULL),(33,'UPI','UnionPay International','/static/bank/upi_logo.png',0,NULL),(34,'VIETCOMBANK','Ngân hàng Ngoại thương (Vietcombank)','/static/bank/vietcombank_logo.png',1,'{\"atmNumber\" : \"12500012312\" , \"name\" : \"Bùi Văn Tấn\",\"bank_name\": \"VietComBank chi nhánh Cầu Giấy, Hà Nội\", \"urlIpay\" : \"https://www.vietcombank.com.vn/IBanking2015/55c3c0a782b739e063efa9d5985e2ab4/Account/Login\"}'),(35,'VIETINBANK','Ngân hàng Công thương (Vietinbank)','/static/bank/vietinbank_logo.png',1,'{\"atmNumber\" : \"123123123\" , \"name\" : \"Nguyễn Đình Duyệt\",\"bank_name\": \"VietinBank chi nhánh Hà Đông, Hà Nội\", \"urlIpay\" : \"https://ebanking.vietinbank.vn/rcas/portal/web/retail/bflogin\"}');
 /*!40000 ALTER TABLE `bank_info` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,7 +161,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,10000000,0,1,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL),(2,18000000,1,2,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL);
+INSERT INTO `bill` VALUES (1,10000000,0,2,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL),(2,18000000,1,1,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -391,4 +392,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-15 16:32:59
+-- Dump completed on 2019-10-16 19:15:18
