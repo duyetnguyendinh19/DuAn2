@@ -661,13 +661,16 @@
                 <div class="formFirst">
                     <div class="col col-xs-12 col-sm-12 col-md-12">
                         <input type="text" name="name" class="form-control"
-                               placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)"/>
+                               placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)" th:value="${name}"/>
                     </div>
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="email" class="form-control" placeholder="Email"/>
+                        <input type="text" name="email" class="form-control" placeholder="Email..." th:value="${email}"/>
                     </div>
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="mobile" class="form-control" placeholder="Số điện thoại"/>
+                        <input type="text" name="mobile" class="form-control" placeholder="Số điện thoại..." th:value="${mobile}"/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <textarea name="address"  placeholder="Địa chỉ..." th:text="${address}"></textarea>
                     </div>
                 </div>
             </div>

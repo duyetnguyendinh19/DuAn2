@@ -15,12 +15,16 @@ public class BillModel implements Serializable {
     private Date createDate;
     private String createdBy;
     private String isdelete;
+    private String address;
+    private String name;
+    private String email;
     private AuthUser authUser;
+
 
     public BillModel() {
     }
 
-    public BillModel(Long id, Float total, Integer payment, Integer status, Date createDate, String createdBy, String isdelete, AuthUser authUser) {
+    public BillModel(Long id, Float total, Integer payment, Integer status, Date createDate, String createdBy, String isdelete, String address, String name, String email, AuthUser authUser) {
         this.id = id;
         this.total = total;
         this.payment = payment;
@@ -28,7 +32,34 @@ public class BillModel implements Serializable {
         this.createDate = createDate;
         this.createdBy = createdBy;
         this.isdelete = isdelete;
+        this.address = address;
+        this.name = name;
+        this.email = email;
         this.authUser = authUser;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Long getId() {

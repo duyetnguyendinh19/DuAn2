@@ -193,9 +193,9 @@
                                                     <h6 class="widget-title border-left mb-20">Thông tin
                                                         người nhận</h6>
                                                     <input type="text" id="name" name="name"
-                                                           placeholder="Tên của bạn...">
+                                                           placeholder="Tên của bạn..." th:value="${name}">
                                                     <span style="color: red;font-size: 13px;" id="nameError"></span>
-                                                    <input type="text" id="email" name="email" placeholder="Email...">
+                                                    <input type="text" id="email" name="email" placeholder="Email..." th:value="${email}">
                                                     <span style="color: red;font-size: 13px;" id="emailError"></span>
                                                     <select id="payment" name="payment" class="custom-select">
                                                         <option value="">Chọn phương thức</option>
@@ -204,11 +204,12 @@
                                                     </select>
                                                     <span style="color: red;font-size: 13px;" id="paymentError"></span>
                                                     <input type="text" id="mobile" name="mobile"
-                                                           placeholder="Số điện thoại...">
+                                                           placeholder="Số điện thoại..." th:value="${mobile}">
                                                     <span style="color: red;font-size: 13px;" id="mobileError"></span>
                                                     <textarea class="custom-textarea" id="address"
-                                                              placeholder="Địa chỉ..."></textarea>
+                                                              placeholder="Địa chỉ..." th:text="${address}"></textarea>
                                                     <span style="color: red;font-size: 13px;" id="addressError"></span>
+                                                    <span style="color: red;font-size: 13px;font-weight: bold;" id="authUserError"></span>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
@@ -238,7 +239,7 @@
                                                         <tr>
                                                             <td class="order-total">Thành tiền</td>
                                                             <td class="order-total-price" id="total"
-                                                                th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')}"></td>
                                                         </tr>
                                                     </table>
                                                 </div>
@@ -284,14 +285,17 @@
         var address = $('#address').val();
         var total = $('#total').text();
         var errorMessage = '';
+        var valid = true;
         var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
         var regexMobile = /^([+0-9]{10,12})+$/;
         if (name === null || name === '') {
             errorMessage = "Tên không được để trống";
             $('#nameError').text(errorMessage);
+            valid = false;
         } else if (name.length > 64) {
 			errorMessage = "Tên không quá 64 kí tự";
 			$('#nameError').text(errorMessage);
+            valid = false;
         } else {
             errorMessage = '';
             $('#nameError').text(errorMessage);
@@ -300,9 +304,11 @@
         if (email === null || email === '') {
             errorMessage = "Email không được để trống";
             $('#emailError').text(errorMessage);
+            valid = false;
         }else if(!regexEmail.test(email)){
 			errorMessage = "Sai định dạng email";
 			$('#emailError').text(errorMessage);
+            valid = false;
 		}else{
 			errorMessage = '';
 			$('#emailError').text(errorMessage);
@@ -311,6 +317,7 @@
         if (payment === null || payment === '') {
             errorMessage = "Phương thức thanh toán không được để trống";
             $('#paymentError').text(errorMessage);
+            valid = false;
         }else{
 			errorMessage = '';
 			$('#paymentError').text(errorMessage);
@@ -319,9 +326,11 @@
         if (mobile === null || mobile === '') {
             errorMessage = "Số điện thoại không được để trống";
             $('#mobileError').text(errorMessage);
+            valid = false;
         }else if(!regexMobile.test(mobile)){
 			errorMessage = "Sai định dạng số điện thoại";
 			$('#mobileError').text(errorMessage);
+            valid = false;
 		}else{
 			errorMessage = '';
 			$('#mobileError').text(errorMessage);
@@ -330,29 +339,43 @@
         if (address === null || address === '') {
             errorMessage = "Địa chỉ không được để trống";
             $('#addressError').text(errorMessage);
+            valid = false;
         }else{
 			errorMessage = '';
 			$('#addressError').text(errorMessage);
 		}
-        if (errorMessage == '') {
+
+        if (errorMessage == '' && valid == true) {
             var dataObject = {};
             dataObject.name = name;
             dataObject.email = email;
             dataObject.payment = payment;
             dataObject.mobile = mobile;
             dataObject.address = address;
-            dataObject.total = total;
+            dataObject.total = total.replace(/,/g, '');
             if(payment == 0){
                 console.log(dataObject)
-            	// $.ajax({
-				// 	url: currUrl + 'payment/add.html',
-				// 	method: 'POST',
-				// 	data: JSON.stringify(dataObject),
-				// 	contentType: 'application/json;charset=utf-8',
-				// 	success: function (response) {
-                //
-				// 	}
-				// })
+            	$.ajax({
+					url: currUrl + 'payment/add.html',
+					method: 'POST',
+					data: JSON.stringify(dataObject),
+					contentType: 'application/json;charset=utf-8',
+					success: function (response) {
+					    console.log(response)
+					    var data = JSON.parse(response);
+                        if(data.authUser != null){
+                            $('#authUserError').text(data.authUser)
+                            setTimeout(function(){
+                                window.location.href = window.location.origin + $('#contextPath').val() + 'home/login.html';
+                            },2000);
+                        }
+                        if(data.success != null){
+                            setTimeout(function(){
+                                window.location.href = window.location.origin + $('#contextPath').val();
+                            },1000);
+                        }
+					}
+				})
 			}else{
             	window.location.href =  window.location.origin + $('#contextPath').val() + 'payment/online/list.html';
 			}

@@ -4,17 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.vn.common.Constants;
-import com.vn.jpa.AuthUser;
-import com.vn.jpa.Category;
-import com.vn.jpa.Product;
-import com.vn.jpa.Report;
-import com.vn.jpa.Review;
+import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
 import com.vn.model.ProductQuickViewModel;
-import com.vn.service.AuthUserService;
-import com.vn.service.CategoryService;
-import com.vn.service.ProductService;
-import com.vn.service.ReviewService;
+import com.vn.service.*;
 
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +42,9 @@ public class HomeController {
 
     @Resource
     private AuthUserService authUserService;
+
+    @Resource
+    private InfomationService infomationService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -163,8 +159,15 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/cart.html", method = RequestMethod.GET)
-    public ModelAndView viewCart() {
-
+    public ModelAndView viewCart(HttpSession session, Model model) {
+        AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
+        if (authUser != null) {
+            Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
+            model.addAttribute("name", authUser.getFullName());
+            model.addAttribute("email", authUser.getEmail());
+            model.addAttribute("mobile", infomation.getPhone());
+            model.addAttribute("address", infomation.getAddress());
+        }
         ModelAndView modelAndView = new ModelAndView("home/cart");
         return modelAndView;
     }
