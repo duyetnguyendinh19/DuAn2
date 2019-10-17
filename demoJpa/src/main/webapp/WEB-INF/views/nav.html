@@ -41,7 +41,7 @@
                     <a href="#" th:href="@{/}"><i class="fa fa-wrench fa-fw"></i> Quản lý <span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li >
+                        <li sec:authorize="hasAnyAuthority('Administrators')">
                             <a th:href="@{/staff/list.html}" ><i class="fa fa-list-ol"></i> Quản lý nhân viên</a>
                         </li>
                         <li>
