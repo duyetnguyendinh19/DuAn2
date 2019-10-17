@@ -18,7 +18,9 @@
 									th:href="@{/home/login.html}"> <i class="zmdi zmdi-lock"></i>
 										Tài khoản
 								</a></li>
-								<li th:if="${session.userLogin != null}"><a th:href="@{/home/logout.html}"><i class="zmdi zmdi-wrench"></i> Đăng xuất </a></li>
+								<li th:if="${session.userLogin != null}"><a
+									th:href="@{/home/logout.html}"><i class="zmdi zmdi-wrench"></i>
+										Đăng xuất </a></li>
 							</ul>
 						</div>
 					</div>
@@ -146,7 +148,7 @@
 															</a>
 															<div class="del-icon">
 																<a
-																	th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"
+																	th:onclick="'remove(\'' +  ${cart.value.product.id} + '\')'"
 																	title="Xóa"> <i class="zmdi zmdi-close"></i>
 																</a>
 															</div>
@@ -169,6 +171,18 @@
 															</p>
 														</div>
 													</div>
+													<script>
+														function remove(id) {
+															 var path = window.location.pathname.split("/")[1];
+															$.ajax({
+																url : window.location.origin + '/' + path + '/' + 'cart/remove/'
+																		+ id + '.html',
+																method : 'GET',
+															});
+															location.reload();
+													
+														}
+													</script>
 												</div>
 											</li>
 											<li>
@@ -360,3 +374,4 @@
 		</footer>
 	</div>
 </div>
+

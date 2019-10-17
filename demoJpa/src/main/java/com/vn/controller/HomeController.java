@@ -141,7 +141,6 @@ public class HomeController {
         Page<Product> page = productService.findAllByCategoryIdAndIsdelete(id, _page, "N");
         model.addAttribute("name", category.getName());
         model.addAttribute("page", page);
-        ModelAndView modelAndView = new ModelAndView("home/product");
         return "home/product";
     }
 
