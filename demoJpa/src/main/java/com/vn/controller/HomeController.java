@@ -10,6 +10,7 @@ import com.vn.model.InfomationModel;
 import com.vn.model.ProductQuickViewModel;
 import com.vn.service.*;
 
+import com.vn.validation.service.InfomationFormValidator;
 import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
