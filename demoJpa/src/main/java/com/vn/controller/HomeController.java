@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import com.vn.common.Constants;
 import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
+import com.vn.model.InfomationModel;
 import com.vn.model.ProductQuickViewModel;
 import com.vn.service.*;
 
@@ -20,12 +21,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
+
 import java.util.*;
 
 @Controller
@@ -49,8 +53,14 @@ public class HomeController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Resource
-    private JavaMailSender mailSender;
+	@Resource
+	private JavaMailSender mailSender;
+
+	@Resource
+	private InfomationFormValidator infoFormValidator;
+
+	@Resource
+	private InfomationService informationService;
 
     @RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(Model model, Pageable pageable) {
@@ -186,19 +196,39 @@ public class HomeController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
-    public ModelAndView profilePage(HttpSession session, Model model) {
-        if (session.getAttribute("userLogin") == null) {
-            Map<String, String> mapError = new HashedMap<String, String>();
-            model.addAttribute("athUser", new AuthUserModel());
-            model.addAttribute("mapError", mapError);
-            ModelAndView modelAndView = new ModelAndView("home/login");
-            return modelAndView;
-        } else {
-            ModelAndView modelAndView = new ModelAndView("home/profile");
-            return modelAndView;
-        }
-    }
+	@RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
+	public ModelAndView profilePage(HttpSession session, Model model) {
+		if (session.getAttribute("userLogin") == null) {
+			Map<String, String> mapError = new HashedMap<String, String>();
+			model.addAttribute("athUser", new AuthUserModel());
+			model.addAttribute("mapError", mapError);
+			ModelAndView modelAndView = new ModelAndView("home/login");
+			return modelAndView;
+		} else {
+			model.addAttribute("profile", new InfomationModel());
+			ModelAndView modelAndView = new ModelAndView("home/profile");
+			return modelAndView;
+		}
+	}
+
+	@RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
+	public ModelAndView profileSave(HttpSession session, Model model, @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
+		try {
+			infoFormValidator.validateReportForm(infomationModel, result);
+			Infomation infomation = new Infomation();
+			infomation.setProvince(infomationModel.getProvince());
+			infomation.setBank(infomationModel.getBank());
+			infomation.setAtmNumber(infomationModel.getAtmNumberBank());
+			infomation.setPhone(infomation.getPhone());
+			infomation.setAuthUser( (AuthUser) session.getAttribute("userLogin"));
+			infomation.setIsDelete("N");
+			informationService.create(infomation);
+		} catch (Exception e) {
+			model.addAttribute("errorUnkown", "Lỗi không xác định !");
+		}
+		ModelAndView modelAndView = new ModelAndView("home/profile");
+		return modelAndView;
+	}
 
     @RequestMapping(value = "/home/logout.html", method = RequestMethod.GET)
     public String logout(HttpSession session) {

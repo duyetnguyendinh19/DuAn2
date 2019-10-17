@@ -46,4 +46,9 @@ public class InfomationServiceImpl implements InfomationService {
     public Infomation findByAuthUserId(Long id) {
         return infomationRepo.findByAuthUserId(id);
     }
+
+	@Override
+	public Infomation findByPhone(String phone){
+		return infomationRepo.findByPhone(phone);
+	}
 }

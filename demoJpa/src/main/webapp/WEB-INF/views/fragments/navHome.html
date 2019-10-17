@@ -11,7 +11,7 @@
 					<div class="col-sm-6 col-xs-12">
 						<div class="top-link clearfix">
 							<ul class="link f-right">
-								<li><a th:href="@{/home/profile.html}"> <i
+								<li th:if="${session.userLogin != null}"><a th:href="@{/home/profile.html}"> <i
 										class="zmdi zmdi-account"></i> Trang cá nhân
 								</a></li>
 								<li th:if="${session.userLogin == null}"><a
