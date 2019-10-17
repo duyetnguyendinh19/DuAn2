@@ -7,7 +7,10 @@ import java.util.Date;
 
 public class InfomationModel implements Serializable {
 
-    public static final Long serializable = 1L;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
     private Long id;
     private String province;
@@ -23,6 +26,9 @@ public class InfomationModel implements Serializable {
     private AuthUser authUser;
     private String nameUser;
     private String emailUser;
+    private String firstName;
+    private String lastName;
+    private String gender;
 
     public String getNameUser() {
         return nameUser;
@@ -153,4 +159,30 @@ public class InfomationModel implements Serializable {
     public void setAuthUser(AuthUser authUser) {
         this.authUser = authUser;
     }
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+    
+    
 }

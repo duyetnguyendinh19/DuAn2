@@ -60,35 +60,35 @@
                                 </div>
                                 <div id="personal_info" class="panel-collapse collapse in" role="tabpanel">
                                     <div class="panel-body">
-                                        <form action="#">
+                                        <form th:object="${profile}" th:action="@{/home/profile.html}" method="POST">
                                             <div class="new-customers">
                                                 <div class="p-30">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="firstName"  placeholder="Họ...">
+                                                            <input type="text" name="firstName" th:field="*{firstName}" placeholder="Họ..." readonly="readonly">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="lastName"  placeholder="Tên...">
+                                                            <input type="text" name="lastName" th:field="*{lastName}" placeholder="Tên..." readonly="readonly">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="province" placeholder="Thành phố...">
+                                                            <input type="text" name="province" placeholder="Thành phố..." th:field="*{province}">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="town" placeholder="Quận/Huyện...">
+                                                            <input type="text" name="town" placeholder="Quận/Huyện..." th:field="*{town}">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <select class="custom-select" name="gender">
-                                                                <option value="defalt">Giới tính</option>
+                                                            <select class="custom-select" name="gender" th:field="*{gender}">
+                                                                <option value="">Giới tính</option>
                                                                 <option value="0">Nam</option>
                                                                 <option value="1">Nữ</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="mobile"  placeholder="Số điện thoại...">
+                                                            <input type="text" name="phone"  placeholder="Số điện thoại..." th:field="*{phone}">
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <select class="custom-select" name="atm">
-                                                                <option value="defalt">Ngân hàng</option>
+                                                            <select class="custom-select" name="bank" th:field="*{bank}">
+                                                                <option value="">Ngân hàng</option>
                                                                 <option value="">VIETCOMBANK</option>
                                                                 <option value="">VIETINBANK</option>
                                                                 <option value="">ACB</option>
@@ -96,14 +96,14 @@
                                                             </select>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <input type="text" name="atmNumber" placeholder="Số tài khoản...">
+                                                            <input type="text" name="atmNumber" placeholder="Số tài khoản..." th:field="*{atmNumberBank}">
                                                         </div>
                                                     </div>
-                                                    <input type="text" name="company" placeholder="Công ty...">
-                                                    <input type="text" name="email" placeholder="Email...">
-                                                    <input type="password" name="password"  placeholder="Mật khẩu...">
+                                                    <input type="text" name="company" placeholder="Công ty..." th:field="*{company}">
+                                                    <input type="text" name="email" placeholder="Email..." readonly="readonly">
+                                               <!--      <input type="password" name="password"  placeholder="Mật khẩu...">
                                                     <input type="password" name="confirmPassword"  placeholder="Xác thực mật khẩu...">
-                                                    <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea>
+                                                    <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea> -->
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Lưu</button>
