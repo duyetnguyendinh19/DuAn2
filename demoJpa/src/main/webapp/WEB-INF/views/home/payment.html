@@ -532,7 +532,8 @@
         line-height: 25px;
         border-radius: 50%;
         font-weight: bold;
-        font-family: "Font Awesome 5 Free" !important;
+        font: normal normal normal 14px/1 FontAwesome;
+        padding-top: 5px;
     }
 
     .infoLeft .custom-control.custom-radio {
@@ -705,29 +706,30 @@
                                         <table style="margin-top: 0px!important;">
                                             <tr>
                                                 <td style="min-width: 100px;">Số tài khoản</td>
-                                                <td>123121231233</td>
+                                                <td id="atmNumber"></td>
                                             </tr>
                                             <tr>
                                                 <td>Chủ tài khoản</td>
-                                                <td>Nguyễn Văn A</td>
+                                                <td id="nameBank"></td>
                                             </tr>
                                             <tr>
                                                 <td>Ngân hàng</td>
-                                                <td>VIETCOMBANK</td>
+                                                <td id="bank"></td>
                                             </tr>
                                             <tr>
                                                 <td>Số tiền chuyển khoản</td>
-                                                <td style="color: #ff9800;">20,000,000</td>
+                                                <td style="color: #ff9800;" id="paymentTotal" th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' Vnđ'"></td>
                                             </tr>
                                             <tr>
                                                 <td>Nội dung chuyển khoản</td>
-                                                <td style="color: #ff9800;">Thanh toan san pham abc</td>
+                                                <td style="color: #ff9800;" id="descriptionPayment">Nguyen Van A chuyen khoan thanh toan hoa don
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
                                                     toán tại quầy giao dịch ngân hàng, qua mobile
                                                     banking, cây ATM, hoặc chuyển khoản qua internet tại
-                                                    <a href="#" target="_blank"
+                                                    <a href="#" target="_blank" id="linkUrl"
                                                        style="color: #ff9800!important;">đây</a>.
                                                 </td>
                                             </tr>
@@ -795,6 +797,8 @@
     var pageIndex = /*[[${session.pageIndex}]]*/"";
 </script>
 <script>
+    var $selectedBankElement = null;
+    var $codeBankSelected = null;
     $('#paymentSelected input[name=payment]').on('change', function () {
         var typeBank = $('input[name=payment]:checked', '#paymentSelected').val();
         if (typeBank == 0) {
@@ -810,6 +814,13 @@
             $('#paymentType0').css('display', 'none');
             $('#paymentType1').css('display', 'none');
         }
+        $('body').on('click', '.group-imgATM', function () {
+            if ($selectedBankElement != null) {
+                $selectedBankElement.removeClass('active');
+            }
+            $selectedBankElement = $(this);
+            $selectedBankElement.addClass('active');
+        });
         $.ajax({
             url: currUrl + 'bank/list.html',
             method: 'GET',
@@ -821,14 +832,40 @@
                 var htmlLive = '';
                 for (var i of data) {
                     var linkImage = window.location.origin + $('#contextPath').val() + i.icon;
-                    htmlLive += `<div class="group-imgATM" title="${i.name}" data-toggle="modal" data-target="#modalPayment"><img src="${linkImage}" class="image" title="${i.name}" style="width: 100%;object-fit: cover;margin-top: 15px;"/></div>`
-                    html += `<div class="group-imgATM" title="${i.name}"><img src="${linkImage}" class="image" style="width: 100%;object-fit: cover;margin-top: 15px;"/></div>`;
+                    htmlLive += `<div class="group-imgATM showModal" title="${i.name}" data-toggle="modal" data-target="#modalPayment">
+                                <img src="${linkImage}" class="image" style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                                <input type="hidden" class="idBankLive" value="${i.id}"/>
+                                </div>`
+                    html += `<div class="group-imgATM" title="${i.name}">
+                            <img src="${linkImage}" class="image" style="width: 100%;object-fit: cover;margin-top: 15px;"/>
+                            <input type="hidden" class="codeBankSelected" value="${i.code}"/>
+                            </div>`;
                 }
                 $('#paymentLive').html(htmlLive);
                 $('#paymentOn').html(html);
                 $('#paymentVisa').html(html);
             }
         });
+    });
+
+    $('body').on('click', '.group-imgATM.showModal',function(){
+        setTimeout(function(){
+            var id = $('.group-imgATM.showModal.active .idBankLive').val();
+            $.ajax({
+                url: currUrl + 'bank/findOne.html',
+                method: 'GET',
+                data: {id: id},
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (response) {
+                    var data = JSON.parse(response)
+                    var info = JSON.parse(data.info);
+                    $('#atmNumber').text(info.atmNumber);
+                    $('#nameBank').text(info.name);
+                    $('#bank').text(info.bank_name);
+                    $('#linkUrl').attr('href',info.urlIpay);
+                }
+            });
+        },50)
     });
 </script>
 </body>
