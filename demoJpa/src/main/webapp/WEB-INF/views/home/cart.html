@@ -130,7 +130,7 @@
                                                         th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
                                                         th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')}"></td>
                                                     <td class="product-remove"><a
-                                                            th:href="@{/cart/remove/{productId}.html(productId = ${cart.value.product.id})}"><i
+                                                           th:onclick="'remove(\'' +  ${cart.value.product.id} + '\')'"><i
                                                             class="zmdi zmdi-close" title="Xóa"></i></a></td>
                                                 </tr>
 

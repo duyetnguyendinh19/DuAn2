@@ -26,15 +26,14 @@
 
 
 <body>
-<input type="hidden" th:value="@{/}" id="path"/>
+	<input type="hidden" th:value="@{/}" id="path" />
 	<!-- Body main wrapper start -->
 	<div class="wrapper">
 
 		<!-- START HEADER AREA -->
 		<header class="header-area header-wrapper">
 			<!-- start import header-->
-			<div
-				th:replace="fragments/navHome :: header"></div>
+			<div th:replace="fragments/navHome :: header"></div>
 			<!-- end import header-->
 		</header>
 		<!-- END HEADER AREA -->
@@ -77,20 +76,18 @@
 									<!-- imgs-zoom-area start -->
 									<div class="col-md-5 col-sm-5 col-xs-12">
 										<div class="imgs-zoom-area">
-											<img id="zoom_03"
-												th:src="${product.mainImg}"
-												th:data-zoom-image="${product.mainImg}"
-												alt="" style="height: 310px;">
+											<img id="zoom_03" th:src="${product.mainImg}"
+												th:data-zoom-image="${product.mainImg}" alt=""
+												style="height: 310px;">
 											<div class="row">
 												<div class="col-xs-12" th:if="${subImg} != null">
 													<div id="gallery_01"
 														class="carousel-btn slick-arrow-3 mt-30">
 														<div class="p-c" th:each="eachSubImg : ${subImg}">
-															<a href="#"
-																th:data-image="${eachSubImg}"
-																th:data-zoom-image="${eachSubImg}">
-																<img class="zoom_03"
-																th:src="${eachSubImg}" alt="" style="height: 50px;">
+															<a href="#" th:data-image="${eachSubImg}"
+																th:data-zoom-image="${eachSubImg}"> <img
+																class="zoom_03" th:src="${eachSubImg}" alt=""
+																style="height: 50px;">
 															</a>
 														</div>
 													</div>
@@ -178,7 +175,7 @@
 															title="Quickview" tabindex="0"><i
 																class="zmdi zmdi-zoom-in"></i></a></li>
 														<li><a
-															th:href="@{/cart/add/{productId}.html(productId = ${product.id})}"
+															th:onclick="'addToCart(\'' + ${product.id} + '\')'"
 															title="Add to cart"><i
 																class="zmdi zmdi-shopping-cart-plus"></i></a></li>
 													</ul>
@@ -289,9 +286,10 @@
 										<div class="col-xs-12" th:each="eachRe : ${proRelationship}">
 											<div class="product-item">
 												<div class="product-img">
-													<a th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}">
-														<img th:src="${eachRe.mainImg}"
-														alt="" style="height: 300px;"/>
+													<a
+														th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}">
+														<img th:src="${eachRe.mainImg}" alt=""
+														style="height: 300px;" />
 													</a>
 												</div>
 												<div class="product-info">
@@ -331,8 +329,11 @@
 															<i class="zmdi zmdi-star"></i>
 														</div>
 													</div>
-													<h3 th:if="${eachRe.rate == 0}" class="pro-price" style="margin-top: 33px;" th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
-													<h3 th:if="${eachRe.rate != 0}" class="pro-price" th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
+													<h3 th:if="${eachRe.rate == 0}" class="pro-price"
+														style="margin-top: 33px;"
+														th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
+													<h3 th:if="${eachRe.rate != 0}" class="pro-price"
+														th:text="${#numbers.formatDecimal(eachRe.price, 0, 'COMMA', 0,'POINT')}"></h3>
 													<ul class="action-button">
 														<li><a href="#" title="Wishlist"><i
 																class="zmdi zmdi-favorite"></i></a></li>
@@ -377,7 +378,8 @@
 									<div class="product-img">
 										<a
 											th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
-											<img th:src="${eachNew.mainImg}" th:alt="${eachNew.name}" style="height: 80px;" />
+											<img th:src="${eachNew.mainImg}" th:alt="${eachNew.name}"
+											style="height: 80px;" />
 										</a>
 									</div>
 									<div class="product-info">
@@ -420,8 +422,7 @@
 							<div class="modal-product clearfix">
 								<div class="product-images">
 									<div class="main-image images">
-										<img alt=""
-											src="" id="imageQuick">
+										<img alt="" src="" id="imageQuick">
 									</div>
 								</div>
 								<!-- .product-images -->
@@ -439,10 +440,10 @@
 											<div class="numbers-row">
 												<input type="number" id="french-hens" value="1">
 											</div>
-                                            <a href="" style="line-height: 45px;margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
-                                               id="quickCart" class="btn btn-warning" type="submit">Thêm
-                                                vào giỏ
-                                            </a>
+											<a href=""
+												style="line-height: 45px; margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
+												id="quickCart" class="btn btn-warning" type="submit">Thêm
+												vào giỏ </a>
 										</form>
 									</div>
 									<div class="quick-desc" id="descriptionQuick">Hello,
@@ -497,7 +498,10 @@
 				contentType : 'application/x-www-form-urlencoded',
 				success : function(response) {
 					var data = JSON.parse(response);
-                    $('#quickCart').attr('href', window.location.origin + $('#path').val() + 'cart/add/' + id + '.html');
+		/* 			$('#quickCart').attr(
+							'href',
+							window.location.origin + $('#path').val()
+									+ 'cart/add/' + id + '.html'); */
 					$('#imageQuick').attr('src', data.mainImg);
 					$('#name').text(data.name);
 					$('#price').text(
@@ -516,6 +520,19 @@
 					}
 				}
 			})
+
+			$('#quickCart').click(
+					function() {
+						$.ajax({
+							url : window.location.origin + $('#path').val()
+									+ 'cart/add/' + id + '.html',
+							method : 'GET',
+						/*  data: {
+						     'quantity': quantity
+						 } */
+						});
+						location.reload();
+					});
 		}
 
 		function formatPriceString(priceStr) {
@@ -526,6 +543,14 @@
 				}
 			}
 			return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+		}
+
+		function addToCart(id) {
+			$.ajax({
+				url : currUrl + '/cart/add/' + id + '.html',
+				method : 'GET'
+			})
+			location.reload();
 		}
 	</script>
 	<!--End QuickView-->
