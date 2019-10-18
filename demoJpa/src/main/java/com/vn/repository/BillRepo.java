@@ -22,4 +22,8 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
                            @Param("delete") String isDelete,
                            Pageable pageable);
 
+    @Query(value = "SELECT b.id FROM Bill b "
+            + " WHERE (b.code = :code)"
+            , nativeQuery = false)
+    Long checkExistByCode(@Param(value = "code") String code);
 }

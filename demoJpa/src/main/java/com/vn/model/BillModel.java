@@ -19,12 +19,14 @@ public class BillModel implements Serializable {
     private String name;
     private String email;
     private AuthUser authUser;
+    private String code;
+    private String bankCode;
 
 
     public BillModel() {
     }
 
-    public BillModel(Long id, Float total, Integer payment, Integer status, Date createDate, String createdBy, String isdelete, String address, String name, String email, AuthUser authUser) {
+    public BillModel(Long id, Float total, Integer payment, Integer status, Date createDate, String createdBy, String isdelete, String address, String name, String email, AuthUser authUser, String code) {
         this.id = id;
         this.total = total;
         this.payment = payment;
@@ -36,6 +38,23 @@ public class BillModel implements Serializable {
         this.name = name;
         this.email = email;
         this.authUser = authUser;
+        this.code = code;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

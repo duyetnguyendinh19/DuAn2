@@ -45,6 +45,9 @@ public class Bill implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "code")
+    private String code;
+
     @OneToMany(mappedBy = "bill")
     private List<Product_Bill> product_bills = new ArrayList<>();
 
@@ -56,7 +59,7 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, List<Product_Bill> product_bills, AuthUser authUser) {
+    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, String code, List<Product_Bill> product_bills, AuthUser authUser) {
         this.total = total;
         this.payment = payment;
         this.status = status;
@@ -66,8 +69,17 @@ public class Bill implements Serializable {
         this.address = address;
         this.name = name;
         this.email = email;
+        this.code = code;
         this.product_bills = product_bills;
         this.authUser = authUser;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

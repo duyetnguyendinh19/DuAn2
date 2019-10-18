@@ -32,6 +32,7 @@
 <!-- Body main wrapper start -->
 <div class="wrapper">
     <input type="hidden" id="contextPath" th:value="@{/}"/>
+    <input type="hidden" id="login" th:value="${session.userLogin}">
     <!-- START HEADER AREA -->
     <header class="header-area header-wrapper">
         <!-- header-top-bar -->
@@ -377,7 +378,15 @@
 					}
 				})
 			}else{
-            	window.location.href =  window.location.origin + $('#contextPath').val() + 'payment/online/list.html';
+                var checkLog = $('#login').val();
+                if(checkLog != null && checkLog != ''){
+                    window.location.href =  window.location.origin + $('#contextPath').val() + 'payment/online/list.html';
+                }else{
+                    $('#authUserError').text("Bạn vui lòng đăng nhập trước khi thực hiện thanh toán");
+                    setTimeout(function(){
+                        window.location.href = window.location.origin + $('#contextPath').val() + 'home/login.html';
+                    },2000);
+                }
 			}
         }
     })

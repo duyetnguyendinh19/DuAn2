@@ -5,6 +5,10 @@
     <div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
+    input[type="text"], input[type="password"], textarea{
+        margin-bottom: 0px!important;
+        margin-top: 20px!important;
+    }
     @keyframes bounceInDownCustom {
         0% {
             opacity: 0;
@@ -625,7 +629,7 @@
                     <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
                         <div class="txtLeft" th:text="${cart.value.product.name}">IPhone</div>
                         <div class="txtRight" th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
-                             th:text="${#numbers.formatDecimal(subtotal + subtotal*0.01, 0, 'COMMA', 0, 'POINT')} + ' Vnđ'">
+                             th:text="${#numbers.formatDecimal(subtotal + subtotal*0.01, 0, 'COMMA', 0, 'POINT')}">
                             500,000,000 VNĐ
                         </div>
                     </div>
@@ -633,7 +637,7 @@
                 <div style="border-top: 2px solid #E8E8E8;float:left;width: 100%;margin-top: 10px;">
                     <div class="txtLeft" style="font-weight: bold;margin-top: 10px;">Tổng tiền</div>
                     <div class="txtRight" style="margin-top: 10px;" id="totalPayment"
-                         th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0, 'POINT')} + ' Vnđ'">
+                         th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0, 'POINT')}">
                         500,000,000 VNĐ
                     </div>
                 </div>
@@ -660,17 +664,23 @@
                 <h5>&nbsp;&nbsp;Thông tin khách hàng</h5>
                 <div class="formFirst">
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="name" class="form-control"
+                        <input type="text" id="name" name="name" class="form-control"
                                placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)" th:value="${name}"/>
+                        <span style="color: red;font-size: 13px;" id="nameError"></span>
                     </div>
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="email" class="form-control" placeholder="Email..." th:value="${email}"/>
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Email..."
+                               th:value="${email}"/>
+                        <span style="color: red;font-size: 13px;" id="emailError"></span>
                     </div>
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <input type="text" name="mobile" class="form-control" placeholder="Số điện thoại..." th:value="${mobile}"/>
+                        <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Số điện thoại..."
+                               th:value="${mobile}"/>
+                        <span style="color: red;font-size: 13px;" id="mobileError"></span>
                     </div>
                     <div class="col col-xs-12 col-sm-12 col-md-12">
-                        <textarea name="address"  placeholder="Địa chỉ..." th:text="${address}"></textarea>
+                        <textarea name="address" id="address" placeholder="Địa chỉ..." th:text="${address}"></textarea>
+                        <span style="color: red;font-size: 13px;" id="addressError"></span>
                     </div>
                 </div>
             </div>
@@ -721,11 +731,13 @@
                                             </tr>
                                             <tr>
                                                 <td>Số tiền chuyển khoản</td>
-                                                <td style="color: #ff9800;" id="paymentTotal" th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' Vnđ'"></td>
+                                                <td style="color: #ff9800;" id="paymentTotal"
+                                                    th:text="${#numbers.formatDecimal(session.myCartTotal + session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' Vnđ'"></td>
                                             </tr>
                                             <tr>
                                                 <td>Nội dung chuyển khoản</td>
-                                                <td style="color: #ff9800;" id="descriptionPayment">Nguyen Van A chuyen khoan thanh toan hoa don
+                                                <td style="color: #ff9800;" id="descriptionPayment">Nguyen Van A chuyen
+                                                    khoan thanh toan hoa don
                                                 </td>
                                             </tr>
                                             <tr>
@@ -741,8 +753,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" value="0">
                             <img th:src="@{/assets/img/pttt_1.svg}" class="icon-pttt" style="float: left;"/>
@@ -759,7 +769,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="custom-control custom-radio">
                             <input type="radio" class="custom-control-input" name="payment" value="2">
                             <img th:src="@{/assets/img/pttt_3.svg}" class="icon-pttt" style="float: left;"/>
@@ -777,9 +786,11 @@
                             </div>
                         </div>
                     </form>
+                    <span id="error" style="color: red;font-size: 15px;"></span>
+
                 </div>
                 <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;margin-top: 10px;">
-                    <button class="selectOptionPayment btn">Thanh toán</button>
+                    <button id="paying" class="selectOptionPayment btn">Thanh toán</button>
                     <a th:href="@{/home/cart.html}" class="selectOptionPayment btn"
                        style="padding-top: 5px;background: #E8E8E8!important;color: black">Hủy bỏ</a>
                 </div>
@@ -851,8 +862,8 @@
         });
     });
 
-    $('body').on('click', '.group-imgATM.showModal',function(){
-        setTimeout(function(){
+    $('body').on('click', '.group-imgATM.showModal', function () {
+        setTimeout(function () {
             var id = $('.group-imgATM.showModal.active .idBankLive').val();
             $.ajax({
                 url: currUrl + 'bank/findOne.html',
@@ -865,10 +876,90 @@
                     $('#atmNumber').text(info.atmNumber);
                     $('#nameBank').text(info.name);
                     $('#bank').text(info.bank_name);
-                    $('#linkUrl').attr('href',info.urlIpay);
+                    $('#linkUrl').attr('href', info.urlIpay);
                 }
             });
-        },50)
+        }, 50)
+    });
+
+    $('#paying').on('click', function () {
+        setTimeout(function () {
+            var code = $('.group-imgATM.active .codeBankSelected').val();
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var mobile = $('#mobile').val();
+            var address = $('#address').val();
+            var total = $('#totalPayment').text().replace(/,/g, '');
+            var dataObject = {};
+            dataObject.bankCode = code;
+            dataObject.name = name;
+            dataObject.email = email;
+            dataObject.mobile = mobile;
+            dataObject.address = address;
+            dataObject.total = total;
+            var valid = true;
+            var errorMessage = '';
+            var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+            var regexMobile = /^([+0-9]{10,12})+$/;
+
+            if (name === null || name === '') {
+                $('#nameError').text("Tên không được để trống");
+                valid = false;
+            } else if (name.length > 64) {
+                $('#nameError').text("Tên không quá 64 kí tự");
+                valid = false;
+            } else {
+                $('#nameError').text('');
+            }
+
+            if (email === null || email === '') {
+                $('#emailError').text("Email không được để trống");
+                valid = false;
+            } else if (!regexEmail.test(email)) {
+                $('#emailError').text("Sai định dạng email");
+                valid = false;
+            } else {
+                $('#emailError').text('');
+            }
+
+            if (mobile === null || mobile === '') {
+                $('#mobileError').text("Số điện thoại không được để trống");
+                valid = false;
+            } else if (!regexMobile.test(mobile)) {
+                $('#mobileError').text("Sai định dạng số điện thoại");
+                valid = false;
+            } else {
+                $('#mobileError').text('');
+            }
+
+            if (address === null || address === '') {
+                $('#addressError').text("Địa chỉ không được để trống");
+                valid = false;
+            } else {
+                $('#addressError').text('');
+            }
+
+            if (code === null || code === '' || code === undefined) {
+                $('#error').text("Bạn vui lòng chọn ngân hàng");
+                valid = false;
+            }else{
+                $('#error').text("");
+            }
+
+            if (valid == true) {
+                $.ajax({
+                    url: currUrl + 'payment/payingByVNpay.html',
+                    method: 'POST',
+                    data: JSON.stringify(dataObject),
+                    contentType: 'application/json',
+                    success: function (response) {
+                        var data = JSON.parse(response)
+                        console.log(data);
+                        // var data = JSON.parse(response)
+                    }
+                });
+            }
+        }, 50);
     });
 </script>
 </body>

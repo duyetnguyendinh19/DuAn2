@@ -26,9 +26,9 @@ public class VnpayConfig {
     private static final Logger logger = LoggerFactory.getLogger(VnpayConfig.class);
 
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-//    public static String vnp_Returnurl = "http://210.211.99.48:8067/#/vnpay-transaction-result";
-    public static String vnp_TmnCode = "3DFAJBX5";
-    public static String vnp_HashSecret = "TAEVVULTUIOEBMEBQDKEQTSZKZPBOSIU";
+    public static String vnp_Returnurl = "http://localhost:8284/duan2_war/vnpay-transaction-result";
+    public static String vnp_TmnCode = "QFFJOYEW";
+    public static String vnp_HashSecret = "AJQGVLDDCBGRLZJARAEQDOFYJPKHSWDU";
     public static String vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
 
     public static String md5(String message) {
@@ -55,15 +55,12 @@ public class VnpayConfig {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hash = md.digest(message.getBytes("UTF-8"));
-
             // converting byte array to Hexadecimal String
             StringBuilder sb = new StringBuilder(2 * hash.length);
             for (byte b : hash) {
                 sb.append(String.format("%02x", b & 0xff));
             }
-
             digest = sb.toString();
-
         } catch (UnsupportedEncodingException ex) {
             digest = "";
         } catch (NoSuchAlgorithmException ex) {
@@ -85,8 +82,8 @@ public class VnpayConfig {
             String fieldName = (String) itr.next();
             String fieldValue = (String) fields.get(fieldName);
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                fieldValue = URLDecoder.decode(fieldValue,StandardCharsets.UTF_8.toString()).trim();
-                fieldName = URLDecoder.decode(fieldName,StandardCharsets.UTF_8.toString()).trim();
+                fieldValue = URLDecoder.decode(fieldValue, StandardCharsets.UTF_8.toString()).trim();
+                fieldName = URLDecoder.decode(fieldName, StandardCharsets.UTF_8.toString()).trim();
                 sb.append(fieldName);
                 sb.append("=");
                 sb.append(URLDecoder.decode(fieldValue, "UTF-8"));
@@ -110,10 +107,9 @@ public class VnpayConfig {
         while (itr.hasNext()) {
             String fieldName = (String) itr.next();
             String fieldValue = (String) fields.get(fieldName);
-
             if ((fieldValue != null) && (fieldValue.length() > 0)) {
-                fieldValue = URLDecoder.decode(fieldValue,StandardCharsets.UTF_8.toString()).trim();
-                fieldName = URLDecoder.decode(fieldName,StandardCharsets.UTF_8.toString()).trim();
+                fieldValue = URLDecoder.decode(fieldValue, StandardCharsets.UTF_8.toString()).trim();
+                fieldName = URLDecoder.decode(fieldName, StandardCharsets.UTF_8.toString()).trim();
                 sb.append(fieldName);
                 sb.append("=");
                 sb.append(URLDecoder.decode(fieldValue, "UTF-8"));
@@ -155,11 +151,9 @@ public class VnpayConfig {
             if (body.startsWith("{")) {
                 body = body.substring(1);
             }
-
             if (body.endsWith("}")) {
                 body = body.substring(0, body.length() - 1);
             }
-
             String[] stringArr = body.trim().split("&");
             for (String string : stringArr) {
                 if (!Strings.isNullOrEmpty(string)) {
@@ -169,11 +163,8 @@ public class VnpayConfig {
                     String value = strArr[1].replace("+", " ");
                     response.put(key, value);
                 }
-
             }
         }
-
         return response;
-
     }
 }

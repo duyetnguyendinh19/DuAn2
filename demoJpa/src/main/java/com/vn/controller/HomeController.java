@@ -1,5 +1,6 @@
 package com.vn.controller;
 
+import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -54,14 +55,14 @@ public class HomeController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-	@Resource
-	private JavaMailSender mailSender;
+    @Resource
+    private JavaMailSender mailSender;
 
-	@Resource
-	private InfomationFormValidator infoFormValidator;
+    @Resource
+    private InfomationFormValidator infoFormValidator;
 
-	@Resource
-	private InfomationService informationService;
+    @Resource
+    private InfomationService informationService;
 
     @RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(Model model, Pageable pageable) {
@@ -174,10 +175,26 @@ public class HomeController {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
         if (authUser != null) {
             Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
-            model.addAttribute("name", authUser.getFullName());
-            model.addAttribute("email", authUser.getEmail());
-            model.addAttribute("mobile", infomation.getPhone());
-            model.addAttribute("address", infomation.getAddress());
+            if (!Strings.isNullOrEmpty(authUser.getFullName())) {
+                model.addAttribute("name", authUser.getFullName());
+            } else {
+                model.addAttribute("name", "");
+            }
+            if (!Strings.isNullOrEmpty(authUser.getEmail())) {
+                model.addAttribute("email", authUser.getEmail());
+            } else {
+                model.addAttribute("email", "");
+            }
+            if (!Strings.isNullOrEmpty(infomation.getPhone())) {
+                model.addAttribute("mobile", infomation.getPhone());
+            } else {
+                model.addAttribute("mobile", "");
+            }
+            if (!Strings.isNullOrEmpty(infomation.getAddress())) {
+                model.addAttribute("address", infomation.getAddress());
+            } else {
+                model.addAttribute("address", "");
+            }
         }
         ModelAndView modelAndView = new ModelAndView("home/cart");
         return modelAndView;
@@ -197,39 +214,39 @@ public class HomeController {
         return modelAndView;
     }
 
-	@RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
-	public ModelAndView profilePage(HttpSession session, Model model) {
-		if (session.getAttribute("userLogin") == null) {
-			Map<String, String> mapError = new HashedMap<String, String>();
-			model.addAttribute("athUser", new AuthUserModel());
-			model.addAttribute("mapError", mapError);
-			ModelAndView modelAndView = new ModelAndView("home/login");
-			return modelAndView;
-		} else {
-			model.addAttribute("profile", new InfomationModel());
-			ModelAndView modelAndView = new ModelAndView("home/profile");
-			return modelAndView;
-		}
-	}
+    @RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
+    public ModelAndView profilePage(HttpSession session, Model model) {
+        if (session.getAttribute("userLogin") == null) {
+            Map<String, String> mapError = new HashedMap<String, String>();
+            model.addAttribute("athUser", new AuthUserModel());
+            model.addAttribute("mapError", mapError);
+            ModelAndView modelAndView = new ModelAndView("home/login");
+            return modelAndView;
+        } else {
+            model.addAttribute("profile", new InfomationModel());
+            ModelAndView modelAndView = new ModelAndView("home/profile");
+            return modelAndView;
+        }
+    }
 
-	@RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
-	public ModelAndView profileSave(HttpSession session, Model model, @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
-		try {
-			infoFormValidator.validateReportForm(infomationModel, result);
-			Infomation infomation = new Infomation();
-			infomation.setProvince(infomationModel.getProvince());
-			infomation.setBank(infomationModel.getBank());
-			infomation.setAtmNumber(infomationModel.getAtmNumberBank());
-			infomation.setPhone(infomation.getPhone());
-			infomation.setAuthUser( (AuthUser) session.getAttribute("userLogin"));
-			infomation.setIsDelete("N");
-			informationService.create(infomation);
-		} catch (Exception e) {
-			model.addAttribute("errorUnkown", "Lỗi không xác định !");
-		}
-		ModelAndView modelAndView = new ModelAndView("home/profile");
-		return modelAndView;
-	}
+    @RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
+    public ModelAndView profileSave(HttpSession session, Model model, @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
+        try {
+            infoFormValidator.validateReportForm(infomationModel, result);
+            Infomation infomation = new Infomation();
+            infomation.setProvince(infomationModel.getProvince());
+            infomation.setBank(infomationModel.getBank());
+            infomation.setAtmNumber(infomationModel.getAtmNumberBank());
+            infomation.setPhone(infomation.getPhone());
+            infomation.setAuthUser((AuthUser) session.getAttribute("userLogin"));
+            infomation.setIsDelete("N");
+            informationService.create(infomation);
+        } catch (Exception e) {
+            model.addAttribute("errorUnkown", "Lỗi không xác định !");
+        }
+        ModelAndView modelAndView = new ModelAndView("home/profile");
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/home/logout.html", method = RequestMethod.GET)
     public String logout(HttpSession session) {
