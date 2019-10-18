@@ -48,11 +48,13 @@ public class PaymentController {
     public String paymentOnline(HttpSession session, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
         if (authUser != null) {
-            Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
             model.addAttribute("name", authUser.getFullName());
             model.addAttribute("email", authUser.getEmail());
-            model.addAttribute("mobile", infomation.getPhone());
-            model.addAttribute("address", infomation.getAddress());
+            Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
+            if(infomation != null){
+                model.addAttribute("mobile", infomation.getPhone());
+                model.addAttribute("address", infomation.getAddress());
+            }
         }
         return "home/payment";
     }

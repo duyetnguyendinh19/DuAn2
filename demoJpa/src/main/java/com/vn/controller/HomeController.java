@@ -175,25 +175,11 @@ public class HomeController {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
         if (authUser != null) {
             Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
-            if (!Strings.isNullOrEmpty(authUser.getFullName())) {
-                model.addAttribute("name", authUser.getFullName());
-            } else {
-                model.addAttribute("name", "");
-            }
-            if (!Strings.isNullOrEmpty(authUser.getEmail())) {
-                model.addAttribute("email", authUser.getEmail());
-            } else {
-                model.addAttribute("email", "");
-            }
-            if (!Strings.isNullOrEmpty(infomation.getPhone())) {
+            model.addAttribute("name", authUser.getFullName());
+            model.addAttribute("email", authUser.getEmail());
+            if (infomation != null) {
                 model.addAttribute("mobile", infomation.getPhone());
-            } else {
-                model.addAttribute("mobile", "");
-            }
-            if (!Strings.isNullOrEmpty(infomation.getAddress())) {
                 model.addAttribute("address", infomation.getAddress());
-            } else {
-                model.addAttribute("address", "");
             }
         }
         ModelAndView modelAndView = new ModelAndView("home/cart");
@@ -230,17 +216,26 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
-    public ModelAndView profileSave(HttpSession session, Model model, @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
+    public ModelAndView profileSave(HttpSession session, Model model,
+                                    @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
         try {
             infoFormValidator.validateReportForm(infomationModel, result);
             Infomation infomation = new Infomation();
+            AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
+            authUser.setEmail(infomationModel.getEmailUser());
             infomation.setProvince(infomationModel.getProvince());
+            infomation.setTown(infomationModel.getTown());
             infomation.setBank(infomationModel.getBank());
             infomation.setAtmNumber(infomationModel.getAtmNumberBank());
+            infomation.setCompany(infomationModel.getCompany());
             infomation.setPhone(infomation.getPhone());
-            infomation.setAuthUser((AuthUser) session.getAttribute("userLogin"));
+            infomation.setAuthUser(authUser);
             infomation.setIsDelete("N");
-            informationService.create(infomation);
+            if (infomation.getId() == null) {
+                informationService.create(infomation);
+            } else {
+                informationService.update(infomation);
+            }
         } catch (Exception e) {
             model.addAttribute("errorUnkown", "Lỗi không xác định !");
         }
