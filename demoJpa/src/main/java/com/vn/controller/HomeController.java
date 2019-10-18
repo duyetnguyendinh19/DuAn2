@@ -61,10 +61,10 @@ public class HomeController {
 
 	@Resource
 	private JavaMailSender mailSender;
-	
+
 	@Resource
 	private InfomationFormValidator infoFormValidator;
-	
+
 	@Resource
 	private InfomationService informationService;
 
@@ -212,17 +212,26 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
-	public ModelAndView profileSave(HttpSession session, Model model, @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
+	public ModelAndView profileSave(HttpSession session, Model model,
+			@ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
 		try {
 			infoFormValidator.validateReportForm(infomationModel, result);
 			Infomation infomation = new Infomation();
+			AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
+			authUser.setEmail(infomationModel.getEmailUser());
 			infomation.setProvince(infomationModel.getProvince());
+			infomation.setTown(infomationModel.getTown());
 			infomation.setBank(infomationModel.getBank());
 			infomation.setAtmNumber(infomationModel.getAtmNumberBank());
+			infomation.setCompany(infomationModel.getCompany());
 			infomation.setPhone(infomation.getPhone());
-			infomation.setAuthUser( (AuthUser) session.getAttribute("userLogin"));
+			infomation.setAuthUser(authUser);
 			infomation.setIsDelete("N");
-			informationService.create(infomation);
+			if (infomation.getId() == null) {
+				informationService.create(infomation);
+			} else {
+				informationService.update(infomation);
+			}
 		} catch (Exception e) {
 			model.addAttribute("errorUnkown", "Lỗi không xác định !");
 		}
