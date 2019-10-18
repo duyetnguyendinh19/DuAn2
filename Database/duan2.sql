@@ -77,7 +77,7 @@ CREATE TABLE `auth_user` (
 
 LOCK TABLES `auth_user` WRITE;
 /*!40000 ALTER TABLE `auth_user` DISABLE KEYS */;
-INSERT INTO `auth_user` VALUES (1,'admin','Admin',NULL,NULL,NULL,'admin@yo.com','1','5876695f8e4e1811','$2a$10$B3oHbYckX3Kn54nVHlhOo.SSS4DGTePm8VfDgl.pZ2cYy69y.2ZFe','2019-09-24 22:21:33',NULL,1,1,0),(2,'tanbv','Bùi','Văn','Tứn','Bùi Văn Tứn','tanbvph05961@gmail.com','1','5876695f8e4e1811','$2a$10$XXaa5vhOSKqFtkyAXp3mr.URnTGQk7GnB0NYYJIxKfShEijW72iWW','2019-10-03 15:40:22',NULL,1,1,1),(69,'duyetnd','','','','  Nguyễn Đình Duyệt','duyetnd@gmail.com','1','5876695f8e4e1811','$2a$10$tN9jWuy0ALIQKIG.8Gr57eoNgGGEqr93/ZImGcYFOvjo.wrupg7RS','2019-10-08 11:19:28',NULL,1,1,2),(70,'trilm','','','','  ','trilm@gmail.com','1','5876695f8e4e1811','$2a$10$mSOxNmIoD/We7WZXCpwlS..iv.iz.5uISkbChgr2Hbyls2X4txL/u','2019-10-08 19:34:02',NULL,1,1,1);
+INSERT INTO `auth_user` VALUES (1,'admin','Admin',NULL,NULL,NULL,'admin@yo.com','1','5876695f8e4e1811','$2a$10$B3oHbYckX3Kn54nVHlhOo.SSS4DGTePm8VfDgl.pZ2cYy69y.2ZFe','2019-09-24 22:21:33',NULL,1,1,0),(2,'tanbv','Bùi','Văn','Tứn','Bùi Văn Tứn','tanbvph05961@gmail.com','1','5876695f8e4e1811','$2a$10$XXaa5vhOSKqFtkyAXp3mr.URnTGQk7GnB0NYYJIxKfShEijW72iWW','2019-10-03 15:40:22',NULL,1,1,1),(69,'duyetnd','','','','Nguyễn Đình Duyệt','duyetnd@gmail.com','1','5876695f8e4e1811','$2a$10$tN9jWuy0ALIQKIG.8Gr57eoNgGGEqr93/ZImGcYFOvjo.wrupg7RS','2019-10-08 11:19:28',NULL,1,1,2),(70,'trilm','','','','Lương Minh Trí','trilm@gmail.com','1','5876695f8e4e1811','$2a$10$mSOxNmIoD/We7WZXCpwlS..iv.iz.5uISkbChgr2Hbyls2X4txL/u','2019-10-08 19:34:02',NULL,1,1,1);
 /*!40000 ALTER TABLE `auth_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,9 +150,13 @@ CREATE TABLE `bill` (
   `created_date` datetime DEFAULT NULL,
   `created_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `address` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `mobile` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_auth_user` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -161,7 +165,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,10000000,0,2,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL),(2,18000000,1,1,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL);
+INSERT INTO `bill` VALUES (1,10000000,0,2,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL,NULL,NULL,NULL,NULL),(2,18000000,1,1,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL,NULL,NULL,NULL,NULL),(3,16160000,0,2,'2019-10-17 14:14:54',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL),(4,16160000,0,2,'2019-10-17 14:21:21',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,70),(5,16160000,0,2,'2019-10-17 14:23:23',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,70),(6,35350000,0,2,'2019-10-17 14:55:07',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,69),(7,44440000,0,2,'2019-10-17 18:43:56',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,'Bùi Văn Tứn',NULL,2),(8,16160000,0,2,'2019-10-17 18:47:33',NULL,'N','Cầu Giấy - Hà Nội - Việt Nam',NULL,'Bùi Văn Tấn','tanbui21899@gmail.com',2);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -392,4 +396,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-16 19:15:18
+-- Dump completed on 2019-10-17 19:02:58

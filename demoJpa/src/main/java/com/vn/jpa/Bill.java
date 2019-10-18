@@ -36,6 +36,15 @@ public class Bill implements Serializable {
     @Column(name = "isDelete", columnDefinition = "CHAR")
     private String isDelete;
 
+    @Column(name = "address")
+    private String address;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
     @OneToMany(mappedBy = "bill")
     private List<Product_Bill> product_bills = new ArrayList<>();
 
@@ -43,18 +52,46 @@ public class Bill implements Serializable {
     @JoinColumn(name = "id_auth_user")
     private AuthUser authUser;
 
+
     public Bill() {
     }
 
-    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, List<Product_Bill> product_bills, AuthUser authUser) {
+    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, List<Product_Bill> product_bills, AuthUser authUser) {
         this.total = total;
         this.payment = payment;
         this.status = status;
         this.createDate = createDate;
         this.createBy = createBy;
         this.isDelete = isDelete;
+        this.address = address;
+        this.name = name;
+        this.email = email;
         this.product_bills = product_bills;
         this.authUser = authUser;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public AuthUser getAuthUser() {
