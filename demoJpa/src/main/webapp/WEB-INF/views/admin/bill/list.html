@@ -96,7 +96,7 @@
                                 <thead>
                                 <tr>
                                     <th class="text-table-header">#</th>
-                                    <th class="text-table-header">Người tạo</th>
+                                    <th class="text-table-header">Code</th>
                                     <th class="text-table-header">Thanh toán</th>
                                     <th class="text-table-header">Tổng tiền</th>
                                     <th class="text-table-header">Trạng thái</th>
@@ -107,7 +107,7 @@
                                 <tbody th:if="${page}!=null">
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
-                                    <td class="text-table-body" th:text="${eachRow.createBy}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.code}"></td>
                                     <td class="text-table-body">
                                         <span th:if="${eachRow.payment == 0}">Thanh toán trực tiếp</span>
                                         <span th:if="${eachRow.payment == 1}">Thanh toán online</span>

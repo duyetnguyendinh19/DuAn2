@@ -7,10 +7,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/resultPayment.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/assets/teamplates/img/logo/vnpay-logo.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Database/duan2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Database/duan2.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/common/VnpayConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/common/VnpayConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/model/BillModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/BillModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/initHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/initHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,9 +33,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
         <option value="Class" />
         <option value="Interface" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -60,7 +69,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/assets/css" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/assets/teamplates/img/logo" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -71,6 +80,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Bui Van Tan\Desktop\Du_An_2_Nhom_2\demoJpa\src\main\webapp\assets\teamplates\img\logo" />
       <recent name="C:\Users\Bui Van Tan\Desktop\Du_An_2_Nhom_2\demoJpa\src\main\webapp\assets\css" />
       <recent name="C:\Users\Bui Van Tan\Desktop\Du_An_2_Nhom_2\demoJpa\src\main\webapp\assets\img" />
       <recent name="C:\Users\Bui Van Tan\Desktop\Du_An_2_Nhom_2\demoJpa\src\main\webapp\WEB-INF\views\admin\staffs" />
@@ -89,6 +99,16 @@
     </option>
   </component>
   <component name="RunManager" selected="Tomcat Server.Tomcat 8.5.51">
+    <configuration name="PasswordMD5.getIp" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="duan2" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="PasswordMD5" />
+      <option name="METHOD_NAME" value="getIp" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="PasswordMD5.testPassword" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="duan2" />
       <option name="PACKAGE_NAME" value="" />
@@ -206,6 +226,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.PasswordMD5.getIp" />
         <item itemvalue="JUnit.PasswordMD5.testPassword" />
       </list>
     </recent_temporary>
@@ -511,7 +532,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
     <MESSAGE value="update code" />
-    <option name="LAST_COMMIT_MESSAGE" value="update code" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2&#10;&#10; Conflicts:&#10;&#9;demoJpa/src/main/java/com/vn/controller/HomeController.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2&#10;&#10; Conflicts:&#10;&#9;demoJpa/src/main/java/com/vn/controller/HomeController.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -527,9 +549,9 @@
           <option name="timeStamp" value="12" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java</url>
-          <line>179</line>
-          <option name="timeStamp" value="17" />
+          <url>file://$PROJECT_DIR$/src/main/java/com/vn/common/VnpayConfig.java</url>
+          <line>131</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -59,6 +59,14 @@ public class PaymentController {
         return "home/payment";
     }
 
+    @RequestMapping(value = "vnpay-transaction-result", method = RequestMethod.GET)
+    public String resultPayment(HttpSession session){
+        session.removeAttribute("myCartItems");
+        session.removeAttribute("myCartTotal");
+        session.removeAttribute("myCartNum");
+        return "home/resultPayment";
+    }
+
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public @ResponseBody
     String paymentLive(@RequestBody(required = false) BillModel billModel, HttpSession session, HttpServletRequest request) {
@@ -82,6 +90,7 @@ public class PaymentController {
                 bill.setAddress(billModel.getAddress());
                 bill.setName(billModel.getName());
                 bill.setEmail(billModel.getEmail());
+                bill.setMobile(billModel.getMobile());
                 while (billService.checkExistByCode(code)) {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
@@ -100,11 +109,11 @@ public class PaymentController {
 
     @RequestMapping(value = "payingByVNpay.html", method = RequestMethod.POST)
     public @ResponseBody
-    String payingByVNPay(@RequestBody(required = false) BillModel model, HttpServletRequest req) {
+    String payingByVNPay(@RequestBody(required = false) BillModel model, HttpServletRequest req, HttpSession session) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
-            String vnp_OrderInfo = model.getName() + " thanh toan don hang";
+            String vnp_OrderInfo = "Thanh toan don hang ma " + code;
             String orderType = "billpayment";
             VnpayTransactionInfo vnpayTrans = new VnpayTransactionInfo();
 
@@ -113,11 +122,9 @@ public class PaymentController {
 
             String vnp_Version = "2.0.0";
             String vnp_Command = "pay";
-            String vnp_IpAddr = VnpayConfig.getIpAddress(req);
+            String vnp_IpAddr = VnpayConfig.getIpAddress();
 
             String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
-
-//            String vnp_TransactionNo = bookingCode;
             String vnp_hashSecret = VnpayConfig.vnp_HashSecret;
 
             Map<String, String> vnp_Params = new HashMap<>();
@@ -192,6 +199,28 @@ public class PaymentController {
             vnpayTrans.setVnpOrderType(orderType);
 
             vnpayTransactionService.insert(vnpayTrans);
+            Bill bill = new Bill();
+            AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
+            AuthUser user = new AuthUser();
+            user.setId(authUser.getId());
+            if(billService.checkExistByCode(code)){
+                code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+            }
+            try {
+                bill.setCode(code);
+                bill.setEmail(model.getEmail());
+                bill.setName(model.getName());
+                bill.setAddress(model.getAddress());
+                bill.setIsDelete("N");
+                bill.setStatus(2);
+                bill.setAuthUser(user);
+                bill.setTotal(model.getTotal());
+                bill.setMobile(model.getMobile());
+                bill.setPayment(Bill.payment.ONLINE.value());
+                billService.insert(bill);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             PaymentUrlModel res = new PaymentUrlModel();
             res.setPaymentUrl(paymentUrl);
             return gson.toJson(res);
@@ -230,7 +259,7 @@ public class PaymentController {
                         if (vnpayTrans != null) {
                             String vnp_Version = "2.0.0";
                             String vnp_Command = "querydr";
-                            String vnp_IpAddr = VnpayConfig.getIpAddress(request);
+                            String vnp_IpAddr = VnpayConfig.getIpAddress();
 
                             String vnp_TmnCode = VnpayConfig.vnp_TmnCode;
 
@@ -314,7 +343,6 @@ public class PaymentController {
                                                 vnpayTrans.setVnpPayDate(request.getParameter("vnp_PayDate"));
                                                 vnpayTrans.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                                                 vnpayTransactionService.update(vnpayTrans);
-                                                // === cập nhật kết quả bảng transaction và booking history====
                                             }
                                         }
                                     }

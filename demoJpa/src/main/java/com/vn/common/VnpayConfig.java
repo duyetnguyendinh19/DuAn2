@@ -2,8 +2,10 @@ package com.vn.common;
 
 
 import java.io.UnsupportedEncodingException;
+import java.net.InetAddress;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -26,7 +28,7 @@ public class VnpayConfig {
     private static final Logger logger = LoggerFactory.getLogger(VnpayConfig.class);
 
     public static String vnp_PayUrl = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_Returnurl = "http://localhost:8284/duan2_war/vnpay-transaction-result";
+    public static String vnp_Returnurl = "http://localhost:8284/duan2_war/payment/vnpay-transaction-result";
     public static String vnp_TmnCode = "QFFJOYEW";
     public static String vnp_HashSecret = "AJQGVLDDCBGRLZJARAEQDOFYJPKHSWDU";
     public static String vnp_apiUrl = "http://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
@@ -122,17 +124,24 @@ public class VnpayConfig {
         return md5(sb.toString());
     }
 
-    public static String getIpAddress(HttpServletRequest request) {
-        String ipAdress;
+    public static String getIpAddress() {
+//        String ipAdress;
+//        try {
+//            ipAdress = request.getHeader("X-FORWARDED-FOR");
+//            if (ipAdress == null) {
+//                ipAdress = request.getRemoteAddr();
+//            }
+//        } catch (Exception e) {
+//            ipAdress = "Invalid IP:" + e.getMessage();
+//        }
+//        return ipAdress;
+        InetAddress ipAddress = null;
         try {
-            ipAdress = request.getHeader("X-FORWARDED-FOR");
-            if (ipAdress == null) {
-                ipAdress = request.getRemoteAddr();
-            }
-        } catch (Exception e) {
-            ipAdress = "Invalid IP:" + e.getMessage();
+            ipAddress = InetAddress.getLocalHost();
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
         }
-        return ipAdress;
+        return ipAddress.getHostAddress();
     }
 
     public static String getRandomNumber(int len) {

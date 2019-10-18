@@ -152,11 +152,12 @@ CREATE TABLE `bill` (
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `address` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `mobile` varchar(12) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
   `name` varchar(128) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_auth_user` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,7 +166,7 @@ CREATE TABLE `bill` (
 
 LOCK TABLES `bill` WRITE;
 /*!40000 ALTER TABLE `bill` DISABLE KEYS */;
-INSERT INTO `bill` VALUES (1,10000000,0,2,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL,NULL,NULL,NULL,NULL),(2,18000000,1,1,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL,NULL,NULL,NULL,NULL),(3,16160000,0,2,'2019-10-17 14:14:54',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL),(4,16160000,0,2,'2019-10-17 14:21:21',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,70),(5,16160000,0,2,'2019-10-17 14:23:23',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,70),(6,35350000,0,2,'2019-10-17 14:55:07',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,69),(7,44440000,0,2,'2019-10-17 18:43:56',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,'Bùi Văn Tứn',NULL,2),(8,16160000,0,2,'2019-10-17 18:47:33',NULL,'N','Cầu Giấy - Hà Nội - Việt Nam',NULL,'Bùi Văn Tấn','tanbui21899@gmail.com',2);
+INSERT INTO `bill` VALUES (1,10000000,0,2,'2019-10-07 16:20:12','Bùi Văn Tấn','N',NULL,NULL,NULL,NULL,NULL,NULL),(2,18000000,1,1,'2019-10-07 16:20:12','Nguyễn Đình Duyệt','N',NULL,NULL,NULL,NULL,NULL,NULL),(3,16160000,0,2,'2019-10-17 14:14:54',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL,NULL),(4,16160000,0,2,'2019-10-17 14:21:21',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL,70),(5,16160000,0,2,'2019-10-17 14:23:23',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL,70),(6,35350000,0,2,'2019-10-17 14:55:07',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,NULL,NULL,69),(7,44440000,0,2,'2019-10-17 18:43:56',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,NULL,'Bùi Văn Tứn',NULL,2),(8,16160000,0,2,'2019-10-17 18:47:33',NULL,'N','Cầu Giấy - Hà Nội - Việt Nam',NULL,NULL,'Bùi Văn Tấn','tanbui21899@gmail.com',2),(9,35350000,0,2,'2019-10-18 14:06:45',NULL,'N','Quang Bình - Kiến Xương -  Thái Bình',NULL,'IZQDK9YEAZ','Bùi Văn Tứn','tanbvph05961@gmail.com',2);
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -246,7 +247,7 @@ CREATE TABLE `info` (
   `isdelete` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
   `id_auth_user` bigint(20) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -386,6 +387,44 @@ LOCK TABLES `review` WRITE;
 INSERT INTO `review` VALUES (2,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này',NULL,1,NULL,2),(3,'Bùi Văn Tấn','2019-08-12 10:25:04','Đẹp hút hồn, không còn gì để nói về vẻ đẹp sản phẩm này','',1,NULL,2);
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `vnpay_trans_info`
+--
+
+DROP TABLE IF EXISTS `vnpay_trans_info`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `vnpay_trans_info` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created_date` datetime DEFAULT NULL,
+  `vnp_locale` varchar(5) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_curr_code` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_order_info` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_order_type` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_amount` bigint(20) DEFAULT NULL,
+  `vnp_ip_addr` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_create_date` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_bank_code` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_bank_tran_no` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_pay_date` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_transaction_no` varchar(25) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `vnp_response_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `id_bill` bigint(20) DEFAULT NULL,
+  `code` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vnpay_trans_info`
+--
+
+LOCK TABLES `vnpay_trans_info` WRITE;
+/*!40000 ALTER TABLE `vnpay_trans_info` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vnpay_trans_info` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -396,4 +435,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-17 19:02:58
+-- Dump completed on 2019-10-18 14:07:48

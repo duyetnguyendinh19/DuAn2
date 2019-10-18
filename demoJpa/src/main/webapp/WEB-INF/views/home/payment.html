@@ -736,9 +736,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Nội dung chuyển khoản</td>
-                                                <td style="color: #ff9800;" id="descriptionPayment">Nguyen Van A chuyen
-                                                    khoan thanh toan hoa don
-                                                </td>
+                                                <td style="color: #ff9800;" id="descriptionPayment" th:text="${session.userLogin.fullName} + ' chuyen tien thanh toan'"></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
@@ -954,8 +952,8 @@
                     contentType: 'application/json',
                     success: function (response) {
                         var data = JSON.parse(response)
-                        console.log(data);
-                        // var data = JSON.parse(response)
+                        console.log(response)
+                        window.location.href = data.paymentUrl;
                     }
                 });
             }

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <div th:replace="fragments/initHome :: head"></div>
+</head>
+<style>
+    .transaction-result-content {
+        max-width: 600px;
+        box-sizing: border-box;
+        padding: 15px 25px;
+        margin-left: auto;
+        margin-right: auto;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        box-shadow: 0 10px 10px 2px rgba(0, 0, 0, .3);
+        border-top: 2px solid #ff9800;
+    }
+
+    .transaction-result-wrapper {
+        padding-top: 50px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .transaction-result-wrapper .header {
+        text-align: center;
+        border-bottom: 1px solid #bdbdbd;
+        padding-bottom: 15px;
+    }
+
+    .transaction-result-wrapper .header h3 {
+        color: #525252 !important;
+        font-family: inherit !important;
+    }
+
+    .transaction-result-wrapper table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .transaction-result-wrapper table tr td {
+        font-family: inherit !important;
+        padding-right: 10px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .transaction-result-wrapper table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .transaction-result-wrapper table tr td {
+        font-size: 16px;
+        border-bottom: 1px solid #d9d9d9;
+        line-height: 1.5;
+    }
+
+    .transaction-result-wrapper table tr td:nth-child(1) {
+        color: #565656;
+    }
+
+    .status-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .success-icon {
+        color: green;
+    }
+
+    .error-icon {
+        color: red;
+    }
+
+    .vnpay-logo {
+        height: 35px;
+        position: relative;
+    }
+
+    .vnpay-logo-wrapper {
+        position: relative;
+        margin-right: 30px;
+    }
+
+    .vnpay-logo-wrapper:after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        top: 0;
+        right: -15px;
+        bottom: 0;
+        background: #cdcdcd;
+    }
+
+    .otoke-logo {
+        height: 50px;
+    }
+
+    .logo-footer {
+        padding-top: 15px;
+        margin-top: 5px;
+        text-align: center;
+        border-top: 1px solid #bdbdbd;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .transaction-result-content-wrapper {
+        /*min-height: calc(100vh - 50px - 30px - 28px - 30px - 10px - 15px);*/
+    }
+
+    @media (max-width: 768px) {
+        .transaction-result-wrapper {
+            padding-top: 20px;
+        }
+
+        .transaction-result-wrapper table tr td {
+            padding-right: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .transaction-result-content {
+            padding: 15px 10px;
+        }
+
+        .transaction-result-content-wrapper .header h3 {
+            font-size: 18px !important;
+        }
+
+        .vnpay-logo {
+            height: 24px;
+        }
+
+        .yohome-logo {
+            height: 18px;
+        }
+    }
+</style>
+<body>
+<div class="transaction-result-wrapper">
+    <div class="transaction-result-content">
+        <div class="transaction-result-content-wrapper">
+            <div class="header">
+                <h3>Thông tin kết quả giao dịch</h3>
+            </div>
+            <table>
+                <tr>
+                    <td>Mã đơn hàng</td>
+                    <td th:text="${param.vnp_TxnRef}"></td>
+                </tr>
+                <tr>
+                    <td>Số tiền</td>
+                    <td id="amount">&nbsp;đ</td>
+                </tr>
+                <tr>
+                    <td>Nội dung thanh toán</td>
+                    <td th:text="${param.vnp_OrderInfo}"></td>
+                </tr>
+                <tr>
+                    <td>Mã giao dịch tại VNPAY</td>
+                    <td th:text="${param.vnp_TransactionNo}"></td>
+                </tr>
+                <tr>
+                    <td>Mã ngân hàng</td>
+                    <td th:text="${param.vnp_BankCode}"></td>
+                </tr>
+                <tr>
+                    <td>Mã giao dịch ngân hàng</td>
+                    <td th:text="${param.vnp_BankTranNo}"></td>
+                </tr>
+                <tr>
+                    <td>Thời gian thanh toán</td>
+                    <td id="date"></td>
+                </tr>
+                <tr>
+                    <td>Kết quả</td>
+                    <td id="result"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="logo-footer">
+            <div style="display: inline-block;" class="vnpay-logo-wrapper">
+                <img th:src="@{/assets/teamplates/img/logo/vnpay-logo.png}" class="vnpay-logo"/></div>
+            <a th:href="@{/}"><img th:src="@{/assets/teamplates/img/logo/logo.png}" class="otoke-logo"/></a>
+        </div>
+    </div>
+</div>
+<div th:replace="fragments/initHome :: commonScript"></div>
+<script>
+    var url = new URL(window.location.href);
+    var date = url.searchParams.get("vnp_PayDate");
+    var amount = url.searchParams.get("vnp_Amount");
+    var result = url.searchParams.get("vnp_ResponseCode");
+    console.log(result)
+    $('#date').text(formatDate(date));
+    $('#amount').text(formatNumberString(amount / 100) + ' Vnđ');
+
+    var success = `<div style="display: flex;align-items: center;" class="success-icon">
+                <i class="fa fa-check-circle" style="font-size: 21px;">&nbsp;Giao dịch thành công</i>
+                </div>`;
+    var fail = `<div style="display: flex;align-items: center;" class="error-icon">
+                <i class="fa fa-exclamation-triangle" style="font-size: 21px;">&nbsp;Giao dịch thất bại</i>
+                </div>`;
+    if(result == '00'){
+        $('#result').html(success);
+    }else{
+        $('#result').html(fail);
+    }
+
+    function formatDate(dateStr) {
+        if (dateStr === undefined) {
+            return '';
+        }
+        return dateStr.substring(8, 10) + ':' + dateStr.substring(10, 12)
+            + ':' + dateStr.substring(12, 14) + ' - ' + dateStr.substring(6, 8)
+            + '/' + dateStr.substring(4, 6) + '/' + dateStr.substring(0, 4);
+    }
+
+    function formatNumberString(numberStr) {
+        if(typeof numberStr === 'number') {
+            numberStr = numberStr.toString();
+        }
+        return numberStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+    }
+</script>
+</body>
+</html>

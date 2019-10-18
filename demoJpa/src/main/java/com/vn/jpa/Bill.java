@@ -45,6 +45,9 @@ public class Bill implements Serializable {
     @Column(name = "email")
     private String email;
 
+    @Column(name = "mobile")
+    private String mobile;
+
     @Column(name = "code")
     private String code;
 
@@ -59,7 +62,7 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, String code, List<Product_Bill> product_bills, AuthUser authUser) {
+    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, String mobile, String code, List<Product_Bill> product_bills, AuthUser authUser) {
         this.total = total;
         this.payment = payment;
         this.status = status;
@@ -69,9 +72,18 @@ public class Bill implements Serializable {
         this.address = address;
         this.name = name;
         this.email = email;
+        this.mobile = mobile;
         this.code = code;
         this.product_bills = product_bills;
         this.authUser = authUser;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getCode() {
