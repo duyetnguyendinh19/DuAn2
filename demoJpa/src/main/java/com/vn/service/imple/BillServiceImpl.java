@@ -49,6 +49,11 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
+    public Bill findByCode(String code) {
+        return billRepo.findByCode(code);
+    }
+
+    @Override
     public boolean checkExistByCode(String code) {
         boolean result = false;
         Long id = billRepo.checkExistByCode(code);

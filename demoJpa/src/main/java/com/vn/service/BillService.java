@@ -20,5 +20,7 @@ public interface BillService {
 
     Bill findOne(Long id);
 
+    Bill findByCode(String code);
+
     boolean checkExistByCode(String code);
 }

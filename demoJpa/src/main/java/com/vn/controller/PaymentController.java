@@ -60,10 +60,54 @@ public class PaymentController {
     }
 
     @RequestMapping(value = "vnpay-transaction-result", method = RequestMethod.GET)
-    public String resultPayment(HttpSession session){
-        session.removeAttribute("myCartItems");
-        session.removeAttribute("myCartTotal");
-        session.removeAttribute("myCartNum");
+    public String resultPayment(HttpSession session, HttpServletRequest request){
+        try {
+            Map fields = new HashMap();
+            for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+                String fieldName = (String) params.nextElement();
+                String fieldValue = request.getParameter(fieldName);
+                if ((fieldValue != null) && (fieldValue.length() > 0)) {
+                    fields.put(fieldName, fieldValue);
+                }
+            }
+            String code = request.getParameter("vnp_TxnRef");
+            VnpayTransactionInfo vnpayTransactionInfo = vnpayTransactionService.findByCode(code.trim());
+            String vnp_SecureHash = request.getParameter("vnp_SecureHash");
+            String vnp_SecureHashType = request.getParameter("vnp_SecureHashType");
+
+            String signValue = "";
+            if ("SHA256".equals(vnp_SecureHashType.trim())) {
+                signValue = VnpayConfig.hashAllFields(fields);
+            } else {
+                signValue = VnpayConfig.hashAllFieldsMD5(fields);
+            }
+            if (!Strings.isNullOrEmpty(code)) {
+                Bill bill = billService.findByCode(code);
+                if(bill != null){
+                    vnpayTransactionInfo.setIdBill(bill.getId());
+                    bill.setStatus(1);
+                    billService.update(bill);
+                }
+                if (vnpayTransactionInfo != null) {
+                    Integer vnpayTransStatus = vnpayTransactionInfo.getStatus();
+                    if (vnpayTransStatus != VnpayTransactionInfo.VnpayTranStatus.PAID.value()) {
+                        if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
+                            vnpayTransactionInfo.setVnpBankTranNo(request.getParameter("vnp_BankTranNo"));
+                            vnpayTransactionInfo.setVnpTransactionNo(request.getParameter("vnp_TransactionNo"));
+                            vnpayTransactionInfo.setVnpPayDate(request.getParameter("vnp_PayDate"));
+                            vnpayTransactionInfo.setVnpResponseCode(request.getParameter("vnp_ResponseCode"));
+                            vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
+                            vnpayTransactionService.update(vnpayTransactionInfo);
+                        }
+                    }
+                }
+            }
+            session.removeAttribute("myCartItems");
+            session.removeAttribute("myCartTotal");
+            session.removeAttribute("myCartNum");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         return "home/resultPayment";
     }
 
@@ -190,7 +234,7 @@ public class PaymentController {
 
             vnpayTrans.setCode(code);
             vnpayTrans.setStatus(VnpayTransactionInfo.VnpayTranStatus.UNPAID.value());
-            vnpayTrans.setVnpAmount(totalFee);
+            vnpayTrans.setVnpAmount(totalFee / 100);
             vnpayTrans.setVnpBankCode(model.getBankCode());
             vnpayTrans.setVnpCreateDate(vnp_CreateDate);
             vnpayTrans.setVnpCurrCode("VND");

@@ -26,4 +26,6 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
             + " WHERE (b.code = :code)"
             , nativeQuery = false)
     Long checkExistByCode(@Param(value = "code") String code);
+
+    Bill findByCode(String code);
 }
