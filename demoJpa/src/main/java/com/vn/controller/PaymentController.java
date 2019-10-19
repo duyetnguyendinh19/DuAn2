@@ -18,11 +18,14 @@ import com.vn.service.InfomationService;
 import com.vn.service.VnpayTransactionInfoService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.InetAddress;
@@ -44,6 +47,9 @@ public class PaymentController {
     @Resource
     private VnpayTransactionInfoService vnpayTransactionService;
 
+    @Resource
+    private JavaMailSender mailSender;
+
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
@@ -51,7 +57,7 @@ public class PaymentController {
             model.addAttribute("name", authUser.getFullName());
             model.addAttribute("email", authUser.getEmail());
             Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
-            if(infomation != null){
+            if (infomation != null) {
                 model.addAttribute("mobile", infomation.getPhone());
                 model.addAttribute("address", infomation.getAddress());
             }
@@ -60,10 +66,10 @@ public class PaymentController {
     }
 
     @RequestMapping(value = "vnpay-transaction-result", method = RequestMethod.GET)
-    public String resultPayment(HttpSession session, HttpServletRequest request){
+    public String resultPayment(HttpSession session, HttpServletRequest request) {
         try {
             Map fields = new HashMap();
-            for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+            for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
                 String fieldName = (String) params.nextElement();
                 String fieldValue = request.getParameter(fieldName);
                 if ((fieldValue != null) && (fieldValue.length() > 0)) {
@@ -83,7 +89,7 @@ public class PaymentController {
             }
             if (!Strings.isNullOrEmpty(code)) {
                 Bill bill = billService.findByCode(code);
-                if(bill != null){
+                if (bill != null) {
                     vnpayTransactionInfo.setIdBill(bill.getId());
                     bill.setStatus(1);
                     billService.update(bill);
@@ -98,6 +104,41 @@ public class PaymentController {
                             vnpayTransactionInfo.setVnpResponseCode(request.getParameter("vnp_ResponseCode"));
                             vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                             vnpayTransactionService.update(vnpayTransactionInfo);
+
+                            MimeMessage mimeMessage = mailSender.createMimeMessage();
+                            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                            String html = "<div style=\"width: 100%;height: auto;float: left;background-color: #e4e4e4;\">\n" +
+                                    "        <div class=\"body\" style=\"margin-top:15px; width: 100%;max-width: 768px;font-family: Nunito Sans, sans-serif!important;background: white;height: auto;margin-bottom: 20px;margin-top: 15px;\n" +
+                                    "        margin-left: auto;margin-right:auto;display: table;\">\n" +
+                                    "        <div>\n" +
+                                    "            <div style=\"text-transform: uppercase;font-size: 13px;font-weight: bold;\n" +
+                                    "            color:green;height: 100%;\"></div>\n" +
+                                    "            <br>\n" +
+                                    "            <div style=\"text-align: center;font-weight:bold;padding-left:40px;padding-right:40px;\n" +
+                                    "            padding-bottom:15px;padding-top:15px;font-size: 24px;color: #111194;\">Thư cảm ơn Quý khách đã sử dụng dịch vụ của ÔTôKê</div>\n" +
+                                    "            <br>\n" +
+                                    "            <div style=\"text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;\n" +
+                                    "            color:green;height: 100%;\"></div>\n" +
+                                    "        </div>\n" +
+                                    "        <div style=\"float: left;width: 98%;margin-left: 15px;\">\n" +
+                                    "            <p style=\"float: left;margin-top: 15px;display: flex\">Xin chào<span class=\"name\"\n" +
+                                    "                style=\"float: left;color: #ff9800;font-weight: bold;    margin-left: 4px;\"\n" +
+                                    "                >" + bill.getName() + "</span></p>\n" +
+                                    "            </div>\n" +
+                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 27px;\">Cảm ơn bạn chọn dịch vụ đặt hàng, mua hàng online của ÔTôKê. Quý khách có góp ý xin vui lòng gửi vào mail <a href=\"mailto:tanbv.dev@gmail.com\">tanbv.dev@gmail.com</a> để ÔTôKê cùng đội ngũ nhân viên khắc phục và phát triển hơn nữa. <br>Xin quý khách vui lòng bỏ thêm một vài phút để thích và xem trước fanpage của ÔTôKê trên facebook tại <a href=\"#\">đây</a> để nhận được những khuyến mãi và các ưu đã của ÔTôKê sớm nhất. Và Quý khách vui lòng vào đánh giá chất lượng sản phẩm theo đường dẫn này <a href=\"#\">feedback.html.</a> Chân thành cảm ơn</p> \n" +
+                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\">\n" +
+                                    "                Xin chúc quý khách hàng sức khỏe, may mắn và thành công.\n" +
+                                    "            </p>\n" +
+                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\"></p>\n" +
+                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\">\n" +
+                                    "                Trân Trọng!\n" +
+                                    "            </p>\n" +
+                                    "        </div>\n" +
+                                    "    </div>";
+                            mimeMessage.setContent(html, "text/html; charset=UTF-8"); // content mail
+                            mimeMessageHelper.setTo(bill.getEmail());
+                            mimeMessageHelper.setSubject("ÔTôKê cam on khach hang");
+                            mailSender.send(mimeMessage);
                         }
                     }
                 }
@@ -105,7 +146,7 @@ public class PaymentController {
             session.removeAttribute("myCartItems");
             session.removeAttribute("myCartTotal");
             session.removeAttribute("myCartNum");
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "home/resultPayment";
@@ -247,7 +288,7 @@ public class PaymentController {
             AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
             AuthUser user = new AuthUser();
             user.setId(authUser.getId());
-            if(billService.checkExistByCode(code)){
+            if (billService.checkExistByCode(code)) {
                 code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
             }
             try {
@@ -262,7 +303,7 @@ public class PaymentController {
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
                 billService.insert(bill);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             PaymentUrlModel res = new PaymentUrlModel();

@@ -101,7 +101,7 @@
                                     <th class="text-table-header">Tổng tiền</th>
                                     <th class="text-table-header">Trạng thái</th>
                                     <th class="text-table-header">#</th>
-                                    <th class="text-table-header">#</th>
+<!--                                    <th class="text-table-header">#</th>-->
                                 </tr>
                                 </thead>
                                 <tbody th:if="${page}!=null">
@@ -118,17 +118,18 @@
                                         <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán</button>
                                     </td>
                                     <td class="text-table-body">
-                                        <a href="#" th:if="${eachRow.status} == 2"
-                                           data-toggle="tooltip" title="Duyệt">
+<!--                                        th:if="${eachRow.status} == 2"-->
+                                        <a href="#"
+                                           data-toggle="tooltip" title="Xác nhận thanh toán">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
                                         </a>
-                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>
+<!--                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>-->
                                     </td>
-                                    <td>
-                                        <a type="button" class="btn btn-warning" href="#"
-                                           data-toggle="tooltip" title="Xóa Hóa Đơn"><i
-                                                class="glyphicon glyphicon-trash"></i></a>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <a type="button" class="btn btn-warning" href="#"-->
+<!--                                           data-toggle="tooltip" title="Xóa Hóa Đơn"><i-->
+<!--                                                class="glyphicon glyphicon-trash"></i></a>-->
+<!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>

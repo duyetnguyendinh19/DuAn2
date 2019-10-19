@@ -8,10 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/MailConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/MailConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -257,7 +256,7 @@
       <workItem from="1571275922000" duration="20456000" />
       <workItem from="1571311999196" duration="4299000" />
       <workItem from="1571371367720" duration="13230000" />
-      <workItem from="1571448161828" duration="2687000" />
+      <workItem from="1571448161828" duration="7140000" />
     </task>
     <task id="LOCAL-00001" summary="update code">
       <created>1570284518987</created>
@@ -504,7 +503,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571387872729</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="update code">
+      <created>1571451113780</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1571451113780</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -538,18 +544,13 @@
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java</url>
-          <line>71</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/common/VnpayConfig.java</url>
           <line>131</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java</url>
-          <line>73</line>
+          <line>79</line>
           <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
