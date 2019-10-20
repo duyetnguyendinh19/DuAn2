@@ -1337,7 +1337,7 @@ table {width: 100%}
 /*custom-select*/
 .custom-select {
   -moz-appearance: none;
-  -webkit-appearance: none;
+  /*-webkit-appearance: none;*/
   appearance: none;
 }
 .custom-select {
