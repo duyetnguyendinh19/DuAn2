@@ -22,6 +22,46 @@
         padding: 5px;
         border-radius: 5px;
     }
+
+    .like {
+        height: 30px;
+        width: 30px;
+        border-radius: 50px;
+        text-align: center;
+        line-height: 28px;
+        text-shadow: 1px 1px 1px #1684B2;
+        overflow: hidden;
+        position: relative;
+        border: 1px solid #ddd;
+    }
+
+    .like:hover{
+        background: #FF7F00;
+        border: #FF7F00;
+        color: white;
+    }
+
+    .gloss {
+        background: #FFF;
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        margin-left: -25px;
+        position: absolute;
+        top: -100px;
+        opacity: 0.3;
+    }
+
+    .down {
+        background: #005aff;
+        /*text-shadow: 1px -1px 1px #FF526F;*/
+        /*box-shadow: 0 -10px 10px #311;*/
+    }
+
+    .action-button {
+        display: flex!important;
+        justify-content: center!important;
+    }
 </style>
 
 <body>
@@ -136,8 +176,14 @@
                                     th:text="${#numbers.formatDecimal(eachNew.price, 0, 'COMMA', 0,'POINT')}">
                                     &nbsp;Vnđ</h3>
                                 <ul class="action-button">
-                                    <li><a href="#" title="Wishlist"><i
-                                            class="zmdi zmdi-favorite"></i></a></li>
+                                    <li>
+                                        <!--                                        <a href="#" title="Wishlist"><i-->
+                                        <!--                                            class="zmdi zmdi-favorite"></i></a>-->
+                                        <div class="like">
+                                            <i class="fa fa-thumbs-o-up"></i>
+                                            <div class="gloss"></div>
+                                        </div>
+                                    </li>
                                     <li><a
                                             th:onclick="'quickView(\'' + ${eachNew.id} + '\')'"
                                             data-toggle="modal" data-target="#productModal"
@@ -230,9 +276,16 @@
                                                 th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
                                                 &nbsp;Vnđ</h3>
                                             <ul class="action-button">
-                                                <li><a href="#" title="Wishlist"><i
-                                                        class="zmdi zmdi-favorite"></i></a></li>
-                                                <li><a
+                                                <li>
+<!--                                                    <a href="#" title="Wishlist"><i-->
+<!--                                                        class="zmdi zmdi-favorite"></i></a>-->
+                                                    <div class="like">
+                                                        <i class="fa fa-thumbs-o-up"></i>
+                                                        <div class="gloss"></div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <a
                                                         th:onclick="'quickView(\'' + ${eachPro.id} + '\')'"
                                                         data-toggle="modal" data-target="#productModal"
                                                         title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
@@ -293,11 +346,11 @@
                                 </div>
                                 <label id="status" class="see-all"></label>
                                 <div class="quick-add-to-cart">
-                                    <div class="numbers-row">
-                                        <input type="number" id="french-hens" value="1" readonly="readonly">
-                                    </div>
+<!--                                    <div class="numbers-row">-->
+<!--                                        <input type="number" id="french-hens" value="1" readonly="readonly">-->
+<!--                                    </div>-->
                                     <a href=""
-                                       style="line-height: 45px; margin-left: 5px; height: 45px; border-radius: 5px; font-size: 17px;"
+                                       style="line-height: 45px; height: 45px; border-radius: 5px; font-size: 17px;"
                                        id="quickCart" class="btn btn-warning" type="submit">Thêm
                                         vào giỏ </a>
                                 </div>
@@ -306,13 +359,13 @@
                                     <div class="widget widget_socialsharing_widget">
                                         <h3 class="widget-title-modal">Chia sẻ sản phẩm</h3>
                                         <ul class="social-icons clearfix">
-                                            <li><a class="facebook" href="#" target="_blank"
+                                            <li><a class="facebook" th:onclick="'shareFacebook()'" target="_blank"
                                                    title="Facebook"> <i class="zmdi zmdi-facebook"></i>
                                             </a></li>
-                                            <li><a class="twitter" href="#" target="_blank"
+                                            <li><a class="twitter" th:onclick="'shareSkype()'" target="_blank"
                                                    title="Skype"> <i class="zmdi zmdi-skype"></i>
                                             </a></li>
-                                            <li><a class="twitter" href="#" target="_blank"
+                                            <li><a class="twitter" th:href="'shareInstagram()'" target="_blank"
                                                    title="Instagram"> <i class="zmdi zmdi-instagram"></i>
                                             </a></li>
                                         </ul>
@@ -376,9 +429,9 @@
                 $.ajax({
                     url: window.location.origin + $('#path').val() + 'cart/add/' + id + '.html',
                     method: 'GET',
-                   /*  data: {
-                        'quantity': quantity
-                    } */
+                    /*  data: {
+                         'quantity': quantity
+                     } */
                 });
                 location.href("/");
             });
@@ -393,6 +446,45 @@
         }
         return priceStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
     }
+
+    function shareFacebook() {
+        var url = window.location.href;
+        setTimeout(function () {
+            window.location.href = "https://www.facebook.com/sharer.php?u=" + url;
+        }, 1000);
+    }
+</script>
+
+<script>
+    var click = 0;
+    $('.like').click(function () {
+        if (click != 1) {
+            $(this).addClass('down', 100);
+            $(this).transition({scale: 1.1}, {duration: 200});
+            $(this).transition({scale: 1}, {duration: 200});
+            $(this).transition({
+                perspective: '100px',
+                rotateX: '180deg'
+            }, {
+                duration: 400,
+                queue: false
+            });
+            click = 1;
+        } else {
+            $(this).removeClass('down', 100);
+            $(this).transition({scale: 1.1}, {duration: 200});
+            $(this).transition({scale: 1}, {duration: 200});
+            $(this).transition({
+                perspective: '100px',
+                rotateX: '0deg'
+            }, {
+                duration: 400,
+                queue: false
+            });
+            click = 0;
+        }
+    });
+
 </script>
 </body>
 
