@@ -3,21 +3,16 @@ package com.vn.controller;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
 import com.vn.common.VnpayConfig;
-import com.vn.jpa.AuthUser;
-import com.vn.jpa.Bill;
-import com.vn.jpa.Infomation;
-import com.vn.jpa.VnpayTransactionInfo;
-import com.vn.model.BankModel;
+import com.vn.jpa.*;
 import com.vn.model.BillModel;
+import com.vn.model.Cart;
 import com.vn.model.PaymentUrlModel;
 import com.vn.service.BillService;
 import com.vn.service.InfomationService;
+import com.vn.service.Product_BillService;
 import com.vn.service.VnpayTransactionInfoService;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.springframework.http.HttpStatus;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -28,7 +23,6 @@ import javax.annotation.Resource;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.net.InetAddress;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -49,6 +43,9 @@ public class PaymentController {
 
     @Resource
     private JavaMailSender mailSender;
+
+    @Resource
+    private Product_BillService productBillService;
 
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
@@ -88,23 +85,33 @@ public class PaymentController {
                 signValue = VnpayConfig.hashAllFieldsMD5(fields);
             }
             if (!Strings.isNullOrEmpty(code)) {
-                Bill bill = billService.findByCode(code);
-                if (bill != null) {
-                    vnpayTransactionInfo.setIdBill(bill.getId());
-                    bill.setStatus(1);
-                    billService.update(bill);
-                }
                 if (vnpayTransactionInfo != null) {
                     Integer vnpayTransStatus = vnpayTransactionInfo.getStatus();
                     if (vnpayTransStatus != VnpayTransactionInfo.VnpayTranStatus.PAID.value()) {
                         if ("00".equals(request.getParameter("vnp_ResponseCode"))) {
+                            Bill bill = billService.findByCode(code);
+                            if (bill != null) {
+                                vnpayTransactionInfo.setIdBill(bill.getId());
+                                bill.setStatus(1);
+                                billService.update(bill);
+                            }
                             vnpayTransactionInfo.setVnpBankTranNo(request.getParameter("vnp_BankTranNo"));
                             vnpayTransactionInfo.setVnpTransactionNo(request.getParameter("vnp_TransactionNo"));
                             vnpayTransactionInfo.setVnpPayDate(request.getParameter("vnp_PayDate"));
                             vnpayTransactionInfo.setVnpResponseCode(request.getParameter("vnp_ResponseCode"));
                             vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                             vnpayTransactionService.update(vnpayTransactionInfo);
-
+                            HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                            for(Map.Entry<Long, Cart>  each : map.entrySet()){
+                                Product_Bill productBill = new Product_Bill();
+                                Product product = new Product();
+                                product.setId(each.getValue().getProduct().getId());
+                                productBill.setProduct(product);
+                                productBill.setQuantity(each.getValue().getQuantity());
+                                productBill.setIsdelete("N");
+                                productBill.setBill(bill);
+                                productBillService.insert(productBill);
+                            }
                             MimeMessage mimeMessage = mailSender.createMimeMessage();
                             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                             String html = "<div style=\"width: 100%;height: auto;float: left;background-color: #e4e4e4;\">\n" +
@@ -180,7 +187,17 @@ public class PaymentController {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
                 bill.setCode(code);
-                billService.insert(bill);
+//                billService.insert(bill);
+                Product_Bill productBill = new Product_Bill();
+                HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                for(Map.Entry<Long, Cart>  each : map.entrySet()){
+                    Product product = new Product();
+                    product.setId(each.getValue().getProduct().getId());
+                    productBill.setProduct(product);
+                    productBill.setQuantity(each.getValue().getQuantity());
+                    productBill.setIsdelete("N");
+                }
+
                 responeMap.put("success", "Thêm hóa đơn thành công");
                 session.removeAttribute("myCartItems");
                 session.removeAttribute("myCartTotal");

@@ -25,7 +25,7 @@ public class Product_Bill implements Serializable {
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "isdelete", columnDefinition = "CHAR(1)")
+    @Column(name = "isdelete", columnDefinition = "CHAR")
     private String isdelete;
 
     public Product_Bill() {
