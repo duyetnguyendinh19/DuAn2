@@ -187,7 +187,7 @@ public class PaymentController {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
                 bill.setCode(code);
-//                billService.insert(bill);
+                billService.insert(bill);
                 Product_Bill productBill = new Product_Bill();
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
                 for(Map.Entry<Long, Cart>  each : map.entrySet()){
@@ -196,6 +196,8 @@ public class PaymentController {
                     productBill.setProduct(product);
                     productBill.setQuantity(each.getValue().getQuantity());
                     productBill.setIsdelete("N");
+                    productBill.setBill(bill);
+                    productBillService.insert(productBill);
                 }
 
                 responeMap.put("success", "Thêm hóa đơn thành công");
