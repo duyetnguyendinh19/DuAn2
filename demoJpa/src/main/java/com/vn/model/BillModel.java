@@ -12,6 +12,7 @@ public class BillModel implements Serializable {
     private Float total;
     private Integer payment;
     private Integer status;
+    private Integer typeStatus;
     private Date createDate;
     private String createdBy;
     private String isdelete;
@@ -27,21 +28,12 @@ public class BillModel implements Serializable {
     public BillModel() {
     }
 
-    public BillModel(Long id, Float total, Integer payment, Integer status, Date createDate, String createdBy, String isdelete, String address, String name, String email, AuthUser authUser, String code, String bankCode, String mobile) {
-        this.id = id;
-        this.total = total;
-        this.payment = payment;
-        this.status = status;
-        this.createDate = createDate;
-        this.createdBy = createdBy;
-        this.isdelete = isdelete;
-        this.address = address;
-        this.name = name;
-        this.email = email;
-        this.authUser = authUser;
-        this.code = code;
-        this.bankCode = bankCode;
-        this.mobile = mobile;
+    public Integer getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(Integer typeStatus) {
+        this.typeStatus = typeStatus;
     }
 
     public String getMobile() {

@@ -245,7 +245,7 @@
                                                     </table>
                                                 </div>
                                                 <button id="submitPayment" class="submit-btn-1 mt-30 btn-hover-1"
-                                                        style="border-radius: 5px;" type="button">Thanh toán
+                                                        style="border-radius: 5px;" type="button">Đặt hàng
                                                 </button>
                                                 <a th:href="@{/}"
                                                    style="background: #aaa; color: white;padding: 8px 15px; border-radius: 5px;font-size: 15px;">Hủy
@@ -362,18 +362,21 @@
 					data: JSON.stringify(dataObject),
 					contentType: 'application/json;charset=utf-8',
 					success: function (response) {
-					    console.log(response)
 					    var data = JSON.parse(response);
                         if(data.authUser != null){
                             $('#authUserError').text(data.authUser)
                             setTimeout(function(){
                                 window.location.href = window.location.origin + $('#contextPath').val() + 'home/login.html';
-                            },2000);
+                            },1500);
+                        }
+                        if(data.limit != null){
+                            $('#authUserError').text(data.limit)
                         }
                         if(data.success != null){
+                            $('#authUserError').text(data.success)
                             setTimeout(function(){
                                 window.location.href = window.location.origin + $('#contextPath').val();
-                            },1000);
+                            },2000);
                         }
 					}
 				})
@@ -385,7 +388,7 @@
                     $('#authUserError').text("Bạn vui lòng đăng nhập trước khi thực hiện thanh toán");
                     setTimeout(function(){
                         window.location.href = window.location.origin + $('#contextPath').val() + 'home/login.html';
-                    },2000);
+                    },1500);
                 }
 			}
         }

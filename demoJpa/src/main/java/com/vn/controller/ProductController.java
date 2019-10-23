@@ -7,10 +7,12 @@ import com.vn.common.Constants;
 import com.vn.common.FileUtils;
 import com.vn.jpa.Category;
 import com.vn.jpa.Product;
+import com.vn.jpa.Product_Bill;
 import com.vn.model.CategoryModel;
 import com.vn.model.ProductModel;
 import com.vn.service.CategoryService;
 import com.vn.service.ProductService;
+import com.vn.service.Product_BillService;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -146,7 +148,7 @@ public class ProductController {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
             if (!Strings.isNullOrEmpty(model.getName())) {
-                if(model.getName().length() > 64){
+                if (model.getName().length() > 64) {
                     responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
                 }
                 if (productService.findAllByNameAndIsdelete(model.getName().trim(), "N") != null) {
@@ -248,11 +250,11 @@ public class ProductController {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
             if (!Strings.isNullOrEmpty(model.getName())) {
-                if(model.getName().length() > 64){
+                if (model.getName().length() > 64) {
                     responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
                 }
                 if (!model.getName().trim().equals(product.getName())) {
-                    if(productService.findAllByNameAndIsdelete(model.getName(), "N") != null){
+                    if (productService.findAllByNameAndIsdelete(model.getName(), "N") != null) {
                         responseMap.put("name", "Tên sản phẩm đã tồn tại");
                     }
                 }

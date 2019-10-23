@@ -22,7 +22,7 @@ public interface ProductService {
 
     List<Product> lsProductDateDesc();
 
-    List<Product> findProductByCategoryId(Long id);
+    List<Product> findProductByCategoryIdAndIsdelete(Long id, String isdelete);
 
     Page<Product> findAllByCategoryIdAndIsdelete(Long id, Pageable pageable, String isdelete);
 

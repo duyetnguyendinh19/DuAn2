@@ -1,19 +1,24 @@
 package com.vn.controller;
 
 import com.google.common.base.Strings;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
+import com.vn.jpa.AuthUser;
 import com.vn.jpa.Bill;
+import com.vn.model.BillModel;
 import com.vn.service.BillService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -33,9 +38,11 @@ public class BillController {
     private String DELETE = "N";
 
     @RequestMapping(value = "list.html", method = {RequestMethod.GET, RequestMethod.POST})
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String list(Model model, HttpSession session, HttpServletRequest request, Pageable pageable,
                        @RequestParam(value = "from_date", defaultValue = "") String fromDate,
                        @RequestParam(value = "to_date", defaultValue = "") String toDate,
+                       @RequestParam(value = "code", defaultValue = "") String code,
                        @RequestParam(value = "status", defaultValue = "0", required = false) Integer status) {
         try {
             DateTime time = new DateTime();
@@ -54,7 +61,10 @@ public class BillController {
                     toDate = sdf.format(_toDate);
                 }
             }
-            if (Strings.isNullOrEmpty(fromDate) && request.getMethod().equalsIgnoreCase("GET")) {
+            if (Strings.isNullOrEmpty(code) && request.getMethod().equalsIgnoreCase("GET")) {
+                code = (String) session.getAttribute("code");
+            }
+            if (Strings.isNullOrEmpty(String.valueOf(status)) && request.getMethod().equalsIgnoreCase("GET")) {
                 status = (Integer) session.getAttribute("status");
             }
             try {
@@ -66,10 +76,11 @@ public class BillController {
             model.addAttribute("from_date", fromDate);
             model.addAttribute("to_date", toDate);
             model.addAttribute("status", status);
+            model.addAttribute("code", code);
 
             Sort sort = new Sort(Sort.Direction.DESC, "id");
             Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-            Page<Bill> page = billService.findAllBill(_fromDate, _toDate, status, DELETE, _pageable);
+            Page<Bill> page = billService.findAllBill(_fromDate, _toDate, status,code, DELETE, _pageable);
             model.addAttribute("page", page);
             session.setAttribute("from_date", sdf.format(_fromDate));
             session.setAttribute("to_date", sdf.format(_toDate));
@@ -77,5 +88,56 @@ public class BillController {
             e.printStackTrace();
         }
         return "admin/bill/list";
+    }
+
+    @RequestMapping(value = "accept/{id}/payment.html", method =  RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String acceptPayment(@PathVariable("id") Long id, HttpSession session){
+        try {
+            Bill bill = billService.findOne(id);
+            if(bill != null){
+                bill.setStatus(1);
+                bill.setCreateBy((String) session.getAttribute("account"));
+                billService.update(bill);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/bill/list.html";
+    }
+
+    @RequestMapping(value = "getOne/list.html", method =  RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public @ResponseBody String getOne(@RequestParam("id") Long id){
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        BillModel model = new BillModel();
+        try {
+            Bill bill = billService.findOne(id);
+            model.setCode(bill.getCode());
+            model.setName(bill.getName());
+            model.setMobile(bill.getMobile());
+            model.setAddress(bill.getAddress());
+            model.setTypeStatus(bill.getTypeStatus());
+            model.setEmail(bill.getEmail());
+            model.setId(bill.getId());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return gson.toJson(model);
+    }
+
+    @RequestMapping(value = "status/update.html", method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
+    public String update(@RequestParam("id") Long id, @RequestParam("type") Integer statusType){
+        try {
+            Bill bill = billService.findOne(id);
+            if(bill != null){
+                bill.setTypeStatus( statusType);
+                billService.update(bill);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "redirect:/bill/list.html";
     }
 }

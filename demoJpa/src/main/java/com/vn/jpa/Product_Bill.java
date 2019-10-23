@@ -69,4 +69,12 @@ public class Product_Bill implements Serializable {
     public void setIsdelete(String isdelete) {
         this.isdelete = isdelete;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

@@ -5,10 +5,11 @@
     <div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
-    input[type="text"], input[type="password"], textarea{
-        margin-bottom: 0px!important;
-        margin-top: 20px!important;
+    input[type="text"], input[type="password"], textarea {
+        margin-bottom: 0px !important;
+        margin-top: 20px !important;
     }
+
     @keyframes bounceInDownCustom {
         0% {
             opacity: 0;
@@ -736,7 +737,8 @@
                                             </tr>
                                             <tr>
                                                 <td>Nội dung chuyển khoản</td>
-                                                <td style="color: #ff9800;" id="descriptionPayment" th:text="${session.userLogin.fullName} + ' chuyen tien thanh toan'"></td>
+                                                <td style="color: #ff9800;" id="descriptionPayment"
+                                                    th:text="${session.userLogin.fullName} + ' chuyen tien thanh toan'"></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
@@ -785,7 +787,6 @@
                         </div>
                     </form>
                     <span id="error" style="color: red;font-size: 15px;"></span>
-
                 </div>
                 <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;margin-top: 10px;">
                     <button id="paying" class="selectOptionPayment btn">Thanh toán</button>
@@ -940,7 +941,7 @@
             if (code === null || code === '' || code === undefined) {
                 $('#error').text("Bạn vui lòng chọn ngân hàng");
                 valid = false;
-            }else{
+            } else {
                 $('#error').text("");
             }
 
@@ -952,8 +953,15 @@
                     contentType: 'application/json',
                     success: function (response) {
                         var data = JSON.parse(response)
-                        console.log(response)
-                        window.location.href = data.paymentUrl;
+                        if (data.limit != null) {
+                            $('#error').text(data.limit);
+                            setTimeout(function(){
+                                window.location.href = window.location.origin + $("#contextPath").val() +"home/cart.html";
+                            },1500);
+                        }
+                        if (data.urlPayment != null) {
+                            window.location.href = data.urlPayment;
+                        }
                     }
                 });
             }

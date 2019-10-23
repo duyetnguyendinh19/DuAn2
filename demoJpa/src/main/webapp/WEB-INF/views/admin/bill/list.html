@@ -58,7 +58,7 @@
                                        value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly" />
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-2">
                             <label>Trạng thái</label>
                             <div>
                                 <select class=" form-control" name="status" th:value="${status}">
@@ -66,6 +66,12 @@
                                     <option value="1" th:attr="selected =${status}== '1' ? 'selected'">Đã thanh toán</option>
                                     <option value="2" th:attr="selected =${status}== '2' ? 'selected'">Chưa thanh toán</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <label>Mã hóa đơn</label>
+                            <div>
+                                <input type="text" class="form-control" name="code" th:value="${code}"/>
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -95,13 +101,14 @@
                             <table id="table-question" class="table table-striped table-bordered table-hover dataTable">
                                 <thead>
                                 <tr>
-                                    <th class="text-table-header">#</th>
-                                    <th class="text-table-header">Code</th>
+                                    <th class="text-table-header">STT</th>
+                                    <th class="text-table-header">Mã hóa đơn</th>
                                     <th class="text-table-header">Thanh toán</th>
                                     <th class="text-table-header">Tổng tiền</th>
-                                    <th class="text-table-header">Trạng thái</th>
+                                    <th class="text-table-header">Trạng thái TToán</th>
+                                    <th class="text-table-header">Trạng thái HĐ</th>
                                     <th class="text-table-header">#</th>
-<!--                                    <th class="text-table-header">#</th>-->
+                                    <th class="text-table-header">#</th>
                                 </tr>
                                 </thead>
                                 <tbody th:if="${page}!=null">
@@ -117,22 +124,94 @@
                                         <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán</button>
                                         <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán</button>
                                     </td>
+                                    <td class="text-table-body" style="text-align: center;" th:switch="${eachRow.typeStatus}">
+                                        <button class="btn btn-success" th:case="'0'">Đã nhận</button>
+                                        <button class="btn btn-warning" th:case="'1'">Đã hủy</button>
+                                        <button class="btn btn-error" th:case="'2'">Boom hàng</button>
+                                        <button class="btn btn-success" th:case="'3'">Đang giao hàng</button>
+                                        <button class="btn btn-success" th:case="'4'">Đang đóng gói</button>
+                                        <button class="btn btn-success" th:case="'5'">Đang xác nhận</button>
+                                    </td>
                                     <td class="text-table-body">
-<!--                                        th:if="${eachRow.status} == 2"-->
-                                        <a href="#"
-                                           data-toggle="tooltip" title="Xác nhận thanh toán">
+                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'" data-toggle="tooltip" title="Xác nhận thanh toán" th:if="${eachRow.status == 2} and ${eachRow.typeStatus} != 1 and ${eachRow.typeStatus} != 2">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
                                         </a>
-<!--                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>-->
+                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>
                                     </td>
-<!--                                    <td>-->
-<!--                                        <a type="button" class="btn btn-warning" href="#"-->
-<!--                                           data-toggle="tooltip" title="Xóa Hóa Đơn"><i-->
-<!--                                                class="glyphicon glyphicon-trash"></i></a>-->
-<!--                                    </td>-->
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-circle" th:onclick="'updateStatusType(\'' + ${eachRow.id} + '\')'" data-toggle="modal" data-target="#updateStatusPayment"
+                                            title="Cập nhật trạng thái đơn hàng"><i
+                                                class="fa fa-edit"></i></button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
+                        </div>
+                        <!-- Modal -->
+                        <div id="updateStatusPayment" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Cập nhật trạng thái đơn hàng</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <input type="hidden" id="idBill"/>
+                                                <div class="form-group">
+                                                    <div>Mã hóa đơn</div>
+                                                    <input class="form-control" id="code" type="text" readonly style="background: white;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div>Tên KH</div>
+                                                    <input class="form-control" id="nameCus" type="text" readonly style="background: white;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div>SĐT</div>
+                                                    <input class="form-control" id="phoneCus" type="text" readonly style="background: white;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div>Email</div>
+                                                    <input class="form-control" id="emailCus" type="text" readonly style="background: white;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div>Địa chỉ</div>
+                                                    <input class="form-control" id="addCus" type="text" readonly style="background: white;"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <div>Trạng thái</div>
+                                                    <select class="form-control" id="typeStatus">
+                                                        <option value="0">Đã nhận</option>
+                                                        <option value="1">Đã hủy</option>
+                                                        <option value="2">KH không nhận</option>
+                                                        <option value="3">Đang giao hàng</option>
+                                                        <option value="4">Đang đóng gói</option>
+                                                        <option value="5">Đang xác nhận</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" id="updateStatus">Cập nhật</button>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
                         <!-- /.table-responsive -->
                     </div>
@@ -203,24 +282,57 @@
 </script>
 
 <script type="text/javascript">
-    function deleteConfirm(name, id) {
+    function acceptPayment(code, id) {
         BootstrapDialog.show({
-            title: 'Xác Nhận xóa Tài Khoản',
-            message: 'Bạn có chắc chắn muốn xóa Đánh giá có tên là ' + name + ' không ? Bấm Delete để xách nhận.',
+            title: 'Xác Nhận Thanh Toán',
+            message: 'Bạn có muốn xác nhận Thanh toán hóa đơn có mã là ' + code + ' không ? Bấm Xác nhận để xác nhận.',
             buttons: [{
                 label: 'Bỏ qua',
                 action: function (dialogItself) {
                     dialogItself.close();
                 }
             }, {
-                label: 'Delete',
+                label: 'Xác nhận',
                 cssClass: 'btn-primary',
                 action: function (dialogItself) {
-                    window.location.href = currUrl + 'review/delete/' + id + '/list.html';
+                    window.location.href = currUrl + 'bill/accept/' + id + '/payment.html';
                 }
             }]
         });
     }
+
+    function updateStatusType(id) {
+        $.ajax({
+            url: currUrl + 'bill/getOne/list.html',
+            method: 'GET',
+            data: {'id': id},
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                var data = JSON.parse(response);
+                $('#idBill').val(data.id);
+                $('#code').val(data.code);
+                $('#nameCus').val(data.name);
+                $('#phoneCus').val(data.mobile);
+                $('#emailCus').val(data.email);
+                $('#addCus').val(data.address);
+                $('#typeStatus').val(data.typeStatus).trigger('change');
+            }
+        });
+    }
+
+    $('#updateStatus').on('click', function(){
+        var id = $('#idBill').val();
+        var type = $('#typeStatus').val();
+        $.ajax({
+            url: currUrl + 'bill/status/update.html',
+            method: 'POST',
+            data: {'id': id,'type' : type},
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                window.location.reload();
+            }
+        });
+    });
 </script>
 
 </body>

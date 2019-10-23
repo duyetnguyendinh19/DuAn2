@@ -10,7 +10,7 @@ public interface BillService {
 
     Page<Bill> findAll(Pageable pageable);
 
-    Page<Bill> findAllBill(Date fromDate, Date toDate, Integer status,String isDelete ,Pageable pageable);
+    Page<Bill> findAllBill(Date fromDate, Date toDate, Integer status,String code, String isDelete ,Pageable pageable);
 
     Bill insert(Bill bill);
 

@@ -24,8 +24,8 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public Page<Bill> findAllBill(Date fromDate, Date toDate, Integer status,String isDelete, Pageable pageable) {
-        return billRepo.findAllBillParam(fromDate, toDate, status,isDelete, pageable);
+    public Page<Bill> findAllBill(Date fromDate, Date toDate, Integer status,String code, String isDelete, Pageable pageable) {
+        return billRepo.findAllBillParam(fromDate, toDate, status,code, isDelete, pageable);
     }
 
     @Override

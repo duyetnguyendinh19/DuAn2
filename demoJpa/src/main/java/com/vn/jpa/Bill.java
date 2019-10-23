@@ -26,6 +26,9 @@ public class Bill implements Serializable {
     @Column(name = "status", columnDefinition = "TINYINT")
     private int status;
 
+    @Column(name = "type_status", columnDefinition = "TINYINT")
+    private Integer typeStatus;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
     private Date createDate;
@@ -60,22 +63,6 @@ public class Bill implements Serializable {
 
 
     public Bill() {
-    }
-
-    public Bill(Float total, int payment, int status, Date createDate, String createBy, String isDelete, String address, String name, String email, String mobile, String code, List<Product_Bill> product_bills, AuthUser authUser) {
-        this.total = total;
-        this.payment = payment;
-        this.status = status;
-        this.createDate = createDate;
-        this.createBy = createBy;
-        this.isDelete = isDelete;
-        this.address = address;
-        this.name = name;
-        this.email = email;
-        this.mobile = mobile;
-        this.code = code;
-        this.product_bills = product_bills;
-        this.authUser = authUser;
     }
 
     public String getMobile() {
@@ -190,6 +177,14 @@ public class Bill implements Serializable {
         this.product_bills = product_bills;
     }
 
+    public Integer getTypeStatus() {
+        return typeStatus;
+    }
+
+    public void setTypeStatus(Integer typeStatus) {
+        this.typeStatus = typeStatus;
+    }
+
     @PrePersist
     public void prePersist(){
         if(this.createDate == null){
@@ -204,6 +199,17 @@ public class Bill implements Serializable {
             this.value = value;
         }
         public Integer value() {
+            return this.value;
+        }
+    }
+
+    public static enum STATUSPAYMENT{
+        PAID(0) /*KH đã nhận*/, UNPAID(1) /*KH đã hủy*/, BOOM(2) /*KH không nhận hàng*/, DELIVERY(3) /* đang giao hàng*/, PACKAING(4) /*đang đóng gói*/, ORDER(5) /*xác nhận đơn*/;
+        private final Integer value;
+        private STATUSPAYMENT(Integer value){
+            this.value = value;
+        }
+        public Integer value(){
             return this.value;
         }
     }

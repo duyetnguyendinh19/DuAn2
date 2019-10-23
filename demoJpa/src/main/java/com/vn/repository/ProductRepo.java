@@ -19,7 +19,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
     @Query(value = "SELECT * FROM Product WHERE isdelete = 'N' ORDER BY id DESC LIMIT 8 ", nativeQuery = true)
     List<Product> lsProductDateDesc();
 
-    List<Product> findProductByCategoryId(Long id);
+    List<Product> findProductByCategoryIdAndIsdelete(Long id, String isdelete);
 
     Page<Product> findAllByCategoryIdAndIsdelete(Long id, Pageable pageable, String isdelete);
 

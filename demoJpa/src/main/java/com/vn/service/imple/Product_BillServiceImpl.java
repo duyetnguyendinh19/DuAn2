@@ -1,5 +1,6 @@
 package com.vn.service.imple;
 
+import com.vn.jpa.Product;
 import com.vn.jpa.Product_Bill;
 import com.vn.repository.Product_BillRepo;
 import com.vn.service.Product_BillService;
@@ -9,8 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.util.List;
 
-@Service(value = "product_billService")
+@Service(value = "productBillService")
 @Transactional
 public class Product_BillServiceImpl implements Product_BillService {
 
@@ -40,5 +42,15 @@ public class Product_BillServiceImpl implements Product_BillService {
     @Override
     public Product_Bill findOne(Long id) {
         return product_billRepo.findOne(id);
+    }
+
+    @Override
+    public Long countQuantityByProduct(Long id) {
+        return product_billRepo.countQuantityByProduct(id);
+    }
+
+    @Override
+    public List<Product_Bill> findByProductId(Long id) {
+        return product_billRepo.findByProductId(id);
     }
 }

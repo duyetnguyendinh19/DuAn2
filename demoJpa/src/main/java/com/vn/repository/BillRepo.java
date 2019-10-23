@@ -15,10 +15,12 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
 
     @Query(value = "SELECT b FROM Bill b WHERE (b.createDate BETWEEN :fromDate AND :toDate)" +
             "AND (:status = 0 OR b.status = :status)" +
+            "AND (:code IS NULL OR :code = '' OR b.code = :code)" +
             "AND (b.isDelete = :delete)", nativeQuery = false)
     Page<Bill> findAllBillParam(@Param("fromDate") Date fromDate,
                            @Param("toDate") Date toDate,
                            @Param("status") Integer status,
+                           @Param("code") String code,
                            @Param("delete") String isDelete,
                            Pageable pageable);
 

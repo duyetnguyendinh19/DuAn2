@@ -67,7 +67,8 @@
                         <div class="col-lg-3">
                             <label>Tên sản phẩm</label>
                             <div>
-                                <input type="text" placeholder="Tên sản phẩm" name="name" id="name" class="form-control" th:value="${name}"/>
+                                <input type="text" placeholder="Tên sản phẩm" name="name" id="name" class="form-control"
+                                       th:value="${name}"/>
                             </div>
                         </div>
                         <div class="col-sm-2">
@@ -88,7 +89,9 @@
                     <div class="panel-heading">
                         Danh sách sản phẩm
                         <div class="btn-group pull-right">
-                            <a id = "btnAdd" href="#" th:href="@{/product/add.html}" sec:authorize="hasAnyAuthority('Administrators','Staffs')"><i class="fa fa-plus fa-2x"></i></a>
+                            <a id="btnAdd" href="#" th:href="@{/product/add.html}"
+                               sec:authorize="hasAnyAuthority('Administrators','Staffs')"><i
+                                    class="fa fa-plus fa-2x"></i></a>
                             <a id="btnRefresh" href="#" th:href="@{/product/list.html}"><i
                                     class="fa fa-refresh fa-2x"></i></a>
                         </div>
@@ -115,15 +118,19 @@
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
                                     <td class="text-table-body" th:text="${eachRow.name}"></td>
-                                    <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.price, 0, 'COMMA', 0,'POINT')}"></td>
-                                    <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.priceSale, 0, 'COMMA', 0,'POINT')}"></td>
+                                    <td class="text-table-body"
+                                        th:text="${#numbers.formatDecimal(eachRow.price, 0, 'COMMA', 0,'POINT')}"></td>
+                                    <td class="text-table-body"
+                                        th:text="${#numbers.formatDecimal(eachRow.priceSale, 0, 'COMMA', 0,'POINT')}"></td>
                                     <td class="text-table-body" th:text="${eachRow.quantity}"></td>
                                     <td class="text-table-body" th:text="${eachRow.description}"></td>
                                     <td class="text-table-body" th:text="${eachRow.info}"></td>
                                     <td class="text-table-body" style="text-align: center;">
-                                        <button class="btn btn-warning" th:if="${eachRow.status == 0}">Hết hàng
+                                        <button class="btn btn-warning"
+                                                th:if="${eachRow.quantity <= 0}">Hết hàng
                                         </button>
-                                        <button class="btn btn-success" th:if="${eachRow.status == 1}">Còn hàng
+                                        <button class="btn btn-success"
+                                                th:if="${eachRow.quantity > 0}">Còn hàng
                                         </button>
                                     </td>
                                     <td>

@@ -8,10 +8,7 @@ import com.vn.jpa.*;
 import com.vn.model.BillModel;
 import com.vn.model.Cart;
 import com.vn.model.PaymentUrlModel;
-import com.vn.service.BillService;
-import com.vn.service.InfomationService;
-import com.vn.service.Product_BillService;
-import com.vn.service.VnpayTransactionInfoService;
+import com.vn.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -40,6 +37,9 @@ public class PaymentController {
 
     @Resource
     private VnpayTransactionInfoService vnpayTransactionService;
+
+    @Resource
+    private ProductService productService;
 
     @Resource
     private JavaMailSender mailSender;
@@ -102,7 +102,7 @@ public class PaymentController {
                             vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                             vnpayTransactionService.update(vnpayTransactionInfo);
                             HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-                            for(Map.Entry<Long, Cart>  each : map.entrySet()){
+                            for (Map.Entry<Long, Cart> each : map.entrySet()) {
                                 Product_Bill productBill = new Product_Bill();
                                 Product product = new Product();
                                 product.setId(each.getValue().getProduct().getId());
@@ -146,13 +146,14 @@ public class PaymentController {
                             mimeMessageHelper.setTo(bill.getEmail());
                             mimeMessageHelper.setSubject("ÔTôKê cam on khach hang");
                             mailSender.send(mimeMessage);
+
+                            session.removeAttribute("myCartItems");
+                            session.removeAttribute("myCartTotal");
+                            session.removeAttribute("myCartNum");
                         }
                     }
                 }
             }
-            session.removeAttribute("myCartItems");
-            session.removeAttribute("myCartTotal");
-            session.removeAttribute("myCartNum");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -161,7 +162,8 @@ public class PaymentController {
 
     @RequestMapping(value = "add.html", method = RequestMethod.POST)
     public @ResponseBody
-    String paymentLive(@RequestBody(required = false) BillModel billModel, HttpSession session, HttpServletRequest request) {
+    String paymentLive(@RequestBody(required = false) BillModel billModel, HttpSession session, HttpServletRequest
+            request) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Map<String, Object> responeMap = new HashMap<>();
         try {
@@ -178,6 +180,7 @@ public class PaymentController {
                 bill.setTotal(billModel.getTotal());
                 bill.setIsDelete("N");
                 bill.setStatus(2);
+                bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
                 bill.setAuthUser(user);
                 bill.setAddress(billModel.getAddress());
                 bill.setName(billModel.getName());
@@ -187,23 +190,32 @@ public class PaymentController {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
                 bill.setCode(code);
-                billService.insert(bill);
-                Product_Bill productBill = new Product_Bill();
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-                for(Map.Entry<Long, Cart>  each : map.entrySet()){
+                for (Map.Entry<Long, Cart> each : map.entrySet()) {
                     Product product = new Product();
+                    Product_Bill productBill = new Product_Bill();
                     product.setId(each.getValue().getProduct().getId());
                     productBill.setProduct(product);
                     productBill.setQuantity(each.getValue().getQuantity());
                     productBill.setIsdelete("N");
                     productBill.setBill(bill);
-                    productBillService.insert(productBill);
-                }
 
-                responeMap.put("success", "Thêm hóa đơn thành công");
-                session.removeAttribute("myCartItems");
-                session.removeAttribute("myCartTotal");
-                session.removeAttribute("myCartNum");
+                    Product pro = productService.findOne(each.getValue().getProduct().getId());
+                    if (pro != null) {
+                        if (pro.getQuantity() < each.getValue().getQuantity()) {
+                            responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                        } else {
+                            pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                            productService.update(pro);
+                            billService.insert(bill);
+                            productBillService.insert(productBill);
+                            responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
+                            session.removeAttribute("myCartItems");
+                            session.removeAttribute("myCartTotal");
+                            session.removeAttribute("myCartNum");
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -213,9 +225,12 @@ public class PaymentController {
 
     @RequestMapping(value = "payingByVNpay.html", method = RequestMethod.POST)
     public @ResponseBody
-    String payingByVNPay(@RequestBody(required = false) BillModel model, HttpServletRequest req, HttpSession session) {
+    String payingByVNPay(@RequestBody(required = false) BillModel model, HttpServletRequest req, HttpSession
+            session) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
+            Map<String, String> responseMap = new HashMap<>();
+
             String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
             String vnp_OrderInfo = "Thanh toan don hang ma " + code;
             String orderType = "billpayment";
@@ -302,7 +317,6 @@ public class PaymentController {
             vnpayTrans.setVnpOrderInfo(vnp_OrderInfo);
             vnpayTrans.setVnpOrderType(orderType);
 
-            vnpayTransactionService.insert(vnpayTrans);
             Bill bill = new Bill();
             AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
             AuthUser user = new AuthUser();
@@ -310,6 +324,7 @@ public class PaymentController {
             if (billService.checkExistByCode(code)) {
                 code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
             }
+
             try {
                 bill.setCode(code);
                 bill.setEmail(model.getEmail());
@@ -317,21 +332,34 @@ public class PaymentController {
                 bill.setAddress(model.getAddress());
                 bill.setIsDelete("N");
                 bill.setStatus(2);
+                bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
                 bill.setAuthUser(user);
                 bill.setTotal(model.getTotal());
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
-                billService.insert(bill);
+
+                HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                for (Map.Entry<Long, Cart> each : map.entrySet()) {
+                    Product pro = productService.findOne(each.getValue().getProduct().getId());
+                    if (pro != null) {
+                        if (pro.getQuantity() < each.getValue().getQuantity()) {
+                            responseMap.put("limit", "Đặt hàng không thành công! Số lượng sản phẩm trong kho không đủ.");
+                        }else{
+                            pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                            vnpayTransactionService.insert(vnpayTrans);
+                            billService.insert(bill);
+                            productService.update(pro);
+                            responseMap.put("urlPayment", paymentUrl);
+                        }
+                    }
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            PaymentUrlModel res = new PaymentUrlModel();
-            res.setPaymentUrl(paymentUrl);
-            return gson.toJson(res);
+            return gson.toJson(responseMap);
         } catch (Exception e) {
             e.printStackTrace();
             return "lỗi" + e;
         }
     }
-
 }

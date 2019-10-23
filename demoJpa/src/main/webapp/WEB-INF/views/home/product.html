@@ -135,6 +135,10 @@
                                     <div class="col-md-3 col-sm-4 col-xs-12"
                                          th:each="eachPro : ${page.content}">
                                         <div class="product-item">
+                                            <div style="width: 84%;text-align: right; float: left;">
+                                <span th:if="${eachPro.quantity <= 0}" style="font-size: 15px; border: 2px dotted; padding: 6px;color: white;
+                                    position: absolute;border-radius: 50%;background: coral;text-align: center;margin-top: 5px;">Hết</span>
+                                            </div>
                                             <div class="product-img">
                                                 <a
                                                         th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
@@ -199,9 +203,9 @@
                                                             th:onclick="'quickView(\'' + ${eachPro.id} + '\')'"
                                                             data-toggle="modal" data-target="#productModal"
                                                             title="Quickview"><i class="zmdi zmdi-zoom-in"></i></a></li>
-                                                    <li><a
+                                                    <li th:if="${eachPro.quantity} > 0"><a
                                                             th:href="@{/cart/add/{productId}.html(productId = ${eachPro.id})}"
-                                                            title="Add to cart"><i
+                                                            title="Thêm vào giỏ"><i
                                                             class="zmdi zmdi-shopping-cart-plus"></i></a></li>
                                                 </ul>
                                             </div>
@@ -271,7 +275,7 @@
                                         vào giỏ
                                     </a>
                                 </div>
-                                <div class="quick-desc" id="description">Hello, Every
+                                <div class="quick-desc" id="info">Hello, Every
                                     body.
                                 </div>
                                 <div class="social-sharing">
@@ -329,15 +333,17 @@
                     formatPriceString(data.price) + '' + ' Vnđ');
                 $('#price_sale').text(
                     formatPriceString(data.priceSale) + ' Vnđ');
-                $('#description').text(data.description);
-                if (data.status === 1) {
+                $('#info').text(data.info);
+                if (data.quantity >= 1) {
                     $('#status').text("Còn hàng");
-                    $('#status').addClass("status-success")
-                    $('#status').removeClass("status-warning")
+                    $('#status').addClass("status-success");
+                    $('#status').removeClass("status-warning");
+                    $('.quick-add-to-cart').css('display','block');
                 } else {
                     $('#status').text("Hết hàng");
-                    $('#status').addClass("status-warning")
-                    $('#status').removeClass("status-success")
+                    $('#status').addClass("status-warning");
+                    $('#status').removeClass("status-success");
+                    $('.quick-add-to-cart').css('display','none');
                 }
             }
         })

@@ -134,7 +134,7 @@ public class HomeController {
             model.addAttribute("subImg", subImg);
         }
         List<Review> lsReview = reviewService.findAllByProductIdAndStatus(product.getId(), Review.status.ACTIVE.value());
-        List<Product> productRelationship = productService.findProductByCategoryId(product.getCategory().getId());
+        List<Product> productRelationship = productService.findProductByCategoryIdAndIsdelete(product.getCategory().getId(), "N");
         model.addAttribute("newProduct", newProduct);
         model.addAttribute("product", product);
         model.addAttribute("proRelationship", productRelationship);
@@ -167,6 +167,7 @@ public class HomeController {
         viewModel.setMainImg(product.getMainImg());
         viewModel.setStatus(product.getStatus());
         viewModel.setInfo(product.getInfo());
+        viewModel.setQuantity(product.getQuantity());
         return gson.toJson(viewModel);
     }
 

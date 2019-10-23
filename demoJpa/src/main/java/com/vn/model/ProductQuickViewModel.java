@@ -9,6 +9,7 @@ public class ProductQuickViewModel {
     private String description;
     private int status;
     private String info;
+    private Integer quantity;
 
     public ProductQuickViewModel() {
     }
@@ -20,6 +21,14 @@ public class ProductQuickViewModel {
         this.mainImg = mainImg;
         this.description = description;
         this.status = status;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 
     public String getName() {
