@@ -1,3 +1,5 @@
+import com.vn.common.ThymeleafUtil;
+import com.vn.config.GoogleMailSender;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.HashMap;
 
 
 public class PasswordMD5 {
@@ -24,7 +27,8 @@ public class PasswordMD5 {
     }
 
     @Test
-    public void testPassword() {
+    public void testPassword() throws Exception {
+
     }
 
     @Test

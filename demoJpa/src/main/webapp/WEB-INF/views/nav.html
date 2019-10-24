@@ -67,7 +67,7 @@
                 <li>
                     <a th:href="@{/}"><i class="fa fa-user"></i> Tài khoản <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li >
+                        <li sec:authorize="hasAnyAuthority('Administrators')">
                             <a href="#" th:href="@{/account/list.html}"><i class="fa fa-th-list"></i> Ds Tài
                                 khoản</a>
                         </li>
