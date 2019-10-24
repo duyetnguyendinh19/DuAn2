@@ -217,6 +217,13 @@ public class PaymentController {
                         }
                     }
                 }
+                MimeMessage mimeMessage = mailSender.createMimeMessage();
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                String html = "<a href=\"localhost:8284/duan2_war/reject/" + bill.getId() + "/home.html\">" + bill.getId() + "</a>";
+                mimeMessage.setContent(html, "text/html; charset=UTF-8"); // content mail
+                mimeMessageHelper.setTo(bill.getEmail());
+                mimeMessageHelper.setSubject("ÔTôKê đơn đặt hàng");
+                mailSender.send(mimeMessage);
             }
         } catch (Exception e) {
             e.printStackTrace();
