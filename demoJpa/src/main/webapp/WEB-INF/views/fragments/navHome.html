@@ -163,7 +163,7 @@
 															</p>
 															<p>
 																<span>Giá <strong>:</strong></span> <span
-																	th:text="|${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}|"></span>
+																	th:text="|${#numbers.formatDecimal(cart.value.product.price * cart.value.quantity, 0, 'COMMA', 0,'POINT')}|"></span>
 															</p>
 															<p>
 																<span>SL<strong>:</strong></span> <span

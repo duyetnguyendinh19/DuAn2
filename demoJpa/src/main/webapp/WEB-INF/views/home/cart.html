@@ -355,7 +355,6 @@
             dataObject.address = address;
             dataObject.total = total.replace(/,/g, '');
             if(payment == 0){
-                console.log(dataObject)
             	$.ajax({
 					url: currUrl + 'payment/add.html',
 					method: 'POST',
