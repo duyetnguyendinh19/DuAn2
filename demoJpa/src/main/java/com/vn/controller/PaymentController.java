@@ -101,17 +101,17 @@ public class PaymentController {
                             vnpayTransactionInfo.setVnpResponseCode(request.getParameter("vnp_ResponseCode"));
                             vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                             vnpayTransactionService.update(vnpayTransactionInfo);
-                            HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-                            for (Map.Entry<Long, Cart> each : map.entrySet()) {
-                                Product_Bill productBill = new Product_Bill();
-                                Product product = new Product();
-                                product.setId(each.getValue().getProduct().getId());
-                                productBill.setProduct(product);
-                                productBill.setQuantity(each.getValue().getQuantity());
-                                productBill.setIsdelete("N");
-                                productBill.setBill(bill);
-                                productBillService.insert(productBill);
-                            }
+//                            HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+//                            for (Map.Entry<Long, Cart> each : map.entrySet()) {
+//                                Product_Bill productBill = new Product_Bill();
+//                                Product product = new Product();
+//                                product.setId(each.getValue().getProduct().getId());
+//                                productBill.setProduct(product);
+//                                productBill.setQuantity(each.getValue().getQuantity());
+//                                productBill.setIsdelete("N");
+//                                productBill.setBill(bill);
+//                                productBillService.insert(productBill);
+//                            }
                             MimeMessage mimeMessage = mailSender.createMimeMessage();
                             MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
                             String html = "<div style=\"width: 100%;height: auto;float: left;background-color: #e4e4e4;\">\n" +
@@ -190,6 +190,8 @@ public class PaymentController {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
                 bill.setCode(code);
+                billService.insert(bill);
+
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
                 for (Map.Entry<Long, Cart> each : map.entrySet()) {
                     Product product = new Product();
@@ -199,6 +201,7 @@ public class PaymentController {
                     productBill.setQuantity(each.getValue().getQuantity());
                     productBill.setIsdelete("N");
                     productBill.setBill(bill);
+                    productBillService.insert(productBill);
 
                     Product pro = productService.findOne(each.getValue().getProduct().getId());
                     if (pro != null) {
@@ -207,8 +210,6 @@ public class PaymentController {
                         } else {
                             pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
                             productService.update(pro);
-                            billService.insert(bill);
-                            productBillService.insert(productBill);
                             responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
                             session.removeAttribute("myCartItems");
                             session.removeAttribute("myCartTotal");
@@ -316,6 +317,7 @@ public class PaymentController {
             vnpayTrans.setVnpIpAddr(vnp_IpAddr);
             vnpayTrans.setVnpOrderInfo(vnp_OrderInfo);
             vnpayTrans.setVnpOrderType(orderType);
+            vnpayTransactionService.insert(vnpayTrans);
 
             Bill bill = new Bill();
             AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
@@ -337,6 +339,7 @@ public class PaymentController {
                 bill.setTotal(model.getTotal());
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
+                billService.insert(bill);
 
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
                 for (Map.Entry<Long, Cart> each : map.entrySet()) {
@@ -344,15 +347,28 @@ public class PaymentController {
                     if (pro != null) {
                         if (pro.getQuantity() < each.getValue().getQuantity()) {
                             responseMap.put("limit", "Đặt hàng không thành công! Số lượng sản phẩm trong kho không đủ.");
-                        }else{
+                        } else {
+                            Product_Bill productBill = new Product_Bill();
+//                            Product product = new Product();
+//                            product.setId(each.getValue().getProduct().getId());
+                            productBill.setProduct(pro);
+                            productBill.setQuantity(each.getValue().getQuantity());
+                            productBill.setIsdelete("N");
+                            productBill.setBill(bill);
+                            productBillService.insert(productBill);
                             pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
-                            vnpayTransactionService.insert(vnpayTrans);
-                            billService.insert(bill);
                             productService.update(pro);
                             responseMap.put("urlPayment", paymentUrl);
                         }
                     }
                 }
+                MimeMessage mimeMessage = mailSender.createMimeMessage();
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+                String html = "<a href=\"localhost:8284/duan2_war/reject/" + bill.getId() + "/home.html\">" + bill.getId() + "</a>";
+                mimeMessage.setContent(html, "text/html; charset=UTF-8"); // content mail
+                mimeMessageHelper.setTo(bill.getEmail());
+                mimeMessageHelper.setSubject("ÔTôKê đơn đặt hàng");
+                mailSender.send(mimeMessage);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -58,13 +58,13 @@ public class Product implements Serializable {
     @JoinColumn(name = "id_category")
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private List<Product_Bill> lsProduct_bills = new ArrayList<>();
+//    @OneToMany(mappedBy = "product")
+//    private List<Product_Bill> lsProduct_bills = new ArrayList<>();
     
     public Product() {
     }
 
-    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, int rate, String info, Date createDate, Category category, List<Product_Bill> lsProduct_bills) {
+    public Product(String name, float price, int quantity, String description, float priceSale, int status, String mainImg, String subImg, String isdelete, int rate, String info, Date createDate, Category category) {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
@@ -78,7 +78,7 @@ public class Product implements Serializable {
         this.info = info;
         this.createDate = createDate;
         this.category = category;
-        this.lsProduct_bills = lsProduct_bills;
+//        this.lsProduct_bills = lsProduct_bills;
     }
 
     public Date getCreateDate() {
@@ -193,13 +193,13 @@ public class Product implements Serializable {
         this.category = category;
     }
 
-    public List<Product_Bill> getLsProduct_bills() {
-        return lsProduct_bills;
-    }
-
-    public void setLsProduct_bills(List<Product_Bill> lsProduct_bills) {
-        this.lsProduct_bills = lsProduct_bills;
-    }
+//    public List<Product_Bill> getLsProduct_bills() {
+//        return lsProduct_bills;
+//    }
+//
+//    public void setLsProduct_bills(List<Product_Bill> lsProduct_bills) {
+//        this.lsProduct_bills = lsProduct_bills;
+//    }
 
     @PrePersist
     public void prePersist(){

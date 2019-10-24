@@ -51,7 +51,8 @@ public class WebSercurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity security) throws Exception {
         security.ignoring().antMatchers("/webjars/**", "/resources/**", "/static/**", "/repository/**", "/assets/**",
-                "/fonts/**","/","/home/**","/cart/**", "/main-img/**","/sub-img/**","/report/save.html","/payment/**","/account/save.html","/bank/**","/vnpay-transaction-result/**");
+                "/fonts/**","/","/home/**","/cart/**", "/main-img/**","/sub-img/**","/report/save.html","/payment/**","/account/save.html",
+                "/bank/**","/vnpay-transaction-result/**","/reject/**");
     }
 
     @Override

@@ -16,4 +16,5 @@ public interface Product_BillRepo extends JpaRepository<Product_Bill, Long> {
 
     List<Product_Bill> findByProductId(Long id);
 
+    List<Product_Bill> findByBill_Id(Long id);
 }

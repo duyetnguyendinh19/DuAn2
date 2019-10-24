@@ -53,4 +53,9 @@ public class Product_BillServiceImpl implements Product_BillService {
     public List<Product_Bill> findByProductId(Long id) {
         return product_billRepo.findByProductId(id);
     }
+
+    @Override
+    public List<Product_Bill> findByBill_Id(Long id) {
+        return product_billRepo.findByBill_Id(id);
+    }
 }

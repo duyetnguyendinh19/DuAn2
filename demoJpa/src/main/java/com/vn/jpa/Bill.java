@@ -54,8 +54,8 @@ public class Bill implements Serializable {
     @Column(name = "code")
     private String code;
 
-    @OneToMany(mappedBy = "bill")
-    private List<Product_Bill> product_bills = new ArrayList<>();
+//    @OneToMany(mappedBy = "bill")
+//    private List<Product_Bill> product_bills = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_auth_user")
@@ -169,13 +169,13 @@ public class Bill implements Serializable {
         this.isDelete = isDelete;
     }
 
-    public List<Product_Bill> getProduct_bills() {
-        return product_bills;
-    }
-
-    public void setProduct_bills(List<Product_Bill> product_bills) {
-        this.product_bills = product_bills;
-    }
+//    public List<Product_Bill> getProduct_bills() {
+//        return product_bills;
+//    }
+//
+//    public void setProduct_bills(List<Product_Bill> product_bills) {
+//        this.product_bills = product_bills;
+//    }
 
     public Integer getTypeStatus() {
         return typeStatus;

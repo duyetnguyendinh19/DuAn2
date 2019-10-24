@@ -21,4 +21,6 @@ public interface Product_BillService {
     Long countQuantityByProduct(Long id);
 
     List<Product_Bill> findByProductId(Long id);
+
+    List<Product_Bill> findByBill_Id(Long id);
 }

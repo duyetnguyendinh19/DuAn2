@@ -7,31 +7,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/RejectController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Reject.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/RejectModel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/RejectRepo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/RejectService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/RejectServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reject.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/sercurity/WebSercurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Product_Bill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Product_Bill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/model/BillModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/BillModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/model/ProductQuickViewModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/ProductQuickViewModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/jpa/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/Product_BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/Product_BillRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ProductService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/Product_BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/Product_BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/Product_BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/Product_BillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -46,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
         <option value="HTML File" />
       </list>
     </option>
@@ -290,7 +280,9 @@
       <workItem from="1571730925743" duration="292000" />
       <workItem from="1571744811570" duration="3928000" />
       <workItem from="1571794003564" duration="86000" />
-      <workItem from="1571806041389" duration="20536000" />
+      <workItem from="1571806041389" duration="20667000" />
+      <workItem from="1571880329632" duration="450000" />
+      <workItem from="1571888690585" duration="11030000" />
     </task>
     <task id="LOCAL-00001" summary="update code">
       <created>1570284518987</created>
@@ -579,7 +571,21 @@
       <option name="project" value="LOCAL" />
       <updated>1571668306585</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="update code">
+      <created>1571833139455</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1571833139455</updated>
+    </task>
+    <task id="LOCAL-00043" summary="update code">
+      <created>1571833193125</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1571833193125</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -622,11 +628,17 @@
           <line>82</line>
           <option name="timeStamp" value="25" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/RejectController.java</url>
+          <line>55</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory">
         <watch expression="this.isDelete" custom="com.vn.jpa.Category" />
+        <watch expression="lsProductBill.get(0).bill.mobile" />
       </configuration>
     </watches-manager>
   </component>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/initHome :: head"></div>
+</head>
+<style>
+    input[type="text"], input[type="password"], textarea {
+        margin-bottom: 0px !important;
+        margin-top: 20px !important;
+    }
+
+    @keyframes bounceInDownCustom {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -200px, 0);
+            transform: translate3d(0, -200px, 0);
+        }
+        60% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 10px, 0);
+            transform: translate3d(0, 10px, 0);
+        }
+        75% {
+            -webkit-transform: translate3d(0, -10px, 0);
+            transform: translate3d(0, -10px, 0);
+        }
+        90% {
+            -webkit-transform: translate3d(0, 5px, 0);
+            transform: translate3d(0, 5px, 0);
+        }
+        100% {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @media (max-width: 520px) {
+        .wrapper {
+            width: 100% !important;
+        }
+
+        .infoRight {
+            width: 100% !important;
+            position: unset !important;
+        }
+
+        .infoLeft {
+            margin-left: 0px !important;
+            border-radius: 5px;
+        }
+
+        .infoLeft .head .upper-case {
+            width: 70% !important
+        }
+
+        .infoLeft .icon-pttt {
+            width: 30px !important;
+            margin: 0px 5px !important;
+        }
+
+        .infoLeft .group-imgATM {
+            margin-left: 8px !important;
+        }
+
+        .infoPayment {
+            float: right !important;
+        }
+
+        .group-imgATM {
+            width: 110px !important;
+            height: 60px !important;
+        }
+
+        .countdownTimer {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 768px) and (min-width: 521px) {
+        .wrapper {
+            width: 100% !important;
+        }
+
+        .infoRight {
+            width: 100% !important;
+            position: unset !important;
+        }
+
+        .infoLeft {
+            width: 100% !important;
+            margin-left: 0px !important;
+            border-radius: 5px;
+        }
+
+        .infoLeft .head .upper-case {
+            width: 70% !important
+        }
+
+        .infoLeft .icon-pttt {
+            width: 40px !important;
+            margin: 0px 10px !important;
+        }
+
+        .infoLeft .group-imgATM {
+            margin-left: 10px !important;
+        }
+
+        .group-imgATM {
+            width: 115px !important;
+        }
+
+        .countdownTimer {
+            text-align: center;
+        }
+    }
+
+    @media (max-width: 1024px) and (min-width: 769px) {
+        .wrapper {
+            width: 100% !important;
+        }
+
+        .infoRight {
+            width: 35% !important;
+            /*position: unset!important;*/
+        }
+
+        .infoLeft {
+            width: 63% !important;
+            margin-left: 0px !important;
+            border-radius: 5px;
+            margin-left: 10px !important;
+        }
+
+        .infoLeft .head .upper-case {
+            width: 70% !important
+        }
+
+        .infoLeft .icon-pttt {
+            width: 40px !important;
+            margin: 0px 10px !important;
+        }
+
+        .infoLeft .group-imgATM {
+            margin-left: 15px !important;
+        }
+
+        .countdownTimer {
+            padding-left: 0px !important;
+        }
+    }
+
+    @media (min-width: 1025px) {
+        .wrapper {
+            width: 100% !important;
+        }
+
+        .infoRight {
+            width: 35% !important;
+        }
+
+        .infoLeft {
+            width: 63% !important;
+            margin-left: 0px !important;
+            border-radius: 5px;
+            margin-left: 10px !important;
+        }
+
+        .infoLeft .head .upper-case {
+            width: 70% !important
+        }
+
+        .infoLeft .icon-pttt {
+            width: 40px !important;
+            margin: 0px 10px !important;
+        }
+
+        .infoLeft .group-imgATM {
+            margin-left: 15px !important;
+        }
+    }
+
+    .custom-control-input {
+        float: left;
+        width: 30px;
+    }
+
+    .transaction-result-content {
+        max-width: 600px;
+        box-sizing: border-box;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .transaction-result-wrapper {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .transaction-result-wrapper .header {
+        text-align: center;
+        border-bottom: 1px solid #bdbdbd;
+        padding-bottom: 15px;
+    }
+
+    .transaction-result-wrapper .header h3 {
+        color: #525252 !important;
+        font-family: inherit !important;
+    }
+
+    .transaction-result-wrapper table {
+        width: 100%;
+        margin-top: 20px;
+    }
+
+    .transaction-result-wrapper table tr td {
+        font-family: inherit !important;
+        padding-right: 10px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+
+    .transaction-result-wrapper table tr:last-child td {
+        border-bottom: none;
+    }
+
+    .transaction-result-wrapper table tr td {
+        font-size: 16px;
+        border-bottom: 1px solid #d9d9d9;
+        line-height: 1.5;
+    }
+
+    .transaction-result-wrapper table tr td:nth-child(1) {
+        color: #565656;
+    }
+
+    .status-icon {
+        font-size: 20px;
+        margin-right: 10px;
+    }
+
+    .success-icon {
+        color: green;
+    }
+
+    .error-icon {
+        color: red;
+    }
+
+    @media (max-width: 768px) {
+        .transaction-result-wrapper table tr td {
+            padding-right: 5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        .transaction-result-content {
+            padding: 15px 5px;
+        }
+
+        .transaction-result-content-wrapper .header h3 {
+            font-size: 18px !important;
+        }
+    }
+
+    .selectOptionPayment.btn:hover {
+        cursor: pointer;
+    }
+
+    .detailOptionPayment.animated.jackInTheBox {
+        float: left;
+        margin-top: 0px;
+        width: 100%;
+        border: 1px solid #aaa;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    .group-imgcheck {
+        width: 11%;
+        height: 30px;
+        margin-left: 10px;
+    }
+
+    .error-valid {
+        float: left;
+        color: #f35a3d;
+        font-size: 13px;
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    .wrapper {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    .infoLeft {
+        border: 1px solid #E8E8E8;
+        padding: 15px;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+        margin-left: 15px;
+    }
+
+    .infoLeft .head {
+        border-bottom: 1px solid #E8E8E8;
+    }
+
+    .infoLeft .head .content-head {
+        margin-top: 15px;
+        line-height: 20px;
+        font-size: 15px;
+        margin-bottom: 15px;
+    }
+
+    .upper-case {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .upper-case .icon_camket {
+        width: 25px;
+        height: 25px;
+        margin-top: -3px;
+    }
+
+    .content .first-content {
+        margin-top: 15px;
+    }
+
+    .content .first-content:hover {
+        cursor: pointer;
+    }
+
+    .content .first-content .icon-select {
+        float: left;
+        width: 30px;
+        height: 30px;
+        border: 1px solid #E8E8E8;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 20px;
+        margin-left: 20px;
+        font-weight: bold;
+        color: black;
+        padding-top: 2px;
+    }
+
+    .content .first-content h5 {
+        font-weight: bold;
+        float: left;
+        margin-top: 4px;
+    }
+
+    .formFirst .form-control {
+        border: none !important;
+        border-bottom: 1px solid #E7E7E7 !important;
+        border-radius: unset !important;
+    }
+
+    .formFirst .form-control:focus {
+        border: none !important;
+        box-shadow: unset;
+        border-bottom: 2px solid #ff9800 !important;
+        border-radius: unset !important;
+    }
+
+    .buttonSelectPayment {
+        width: 100%;
+        float: left;
+        margin-top: 20px;
+    }
+
+    .selectOptionPayment {
+        margin-left: 10px;
+        /*margin-right: auto;*/
+        text-align: center;
+        background: #ff9800 !important;
+        color: white;
+        height: 40px;
+        width: 100px;
+        padding: 0px 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        float: left;
+    }
+
+    .selectOptionPayment:hover {
+        background: #dc942b !important;
+    }
+
+    .icon-pttt {
+        width: 35px;
+        margin: 0px 20px;
+    }
+
+    .infoPayment {
+        width: 85%;
+        font-size: 13px;
+        float: left;
+        margin-bottom: 10px;
+    }
+
+    .infoRight {
+        border: 1px solid #E8E8E8;
+        box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12);
+        position: sticky;
+        padding: 10px;
+        border-radius: 5px;
+        width: 32%;
+        top: 5px;
+    }
+
+    .infoRight img {
+        object-fit: cover;
+        width: 100%;
+        border-radius: 5px;
+        height: 175px;
+    }
+
+    .infoRight .txtLeft {
+        float: left;
+        font-size: 15px;
+    }
+
+    .infoRight .txtRight {
+        text-align: right;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .detailOptionPayment .imgOptionVisa {
+        float: left;
+        width: 100px;
+    }
+
+    .group-imgATM {
+        border: 1px dashed #aaa;
+        height: 70px;
+        padding-top: 0px;
+        width: 120px;
+        border-radius: 5px;
+        text-align: center;
+        float: left;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+    }
+
+    .group-imgATM:hover {
+        border: 1px dashed blue;
+        cursor: pointer;
+    }
+
+    .group-imgATM:focus {
+        border: 1px solid red;
+        outline: none;
+    }
+
+    @media (max-width: 520px) {
+        #modalShowInfoBank {
+            padding-left: 5px !important;
+        }
+
+        #modalShowInfoBank .modal-body {
+            padding: 0px !important;
+        }
+
+        #modalShowInfoBank .modal-dialog {
+            margin-left: 0px !important;
+            margin-right: 5px !important;
+        }
+
+        .infoLeft .custom-control.custom-radio {
+            padding-left: 0px !important;
+        }
+
+        .infoLeft .custom-radio .custom-control-label::before {
+            height: 15px !important;
+            width: 15px !important;
+        }
+
+        .infoLeft .custom-control-label::after {
+            top: 0.25rem !important;
+            left: -1.0rem !important;
+            width: 1rem !important;
+            height: 1rem !important;
+        }
+
+        .infoLeft .custom-control-label::after {
+            left: -1.5rem !important;
+        }
+    }
+
+    @media (min-width: 576px) {
+        .modal-content {
+            width: 800px !important;
+            max-width: 620px !important;
+            margin: 8.5rem 0px !important;
+        }
+
+        .modal-dialog {
+            width: 800px !important;
+            max-width: 620px !important;
+        }
+
+        .modal-body {
+            padding-top: 0px !important;
+        }
+
+        .infoLeft .custom-control-label::after {
+            left: -1.5rem !important;
+        }
+    }
+
+    .infoLeft .group-imgATM.active {
+        border: 1px solid red !important;
+        position: relative;
+        transition: all .5s;
+    }
+
+    .infoLeft .group-imgATM.active::after {
+        content: "\f00c";
+        position: absolute;
+        background: #fc0303;
+        width: 25px;
+        height: 25px;
+        right: -12px;
+        top: -12px;
+        color: #fff;
+        display: inline-block;
+        font-style: normal;
+        text-align: center;
+        line-height: 25px;
+        border-radius: 50%;
+        font-weight: bold;
+        font: normal normal normal 14px/1 FontAwesome;
+        padding-top: 5px;
+    }
+
+    .infoLeft .custom-control.custom-radio {
+        float: left;
+        border-bottom: 1px dotted #E8E8E8 !important;
+        margin-top: 15px !important;
+        clear: both;
+    }
+
+    .infoLeft .custom-control-label {
+        font-size: 16px !important;
+        margin-top: 5px !important;
+        margin-left: 5px !important;
+    }
+
+    .infoLeft .custom-radio .custom-control-label::before {
+        height: 20px;
+        width: 20px;
+    }
+
+    .infoLeft .custom-control-label::after {
+        top: 0.25rem;
+        left: -1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+</style>
+
+<body>
+<input type="hidden" id="contextPath" th:value="@{/}"/>
+<!-- START HEADER AREA -->
+<header class="header-area header-wrapper">
+    <!-- header-top-bar -->
+    <div th:replace="fragments/navHome :: header"></div>
+    <!-- header-middle-area -->
+</header>
+<!-- END HEADER AREA -->
+
+<!-- START MOBILE MENU AREA -->
+<div th:replace="fragments/navHome :: menuMobile"></div>
+<!-- END MOBILE MENU AREA -->
+<div class="breadcrumbs-section plr-200 mb-80">
+    <div class="breadcrumbs overlay-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="breadcrumbs-inner">
+                        <h1 class="breadcrumbs-title">Hủy đơn hàng</h1>
+                        <ul class="breadcrumb-list">
+                            <li><a th:href="@{/}">Trang chủ</a></li>
+                            <li>Hủy đơn hàng</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    <div class="wrapper">-->
+<div class="row" style="width: 85%!important;margin: 0px auto;margin-bottom: 30px;color: black;">
+    <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4 infoRight">
+        <div class="col col-xs-12 col-sm-12 col-md-12" style="border-bottom: 1px solid #E8E8E8;margin-top: 0px;font-size: 17px;font-weight: bold;
+					padding-bottom: 8px;padding-left: 0px;">
+            Thông tin sản phẩm
+        </div>
+        <div th:each="each : ${reject}"
+             style="margin-top: 10px;display: inline-flex;border-bottom: 1px solid #E8E8E8;padding-bottom: 10px;">
+            <input type="hidden" th:value="${bill.id}" id="idBill"/>
+            <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px; width: 35%;">
+                <img th:src="${each.product.mainImg}"/>
+            </div>
+            <div class="row" style="width: 60%;margin-left: 15px;line-height: 30px;">
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Tên sản phẩm</div>
+                    <div class="txtRight" th:text="${each.product.name}">IPhone</div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Giá</div>
+                    <div class="txtRight"
+                         th:text="${#numbers.formatDecimal(each.product.price, 0, 'COMMA', 0,'POINT')}">50,000,000
+                        VNĐ
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Số lượng</div>
+                    <div class="txtRight" th:text="${each.quantity}">3</div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Trạng thái</div>
+                    <div class="txtRight">
+                        <span th:if="${each.bill.status} == 1"
+                              style="color: #38a140;font-size: 13px;">Đã thanh toán</span>
+                        <span th:if="${each.bill.status} == 2"
+                              style="color: #ff9800;font-size: 13px;">Chưa thanh toán</span>
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Thuế VAT(1%)</div>
+                    <div class="txtRight"
+                         th:text="${#numbers.formatDecimal(each.product.price * each.quantity * 0.01 , 0, 'COMMA', 0, 'POINT')}">
+                        500,000,000 VNĐ
+                    </div>
+                </div>
+                <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px">
+                    <div class="txtLeft">Thành tiền</div>
+                    <div class="txtRight"
+                         th:text="${#numbers.formatDecimal((each.product.price * each.quantity) + (each.product.price * each.quantity * 0.01) , 0, 'COMMA', 0, 'POINT')}">
+                        500,000,000 VNĐ
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-xs-12 col-sm-12 col-md-12" style="padding: 0px; margin-top: 10px;">
+            <div class="txtLeft" style="font-weight: bold">Tổng hóa đơn</div>
+            <div class="txtRight" th:text="${#numbers.formatDecimal(bill.total, 0, 'COMMA', 0, 'POINT')}">
+                500,000,000 VNĐ
+            </div>
+        </div>
+    </div>
+    <div class="col col-xs-12 col-sm-8 col-md-8 col-lg-8 infoLeft">
+        <div class="content">
+            <div class="first-content row">
+                <!--                <p class="icon-select">1</p>-->
+                <h5>&nbsp;&nbsp;&nbsp;&nbsp;Thông tin khách hàng</h5>
+                <div class="formFirst">
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" id="name" name="name" class="form-control"
+                               placeholder="Họ và tên đầy đủ (VD: Bùi Văn Tấn)" th:value="${bill.name}" readonly
+                               style="background: white;"/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" id="email" name="email" class="form-control" placeholder="Email..."
+                               style="background: white;"
+                               th:value="${bill.email}" readonly/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" id="code" name="mobile" class="form-control" placeholder="Mã hóa đơn..."
+                               style="background: white;"
+                               th:value="${bill.code}" readonly/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <input type="text" id="mobile" name="mobile" class="form-control" placeholder="Số điện thoại..."
+                               style="background: white;"
+                               th:value="${bill.mobile}" readonly/>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <textarea name="address" id="address" placeholder="Địa chỉ..." style="background: white;"
+                                  th:text="${bill.address}" readonly></textarea>
+                    </div>
+                    <div class="col col-xs-12 col-sm-12 col-md-12">
+                        <textarea name="reason" placeholder="Lý do hủy dơn..." id="reason"></textarea>
+                        <span style="color: red;font-size: 13px;" id="reasonError"></span>
+                    </div>
+                </div>
+            </div>
+            </form>
+            <span id="error" style="color: red;font-size: 15px;"></span>
+        </div>
+        <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;margin-top: 10px;">
+            <button id="reject" class="selectOptionPayment btn">Xác nhận</button>
+            <a th:href="@{/home/cart.html}" class="selectOptionPayment btn"
+               style="padding-top: 5px;background: #E8E8E8!important;color: black">Hủy bỏ</a>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<!-- START FOOTER AREA -->
+<div th:replace="fragments/navHome :: footer"></div>
+<!-- END FOOTER AREA -->
+
+<!--</div>-->
+<!-- Body main wrapper end -->
+<div th:replace="fragments/initHome :: commonScript"></div>
+<script th:inline="javascript">
+    var currUrl = /*[[@{/}]]*/"";
+    var pageIndex = /*[[${session.pageIndex}]]*/"";
+</script>
+<script>
+    $('#reject').on('click', function () {
+        var id = $('#idBill').val();
+        var code = $('#code').val();
+        var name = $('#name').val();
+        var email = $('#email').val();
+        var mobile = $('#mobile').val();
+        var address = $('#address').val();
+        var reason = $('#reason').val();
+        var dataObject = {};
+        dataObject.id = id;
+        dataObject.code = code;
+        dataObject.name = name;
+        dataObject.email = email;
+        dataObject.mobile = mobile;
+        dataObject.address = address;
+        dataObject.reason = reason;
+        var valid = true;
+        if (reason === null || reason === '') {
+            $('#reasonError').text("Lý do hủy đơn không được để trống");
+            valid = false;
+        } else {
+            $('#reasonError').text('');
+        }
+
+        if (valid == true) {
+            $.ajax({
+                url: currUrl + 'reject/home.html',
+                method: 'POST',
+                data: JSON.stringify(dataObject),
+                contentType: 'application/json',
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if(data.success != null){
+                        $('#reasonError').text(data.success);
+                        setTimeout(function () {
+                            window.location.href = window.location.origin + $('#contextPath').val();
+                        },1500);
+                    }
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>
