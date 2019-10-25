@@ -6,15 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="update code">
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/config/GoogleMailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/config/GoogleMailSender.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReviewRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ReviewRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ReviewService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReviewServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ReviewServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/html/MailThankiuCustomer.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/html/MailThankiuCustomer.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/add.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/product/add.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -279,14 +274,8 @@
       <workItem from="1571888690585" duration="11799000" />
       <workItem from="1571913458947" duration="7835000" />
       <workItem from="1571967133523" duration="199000" />
-      <workItem from="1571971528783" duration="12928000" />
-    </task>
-    <task id="LOCAL-00003" summary="update code">
-      <created>1570367405924</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1570367405924</updated>
+      <workItem from="1571971528783" duration="13307000" />
+      <workItem from="1571989554055" duration="588000" />
     </task>
     <task id="LOCAL-00004" summary="update code">
       <created>1570422059985</created>
@@ -624,7 +613,14 @@
       <option name="project" value="LOCAL" />
       <updated>1571980121066</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="update code">
+      <created>1571989394725</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1571989394725</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

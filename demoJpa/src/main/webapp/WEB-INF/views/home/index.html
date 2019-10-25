@@ -62,6 +62,13 @@
         display: flex !important;
         justify-content: center !important;
     }
+    .product-img{
+        overflow: hidden;
+    }
+    .product-img:hover .img-product{
+        transform: scale(1.1);
+        transition: all .5s;
+    }
 </style>
 
 <body>
@@ -126,13 +133,13 @@
                         <div class="product-item">
                             <div style="width: 84%;text-align: right; float: left;">
                                 <span th:if="${eachNew.quantity <= 0}" style="font-size: 15px; border: 2px dotted; padding: 6px;color: white;
-                                    position: absolute;border-radius: 50%;background: coral;text-align: center;margin-top: 5px;">Hết</span>
+                                    position: absolute;border-radius: 50%;background: coral;text-align: center;margin-top: 5px;z-index: 9999;">Hết</span>
                             </div>
                             <div class="product-img">
                                 <a
                                         th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
                                     <img th:src="${eachNew.mainImg}" alt="${eachNew.name}"
-                                         style="height: 350px; object-fit: cover;"/>
+                                         style="height: 350px; object-fit: cover;" class="img-product"/>
                                 </a>
                             </div>
                             <div class="product-info">
@@ -230,13 +237,13 @@
                                     <div class="product-item">
                                         <div style="width: 84%;text-align: right; float: left;">
                                 <span th:if="${eachPro.quantity <= 0}" style="font-size: 15px; border: 2px dotted; padding: 6px;color: white;
-                                    position: absolute;border-radius: 50%;background: coral;text-align: center;margin-top: 5px;">Hết</span>
+                                    position: absolute;border-radius: 50%;background: coral;text-align: center;margin-top: 5px;z-index: 9999">Hết</span>
                                         </div>
                                         <div class="product-img">
                                             <a
                                                     th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
                                                 <img th:src="${eachPro.mainImg}" alt=""
-                                                     style="height: 300px;"/>
+                                                     style="height: 300px;" class="img-product"/>
                                             </a>
                                         </div>
                                         <div class="product-info">
