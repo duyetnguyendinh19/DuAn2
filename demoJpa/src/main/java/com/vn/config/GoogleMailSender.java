@@ -103,7 +103,7 @@ public class GoogleMailSender {
         MimeMessage msg = new MimeMessage(session);
         msg.setFrom(new InternetAddress(from));
         msg.setRecipients(Message.RecipientType.TO, to);
-        msg.setSubject(subject);
+        msg.setSubject(subject, "UTF-8");
         msg.setContent(message, "text/html; charset=UTF-8");
 
         Transport.send(msg);

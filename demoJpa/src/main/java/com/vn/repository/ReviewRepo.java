@@ -23,5 +23,6 @@ public interface ReviewRepo extends JpaRepository<Review, Long> {
                                @Param("name") String name,
                                Pageable pageable);
 
-
+    @Query(value = "SELECT COUNT(*) FROM Review re WHERE (re.product.id = :id)")
+    Long countRateByProductId(@Param("id") Long id);
 }

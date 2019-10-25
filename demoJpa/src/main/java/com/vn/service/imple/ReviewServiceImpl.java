@@ -53,4 +53,9 @@ public class ReviewServiceImpl implements ReviewService {
     public Review findOne(Long id) {
         return reviewRepo.findOne(id);
     }
+
+    @Override
+    public Long countRateByProductId(Long id) {
+        return reviewRepo.countRateByProductId(id);
+    }
 }

@@ -61,9 +61,6 @@ public class HomeController {
     @Resource
     private InfomationFormValidator infoFormValidator;
 
-    @Resource
-    private InfomationService informationService;
-
     @RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(Model model, Pageable pageable) {
         Map<String, String> mapError = new HashedMap<String, String>();
@@ -135,6 +132,8 @@ public class HomeController {
         }
         List<Review> lsReview = reviewService.findAllByProductIdAndStatus(product.getId(), Review.status.ACTIVE.value());
         List<Product> productRelationship = productService.findProductByCategoryIdAndIsdelete(product.getCategory().getId(), "N");
+        Long countRate = reviewService.countRateByProductId(id);
+        model.addAttribute("countRate", countRate);
         model.addAttribute("newProduct", newProduct);
         model.addAttribute("product", product);
         model.addAttribute("proRelationship", productRelationship);
@@ -233,9 +232,9 @@ public class HomeController {
             infomation.setAuthUser(authUser);
             infomation.setIsDelete("N");
             if (infomation.getId() == null) {
-                informationService.create(infomation);
+                infomationService.create(infomation);
             } else {
-                informationService.update(infomation);
+                infomationService.update(infomation);
             }
         } catch (Exception e) {
             model.addAttribute("errorUnkown", "Lỗi không xác định !");

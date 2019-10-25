@@ -22,4 +22,7 @@ public interface ReviewService {
     void delete(Review review);
 
     Review findOne(Long id);
+
+    Long countRateByProductId(Long id);
+
 }
