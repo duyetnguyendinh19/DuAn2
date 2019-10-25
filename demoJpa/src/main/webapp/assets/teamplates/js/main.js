@@ -307,7 +307,7 @@
     $(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
     $(".qtybutton").on("click", function() {
         var $button = $(this);
-        var inp = $button.parent().find("input");
+        var inp = $button.parent().find("qtybutton");
         var oldValue = inp[0].value;
         var currUrl = /*[[@{/}]]*/"";
         var path = window.location.pathname.split("/")[1];
