@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.List;
 
 @Repository(value = "billRepo")
 public interface BillRepo extends JpaRepository<Bill, Long> {
@@ -30,4 +31,6 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
     Long checkExistByCode(@Param(value = "code") String code);
 
     Bill findByCode(String code);
+
+    List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail);
 }

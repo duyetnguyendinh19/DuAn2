@@ -143,6 +143,7 @@ public class PaymentController {
                     code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                 }
                 bill.setCode(code);
+                bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
                 billService.insert(bill);
 
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
@@ -177,7 +178,7 @@ public class PaymentController {
                             try {
                                 GoogleMailSender mailSender = new GoogleMailSender();
                                 final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responeMap);
-                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail cảm ơn Quý Khách", htmlContent);
+                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -305,6 +306,7 @@ public class PaymentController {
                 bill.setTotal(model.getTotal());
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
+                bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
                 billService.insert(bill);
 
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
@@ -333,7 +335,7 @@ public class PaymentController {
                             try {
                                 GoogleMailSender mailSender = new GoogleMailSender();
                                 final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMap);
-                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail cảm ơn Quý Khách", htmlContent);
+                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

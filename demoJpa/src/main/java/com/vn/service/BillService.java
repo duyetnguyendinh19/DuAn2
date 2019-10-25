@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Date;
+import java.util.List;
 
 public interface BillService {
 
@@ -21,6 +22,8 @@ public interface BillService {
     Bill findOne(Long id);
 
     Bill findByCode(String code);
+
+    List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail);
 
     boolean checkExistByCode(String code);
 }

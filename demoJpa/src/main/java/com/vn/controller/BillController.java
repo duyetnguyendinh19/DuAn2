@@ -133,6 +133,9 @@ public class BillController {
             Bill bill = billService.findOne(id);
             if(bill != null){
                 bill.setTypeStatus( statusType);
+                if(statusType == 0){
+                    bill.setStatus(1);
+                }
                 billService.update(bill);
             }
         }catch (Exception e){

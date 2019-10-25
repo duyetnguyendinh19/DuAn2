@@ -53,6 +53,9 @@
             <div class="group-row" style="width: 98%!important;margin-left:15px;float: left;"><p class="title" style="font-size: 13px;
                 float: left;">Tổng tiền:</p>
                 <p class="infomation" style="font-size: 14px;float: right;font-weight: bold;margin-right: 15px;" th:text="${#numbers.formatDecimal(bill.total, 0, 'COMMA', 0,'POINT') + ' Vnđ'}"></p></div>
+            <div class="group-row" style="width: 98%!important;margin-left:15px;float: left;"><p class="title" style="font-size: 13px;
+                float: left;">Trạng thái đơn hàng:</p>
+                <p class="infomation" style="font-size: 14px;float: right;font-weight: bold;margin-right: 15px;color: #14a137;font-weight: 600;" th:text="'Đang xác nhận'"></p></div>
             <div style="width: 98%;margin-left:15px;float: left;font-weight: bold;color: black;"><p class="infoHomestay">
                 Thông tin liên hệ</p></div>
             <div class="group-row" style="width: 98%!important;margin-left:15px;float: left;"><p class="title" style="font-size: 13px;

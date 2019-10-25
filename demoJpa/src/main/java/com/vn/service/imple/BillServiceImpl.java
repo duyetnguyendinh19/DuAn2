@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.util.Date;
+import java.util.List;
 
 @Service(value = "billService")
 @Transactional
@@ -51,6 +52,11 @@ public class BillServiceImpl implements BillService {
     @Override
     public Bill findByCode(String code) {
         return billRepo.findByCode(code);
+    }
+
+    @Override
+    public List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail) {
+        return billRepo.findByTypeStatusAndMailStatus(type,statusMail);
     }
 
     @Override

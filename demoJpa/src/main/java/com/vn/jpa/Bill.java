@@ -54,8 +54,10 @@ public class Bill implements Serializable {
     @Column(name = "code")
     private String code;
 
-//    @OneToMany(mappedBy = "bill")
+    //    @OneToMany(mappedBy = "bill")
 //    private List<Product_Bill> product_bills = new ArrayList<>();
+    @Column(name = "mail_status", columnDefinition = "TINYINT")
+    private Integer mailStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_auth_user")
@@ -63,6 +65,14 @@ public class Bill implements Serializable {
 
 
     public Bill() {
+    }
+
+    public Integer getMailStatus() {
+        return mailStatus;
+    }
+
+    public void setMailStatus(Integer mailStatus) {
+        this.mailStatus = mailStatus;
     }
 
     public String getMobile() {
@@ -186,30 +196,48 @@ public class Bill implements Serializable {
     }
 
     @PrePersist
-    public void prePersist(){
-        if(this.createDate == null){
+    public void prePersist() {
+        if (this.createDate == null) {
             this.createDate = new Date();
         }
     }
 
-    public static enum payment{
+    public static enum payment {
         LIVE(0), ONLINE(1);
         private final Integer value;
-		private payment(Integer value) {
+
+        private payment(Integer value) {
             this.value = value;
         }
+
         public Integer value() {
             return this.value;
         }
     }
 
-    public static enum STATUSPAYMENT{
+    public static enum STATUSPAYMENT {
         PAID(0) /*KH đã nhận*/, UNPAID(1) /*KH đã hủy*/, BOOM(2) /*KH không nhận hàng*/, DELIVERY(3) /* đang giao hàng*/, PACKAING(4) /*đang đóng gói*/, ORDER(5) /*xác nhận đơn*/;
         private final Integer value;
-        private STATUSPAYMENT(Integer value){
+
+        private STATUSPAYMENT(Integer value) {
             this.value = value;
         }
-        public Integer value(){
+
+        public Integer value() {
+            return this.value;
+        }
+    }
+
+    public static enum MAILSTATUS {
+        PAID(0), UNPAID(1);
+
+        private final Integer value;
+
+        private MAILSTATUS(Integer value) {
+            this.value = value;
+        }
+
+        public Integer value() {
             return this.value;
         }
     }

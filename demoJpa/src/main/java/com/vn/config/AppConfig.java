@@ -18,6 +18,7 @@ import javax.sql.DataSource;
 @EnableScheduling
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @ComponentScan(basePackages = { "com.vn" })
+@ImportResource(value = { "classpath:applicationContext.xml" })
 public class AppConfig {
 
     private static Logger LOG = LoggerFactory.getLogger(AppConfig.class);

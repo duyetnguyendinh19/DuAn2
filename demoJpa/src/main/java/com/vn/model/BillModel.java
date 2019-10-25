@@ -23,9 +23,18 @@ public class BillModel implements Serializable {
     private String code;
     private String bankCode;
     private String mobile;
+    private Integer mailStatus;
 
 
     public BillModel() {
+    }
+
+    public Integer getMailStatus() {
+        return mailStatus;
+    }
+
+    public void setMailStatus(Integer mailStatus) {
+        this.mailStatus = mailStatus;
     }
 
     public Integer getTypeStatus() {
