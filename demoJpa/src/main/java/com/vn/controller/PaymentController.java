@@ -103,53 +103,6 @@ public class PaymentController {
                             vnpayTransactionInfo.setVnpResponseCode(request.getParameter("vnp_ResponseCode"));
                             vnpayTransactionInfo.setStatus(VnpayTransactionInfo.VnpayTranStatus.PAID.value());
                             vnpayTransactionService.update(vnpayTransactionInfo);
-//                            HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-//                            for (Map.Entry<Long, Cart> each : map.entrySet()) {
-//                                Product_Bill productBill = new Product_Bill();
-//                                Product product = new Product();
-//                                product.setId(each.getValue().getProduct().getId());
-//                                productBill.setProduct(product);
-//                                productBill.setQuantity(each.getValue().getQuantity());
-//                                productBill.setIsdelete("N");
-//                                productBill.setBill(bill);
-//                                productBillService.insert(productBill);
-//                            }
-//                            MimeMessage mimeMessage = mailSender.createMimeMessage();
-//                            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-//                            String html = "<div style=\"width: 100%;height: auto;float: left;background-color: #e4e4e4;\">\n" +
-//                                    "        <div class=\"body\" style=\"margin-top:15px; width: 100%;max-width: 768px;font-family: Nunito Sans, sans-serif!important;background: white;height: auto;margin-bottom: 20px;margin-top: 15px;\n" +
-//                                    "        margin-left: auto;margin-right:auto;display: table;\">\n" +
-//                                    "        <div>\n" +
-//                                    "            <div style=\"text-transform: uppercase;font-size: 13px;font-weight: bold;\n" +
-//                                    "            color:green;height: 100%;\"></div>\n" +
-//                                    "            <br>\n" +
-//                                    "            <div style=\"text-align: center;font-weight:bold;padding-left:40px;padding-right:40px;\n" +
-//                                    "            padding-bottom:15px;padding-top:15px;font-size: 24px;color: #111194;\">Thư cảm ơn Quý khách đã sử dụng dịch vụ của ÔTôKê</div>\n" +
-//                                    "            <br>\n" +
-//                                    "            <div style=\"text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;\n" +
-//                                    "            color:green;height: 100%;\"></div>\n" +
-//                                    "        </div>\n" +
-//                                    "        <div style=\"float: left;width: 98%;margin-left: 15px;\">\n" +
-//                                    "            <p style=\"float: left;margin-top: 15px;display: flex\">Xin chào<span class=\"name\"\n" +
-//                                    "                style=\"float: left;color: #ff9800;font-weight: bold;    margin-left: 4px;\"\n" +
-//                                    "                >" + bill.getName() + "</span></p>\n" +
-//                                    "            </div>\n" +
-//                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 27px;\">Cảm ơn bạn chọn dịch vụ đặt hàng, mua hàng online của ÔTôKê. Quý khách có góp ý xin vui lòng gửi vào mail <a href=\"mailto:tanbv.dev@gmail.com\">tanbv.dev@gmail.com</a> để ÔTôKê cùng đội ngũ nhân viên khắc phục và phát triển hơn nữa. <br>Xin quý khách vui lòng bỏ thêm một vài phút để thích và xem trước fanpage của ÔTôKê trên facebook tại <a href=\"#\">đây</a> để nhận được những khuyến mãi và các ưu đã của ÔTôKê sớm nhất. Và Quý khách vui lòng vào đánh giá chất lượng sản phẩm theo đường dẫn này <a href=\"#\">feedback.html.</a> Chân thành cảm ơn</p> \n" +
-//                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\">\n" +
-//                                    "                Xin chúc quý khách hàng sức khỏe, may mắn và thành công.\n" +
-//                                    "            </p>\n" +
-//                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\"></p>\n" +
-//                                    "            <p style=\"margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;\">\n" +
-//                                    "                Trân Trọng!\n" +
-//                                    "            </p>\n" +
-//                                    "        </div>\n" +
-//                                    "    </div>";
-//                            mimeMessage.setContent(html, "text/html; charset=UTF-8"); // content mail
-//                            mimeMessageHelper.setTo(bill.getEmail());
-//                            mimeMessageHelper.setSubject("ÔTôKê cam on khach hang");
-//                            mailSender.send(mimeMessage);
-
-
                         }
                     }
                 }
@@ -219,10 +172,17 @@ public class PaymentController {
 
                 }
                 responeMap.put("bill", bill);
-
-                GoogleMailSender mailSender = new GoogleMailSender();
-                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responeMap);
-                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(),"[ÔTôKê] EMail cảm ơn Quý Khách" ,htmlContent);
+                new Thread(
+                        () -> {
+                            try {
+                                GoogleMailSender mailSender = new GoogleMailSender();
+                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responeMap);
+                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail cảm ơn Quý Khách", htmlContent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                ).start();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -368,9 +328,17 @@ public class PaymentController {
                 }
                 responseMap.put("bill", bill);
 
-                GoogleMailSender mailSender = new GoogleMailSender();
-                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMap);
-                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(),"[ÔTôKê] EMail cảm ơn Quý Khách" ,htmlContent);
+                new Thread(
+                        () -> {
+                            try {
+                                GoogleMailSender mailSender = new GoogleMailSender();
+                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMap);
+                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail cảm ơn Quý Khách", htmlContent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                ).start();
                 session.removeAttribute("myCartItems");
                 session.removeAttribute("myCartTotal");
                 session.removeAttribute("myCartNum");

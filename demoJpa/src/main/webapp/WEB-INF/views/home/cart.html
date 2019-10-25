@@ -25,6 +25,9 @@
         .submit-btn-1 {
             margin-top: 10px;
         }
+        .disable-call-ajax{
+            cursor: none!important;
+        }
     </style>
 </head>
 
@@ -244,7 +247,7 @@
                                                         </tr>
                                                     </table>
                                                 </div>
-                                                <button id="submitPayment" class="submit-btn-1 mt-30 btn-hover-1"
+                                                <button id="submitPayment" class="btn-call-ajax submit-btn-1 mt-30 btn-hover-1"
                                                         style="border-radius: 5px;" type="button">Đặt hàng
                                                 </button>
                                                 <a th:href="@{/}"
@@ -278,6 +281,14 @@
     /*]]>*/
 </script>
 <script>
+    $(document)
+        .ajaxStart(function () {
+            $('.btn-call-ajax').addClass('disable-call-ajax');
+        })
+        .ajaxComplete(function () {
+            $('.btn-call-ajax').removeClass('disable-call-ajax');
+        });
+
     $('#submitPayment').on('click', function () {
         var name = $('#name').val();
         var email = $('#email').val();

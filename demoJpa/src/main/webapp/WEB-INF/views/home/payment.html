@@ -5,6 +5,9 @@
     <div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
+    .disable-call-ajax{
+        cursor: none!important;
+    }
     input[type="text"], input[type="password"], textarea {
         margin-bottom: 0px !important;
         margin-top: 20px !important;
@@ -789,7 +792,7 @@
                     <span id="error" style="color: red;font-size: 15px;"></span>
                 </div>
                 <div class="col col-xs-12 col-sm-12 col-md-12" style="display: flex;margin-top: 10px;">
-                    <button id="paying" class="selectOptionPayment btn">Thanh toán</button>
+                    <button id="paying" class="btn-call-ajax selectOptionPayment btn">Thanh toán</button>
                     <a th:href="@{/home/cart.html}" class="selectOptionPayment btn"
                        style="padding-top: 5px;background: #E8E8E8!important;color: black">Hủy bỏ</a>
                 </div>
@@ -810,6 +813,14 @@
     var pageIndex = /*[[${session.pageIndex}]]*/"";
 </script>
 <script>
+    $(document)
+        .ajaxStart(function () {
+            $('.btn-call-ajax').addClass('disable-call-ajax');
+        })
+        .ajaxComplete(function () {
+            $('.btn-call-ajax').removeClass('disable-call-ajax');
+        });
+
     var $selectedBankElement = null;
     var $codeBankSelected = null;
     $('#paymentSelected input[name=payment]').on('change', function () {
