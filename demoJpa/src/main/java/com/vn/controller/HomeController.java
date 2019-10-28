@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.vn.common.Constants;
+import com.vn.common.GoogleUtils;
 import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
 import com.vn.model.InfomationModel;
@@ -32,6 +33,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -68,6 +70,18 @@ public class HomeController {
         model.addAttribute("mapError", mapError);
         ModelAndView modelAndView = new ModelAndView("home/login");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/home/login-google", method = {RequestMethod.GET})
+    public String loginGoogle(@RequestParam("code") String code,HttpSession session) throws IOException {
+        if (code == null || code.isEmpty()) {
+            return "home/login";
+        } else {
+            String accessToken = GoogleUtils.getToken(code);
+            GmailGoogle googlePojo = GoogleUtils.getUserInfo(accessToken);
+            session.setAttribute("userGoogle", googlePojo);
+            return "redirect:/";
+        }
     }
 
     @RequestMapping(value = "/home/login.html", method = RequestMethod.POST)
@@ -173,6 +187,7 @@ public class HomeController {
     @RequestMapping(value = "/home/cart.html", method = RequestMethod.GET)
     public ModelAndView viewCart(HttpSession session, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
+        GmailGoogle gmailGoogle = (GmailGoogle) session.getAttribute("userGoogle");
         if (authUser != null) {
             Infomation infomation = infomationService.findByAuthUserId(authUser.getId());
             model.addAttribute("name", authUser.getFullName());
@@ -181,6 +196,10 @@ public class HomeController {
                 model.addAttribute("mobile", infomation.getPhone());
                 model.addAttribute("address", infomation.getAddress());
             }
+        }
+        if(gmailGoogle != null){
+            model.addAttribute("name", gmailGoogle.getName());
+            model.addAttribute("email", gmailGoogle.getEmail());
         }
         ModelAndView modelAndView = new ModelAndView("home/cart");
         return modelAndView;

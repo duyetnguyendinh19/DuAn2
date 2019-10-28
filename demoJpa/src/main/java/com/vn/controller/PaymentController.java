@@ -52,6 +52,7 @@ public class PaymentController {
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
+        GmailGoogle gmailGoogle = (GmailGoogle) session.getAttribute("userGoogle");
         if (authUser != null) {
             model.addAttribute("name", authUser.getFullName());
             model.addAttribute("email", authUser.getEmail());
@@ -60,6 +61,10 @@ public class PaymentController {
                 model.addAttribute("mobile", infomation.getPhone());
                 model.addAttribute("address", infomation.getAddress());
             }
+        }
+        if(gmailGoogle != null){
+            model.addAttribute("name", gmailGoogle.getName());
+            model.addAttribute("email", gmailGoogle.getEmail());
         }
         return "home/payment";
     }

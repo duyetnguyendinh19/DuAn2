@@ -3,8 +3,29 @@
 
 <head>
 <div th:replace="fragments/initHome :: head"></div>
-</head>
+<!--	<style>-->
+<!--		.userContent{-->
+<!--			padding: 10px 20px;-->
+<!--			margin: auto;-->
+<!--			width: 250px;-->
+<!--			background-color: #F7F7F7;-->
+<!--			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);-->
+<!--		}-->
+<!--		.userContent h3{-->
+<!--			font-size: 17px;-->
+<!--		}-->
+<!--		.userContent p{-->
+<!--			font-size: 15px;-->
+<!--		}-->
+<!--		.userContent img{-->
+<!--			max-width: 100%;-->
+<!--			margin-bottom: 5px;-->
+<!--		}-->
+<!--	</style>-->
 
+</head>
+<script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
+<meta name="google-signin-client_id" content="498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com">
 <body>
 	<div class="wrapper">
 		<!-- START HEADER AREA -->
@@ -63,6 +84,8 @@
 										<!--                                    <p><a href="#" data-toggle="modal" data-target="#forgetModal" tabindex="0" style="font-size: 13px;">Quên mật khẩu?</a></p>-->
 										<button class="submit-btn-1 btn-hover-1" type="submit">Đăng
 											nhập</button>
+										<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8284/duan2_war/home/login-google&response_type=code
+    &client_id=498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com&approval_prompt=force" id="gSignin"></a>
 									</div>
 								</form>
 							</div>
@@ -203,5 +226,19 @@
 	<div th:replace="fragments/initHome :: commonScript"></div>
 
 </body>
+<script>
+	function renderButton(){
+		gapi.signin2.render('gSignIn', {
+			'scope': 'profile email',
+			'width': 240,
+			'height': 50,
+			'longtitle': true,
+			'theme': 'dark'
+			// 'onsuccess': onSuccess,
+			// 'onfailure': onFailure
+		});
+	};
+
+</script>
 
 </html>

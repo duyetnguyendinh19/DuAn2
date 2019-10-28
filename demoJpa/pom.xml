@@ -363,6 +363,13 @@
             <version>1.3.1</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/fluent-hc -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>fluent-hc</artifactId>
+            <version>4.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
