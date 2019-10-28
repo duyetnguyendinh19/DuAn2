@@ -36,6 +36,7 @@
 <div class="wrapper">
     <input type="hidden" id="contextPath" th:value="@{/}"/>
     <input type="hidden" id="login" th:value="${session.userLogin}">
+    <input type="hidden" id="userGoogle" th:value="${session.userGoogle}">
     <!-- START HEADER AREA -->
     <header class="header-area header-wrapper">
         <!-- header-top-bar -->
@@ -392,7 +393,8 @@
 				})
 			}else{
                 var checkLog = $('#login').val();
-                if(checkLog != null && checkLog != ''){
+                var userGg = $('#userGoogle').val()
+                if((checkLog != null && checkLog != '') || (userGg != null && userGg != '')){
                     window.location.href =  window.location.origin + $('#contextPath').val() + 'payment/online/list.html';
                 }else{
                     $('#authUserError').text("Bạn vui lòng đăng nhập trước khi thực hiện thanh toán");

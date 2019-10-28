@@ -3,9 +3,11 @@ package com.vn.common;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 import java.io.File;
+import java.text.Normalizer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 public class AppUtil {
     public static SimpleDateFormat sdf_yyyyMMddHHmmssSSS = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -59,5 +61,11 @@ public class AppUtil {
         }
 
         return success ? relativePath : null;
+    }
+
+    public static synchronized String convertUnicode(String str){
+        String temp = Normalizer.normalize(str, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        return pattern.matcher(temp).replaceAll("");
     }
 }

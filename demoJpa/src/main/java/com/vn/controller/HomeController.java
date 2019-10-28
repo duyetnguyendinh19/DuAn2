@@ -63,6 +63,9 @@ public class HomeController {
     @Resource
     private InfomationFormValidator infoFormValidator;
 
+    @Resource
+    private GmailGoogleService gmailGoogleService;
+
     @RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
     public ModelAndView loginPage(Model model, Pageable pageable) {
         Map<String, String> mapError = new HashedMap<String, String>();
@@ -79,6 +82,11 @@ public class HomeController {
         } else {
             String accessToken = GoogleUtils.getToken(code);
             GmailGoogle googlePojo = GoogleUtils.getUserInfo(accessToken);
+            try {
+                gmailGoogleService.insert(googlePojo);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             session.setAttribute("userGoogle", googlePojo);
             return "redirect:/";
         }
@@ -221,7 +229,7 @@ public class HomeController {
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
     public ModelAndView profilePage(HttpSession session, Model model) {
-        if (session.getAttribute("userLogin") == null) {
+        if (session.getAttribute("userLogin") == null && session.getAttribute("userGoogle") == null) {
             Map<String, String> mapError = new HashedMap<String, String>();
             model.addAttribute("athUser", new AuthUserModel());
             model.addAttribute("mapError", mapError);
@@ -265,6 +273,7 @@ public class HomeController {
     @RequestMapping(value = "/home/logout.html", method = RequestMethod.GET)
     public String logout(HttpSession session) {
         session.removeAttribute("userLogin");
+        session.removeAttribute("userGoogle");
         return "redirect:/home/login.html";
     }
 

@@ -13,6 +13,8 @@ public interface AuthUserService  {
 
     AuthUser findByEmail(String emamail);
 
+    AuthUser findByUserName(String username);
+
     AuthUser findOne(Long id);
 
     Page<AuthUserModel> listUsers(String username, String email, Pageable pageable);

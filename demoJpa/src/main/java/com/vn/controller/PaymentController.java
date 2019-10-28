@@ -3,23 +3,23 @@ package com.vn.controller;
 import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vn.common.AppUtil;
 import com.vn.common.ThymeleafUtil;
 import com.vn.common.VnpayConfig;
 import com.vn.config.GoogleMailSender;
 import com.vn.jpa.*;
 import com.vn.model.BillModel;
 import com.vn.model.Cart;
-import com.vn.model.PaymentUrlModel;
 import com.vn.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.joda.time.DateTime;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLEncoder;
@@ -49,6 +49,17 @@ public class PaymentController {
     @Resource
     private Product_BillService productBillService;
 
+    @Resource
+    private AuthUserService authUserService;
+
+    @Resource
+    private AuthRoleService authRoleService;
+
+    @Resource
+    private PasswordEncoder passwordEncoder;
+
+    private final static int i = 1;
+
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
@@ -62,7 +73,7 @@ public class PaymentController {
                 model.addAttribute("address", infomation.getAddress());
             }
         }
-        if(gmailGoogle != null){
+        if (gmailGoogle != null) {
             model.addAttribute("name", gmailGoogle.getName());
             model.addAttribute("email", gmailGoogle.getEmail());
         }
@@ -124,71 +135,129 @@ public class PaymentController {
             request) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Map<String, Object> responeMap = new HashMap<>();
+        Map<String, Object> responseMapMail = new HashMap<>();
         try {
             AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
-            if (authUser == null) {
+            GmailGoogle gmailGoogle = (GmailGoogle) session.getAttribute("userGoogle");
+            if (authUser == null && gmailGoogle == null) {
                 responeMap.put("authUser", "Bạn vui lòng đăng nhập trước khi thanh toán");
-            }
-            if (responeMap.size() == 0) {
-                String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+            } else {
                 AuthUser user = new AuthUser();
-                user.setId(authUser.getId());
                 Bill bill = new Bill();
-                bill.setPayment(billModel.getPayment());
-                bill.setTotal(billModel.getTotal());
-                bill.setIsDelete("N");
-                bill.setStatus(2);
-                bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
-                bill.setAuthUser(user);
-                bill.setAddress(billModel.getAddress());
-                bill.setName(billModel.getName());
-                bill.setEmail(billModel.getEmail());
-                bill.setMobile(billModel.getMobile());
-                while (billService.checkExistByCode(code)) {
-                    code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
-                }
-                bill.setCode(code);
-                bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
-                billService.insert(bill);
+                if (authUser != null) {
+                    user.setId(authUser.getId());
+                    bill.setAuthUser(user);
+                } else {
+                    AuthUser userAutoEmail = authUserService.findByEmail(billModel.getEmail());
+                    if (userAutoEmail == null) {
+                        authUser = new AuthUser();
+                        List<Role> roles = new ArrayList<>();
+                        roles.add(authRoleService.findOne(2l));
+                        Date createdDate = new DateTime().toDate();
+                        String password = "123456a@";
+                        String salt = "5876695f8e4e1811";
+                        String encryptPassword = "";
+                        encryptPassword = passwordEncoder.encode(password);
+                        authUser.setCreatedDate(createdDate);
+                        authUser.setEmail(gmailGoogle.getEmail());
+                        authUser.setFirstName(billModel.getName().split(" ")[0]);
+                        authUser.setMiddleName(billModel.getName().split(" ")[1]);
+                        String lastName = billModel.getName().split(" ")[2];
+                        authUser.setFullName(billModel.getName());
+                        authUser.setGender("0");
+                        authUser.setIsVerified((byte) 1);
+                        authUser.setModifiedDate(null);
+                        String userName = AppUtil.convertUnicode(billModel.getName().split(" ")[2].toLowerCase() + billModel.getName().split(" ")[0].substring(0, 1).toLowerCase() + billModel.getName().split(" ")[1].substring(0, 1).toLowerCase());
 
-                HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-                for (Map.Entry<Long, Cart> each : map.entrySet()) {
-                    Product product = new Product();
-                    Product_Bill productBill = new Product_Bill();
-                    product.setId(each.getValue().getProduct().getId());
-                    productBill.setProduct(product);
-                    productBill.setQuantity(each.getValue().getQuantity());
-                    productBill.setIsdelete("N");
-                    productBill.setBill(bill);
-                    productBillService.insert(productBill);
-
-                    Product pro = productService.findOne(each.getValue().getProduct().getId());
-                    if (pro != null) {
-                        if (pro.getQuantity() < each.getValue().getQuantity()) {
-                            responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
-                        } else {
-                            pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
-                            productService.update(pro);
-                            responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
-                            session.removeAttribute("myCartItems");
-                            session.removeAttribute("myCartTotal");
-                            session.removeAttribute("myCartNum");
+                        if (authUserService.findByUsername(userName) != null) {
+                            userName = userName + i;
                         }
+                        authUser.setUserName(userName);
+                        authUser.setSalt(salt);
+                        authUser.setPassword(encryptPassword);
+                        authUser.setStatus((byte) 1);
+                        authUser.setUserType((byte) 2);
+                        authUser.setAuthRoles(roles);
+                        authUserService.create(authUser);
+                        bill.setAuthUser(authUser);
+                        responseMapMail.put("userName", userName);
+                        responseMapMail.put("password", "123456a@");
+                        responseMapMail.put("name", billModel.getName());
+                        new Thread(
+                                () -> {
+                                    try {
+                                        GoogleMailSender mailSender = new GoogleMailSender();
+                                        final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailAutoCreateAccount.html", (HashMap<String, Object>) responseMapMail);
+                                        mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail Tạo Tài Khoản Tự Động", htmlContent);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                        ).start();
+                    } else {
+                        user.setId(userAutoEmail.getId());
+                        bill.setAuthUser(user);
                     }
+                    if (responeMap.size() == 0) {
+                        String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
 
-                }
-                responeMap.put("bill", bill);
-                new Thread(
-                        () -> {
-                            try {
-                                GoogleMailSender mailSender = new GoogleMailSender();
-                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responeMap);
-                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+                        bill.setPayment(billModel.getPayment());
+                        bill.setTotal(billModel.getTotal());
+                        bill.setIsDelete("N");
+                        bill.setStatus(2);
+                        bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
+//                        bill.setAuthUser(user);
+                        bill.setAddress(billModel.getAddress());
+                        bill.setName(billModel.getName());
+                        bill.setEmail(billModel.getEmail());
+                        bill.setMobile(billModel.getMobile());
+                        while (billService.checkExistByCode(code)) {
+                            code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
                         }
-                ).start();
+                        bill.setCode(code);
+                        bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
+                        billService.insert(bill);
+
+                        HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                        for (Map.Entry<Long, Cart> each : map.entrySet()) {
+                            Product product = new Product();
+                            Product_Bill productBill = new Product_Bill();
+                            product.setId(each.getValue().getProduct().getId());
+                            productBill.setProduct(product);
+                            productBill.setQuantity(each.getValue().getQuantity());
+                            productBill.setIsdelete("N");
+                            productBill.setBill(bill);
+                            productBillService.insert(productBill);
+
+                            Product pro = productService.findOne(each.getValue().getProduct().getId());
+                            if (pro != null) {
+                                if (pro.getQuantity() < each.getValue().getQuantity()) {
+                                    responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                                } else {
+                                    pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                                    productService.update(pro);
+                                    responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
+                                    session.removeAttribute("myCartItems");
+                                    session.removeAttribute("myCartTotal");
+                                    session.removeAttribute("myCartNum");
+                                }
+                            }
+
+                        }
+                        responseMapMail.put("bill", bill);
+                        new Thread(
+                                () -> {
+                                    try {
+                                        GoogleMailSender mailSender = new GoogleMailSender();
+                                        final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
+                                        mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                        ).start();
+                    }
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,6 +272,7 @@ public class PaymentController {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try {
             Map<String, Object> responseMap = new HashMap<>();
+            Map<String, Object> responseMapMail = new HashMap<>();
 
             String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
             String vnp_OrderInfo = "Thanh toan don hang ma " + code;
@@ -294,12 +364,67 @@ public class PaymentController {
             Bill bill = new Bill();
             AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
             AuthUser user = new AuthUser();
-            user.setId(authUser.getId());
-            if (billService.checkExistByCode(code)) {
-                code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
-            }
+            if (authUser != null) {
+                user.setId(authUser.getId());
+                bill.setAuthUser(user);
+            } else {
+                GmailGoogle gmailGoogle = (GmailGoogle) session.getAttribute("userGoogle");
+                AuthUser userAutoEmail = authUserService.findByEmail(model.getEmail());
+                if (userAutoEmail == null) {
+                    authUser = new AuthUser();
+                    List<Role> roles = new ArrayList<>();
+                    roles.add(authRoleService.findOne(2l));
+                    Date createdDate = new DateTime().toDate();
+                    String password = "123456a@";
+                    String salt = "5876695f8e4e1811";
+                    String encryptPassword = "";
+                    encryptPassword = passwordEncoder.encode(password);
+                    authUser.setCreatedDate(createdDate);
+                    authUser.setEmail(gmailGoogle.getEmail());
+                    authUser.setFirstName(model.getName().split(" ")[0]);
+                    authUser.setMiddleName(model.getName().split(" ")[1]);
+                    String lastName = model.getName().split(" ")[2];
+                    authUser.setFullName(model.getName());
+                    authUser.setGender("0");
+                    authUser.setIsVerified((byte) 1);
+                    authUser.setModifiedDate(null);
+                    String userName = AppUtil.convertUnicode(model.getName().split(" ")[2].toLowerCase() + model.getName().split(" ")[0].substring(0, 1).toLowerCase() + model.getName().split(" ")[1].substring(0, 1).toLowerCase());
+//                    String userName = gmailGoogle.getEmail().split("@")[0];
 
+                    if (authUserService.findByUsername(userName) != null) {
+                        userName = userName + i;
+                    }
+                    authUser.setUserName(userName);
+                    authUser.setSalt(salt);
+                    authUser.setPassword(encryptPassword);
+                    authUser.setStatus((byte) 1);
+                    authUser.setUserType((byte) 2);
+                    authUser.setAuthRoles(roles);
+                    authUserService.create(authUser);
+                    bill.setAuthUser(authUser);
+                    responseMapMail.put("userName", userName);
+                    responseMapMail.put("password", "123456a@");
+                    responseMapMail.put("name", model.getName());
+                    new Thread(
+                            () -> {
+                                try {
+                                    GoogleMailSender mailSender = new GoogleMailSender();
+                                    final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailAutoCreateAccount.html", (HashMap<String, Object>) responseMapMail);
+                                    mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail Tạo Tài Khoản Tự Động", htmlContent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                    ).start();
+                } else {
+                    user.setId(userAutoEmail.getId());
+                    bill.setAuthUser(user);
+                }
+            }
             try {
+                if (billService.checkExistByCode(code)) {
+                    code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+                }
                 bill.setCode(code);
                 bill.setEmail(model.getEmail());
                 bill.setName(model.getName());
@@ -307,7 +432,7 @@ public class PaymentController {
                 bill.setIsDelete("N");
                 bill.setStatus(2);
                 bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
-                bill.setAuthUser(user);
+//                bill.setAuthUser(authUser);
                 bill.setTotal(model.getTotal());
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
@@ -333,13 +458,13 @@ public class PaymentController {
                         }
                     }
                 }
-                responseMap.put("bill", bill);
+                responseMapMail.put("bill", bill);
 
                 new Thread(
                         () -> {
                             try {
                                 GoogleMailSender mailSender = new GoogleMailSender();
-                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMap);
+                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
                                 mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
                             } catch (Exception e) {
                                 e.printStackTrace();

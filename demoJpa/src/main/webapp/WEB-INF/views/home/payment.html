@@ -740,8 +740,10 @@
                                             </tr>
                                             <tr>
                                                 <td>Nội dung chuyển khoản</td>
-                                                <td style="color: #ff9800;" id="descriptionPayment"
+                                                <td style="color: #ff9800;" id="descriptionPayment" th:if="${session.userLogin != null}"
                                                     th:text="${session.userLogin.fullName} + ' chuyen tien thanh toan'"></td>
+                                                <td style="color: #ff9800;" id="descriptionPayment" th:if="${session.userGoogle != null}"
+                                                    th:text="${session.userGoogle.name} + ' chuyen tien thanh toan'"></td>
                                             </tr>
                                             <tr>
                                                 <td colspan="2">Bạn có thể thực hiện chuyển khoản thanh
@@ -914,9 +916,11 @@
 
             if (name === null || name === '') {
                 $('#nameError').text("Tên không được để trống");
+                $('#name').focus();
                 valid = false;
             } else if (name.length > 64) {
                 $('#nameError').text("Tên không quá 64 kí tự");
+                $('#name').focus();
                 valid = false;
             } else {
                 $('#nameError').text('');
@@ -924,9 +928,11 @@
 
             if (email === null || email === '') {
                 $('#emailError').text("Email không được để trống");
+                $('#email').focus();
                 valid = false;
             } else if (!regexEmail.test(email)) {
                 $('#emailError').text("Sai định dạng email");
+                $('#email').focus();
                 valid = false;
             } else {
                 $('#emailError').text('');
@@ -934,9 +940,11 @@
 
             if (mobile === null || mobile === '') {
                 $('#mobileError').text("Số điện thoại không được để trống");
+                $('#mobile').focus();
                 valid = false;
             } else if (!regexMobile.test(mobile)) {
                 $('#mobileError').text("Sai định dạng số điện thoại");
+                $('#mobile').focus();
                 valid = false;
             } else {
                 $('#mobileError').text('');
@@ -944,6 +952,7 @@
 
             if (address === null || address === '') {
                 $('#addressError').text("Địa chỉ không được để trống");
+                $('#address').focus();
                 valid = false;
             } else {
                 $('#addressError').text('');

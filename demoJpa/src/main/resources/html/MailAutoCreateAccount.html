@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Account</title>
+</head>
+<body style="margin:0px;">
+<div style="width: 100%;height: auto;float: left;background-color: #e4e4e4;">
+    <div class="body" style="margin-top:15px;width:100%;max-width:768px;font-family: Nunito Sans, sans-serif!important;
+		background: white;height: auto;margin-bottom: 20px;margin-top: 15px;margin-left: auto;margin-right: auto;display: table">
+        <div style="text-align: center;">
+            <a href="/"><img src="http://www.taikhoanmayman.vn/yo-home/otoke-logo.png"
+                             style="margin-bottom: 10px;margin-top: 40px;"/></a>
+        </div>
+        <div>
+            <div style="text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;
+				color:green;height: 100%;"></div>
+            <br>
+            <div style="text-align: center;font-weight:bold;padding-left:40px;padding-right:40px;
+				padding-bottom:15px;padding-top:15px;font-size: 24px;color: #111194;">Email thông
+                tin về tài khoản tạo tự động
+            </div>
+            <br>
+            <div style="text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;
+				color:green;height: 100%;"></div>
+        </div>
+        <div class="name" style="width: 94%;margin-left: 10px;float: left;">
+            <p style="float: left;font-weight:400!important;display: flex;">Bạn<span style="font-weight:bold!important;color: #ff9800;
+				margin: 0px 5px;float: left;" th:text="${name}">Abc</span>thân mến</p>
+        </div>
+        <div>
+            <p style="width: 94%;margin-left: 10px;float:left;font-size: 15px;line-height: 20px;">
+               ÔTôKê rất vui khi nhận được thông tin đặt mua sản phẩm của bạn từ website
+                <a href="#">otoke.com</a>, thông tin này đã được sử dụng để tạo tài khoản tự động cho bạn trên website
+                của ÔTôKê. Bạn vui lòng đăng nhập tài khoản theo link dưới đây, thay đổi mật khẩu và tiếp tục trải
+                nghiệm dịch vụ đặt sản phẩm và theo dõi khuyến mãi từ ÔTôKê.
+            </p>
+        </div>
+        <div style="width: 94%;margin-left: 10px;float:left;">
+            <p>Thông tin đăng nhập như sau: </p>
+            <p>Link đăng nhập: <a href="localhost:8284/duan2_war/home/login.html" style="color: blue;">https://otoke.com</a></p>
+            <p>Tên đăng nhập: <a href="#" style="font-weight: bold;" th:text="${userName}">abc@gmail.com</a></p>
+            <p>Mật khẩu: <span style="font-weight: bold;" th:text="${password}">1234567</span></p>
+        </div>
+        <div style="width: 94%;margin-left: 10px;margin-bottom: 15px;">
+            <p style="font-size: 15px;line-height: 20px;">Nếu bạn không thực hiện được đăng nhập vui lòng báo lại ngay cho ÔTôKê qua số điện thoại 19001508 hoặc đến email
+                <a href="mailto:tanbv.dev@gmail.com" style="font-size: 15px;margin:0 5px;float: left;">tanbv.dev@gmail.com</a>để nhận được hỗ trợ.</p>
+        </div>
+</div>
+</body>
+</html>

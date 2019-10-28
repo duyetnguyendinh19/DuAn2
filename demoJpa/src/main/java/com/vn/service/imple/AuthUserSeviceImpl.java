@@ -33,6 +33,11 @@ public class AuthUserSeviceImpl implements AuthUserService {
     }
 
     @Override
+    public AuthUser findByUserName(String username) {
+        return authUserRepo.findByUserName(username);
+    }
+
+    @Override
     public AuthUser findOne(Long id) {
         return authUserRepo.findOne(id);
     }

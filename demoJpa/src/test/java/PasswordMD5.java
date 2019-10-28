@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.text.Normalizer;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 
 public class PasswordMD5 {
@@ -28,7 +30,10 @@ public class PasswordMD5 {
 
     @Test
     public void testPassword() throws Exception {
-
+        String name = "Bùi Văn Tấn";
+        String temp = Normalizer.normalize(name, Normalizer.Form.NFD);
+        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
+        System.out.println(pattern.matcher(temp).replaceAll(""));
     }
 
     @Test
