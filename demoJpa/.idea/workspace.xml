@@ -7,21 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/GmailGoogleRepo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/GmailGoogleService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/GmailGoogleServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/html/MailAutoCreateAccount.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Database/duan2.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../Database/duan2.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/common/AppUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/common/AppUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/AuthUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/AuthUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/AuthUserSeviceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/AuthUserSeviceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/PasswordMD5.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -290,14 +278,8 @@
       <workItem from="1571989554055" duration="1430000" />
       <workItem from="1571999767801" duration="983000" />
       <workItem from="1572226382878" duration="10165000" />
-      <workItem from="1572239066108" duration="19398000" />
-    </task>
-    <task id="LOCAL-00006" summary="update code">
-      <created>1570454022069</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1570454022069</updated>
+      <workItem from="1572239066108" duration="19591000" />
+      <workItem from="1572312337733" duration="10794000" />
     </task>
     <task id="LOCAL-00007" summary="update code">
       <created>1570526402324</created>
@@ -635,7 +617,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572253885709</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="update code">
+      <created>1572278483308</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1572278483309</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

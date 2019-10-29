@@ -2,243 +2,240 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-<div th:replace="fragments/initHome :: head"></div>
-<!--	<style>-->
-<!--		.userContent{-->
-<!--			padding: 10px 20px;-->
-<!--			margin: auto;-->
-<!--			width: 250px;-->
-<!--			background-color: #F7F7F7;-->
-<!--			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);-->
-<!--		}-->
-<!--		.userContent h3{-->
-<!--			font-size: 17px;-->
-<!--		}-->
-<!--		.userContent p{-->
-<!--			font-size: 15px;-->
-<!--		}-->
-<!--		.userContent img{-->
-<!--			max-width: 100%;-->
-<!--			margin-bottom: 5px;-->
-<!--		}-->
-<!--	</style>-->
+    <div th:replace="fragments/initHome :: head"></div>
+    <!--	<style>-->
+    <!--		.userContent{-->
+    <!--			padding: 10px 20px;-->
+    <!--			margin: auto;-->
+    <!--			width: 250px;-->
+    <!--			background-color: #F7F7F7;-->
+    <!--			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);-->
+    <!--		}-->
+    <!--		.userContent h3{-->
+    <!--			font-size: 17px;-->
+    <!--		}-->
+    <!--		.userContent p{-->
+    <!--			font-size: 15px;-->
+    <!--		}-->
+    <!--		.userContent img{-->
+    <!--			max-width: 100%;-->
+    <!--			margin-bottom: 5px;-->
+    <!--		}-->
+    <!--	</style>-->
 
 </head>
 <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
 <meta name="google-signin-client_id" content="498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com">
 <body>
-	<div class="wrapper">
-		<!-- START HEADER AREA -->
-		<header class="header-area header-wrapper">
-			<!--        START IMPORT HEADER-->
-			<div th:replace="fragments/navHome :: header"></div>
-			<!--        END IMPORT HEADER-->
-		</header>
-		<!-- END HEADER AREA -->
-		<!-- START MOBILE MENU AREA -->
-		<div th:replace="fragments/navHome :: menuMobile"></div>
-		<!-- END MOBILE MENU AREA -->
+<div class="wrapper">
+    <!-- START HEADER AREA -->
+    <header class="header-area header-wrapper">
+        <!--        START IMPORT HEADER-->
+        <div th:replace="fragments/navHome :: header"></div>
+        <!--        END IMPORT HEADER-->
+    </header>
+    <!-- END HEADER AREA -->
+    <!-- START MOBILE MENU AREA -->
+    <div th:replace="fragments/navHome :: menuMobile"></div>
+    <!-- END MOBILE MENU AREA -->
 
-		<!-- BREADCRUMBS SETCTION START -->
-		<div class="breadcrumbs-section plr-200 mb-80">
-			<div class="breadcrumbs overlay-bg">
-				<div class="container">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="breadcrumbs-inner">
-								<h1 class="breadcrumbs-title">Đăng nhập / Đăng ký</h1>
-								<ul class="breadcrumb-list">
-									<li><a th:href="@{/}">Trang chủ</a></li>
-									<li>Đăng nhập / Đăng ký</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- BREADCRUMBS SETCTION END -->
+    <!-- BREADCRUMBS SETCTION START -->
+    <div class="breadcrumbs-section plr-200 mb-80">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Đăng nhập / Đăng ký</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a th:href="@{/}">Trang chủ</a></li>
+                                <li>Đăng nhập / Đăng ký</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BREADCRUMBS SETCTION END -->
 
-		<!-- Start page content -->
-		<div id="page-content" class="page-wrapper">
+    <!-- Start page content -->
+    <div id="page-content" class="page-wrapper">
 
-			<!-- LOGIN SECTION START -->
-			<div class="login-section mb-80">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="registered-customers">
-								<form th:action="@{/home/login.html}" method="POST">
-									<h6 class="widget-title border-left mb-50">Đăng nhập</h6>
-									<div class="login-account p-30 box-shadow">
-										<div class="alert alert-danger" th:if="${errorLogin != null}"
-											style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-											th:text="${errorLogin}"></div>
-										<input type="text" name="user" placeholder="Tài khoản...">
-										<input type="password" name="password"
-											placeholder="Mật khẩu...">
-										<p>
-											<a href="#" data-toggle="modal" data-target="#productModal"
-												tabindex="0">Quên mật khẩu?</a>
-										</p>
-										<!--                                    <p><a href="#" data-toggle="modal" data-target="#forgetModal" tabindex="0" style="font-size: 13px;">Quên mật khẩu?</a></p>-->
-										<button class="submit-btn-1 btn-hover-1" type="submit">Đăng
-											nhập</button>
-										<a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8284/duan2_war/home/login-google&response_type=code
-    &client_id=498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com&approval_prompt=force" >Login with Google</a>
-									</div>
-								</form>
-							</div>
-						</div>
-						<!-- new-customers -->
-						<div class="col-md-6">
-							<div class="new-customers">
-								<form th:action="@{/account/save.html}" th:object=${athUser}
-									method="POST">
-									<h6 class="widget-title border-left mb-50">Đăng ký thành
-										viên</h6>
-									<div class="alert alert-danger"
-										th:if="${mapError != null && mapError.containsKey('errorUnknown') != null}"
-										style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-										th:each="err: ${mapError.get('errorUnknown')}"
-										th:text="${err}"></div>
-									<div class="login-account p-30 box-shadow">
-										<div class="row">
-											<div class="col-sm-6">
-												<input type="text" th:field="*{firstName}" placeholder="Họ">
-												<div class="alert alert-danger"
-													th:if="${mapError != null && mapError.containsKey('firstName') != null}"
-													style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-													th:each="err: ${mapError.get('firstName')}"
-													th:text="${err}"></div>
-												<input type="text" th:field="*{lastName}" placeholder="Tên">
-												<div class="alert alert-danger"
-													th:if="${mapError != null && mapError.containsKey('lastName') != null}"
-													style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-													th:each="err: ${mapError.get('lastName')}" th:text="${err}"></div>
-											</div>
-											<div class="col-sm-6">
-												<input type="text" th:field="*{middleName}"
-													placeholder="Tên đệm">
-												<div class="alert alert-danger"
-													th:if="${mapError != null && mapError.containsKey('middleName') != null}"
-													style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-													th:each="err: ${mapError.get('middleName')}"
-													th:text="${err}"></div>
-												<select class="custom-select" name="gender">
-													<option value="" th:field="*{gender}">Giới tính</option>
-													<option value="0">Nam</option>
-													<option value="1">Nữ</option>
-												</select>
-												<div class="alert alert-danger"
-													th:if="${mapError != null && mapError.containsKey('gender') != null}"
-													style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-													th:each="err: ${mapError.get('gender')}" th:text="${err}"></div>
-											</div>
-										</div>
-										<input type="text" name="email" th:field="*{email}"
-											placeholder="Email...">
-										<div class="alert alert-danger"
-											th:if="${mapError != null && mapError.containsKey('email') != null}"
-											style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-											th:each="err: ${mapError.get('email')}" th:text="${err}"></div>
-										<input type="text" name="username" th:field="*{userName}"
-											placeholder="Tên đăng nhập...">
-										<div class="alert alert-danger"
-											th:if="${mapError != null && mapError.containsKey('userName') != null}"
-											style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-											th:each="err: ${mapError.get('userName')}" th:text="${err}"></div>
-										<input th:field="*{password}" type="password" name="password"
-											placeholder="Mật khẩu">
-										<div class="alert alert-danger"
-											th:if="${mapError != null && mapError.containsKey('password') != null}"
-											style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-											th:each="err: ${mapError.get('password')}" th:text="${err}"></div>
-										<input type="password" th:field="*{verifyPassword}"
-											name="confirmPassword" placeholder="Nhập lại mật khẩu">
-										<div class="alert alert-danger"
-											th:if="${mapError != null && mapError.containsKey('verifyPassword') != null}"
-											style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-											th:each="err: ${mapError.get('verifyPassword')}"
-											th:text="${err}"></div>
-										<div class="row">
-											<div class="col-md-6">
-												<button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
-													name="register">Đăng ký</button>
-											</div>
-											<div class="col-md-6">
-												<button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-													type="reset">Làm mới</button>
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- LOGIN SECTION END -->
-		</div>
-		<!-- End page content -->
+        <!-- LOGIN SECTION START -->
+        <div class="login-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="registered-customers">
+                            <form th:action="@{/home/login.html}" method="POST">
+                                <h6 class="widget-title border-left mb-50">Đăng nhập</h6>
+                                <div class="login-account p-30 box-shadow">
+                                    <div class="alert alert-danger" th:if="${errorLogin != null}"
+                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                         th:text="${errorLogin}"></div>
+                                    <input type="text" name="user" placeholder="Tài khoản...">
+                                    <input type="password" name="password"
+                                           placeholder="Mật khẩu...">
+                                    <p>
+                                        <a href="#" data-toggle="modal" data-target="#productModal"
+                                           tabindex="0">Quên mật khẩu?</a>
+                                    </p>
+                                    <!--                                    <p><a href="#" data-toggle="modal" data-target="#forgetModal" tabindex="0" style="font-size: 13px;">Quên mật khẩu?</a></p>-->
+                                    <button class="submit-btn-1 btn-hover-1" type="submit">Đăng
+                                        nhập
+                                    </button>
+                                    <div class="top-link clearfix" style="float: right;">
+                                        <ul class="link f-right">
+                                            <li>
+                                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8284/duan2_war/home/login-google&response_type=code
+    &client_id=498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com&approval_prompt=force" style="color: blue;"><i class="zmdi zmdi-google" style="color: #ffc107!important;font-size: 18px!important;"></i>Sign in with Google</a>
+                                            </li>
+                                        </ul>
+                                    </div>
 
-		<div id="quickview-wrapper">
-			<!-- Modal -->
-			<div class="modal fade" id="productModal" tabindex="-1" role="dialog">
-				<div class="modal-dialog" role="document"
-					style="width: 35% !important; margin-top: 15% !important;">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-						<div class="modal-body">
-							<div class="modal-product clearfix">
-								<form method="post" class="cart">
-									<label class="text-center">Quên mật khẩu</label>
-									<div class="numbers-row">
-										<input type="text" name="email" placeholder="Email..."
-											style="margin-top: 5px;">
-									</div>
-									<button class="submit-btn-1 mt-20 btn-hover-1 f-right"
-										style="margin-top: 0px !important;">Gửi</button>
-								</form>
-							</div>
-							<!-- .modal-product -->
-						</div>
-						<!-- .modal-body -->
-					</div>
-					<!-- .modal-content -->
-				</div>
-				<!-- .modal-dialog -->
-			</div>
-			<!-- END Modal -->
-		</div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!-- new-customers -->
+                    <div class="col-md-6">
+                        <div class="new-customers">
+                            <form th:action="@{/account/save.html}" th:object=${athUser}
+                                  method="POST">
+                                <h6 class="widget-title border-left mb-50">Đăng ký thành
+                                    viên</h6>
+                                <div class="alert alert-danger"
+                                     th:if="${mapError != null && mapError.containsKey('errorUnknown') != null}"
+                                     style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                     th:each="err: ${mapError.get('errorUnknown')}"
+                                     th:text="${err}"></div>
+                                <div class="login-account p-30 box-shadow">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <input type="text" th:field="*{firstName}" placeholder="Họ">
+                                            <div class="alert alert-danger"
+                                                 th:if="${mapError != null && mapError.containsKey('firstName') != null}"
+                                                 style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                 th:each="err: ${mapError.get('firstName')}"
+                                                 th:text="${err}"></div>
+                                            <input type="text" th:field="*{lastName}" placeholder="Tên">
+                                            <div class="alert alert-danger"
+                                                 th:if="${mapError != null && mapError.containsKey('lastName') != null}"
+                                                 style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                 th:each="err: ${mapError.get('lastName')}" th:text="${err}"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <input type="text" th:field="*{middleName}"
+                                                   placeholder="Tên đệm">
+                                            <div class="alert alert-danger"
+                                                 th:if="${mapError != null && mapError.containsKey('middleName') != null}"
+                                                 style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                 th:each="err: ${mapError.get('middleName')}"
+                                                 th:text="${err}"></div>
+                                            <select class="custom-select" name="gender">
+                                                <option value="" th:field="*{gender}">Giới tính</option>
+                                                <option value="0">Nam</option>
+                                                <option value="1">Nữ</option>
+                                            </select>
+                                            <div class="alert alert-danger"
+                                                 th:if="${mapError != null && mapError.containsKey('gender') != null}"
+                                                 style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                 th:each="err: ${mapError.get('gender')}" th:text="${err}"></div>
+                                        </div>
+                                    </div>
+                                    <input type="text" name="email" th:field="*{email}"
+                                           placeholder="Email...">
+                                    <div class="alert alert-danger"
+                                         th:if="${mapError != null && mapError.containsKey('email') != null}"
+                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                         th:each="err: ${mapError.get('email')}" th:text="${err}"></div>
+                                    <input type="text" name="username" th:field="*{userName}"
+                                           placeholder="Tên đăng nhập...">
+                                    <div class="alert alert-danger"
+                                         th:if="${mapError != null && mapError.containsKey('userName') != null}"
+                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                         th:each="err: ${mapError.get('userName')}" th:text="${err}"></div>
+                                    <input th:field="*{password}" type="password" name="password"
+                                           placeholder="Mật khẩu">
+                                    <div class="alert alert-danger"
+                                         th:if="${mapError != null && mapError.containsKey('password') != null}"
+                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                         th:each="err: ${mapError.get('password')}" th:text="${err}"></div>
+                                    <input type="password" th:field="*{verifyPassword}"
+                                           name="confirmPassword" placeholder="Nhập lại mật khẩu">
+                                    <div class="alert alert-danger"
+                                         th:if="${mapError != null && mapError.containsKey('verifyPassword') != null}"
+                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                         th:each="err: ${mapError.get('verifyPassword')}"
+                                         th:text="${err}"></div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit"
+                                                    name="register">Đăng ký
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                                    type="reset">Làm mới
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- LOGIN SECTION END -->
+    </div>
+    <!-- End page content -->
 
-		<!-- START FOOTER AREA -->
-		<div th:replace="fragments/navHome :: footer"></div>
-		<!-- END FOOTER AREA -->
-	</div>
-	<!-- Body main wrapper end -->
+    <div id="quickview-wrapper">
+        <!-- Modal -->
+        <div class="modal fade" id="productModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document"
+                 style="width: 35% !important; margin-top: 15% !important;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-product clearfix">
+                            <form method="post" class="cart">
+                                <label class="text-center">Quên mật khẩu</label>
+                                <div class="numbers-row">
+                                    <input type="text" name="email" placeholder="Email..."
+                                           style="margin-top: 5px;">
+                                </div>
+                                <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                        style="margin-top: 0px !important;">Gửi
+                                </button>
+                            </form>
+                        </div>
+                        <!-- .modal-product -->
+                    </div>
+                    <!-- .modal-body -->
+                </div>
+                <!-- .modal-content -->
+            </div>
+            <!-- .modal-dialog -->
+        </div>
+        <!-- END Modal -->
+    </div>
 
-	<div th:replace="fragments/initHome :: commonScript"></div>
+    <!-- START FOOTER AREA -->
+    <div th:replace="fragments/navHome :: footer"></div>
+    <!-- END FOOTER AREA -->
+</div>
+<!-- Body main wrapper end -->
+
+<div th:replace="fragments/initHome :: commonScript"></div>
 
 </body>
-<script>
-	function renderButton(){
-		gapi.signin2.render('gSignIn', {
-			'scope': 'profile email',
-			'width': 240,
-			'height': 50,
-			'longtitle': true,
-			'theme': 'dark'
-			// 'onsuccess': onSuccess,
-			// 'onfailure': onFailure
-		});
-	};
-
-</script>
 
 </html>
