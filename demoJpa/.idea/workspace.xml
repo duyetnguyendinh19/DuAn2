@@ -6,11 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="update code">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/assets/teamplates/img/logo/61394238_2286545008250305_7920442962574573568_n.jpg" afterDir="false" />
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -280,14 +278,9 @@
       <workItem from="1571999767801" duration="983000" />
       <workItem from="1572226382878" duration="10165000" />
       <workItem from="1572239066108" duration="19591000" />
-      <workItem from="1572312337733" duration="13556000" />
-    </task>
-    <task id="LOCAL-00008" summary="update code">
-      <created>1570530798591</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1570530798591</updated>
+      <workItem from="1572312337733" duration="14447000" />
+      <workItem from="1572352063024" duration="1206000" />
+      <workItem from="1572399124047" duration="1650000" />
     </task>
     <task id="LOCAL-00009" summary="update code">
       <created>1570584982331</created>
@@ -625,7 +618,14 @@
       <option name="project" value="LOCAL" />
       <updated>1572336447754</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="update code">
+      <created>1572348780082</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1572348780082</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
