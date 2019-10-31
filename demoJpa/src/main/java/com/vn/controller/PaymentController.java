@@ -12,6 +12,7 @@ import com.vn.model.BillModel;
 import com.vn.model.Cart;
 import com.vn.service.*;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -58,7 +59,7 @@ public class PaymentController {
     @Resource
     private PasswordEncoder passwordEncoder;
 
-    private final static int i = 1;
+    private static int i = 1;
 
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
@@ -154,7 +155,7 @@ public class PaymentController {
                         List<Role> roles = new ArrayList<>();
                         roles.add(authRoleService.findOne(2l));
                         Date createdDate = new DateTime().toDate();
-                        String password = "123456a@";
+                        String password = RandomStringUtils.randomAlphanumeric(6).toUpperCase();;
                         String salt = "5876695f8e4e1811";
                         String encryptPassword = "";
                         encryptPassword = passwordEncoder.encode(password);
@@ -169,8 +170,9 @@ public class PaymentController {
                         authUser.setModifiedDate(null);
                         String userName = AppUtil.convertUnicode(billModel.getName().split(" ")[2].toLowerCase() + billModel.getName().split(" ")[0].substring(0, 1).toLowerCase() + billModel.getName().split(" ")[1].substring(0, 1).toLowerCase());
 
-                        if (authUserService.findByUsername(userName) != null) {
+                        while (authUserService.checkExistByUserName(userName)) {
                             userName = userName + i;
+                            i = i++;
                         }
                         authUser.setUserName(userName);
                         authUser.setSalt(salt);
@@ -181,7 +183,7 @@ public class PaymentController {
                         authUserService.create(authUser);
                         bill.setAuthUser(authUser);
                         responseMapMail.put("userName", userName);
-                        responseMapMail.put("password", "123456a@");
+                        responseMapMail.put("password", password);
                         responseMapMail.put("name", billModel.getName());
                         new Thread(
                                 () -> {
@@ -375,7 +377,7 @@ public class PaymentController {
                     List<Role> roles = new ArrayList<>();
                     roles.add(authRoleService.findOne(2l));
                     Date createdDate = new DateTime().toDate();
-                    String password = "123456a@";
+                    String password = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
                     String salt = "5876695f8e4e1811";
                     String encryptPassword = "";
                     encryptPassword = passwordEncoder.encode(password);
@@ -391,8 +393,9 @@ public class PaymentController {
                     String userName = AppUtil.convertUnicode(model.getName().split(" ")[2].toLowerCase() + model.getName().split(" ")[0].substring(0, 1).toLowerCase() + model.getName().split(" ")[1].substring(0, 1).toLowerCase());
 //                    String userName = gmailGoogle.getEmail().split("@")[0];
 
-                    if (authUserService.findByUsername(userName) != null) {
+                    while (authUserService.checkExistByUserName(userName)) {
                         userName = userName + i;
+                        i++;
                     }
                     authUser.setUserName(userName);
                     authUser.setSalt(salt);
@@ -403,7 +406,7 @@ public class PaymentController {
                     authUserService.create(authUser);
                     bill.setAuthUser(authUser);
                     responseMapMail.put("userName", userName);
-                    responseMapMail.put("password", "123456a@");
+                    responseMapMail.put("password", password);
                     responseMapMail.put("name", model.getName());
                     new Thread(
                             () -> {

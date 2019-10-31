@@ -9,16 +9,24 @@
         font-family: "Segoe UI";
         vertical-align: inherit;
     }
+
     .text-table-body {
         text-align: left;
         vertical-align: inherit;
         font-family: "Segoe UI";
         font-size: 15px;
     }
+
+    .modal-dialog {
+        width: 60% !important;
+    }
 </style>
-<link rel="stylesheet" type="text/css" media="all" href="bootstrap-daterangepicker/daterangepicker-bs3.css" th:href="@{/resources/bootstrap-daterangepicker/daterangepicker-bs3.css}"/>
-<link href="../../../resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet"  th:href="@{/resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css}"/>
-<link href="../../../resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css" rel="stylesheet"  th:href="@{/resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css}"/>
+<link rel="stylesheet" type="text/css" media="all" href="bootstrap-daterangepicker/daterangepicker-bs3.css"
+      th:href="@{/resources/bootstrap-daterangepicker/daterangepicker-bs3.css}"/>
+<link href="../../../resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css" rel="stylesheet"
+      th:href="@{/resources/bootstrap3-dialog/dist/css/bootstrap-dialog.min.css}"/>
+<link href="../../../resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css" rel="stylesheet"
+      th:href="@{/resources/bootstrap-select-1.12.4/dist/css/bootstrap-select.css}"/>
 <body>
 <div id="wrapper">
     <div id="nav_id" th:replace="nav :: div">
@@ -51,11 +59,13 @@
                         <div class="col-lg-4">
                             <label>Từ ngày - đến ngày</label>
                             <div class="input-prepend input-group">
-                                <span class="add-on input-group-addon"><i class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                <input type="text" name="from_date" id="from_date" hidden="true" th:value="${from_date}"/>
-                                <input type="text" name="to_date" id="to_date" hidden="true"  th:value="${to_date}"/>
+                                <span class="add-on input-group-addon"><i
+                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
+                                <input type="text" name="from_date" id="from_date" hidden="true"
+                                       th:value="${from_date}"/>
+                                <input type="text" name="to_date" id="to_date" hidden="true" th:value="${to_date}"/>
                                 <input type="text" style="width: 100%" id="timePicker" class="form-control span4"
-                                       value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly" />
+                                       value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly"/>
                             </div>
                         </div>
                         <div class="col-lg-2">
@@ -63,8 +73,10 @@
                             <div>
                                 <select class=" form-control" name="status" th:value="${status}">
                                     <option value="0" th:attr="selected =${status}== '0' ? 'selected'">Tất cả</option>
-                                    <option value="1" th:attr="selected =${status}== '1' ? 'selected'">Đã thanh toán</option>
-                                    <option value="2" th:attr="selected =${status}== '2' ? 'selected'">Chưa thanh toán</option>
+                                    <option value="1" th:attr="selected =${status}== '1' ? 'selected'">Đã thanh toán
+                                    </option>
+                                    <option value="2" th:attr="selected =${status}== '2' ? 'selected'">Chưa thanh toán
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -109,6 +121,7 @@
                                     <th class="text-table-header">Trạng thái HĐ</th>
                                     <th class="text-table-header">#</th>
                                     <th class="text-table-header">#</th>
+                                    <th class="text-table-header">#</th>
                                 </tr>
                                 </thead>
                                 <tbody th:if="${page}!=null">
@@ -119,12 +132,16 @@
                                         <span th:if="${eachRow.payment == 0}">Thanh toán trực tiếp</span>
                                         <span th:if="${eachRow.payment == 1}">Thanh toán online</span>
                                     </td>
-                                    <td class="text-table-body" th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
+                                    <td class="text-table-body"
+                                        th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
                                     <td class="text-table-body" style="text-align: center;">
-                                        <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán</button>
-                                        <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán</button>
+                                        <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán
+                                        </button>
+                                        <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán
+                                        </button>
                                     </td>
-                                    <td class="text-table-body" style="text-align: center;" th:switch="${eachRow.typeStatus}">
+                                    <td class="text-table-body" style="text-align: center;"
+                                        th:switch="${eachRow.typeStatus}">
                                         <button class="btn btn-success" th:case="'0'">Đã nhận</button>
                                         <button class="btn btn-warning" th:case="'1'">Đã hủy</button>
                                         <button class="btn btn-error" th:case="'2'">Boom hàng</button>
@@ -133,116 +150,200 @@
                                         <button class="btn btn-success" th:case="'5'">Đang xác nhận</button>
                                     </td>
                                     <td class="text-table-body">
-                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'" data-toggle="tooltip" title="Xác nhận thanh toán" th:if="${eachRow.status == 2} and ${eachRow.typeStatus} != 1 and ${eachRow.typeStatus} != 2">
+                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'"
+                                           data-toggle="tooltip" title="Xác nhận thanh toán"
+                                           th:if="${eachRow.status == 2} and ${eachRow.typeStatus} != 1 and ${eachRow.typeStatus} != 2">
                                             <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
                                         </a>
                                         <label th:if="${eachRow.status} == 1">&nbsp;</label>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-info btn-circle" th:onclick="'updateStatusType(\'' + ${eachRow.id} + '\')'" data-toggle="modal" data-target="#updateStatusPayment"
-                                            title="Cập nhật trạng thái đơn hàng"><i
+                                        <button type="button" class="btn btn-info btn-circle"
+                                                th:onclick="'updateStatusType(\'' + ${eachRow.id} + '\')'"
+                                                data-toggle="modal" data-target="#updateStatusPayment"
+                                                title="Cập nhật trạng thái đơn hàng"><i
                                                 class="fa fa-edit"></i></button>
+                                    </td>
+                                    <td>
+                                        <button type="button" th:onclick="'billDetail(\'' + ${eachRow.id} + '\')'"
+                                                class="btn btn-default btn-circle" data-toggle="modal"
+                                                data-target="#billModal"
+                                                title="Hóa đơn chi tiết"><i class="fa fa-eye"></i></button>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Modal -->
-                        <div id="updateStatusPayment" class="modal fade" role="dialog">
-                            <div class="modal-dialog">
 
-                                <!-- Modal content-->
+                        <div class="modal fade" id="billModal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">Cập nhật trạng thái đơn hàng</h4>
+                                    <div class="modal-header" style="height: 50px;">
+                                        <label>Chi tiết hóa đơn</label>
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-label="Close"><span
+                                                aria-hidden="true">&times;</span></button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <input type="hidden" id="idBill"/>
-                                                <div class="form-group">
-                                                    <div>Mã hóa đơn</div>
-                                                    <input class="form-control" id="code" type="text" readonly style="background: white;"/>
+                                    <div class="modal-body" style="padding-top: 0px!important;">
+                                        <div class="modal-product clearfix">
+                                            <div class="product-info">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
+                                                        <h4>Thông tin sản phẩm</h4>
+                                                    </div>
+                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
+                                                        <h4>Thông tin hóa đơn</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;"
+                                                         id="leftDetail">
+                                                    </div>
+                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
+                                                        <div class="col-lg-12"
+                                                             style="margin-top: 10px;padding: 0px!important;">
+                                                            <span style="display:inline-flex;width: 100%;">Tên KH:&nbsp;<p
+                                                                    id="nameCustomer"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">Mã HĐ:&nbsp;<p
+                                                                    id="codeBill"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">Email:&nbsp;<p
+                                                                    id="emailCustomer"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">SĐT:&nbsp;<p
+                                                                    id="mobileCustomer"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">Địa chỉ:&nbsp;<p
+                                                                    id="addressCustomer"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">Ngày đặt hàng:&nbsp;<p
+                                                                    id="createdBill"></p></span>
+                                                            <span style="display:inline-flex;width: 100%;">PTTT:&nbsp;
+                                                                    <p id="paymentBill"></p>
+                                                                </span>
+                                                            <span style="display:inline-flex;width: 100%;">Trang thái:&nbsp;
+                                                                    <p id="statusBill"></p>
+                                                                </span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div>Tên KH</div>
-                                                    <input class="form-control" id="nameCus" type="text" readonly style="background: white;"/>
-                                                </div>
+                                        </div><!-- .product-info -->
+                                    </div><!-- .modal-product -->
+                                </div><!-- .modal-body -->
+                            </div><!-- .modal-content -->
+                        </div><!-- .modal-dialog -->
+                    </div>
+
+                    <!-- Modal -->
+                    <div id="updateStatusPayment" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Cập nhật trạng thái đơn hàng</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <input type="hidden" id="idBill"/>
+                                            <div class="form-group">
+                                                <div>Mã hóa đơn</div>
+                                                <input class="form-control" id="code" type="text" readonly
+                                                       style="background: white;"/>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div>SĐT</div>
-                                                    <input class="form-control" id="phoneCus" type="text" readonly style="background: white;"/>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>Tên KH</div>
+                                                <input class="form-control" id="nameCus" type="text" readonly
+                                                       style="background: white;"/>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div>Email</div>
-                                                    <input class="form-control" id="emailCus" type="text" readonly style="background: white;"/>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>SĐT</div>
+                                                <input class="form-control" id="phoneCus" type="text" readonly
+                                                       style="background: white;"/>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div>Địa chỉ</div>
-                                                    <input class="form-control" id="addCus" type="text" readonly style="background: white;"/>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>Email</div>
+                                                <input class="form-control" id="emailCus" type="text" readonly
+                                                       style="background: white;"/>
                                             </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <div>Trạng thái</div>
-                                                    <select class="form-control" id="typeStatus">
-                                                        <option value="0">Đã nhận</option>
-                                                        <option value="1">Đã hủy</option>
-                                                        <option value="2">KH không nhận</option>
-                                                        <option value="3">Đang giao hàng</option>
-                                                        <option value="4">Đang đóng gói</option>
-                                                        <option value="5">Đang xác nhận</option>
-                                                    </select>
-                                                </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>Địa chỉ</div>
+                                                <input class="form-control" id="addCus" type="text" readonly
+                                                       style="background: white;"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <div>Trạng thái</div>
+                                                <select class="form-control" id="typeStatus">
+                                                    <option value="0">Đã nhận</option>
+                                                    <option value="1">Đã hủy</option>
+                                                    <option value="2">KH không nhận</option>
+                                                    <option value="3">Đang giao hàng</option>
+                                                    <option value="4">Đang đóng gói</option>
+                                                    <option value="5">Đang xác nhận</option>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" class="btn btn-primary" id="updateStatus">Cập nhật</button>
-                                    </div>
                                 </div>
-
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="updateStatus">Cập nhật
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
-                        <!-- /.table-responsive -->
                     </div>
-                    <!-- /.panel-body -->
+                    <!-- /.table-responsive -->
                 </div>
-                <!-- /.panel -->
+                <!-- /.panel-body -->
             </div>
-            <!-- /.col-lg-6 -->
+            <!-- /.panel -->
         </div>
-        <!-- /.row -->
-        <!-- /.row -->
-        <div th:replace="fragments/panigator :: content(page = ${page})"></div>
+        <!-- /.col-lg-6 -->
     </div>
-    <!-- /#page-wrapper -->
+    <!-- /.row -->
+    <!-- /.row -->
+    <div th:replace="fragments/panigator :: content(page = ${page})"></div>
+</div>
+<!-- /#page-wrapper -->
 </div>
 <!-- /#wrapper -->
 
 <div th:replace="fragments/init :: commonScript"></div>
 <!-- Core Scripts - Include with every page -->
-<script src="../../resources/sb-admin-v2/js/jquery-1.10.2.js" th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js}"></script>
-<script src="../../resources/sb-admin-v2/js/bootstrap.min.js" th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js}"></script>
-<script src="../../resources/sb-admin-v2/js/bootstrap-switch.js" th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
-<script src="../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js" th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+<script src="../../resources/sb-admin-v2/js/jquery-1.10.2.js"
+        th:src="@{/resources/sb-admin-v2/js/jquery-1.10.2.js}"></script>
+<script src="../../resources/sb-admin-v2/js/bootstrap.min.js"
+        th:src="@{/resources/sb-admin-v2/js/bootstrap.min.js}"></script>
+<script src="../../resources/sb-admin-v2/js/bootstrap-switch.js"
+        th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
 <!-- Page-Level Plugin Scripts - Dashboard -->
-<script src="../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js" th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js}"></script>
-<script src="../../resources/sb-admin-v2/js/plugins/morris/morris.js" th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/morris/raphael-2.1.0.min.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/morris/morris.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/morris/morris.js}"></script>
 <!-- Page-Level Plugin Scripts - Tables -->
-<script src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js" th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
-<link rel="stylesheet" type="text/css" media="all" href="bootstrap-daterangepicker/daterangepicker-bs3.css" th:href="@{/resources/bootstrap-daterangepicker/daterangepicker-bs3.css}"/>
-<script type="text/javascript" src="bootstrap-daterangepicker/moment.js" th:src="@{/resources/bootstrap-daterangepicker/moment.js}"></script>
-<script type="text/javascript" src="bootstrap-daterangepicker/daterangepicker.js" th:src="@{/resources/bootstrap-daterangepicker/daterangepicker.js}"></script>
+<script src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
+<link rel="stylesheet" type="text/css" media="all" href="bootstrap-daterangepicker/daterangepicker-bs3.css"
+      th:href="@{/resources/bootstrap-daterangepicker/daterangepicker-bs3.css}"/>
+<script type="text/javascript" src="bootstrap-daterangepicker/moment.js"
+        th:src="@{/resources/bootstrap-daterangepicker/moment.js}"></script>
+<script type="text/javascript" src="bootstrap-daterangepicker/daterangepicker.js"
+        th:src="@{/resources/bootstrap-daterangepicker/daterangepicker.js}"></script>
 <script src="https://cdn.jsdelivr.net/autonumeric/2.0.0/autoNumeric.min.js"></script>
 
 <script th:inline="javascript">
@@ -257,20 +358,20 @@
         "timePicker24Hour": true,
         "timePickerIncrement": 1,
         "format": 'DD/MM/YYYY HH:mm',
-    }, function(start, end, label) {
+    }, function (start, end, label) {
         $('#from_date').val(start.format('DD/MM/YYYY HH:mm'));
         $('#to_date').val(end.format('DD/MM/YYYY HH:mm'));
     });
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#table-question').DataTable({
-            "order": [ 0, 'asc' ],
-            "aoColumnDefs": [ {
-                'bSortable' : false,
-                'aTargets' : [ 0 ]
-            } ],
+            "order": [0, 'asc'],
+            "aoColumnDefs": [{
+                'bSortable': false,
+                'aTargets': [0]
+            }],
             "paging": false,
             "info": false,
             "searching": false,
@@ -320,19 +421,77 @@
         });
     }
 
-    $('#updateStatus').on('click', function(){
+    $('#updateStatus').on('click', function () {
         var id = $('#idBill').val();
         var type = $('#typeStatus').val();
         $.ajax({
             url: currUrl + 'bill/status/update.html',
             method: 'POST',
-            data: {'id': id,'type' : type},
+            data: {'id': id, 'type': type},
             contentType: 'application/x-www-form-urlencoded',
             success: function (response) {
                 window.location.reload();
             }
         });
     });
+
+    function formatNumberString(numberStr) {
+        if (typeof numberStr === 'number') {
+            numberStr = numberStr.toString();
+        }
+        return numberStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+    }
+
+    function billDetail(id) {
+        $.ajax({
+            url: currUrl + 'bill/billDetail',
+            method: 'GET',
+            data: {'id': id},
+            contentType: 'application/x-www-form-urlencoded',
+            success: function (response) {
+                var data = JSON.parse(response);
+                console.log(data)
+                var html;
+                if (data != null) {
+                    for (var each of data) {
+                        html += ` <div class="col-lg-12" style="margin-top: 10px;padding: 0px!important;">
+                                      <img class="col-lg-5" id="mainImgProduct" src="${each.mainImg}" style="padding: 0px!important;"/>
+                                       <div class="col-lg-7">
+                                             <span style="display:inline-flex;width: 100%;">Tên SP:&nbsp;<p id="nameProduct">${each.nameProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;">Giá SP:&nbsp;<p id="priceProduct">${each.priceProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;" id="salce">Giảm giá:&nbsp;<p id="priceSaleProduct">${each.priceSaleProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;">Số lượng:&nbsp;<p id="quantity">${each.quantity}</p></span>
+                                       </div>
+                                   </div>`
+                    }
+                    $('#leftDetail').html(html);
+                    $('#nameCustomer').text(data[0].nameBill);
+                    $('#emailCustomer').text(data[0].emailBill);
+                    $('#addressCustomer').text(data[0].addressBill);
+                    $('#codeBill').text(data[0].codeBill);
+                    $('#mobileCustomer').text(data[0].mobileBill);
+                    $('#createdBill').text(moment(data[0].createdBill).format('DD/MM/YYYY HH:mm:ss'));
+                    if (data[0].statusBill == 1) {
+                        $('#statusBill').text('Đã thanh toán');
+                        $('#statusBill').css({'color': 'green', 'font-weight': 'bold'});
+                    }
+                    if (data[0].statusBill == 2) {
+                        $('#statusBill').text('Chưa thanh toán');
+                        $('#statusBill').css({'color': '#ff9800', 'font-weight': 'bold'});
+                    }
+                    if (data[0].paymentBill == 0) {
+                        $('#paymentBill').text('Thanh toán trực tiếp');
+                        $('#paymentBill').css({'font-weight': 'bold'});
+                    }
+                    if (data[0].paymentBill == 1) {
+                        $('#paymentBill').text('Thanh toán online');
+                        $('#paymentBill').css({'font-weight': 'bold'});
+                    }
+                }
+            }
+        });
+    }
+
 </script>
 
 </body>

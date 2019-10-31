@@ -30,4 +30,6 @@ public interface AuthUserService  {
     List<Long> findRolesByUserId(Long userId);
     
     AuthUser findByUserNameANDPassword(String user,String pass);
+
+    boolean checkExistByUserName(String user);
 }

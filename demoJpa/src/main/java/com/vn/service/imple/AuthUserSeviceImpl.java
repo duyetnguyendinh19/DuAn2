@@ -110,4 +110,14 @@ public class AuthUserSeviceImpl implements AuthUserService {
 	public AuthUser findByUserNameANDPassword(String user, String pass) {
 		return authUserRepo.findByUserNameAndPassword(user, pass);
 	}
+
+    @Override
+    public boolean checkExistByUserName(String user) {
+        boolean result = false;
+        Long id = authUserRepo.checkExistByUserName(user);
+        if (id != null && id > 0) {
+            result = true;
+        }
+        return result;
+    }
 }

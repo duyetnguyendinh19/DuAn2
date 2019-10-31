@@ -33,4 +33,9 @@ public interface AuthUserRepo extends JpaRepository<AuthUser, Long> {
     AuthUser findByEmail(String email);
     
     AuthUser findByUserNameAndPassword(String user,String pass);
+
+    @Query(value = "SELECT au.id FROM AuthUser au "
+            + " WHERE (au.userName = :user)"
+            , nativeQuery = false)
+    Long checkExistByUserName(@Param(value = "user") String user);
 }

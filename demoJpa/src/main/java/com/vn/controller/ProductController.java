@@ -161,6 +161,9 @@ public class ProductController {
             if (model.getPrice() == 0) {
                 responseMap.put("price", "Giá sản phẩm không được để trống");
             }
+            if(Strings.isNullOrEmpty(model.getDescription())){
+                responseMap.put("description","Nội dung sản phẩm không được để trống");
+            }
             if (Strings.isNullOrEmpty(model.getInfo())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");
             }
@@ -264,6 +267,9 @@ public class ProductController {
             }
             if (model.getPrice() == 0L) {
                 responseMap.put("price", "Giá sản phẩm không được để trống");
+            }
+            if(Strings.isNullOrEmpty(model.getDescription())){
+                responseMap.put("description","Nội dung sản phẩm không được để trống");
             }
             if (Strings.isNullOrEmpty(model.getInfo())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");

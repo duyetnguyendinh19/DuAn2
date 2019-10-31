@@ -4,18 +4,19 @@ import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
-import com.vn.jpa.AuthUser;
 import com.vn.jpa.Bill;
+import com.vn.jpa.Product_Bill;
 import com.vn.model.BillModel;
+import com.vn.model.ProductBillModel;
 import com.vn.service.BillService;
+import com.vn.service.ProductService;
+import com.vn.service.Product_BillService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/bill/")
@@ -33,6 +34,12 @@ public class BillController {
 
     @Resource
     private BillService billService;
+
+    @Resource
+    private Product_BillService productBillService;
+
+    @Resource
+    private ProductService productService;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private String DELETE = "N";
@@ -80,7 +87,11 @@ public class BillController {
 
             Sort sort = new Sort(Sort.Direction.DESC, "id");
             Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-            Page<Bill> page = billService.findAllBill(_fromDate, _toDate, status,code, DELETE, _pageable);
+            Page<Bill> page = billService.findAllBill(_fromDate, _toDate, status, code, DELETE, _pageable);
+            for (Bill bill : page.getContent()) {
+                List<Product_Bill> lsproductBill = productBillService.findByBill_Id(bill.getId());
+                model.addAttribute("bill", lsproductBill);
+            }
             model.addAttribute("page", page);
             session.setAttribute("from_date", sdf.format(_fromDate));
             session.setAttribute("to_date", sdf.format(_toDate));
@@ -90,25 +101,26 @@ public class BillController {
         return "admin/bill/list";
     }
 
-    @RequestMapping(value = "accept/{id}/payment.html", method =  RequestMethod.GET)
+    @RequestMapping(value = "accept/{id}/payment.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public String acceptPayment(@PathVariable("id") Long id, HttpSession session){
+    public String acceptPayment(@PathVariable("id") Long id, HttpSession session) {
         try {
             Bill bill = billService.findOne(id);
-            if(bill != null){
+            if (bill != null) {
                 bill.setStatus(1);
                 bill.setCreateBy((String) session.getAttribute("account"));
                 billService.update(bill);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/bill/list.html";
     }
 
-    @RequestMapping(value = "getOne/list.html", method =  RequestMethod.GET)
+    @RequestMapping(value = "getOne/list.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public @ResponseBody String getOne(@RequestParam("id") Long id){
+    public @ResponseBody
+    String getOne(@RequestParam("id") Long id) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         BillModel model = new BillModel();
         try {
@@ -120,7 +132,7 @@ public class BillController {
             model.setTypeStatus(bill.getTypeStatus());
             model.setEmail(bill.getEmail());
             model.setId(bill.getId());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return gson.toJson(model);
@@ -128,19 +140,51 @@ public class BillController {
 
     @RequestMapping(value = "status/update.html", method = RequestMethod.POST)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
-    public String update(@RequestParam("id") Long id, @RequestParam("type") Integer statusType){
+    public String update(@RequestParam("id") Long id, @RequestParam("type") Integer statusType) {
         try {
             Bill bill = billService.findOne(id);
-            if(bill != null){
-                bill.setTypeStatus( statusType);
-                if(statusType == 0){
+            if (bill != null) {
+                bill.setTypeStatus(statusType);
+                if (statusType == 0) {
                     bill.setStatus(1);
                 }
                 billService.update(bill);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/bill/list.html";
+    }
+
+    @RequestMapping(value = "billDetail", method = RequestMethod.GET)
+    public @ResponseBody
+    String findProductBillById(@RequestParam("id") Long idBill) {
+        List<Product_Bill> lsproductBill = new ArrayList<Product_Bill>();
+        Gson gson = new Gson();
+        List<ProductBillModel> lsBillModel = new ArrayList<>();
+        try {
+            lsproductBill = productBillService.findByBill_Id(idBill);
+            for (Product_Bill each : lsproductBill) {
+                ProductBillModel billModel = new ProductBillModel();
+                billModel.setAddressBill(each.getBill().getAddress());
+                billModel.setCodeBill(each.getBill().getCode());
+                billModel.setCreatedBill(each.getBill().getCreateDate());
+                billModel.setEmailBill(each.getBill().getEmail());
+                billModel.setId(each.getId());
+                billModel.setMainImg(each.getProduct().getMainImg());
+                billModel.setMobileBill(each.getBill().getMobile());
+                billModel.setNameBill(each.getBill().getName());
+                billModel.setPaymentBill(each.getBill().getPayment());
+                billModel.setPriceProduct(each.getProduct().getPrice());
+                billModel.setPriceSaleProduct(each.getProduct().getPriceSale());
+                billModel.setStatusBill(each.getBill().getStatus());
+                billModel.setNameProduct(each.getProduct().getName());
+                billModel.setQuantity(each.getQuantity());
+                lsBillModel.add(billModel);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return gson.toJson(lsBillModel);
     }
 }
