@@ -69,4 +69,9 @@ public class ProductServiceImpl implements ProductService {
     public Product findAllByNameAndIsdelete(String name, String isdelete) {
         return productRepo.findAllByNameAndIsdelete(name, isdelete);
     }
+
+    @Override
+    public Page<Product> findByCategoryParentAndIsdelete(Long parenId, String isdelete, Pageable pageable) {
+        return productRepo.findAllByCategoryParentAndIsdelete(parenId,isdelete,pageable);
+    }
 }

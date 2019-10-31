@@ -155,7 +155,8 @@ public class PaymentController {
                         List<Role> roles = new ArrayList<>();
                         roles.add(authRoleService.findOne(2l));
                         Date createdDate = new DateTime().toDate();
-                        String password = RandomStringUtils.randomAlphanumeric(6).toUpperCase();;
+                        String password = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
+                        ;
                         String salt = "5876695f8e4e1811";
                         String encryptPassword = "";
                         encryptPassword = passwordEncoder.encode(password);
@@ -200,65 +201,65 @@ public class PaymentController {
                         user.setId(userAutoEmail.getId());
                         bill.setAuthUser(user);
                     }
-                    if (responeMap.size() == 0) {
-                        String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+                }
+                if (responeMap.size() == 0) {
+                    String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
 
-                        bill.setPayment(billModel.getPayment());
-                        bill.setTotal(billModel.getTotal());
-                        bill.setIsDelete("N");
-                        bill.setStatus(2);
-                        bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
+                    bill.setPayment(billModel.getPayment());
+                    bill.setTotal(billModel.getTotal());
+                    bill.setIsDelete("N");
+                    bill.setStatus(2);
+                    bill.setTypeStatus(Bill.STATUSPAYMENT.ORDER.value());
 //                        bill.setAuthUser(user);
-                        bill.setAddress(billModel.getAddress());
-                        bill.setName(billModel.getName());
-                        bill.setEmail(billModel.getEmail());
-                        bill.setMobile(billModel.getMobile());
-                        while (billService.checkExistByCode(code)) {
-                            code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+                    bill.setAddress(billModel.getAddress());
+                    bill.setName(billModel.getName());
+                    bill.setEmail(billModel.getEmail());
+                    bill.setMobile(billModel.getMobile());
+                    while (billService.checkExistByCode(code)) {
+                        code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
+                    }
+                    bill.setCode(code);
+                    bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
+                    billService.insert(bill);
+
+                    HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                    for (Map.Entry<Long, Cart> each : map.entrySet()) {
+                        Product product = new Product();
+                        Product_Bill productBill = new Product_Bill();
+                        product.setId(each.getValue().getProduct().getId());
+                        productBill.setProduct(product);
+                        productBill.setQuantity(each.getValue().getQuantity());
+                        productBill.setIsdelete("N");
+                        productBill.setBill(bill);
+                        productBillService.insert(productBill);
+
+                        Product pro = productService.findOne(each.getValue().getProduct().getId());
+                        if (pro != null) {
+                            if (pro.getQuantity() < each.getValue().getQuantity()) {
+                                responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                            } else {
+                                pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                                productService.update(pro);
+                                responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
+                                session.removeAttribute("myCartItems");
+                                session.removeAttribute("myCartTotal");
+                                session.removeAttribute("myCartNum");
+                            }
                         }
-                        bill.setCode(code);
-                        bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
-                        billService.insert(bill);
 
-                        HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-                        for (Map.Entry<Long, Cart> each : map.entrySet()) {
-                            Product product = new Product();
-                            Product_Bill productBill = new Product_Bill();
-                            product.setId(each.getValue().getProduct().getId());
-                            productBill.setProduct(product);
-                            productBill.setQuantity(each.getValue().getQuantity());
-                            productBill.setIsdelete("N");
-                            productBill.setBill(bill);
-                            productBillService.insert(productBill);
-
-                            Product pro = productService.findOne(each.getValue().getProduct().getId());
-                            if (pro != null) {
-                                if (pro.getQuantity() < each.getValue().getQuantity()) {
-                                    responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
-                                } else {
-                                    pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
-                                    productService.update(pro);
-                                    responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
-                                    session.removeAttribute("myCartItems");
-                                    session.removeAttribute("myCartTotal");
-                                    session.removeAttribute("myCartNum");
+                    }
+                    responseMapMail.put("bill", bill);
+                    new Thread(
+                            () -> {
+                                try {
+                                    GoogleMailSender mailSender = new GoogleMailSender();
+                                    final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
+                                    mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
                                 }
                             }
-
-                        }
-                        responseMapMail.put("bill", bill);
-                        new Thread(
-                                () -> {
-                                    try {
-                                        GoogleMailSender mailSender = new GoogleMailSender();
-                                        final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
-                                        mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", billModel.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                        ).start();
-                    }
+                    ).start();
                 }
             }
         } catch (Exception e) {

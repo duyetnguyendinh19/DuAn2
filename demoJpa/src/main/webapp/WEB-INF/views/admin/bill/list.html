@@ -196,8 +196,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;"
-                                                         id="leftDetail">
+                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;" id="leftDetail">
                                                     </div>
                                                     <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
                                                         <div class="col-lg-12"
@@ -450,17 +449,16 @@
             contentType: 'application/x-www-form-urlencoded',
             success: function (response) {
                 var data = JSON.parse(response);
-                console.log(data)
                 var html;
                 if (data != null) {
                     for (var each of data) {
                         html += ` <div class="col-lg-12" style="margin-top: 10px;padding: 0px!important;">
-                                      <img class="col-lg-5" id="mainImgProduct" src="${each.mainImg}" style="padding: 0px!important;"/>
+                                      <img class="col-lg-5" src="${each.mainImg}" style="padding: 0px!important;"/>
                                        <div class="col-lg-7">
-                                             <span style="display:inline-flex;width: 100%;">Tên SP:&nbsp;<p id="nameProduct">${each.nameProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;">Giá SP:&nbsp;<p id="priceProduct">${each.priceProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;" id="salce">Giảm giá:&nbsp;<p id="priceSaleProduct">${each.priceSaleProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;">Số lượng:&nbsp;<p id="quantity">${each.quantity}</p></span>
+                                             <span style="display:inline-flex;width: 100%;">Tên SP:&nbsp;<p>${each.nameProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;">Giá SP:&nbsp;<p>${each.priceProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;" id="salce">Giảm giá:&nbsp;<p>${each.priceSaleProduct}</p></span>
+                                             <span style="display:inline-flex;width: 100%;">Số lượng:&nbsp;<p>${each.quantity}</p></span>
                                        </div>
                                    </div>`
                     }

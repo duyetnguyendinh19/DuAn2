@@ -29,4 +29,6 @@ public interface ProductService {
     Page<Product> findAllProduct(Date fromDate, Date toDate, String name,String isDelete, Pageable pageable);
 
     Product findAllByNameAndIsdelete(String name, String isdelete);
+
+    Page<Product> findByCategoryParentAndIsdelete(Long parenId, String isdelete,Pageable pageable);
 }

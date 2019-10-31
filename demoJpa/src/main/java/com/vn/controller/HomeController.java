@@ -175,6 +175,15 @@ public class HomeController {
         return "home/product";
     }
 
+//    @RequestMapping(value = "/home/{id}/list/product.html", method = {RequestMethod.GET})
+//    public String listProduct(Model model, @PathVariable("id") Long parentId, Pageable pageable){
+//        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+//        Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
+//        Page<Product> page = productService.findByCategoryParentAndIsdelete(parentId, "N", _page);
+//        model.addAttribute("page", page);
+//        return "home/product";
+//    }
+
     @RequestMapping(value = "/home/single-product.html", method = RequestMethod.GET)
     public @ResponseBody
     String category(@RequestParam("id") Long id) {
