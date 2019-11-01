@@ -8,10 +8,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
+import java.lang.reflect.Array;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Pattern;
 
 
@@ -30,10 +34,12 @@ public class PasswordMD5 {
 
     @Test
     public void testPassword() throws Exception {
-        String name = "Bùi Văn Tấn";
-        String temp = Normalizer.normalize(name, Normalizer.Form.NFD);
-        Pattern pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+");
-        System.out.println(pattern.matcher(temp).replaceAll(""));
+//       List<Long> ls = new ArrayList<>();
+//       ls.add(1);
+//       ls.add(2);
+//       ls.add(3);
+//       ls.add(4);
+//       System.out.println(ls);
     }
 
     @Test

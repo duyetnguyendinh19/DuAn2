@@ -34,6 +34,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.*;
 
 @Controller
@@ -76,7 +77,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/login-google", method = {RequestMethod.GET})
-    public String loginGoogle(@RequestParam("code") String code,HttpSession session) throws IOException {
+    public String loginGoogle(@RequestParam("code") String code, HttpSession session) throws IOException {
         if (code == null || code.isEmpty()) {
             return "home/login";
         } else {
@@ -84,7 +85,7 @@ public class HomeController {
             GmailGoogle googlePojo = GoogleUtils.getUserInfo(accessToken);
             try {
                 gmailGoogleService.insert(googlePojo);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             session.setAttribute("userGoogle", googlePojo);
@@ -175,14 +176,24 @@ public class HomeController {
         return "home/product";
     }
 
-//    @RequestMapping(value = "/home/{id}/list/product.html", method = {RequestMethod.GET})
-//    public String listProduct(Model model, @PathVariable("id") Long parentId, Pageable pageable){
-//        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
-//        Pageable _page = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-//        Page<Product> page = productService.findByCategoryParentAndIsdelete(parentId, "N", _page);
-//        model.addAttribute("page", page);
-//        return "home/product";
-//    }
+    @RequestMapping(value = "/home/{id}/list/product.html", method = {RequestMethod.GET})
+    public String listProduct(Model model, @PathVariable("id") Long parentId, Pageable pageable) {
+        try {
+            List<BigInteger> lsCate = categoryService.getListCategoryById(parentId, "Y", "N");
+            List<Long> lsLong = new ArrayList<>();
+            for(BigInteger each : lsCate){
+                lsLong.add(each.longValue());
+            }
+            Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+            Pageable _page = new PageRequest(pageable.getPageNumber(), 8, sort);
+            Page<Product> page = productService.findByCategoryParentAndIsdelete(lsLong, "N", _page);
+//            model.addAttribute("name", lsCate);
+            model.addAttribute("page", page);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "home/product";
+    }
 
     @RequestMapping(value = "/home/single-product.html", method = RequestMethod.GET)
     public @ResponseBody
@@ -214,7 +225,7 @@ public class HomeController {
                 model.addAttribute("address", infomation.getAddress());
             }
         }
-        if(gmailGoogle != null){
+        if (gmailGoogle != null) {
             model.addAttribute("name", gmailGoogle.getName());
             model.addAttribute("email", gmailGoogle.getEmail());
         }

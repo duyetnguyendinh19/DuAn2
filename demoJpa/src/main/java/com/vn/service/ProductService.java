@@ -30,5 +30,5 @@ public interface ProductService {
 
     Product findAllByNameAndIsdelete(String name, String isdelete);
 
-    Page<Product> findByCategoryParentAndIsdelete(Long parenId, String isdelete,Pageable pageable);
+    Page<Product> findByCategoryParentAndIsdelete(List<Long> categoryId, String isdelete,Pageable pageable);
 }

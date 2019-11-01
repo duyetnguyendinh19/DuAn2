@@ -1,5 +1,6 @@
 package com.vn.service;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -30,4 +31,6 @@ public interface CategoryService {
 	List<Category> findAllCateList(long id, String name, String delete, String active);
 
 	List<Category> findByParentIdAndIsActiveAndIsDelete(Long id, String isActive, String isDelete);
+
+	List<BigInteger> getListCategoryById(Long parentId, String active, String delete);
 }

@@ -1,5 +1,6 @@
 package com.vn.repository;
 
+import com.vn.jpa.Category;
 import com.vn.jpa.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,7 +35,6 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Product findAllByNameAndIsdelete(String name, String isdelete);
 
-//    @Query(value = "SELECT p FROM Product p WHERE (p.category.parent = :id) AND (p.isdelete = :isdelete)", nativeQuery = false)
-//    Page<Product> findAllByCategoryParentAndIsdelete(@Param("id") Long parenId,@Param("isdelete") String isdelete, Pageable pageable);
-    Page<Product> findAllByCategoryParentAndIsdelete(Long parenId, String isdelete, Pageable pageable);
+    @Query(value = "SELECT p FROM Product p WHERE p.category.id IN (:lsCategoryId) AND (p.isdelete = :isdelete)", nativeQuery = false)
+    Page<Product> findAllByCategoryParentAndIsdelete(@Param("lsCategoryId") List<Long> categoryId,@Param("isdelete") String isdelete, Pageable pageable);
 }

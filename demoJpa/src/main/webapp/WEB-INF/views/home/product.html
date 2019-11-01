@@ -119,7 +119,7 @@
                 <div class="row">
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="section-title text-left mb-40">
-                            <h2 class="uppercase" th:text="'Sản phẩm ' + ${name}">Sản
+                            <h2 class="uppercase" th:if="${name} != null" th:text="'Sản phẩm ' + ${name}">Sản
                                 phẩm</h2>
                         </div>
                     </div>
@@ -142,7 +142,7 @@
                                             <div class="product-img">
                                                 <a
                                                         th:href="@{/home/{id}/single-product.html(id = ${eachPro.id})}">
-                                                    <img th:src="${eachPro.mainImg}"
+                                                    <img th:src="${eachPro.mainImg}" style="height: 310px;"
                                                          alt=""/>
                                                 </a>
                                             </div>
