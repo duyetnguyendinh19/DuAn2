@@ -296,18 +296,33 @@ public class HomeController {
         return "redirect:/home/login.html";
     }
 
-    @RequestMapping(value = "sendMail.html", method = RequestMethod.POST)
-    public ModelAndView sendMailTest(Model model, @RequestParam("mail") String mail) throws MessagingException {
-//        MimeMessage message = mailSender.createMimeMessage();
-//        Date date = new Date();
-//        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true, "UTF-8");
-//        String html = "<h2>Xin chào, My name is Tấn Test Mail</h2>";
-//        message.setContent(html,"text/html; charset=UTF-8"); // content mail
-//        mimeMessageHelper.setTo(mail);
-//        mimeMessageHelper.setSubject("Test mail ngày " + sdf.format(date)); // tiêu đề
-//        mailSender.send(message);
-        ModelAndView modelAndView = new ModelAndView("redirect:/");
+    @RequestMapping(value = "/home/{user}/reset.html", method = RequestMethod.GET)
+    public ModelAndView resetPassword(Model model, @PathVariable("user") String user) {
+        ModelAndView modelAndView = new ModelAndView("home/reset-password");
         return modelAndView;
+    }
+
+    @RequestMapping(value = "/home/reset.html", method = RequestMethod.POST)
+    public @ResponseBody String reset(Model model, @RequestParam("user") String user, @RequestParam("oldPass") String oldPass,
+                        @RequestParam("newPass") String newPass, HttpSession session) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Map<String, Object> respone = new HashMap<>();
+        try {
+            AuthUser authUser = authUserService.findByUsername(user);
+            if(authUser != null){
+                if(!passwordEncoder.matches(oldPass, authUser.getPassword())){
+                    respone.put("oldPassErr","Nhập sai mật khẩu hiện tại");
+                }
+                if(respone.size() == 0){
+                    authUser.setPassword(passwordEncoder.encode(newPass));
+                    authUserService.update(authUser);
+                    respone.put("success","Đổi mật khẩu thành công");
+                    session.removeAttribute("userLogin");
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return gson.toJson(respone);
     }
 }

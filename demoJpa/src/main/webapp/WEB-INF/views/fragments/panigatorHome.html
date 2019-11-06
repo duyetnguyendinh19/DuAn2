@@ -34,7 +34,7 @@
                 </th:block>
                 <li class="next" th:if="${page.hasNext()}">
                     <a th:href="@{${pageUrl}(page=${page.number+1},size=${page.size})}"
-                       href="#" class="fa fa-angle-right"> <i class="fa fa-angle-right"></i>
+                       href="#"> <i class="fa fa-angle-right"></i>
                     </a>
                 </li>
                 <li class="Last " th:if="${not page.last}">

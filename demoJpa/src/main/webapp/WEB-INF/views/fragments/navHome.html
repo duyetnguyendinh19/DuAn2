@@ -11,6 +11,10 @@
                     <div class="col-sm-6 col-xs-12">
                         <div class="top-link clearfix">
                             <ul class="link f-right">
+                                <li th:if="${session.userLogin != null}"><a
+                                        th:href="@{/home/{user}/reset.html(user = ${session.userLogin.userName})}"> <i
+                                        class="fa fa-gears"></i> Đổi mật khẩu
+                                </a></li>
                                 <li th:if="${session.userLogin != null || session.userGoogle != null}"><a
                                         th:href="@{/home/profile.html}"> <i
                                         class="zmdi zmdi-account"></i> Trang cá nhân
