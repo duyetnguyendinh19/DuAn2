@@ -187,7 +187,6 @@ public class HomeController {
             Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
             Pageable _page = new PageRequest(pageable.getPageNumber(), 8, sort);
             Page<Product> page = productService.findByCategoryParentAndIsdelete(lsLong, "N", _page);
-//            model.addAttribute("name", lsCate);
             model.addAttribute("page", page);
         } catch (Exception e) {
             e.printStackTrace();

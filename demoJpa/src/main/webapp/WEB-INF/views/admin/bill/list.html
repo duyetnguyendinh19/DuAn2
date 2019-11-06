@@ -114,6 +114,8 @@
                                 <thead>
                                 <tr>
                                     <th class="text-table-header">STT</th>
+                                    <th class="text-table-header">Tên KH</th>
+<!--                                    <th class="text-table-header">Email</th>-->
                                     <th class="text-table-header">Mã hóa đơn</th>
                                     <th class="text-table-header">Thanh toán</th>
                                     <th class="text-table-header">Tổng tiền</th>
@@ -127,6 +129,8 @@
                                 <tbody th:if="${page}!=null">
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.name}"></td>
+<!--                                    <td class="text-table-body" th:text="${eachRow.email}"></td>-->
                                     <td class="text-table-body" th:text="${eachRow.code}"></td>
                                     <td class="text-table-body">
                                         <span th:if="${eachRow.payment == 0}">Thanh toán trực tiếp</span>
@@ -308,12 +312,13 @@
                 <!-- /.panel-body -->
             </div>
             <!-- /.panel -->
+            <div th:replace="fragments/panigator :: content(page = ${page})"></div>
+
         </div>
         <!-- /.col-lg-6 -->
     </div>
     <!-- /.row -->
     <!-- /.row -->
-    <div th:replace="fragments/panigator :: content(page = ${page})"></div>
 </div>
 <!-- /#page-wrapper -->
 </div>
@@ -449,7 +454,7 @@
             contentType: 'application/x-www-form-urlencoded',
             success: function (response) {
                 var data = JSON.parse(response);
-                var html;
+                var html = '';
                 if (data != null) {
                     for (var each of data) {
                         html += ` <div class="col-lg-12" style="margin-top: 10px;padding: 0px!important;">

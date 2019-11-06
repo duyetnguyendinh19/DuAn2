@@ -9,14 +9,14 @@
             <ul class="pagination" style="margin: 0px!important;">
                 <li class="first" th:if="${not page.first}">
                     <a th:href="@{${pageUrl}(page=${0},size=${page.size})}"
-                       href="#"> First </a>
+                       href="#"><i class="fa fa-angle-double-left"></i> </a>
                 </li>
-<!--                <li class="prev" th:if="${page.hasPrevious()}">-->
-<!--                    <a th:href="@{${pageUrl}(page=${page.number-1},size=${page.size})}"-->
-<!--                       href="#">-->
-<!--                        <i class="icon-double-angle-left"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <li class="prev" th:if="${page.hasPrevious()}">
+                    <a th:href="@{${pageUrl}(page=${page.number-1},size=${page.size})}"
+                       href="#">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                </li>
                 <th:block th:each="pageNumber : ${#numbers.sequence(page.number - 5, page.number + 5)}">
                     <li class="active"
                         th:if="${pageNumber eq (page.number+1) and pageNumber gt 0 and  pageNumber lt (page.totalPages +1) }">
@@ -32,14 +32,14 @@
                            th:text="${pageNumber}"></a>
                     </li>
                 </th:block>
-<!--                <li class="next" th:if="${page.hasNext()}">-->
-<!--                    <a th:href="@{${pageUrl}(page=${page.number+1},size=${page.size})}"-->
-<!--                       href="#"> <i class="icon-double-angle-right"></i>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <li class="next" th:if="${page.hasNext()}">
+                    <a th:href="@{${pageUrl}(page=${page.number+1},size=${page.size})}"
+                       href="#" class="fa fa-angle-right"> <i class="fa fa-angle-right"></i>
+                    </a>
+                </li>
                 <li class="Last " th:if="${not page.last}">
                     <a th:href="@{${pageUrl}(page=${page.totalPages-1},size=${page.size})}"
-                       href="#">Last</a>
+                       href="#"><i class="fa fa-angle-double-right"></i></a>
                 </li>
             </ul>
         </div>

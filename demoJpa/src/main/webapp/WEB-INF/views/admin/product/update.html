@@ -373,10 +373,10 @@
                                 <label>Trạng thái</label>
                                 <div>
                                     <select class="form-control" th:value="${product.status}" id="status">
-                                        <option value="1" th:attr="selected =${product.status}== '1' ? 'selected'">Còn
+                                        <option value="1" th:attr="selected =${product.quantity} > 0 ? 'selected'">Còn
                                             hàng
                                         </option>
-                                        <option value="0" th:attr="selected =${product.status}== '0' ? 'selected'">Hết
+                                        <option value="0" th:attr="selected =${product.quantity} <= 0 ? 'selected'">Hết
                                             hàng
                                         </option>
                                     </select>
