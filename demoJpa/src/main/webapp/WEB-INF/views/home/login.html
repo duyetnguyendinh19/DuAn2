@@ -3,26 +3,11 @@
 
 <head>
     <div th:replace="fragments/initHome :: head"></div>
-    <!--	<style>-->
-    <!--		.userContent{-->
-    <!--			padding: 10px 20px;-->
-    <!--			margin: auto;-->
-    <!--			width: 250px;-->
-    <!--			background-color: #F7F7F7;-->
-    <!--			box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16),0 2px 10px 0 rgba(0, 0, 0, 0.12);-->
-    <!--		}-->
-    <!--		.userContent h3{-->
-    <!--			font-size: 17px;-->
-    <!--		}-->
-    <!--		.userContent p{-->
-    <!--			font-size: 15px;-->
-    <!--		}-->
-    <!--		.userContent img{-->
-    <!--			max-width: 100%;-->
-    <!--			margin-bottom: 5px;-->
-    <!--		}-->
-    <!--	</style>-->
-
+    <style>
+        .disable-call-ajax {
+            cursor: none !important;
+        }
+    </style>
 </head>
 <script src="https://apis.google.com/js/client:platform.js?onload=renderButton" async defer></script>
 <meta name="google-signin-client_id" content="498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com">
@@ -89,8 +74,10 @@
                                         <ul class="link f-right">
                                             <li>
                                                 <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8284/duan2_war/home/login-google&response_type=code
-    &client_id=498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com&approval_prompt=force" style="color: blue;">
-                                                    <i class="zmdi zmdi-google" style="color: #ffc107!important;font-size: 18px!important;"></i>
+    &client_id=498115250422-8p16v252evqielnvh0jmidb402o92j7k.apps.googleusercontent.com&approval_prompt=force"
+                                                   style="color: blue;">
+                                                    <i class="zmdi zmdi-google"
+                                                       style="color: #ffc107!important;font-size: 18px!important;"></i>
                                                     Sign in with Google
                                                 </a>
                                             </li>
@@ -209,13 +196,15 @@
                     </div>
                     <div class="modal-body">
                         <div class="modal-product clearfix">
-                            <form method="post" class="cart">
+                            <form class="cart">
                                 <label class="text-center">Quên mật khẩu</label>
                                 <div class="numbers-row">
-                                    <input type="text" name="email" placeholder="Email..."
+                                    <input type="text" id="emailForget" placeholder="Email..."
                                            style="margin-top: 5px;">
                                 </div>
-                                <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                <label style="color: red;" id="err"></label>
+                                <button class="btn-call-ajax submit-btn-1 mt-20 btn-hover-1 f-right" id="forget"
+                                        type="button"
                                         style="margin-top: 0px !important;">Gửi
                                 </button>
                             </form>
@@ -238,7 +227,56 @@
 <!-- Body main wrapper end -->
 
 <div th:replace="fragments/initHome :: commonScript"></div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var currUrl = /*[[@{/}]]*/ "";
+    /*]]>*/
+</script>
+<script>
+    $(document)
+        .ajaxStart(function () {
+            $('.btn-call-ajax').addClass('disable-call-ajax');
+        })
+        .ajaxComplete(function () {
+            $('.btn-call-ajax').removeClass('disable-call-ajax');
+        });
 
+    var regexEmail = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    $('#forget').on('click', function () {
+        var email = $('#emailForget').val();
+        var valid = true;
+
+        if (email == null || email == '') {
+            $('#err').text("Email không được để trống");
+            valid = false;
+        } else if (!regexEmail.test(email)) {
+            $('#err').text("Sai định dạng email");
+            valid = false;
+        } else {
+            $('#err').text('');
+        }
+
+        if(valid == true){
+            $.ajax({
+                url: currUrl + '/home/forgetPassword.html',
+                method: 'POST',
+                data: {
+                    email : email
+                },
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (response) {
+                    var data = JSON.parse(response);
+                    if(data.err != null){
+                        $('#err').text(data.err);
+                    }
+                    if(data.success != null){
+                        $('#err').text(data.success);
+                    }
+                }
+            });
+        }
+    });
+</script>
 </body>
 
 </html>

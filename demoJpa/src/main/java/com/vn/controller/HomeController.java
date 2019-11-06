@@ -4,8 +4,11 @@ import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mysql.cj.util.StringUtils;
 import com.vn.common.Constants;
 import com.vn.common.GoogleUtils;
+import com.vn.common.ThymeleafUtil;
+import com.vn.config.GoogleMailSender;
 import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
 import com.vn.model.InfomationModel;
@@ -14,6 +17,8 @@ import com.vn.service.*;
 
 import com.vn.validation.service.InfomationFormValidator;
 import org.apache.commons.collections4.map.HashedMap;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -36,6 +41,7 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.regex.Pattern;
 
 @Controller
 public class HomeController {
@@ -181,7 +187,7 @@ public class HomeController {
         try {
             List<BigInteger> lsCate = categoryService.getListCategoryById(parentId, "Y", "N");
             List<Long> lsLong = new ArrayList<>();
-            for(BigInteger each : lsCate){
+            for (BigInteger each : lsCate) {
                 lsLong.add(each.longValue());
             }
             Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
@@ -303,26 +309,67 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/reset.html", method = RequestMethod.POST)
-    public @ResponseBody String reset(Model model, @RequestParam("user") String user, @RequestParam("oldPass") String oldPass,
-                        @RequestParam("newPass") String newPass, HttpSession session) {
+    public @ResponseBody
+    String reset(Model model, @RequestParam("user") String user, @RequestParam("oldPass") String oldPass,
+                 @RequestParam("newPass") String newPass, HttpSession session) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         Map<String, Object> respone = new HashMap<>();
         try {
             AuthUser authUser = authUserService.findByUsername(user);
-            if(authUser != null){
-                if(!passwordEncoder.matches(oldPass, authUser.getPassword())){
-                    respone.put("oldPassErr","Nhập sai mật khẩu hiện tại");
+            if (authUser != null) {
+                if (!passwordEncoder.matches(oldPass, authUser.getPassword())) {
+                    respone.put("oldPassErr", "Nhập sai mật khẩu hiện tại");
                 }
-                if(respone.size() == 0){
+                if (respone.size() == 0) {
                     authUser.setPassword(passwordEncoder.encode(newPass));
                     authUserService.update(authUser);
-                    respone.put("success","Đổi mật khẩu thành công");
+                    respone.put("success", "Đổi mật khẩu thành công");
                     session.removeAttribute("userLogin");
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return gson.toJson(respone);
+    }
+
+    @RequestMapping(value = "/home/forgetPassword.html", method = RequestMethod.POST)
+    public @ResponseBody
+    String forgetPassword(@RequestParam("email") String email) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        Map<String, Object> response = new HashMap<>();
+        try {
+            AuthUser authUser = authUserService.findByEmail(email);
+            if (authUser != null) {
+                Map<String, Object> responseMap = new HashMap<>();
+                String pass = RandomStringUtils.randomAlphanumeric(8);
+                GoogleMailSender mailSender = new GoogleMailSender();
+                if (authUser.getFullName() != null) {
+                    responseMap.put("name", authUser.getFullName());
+                } else {
+                    responseMap.put("name", authUser.getUserName());
+                }
+                responseMap.put("password", pass);
+                responseMap.put("userName", authUser.getUserName());
+                new Thread(
+                        () -> {
+                            try {
+                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailForgetPassword.html", (HashMap<String, Object>) responseMap);
+                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", email, "[ÔTôKê] Cấp Lại Mật Khẩu", htmlContent);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                ).start();
+                authUser.setPassword(passwordEncoder.encode(pass));
+                authUserService.update(authUser);
+                response.put("success", "Quý khách vui lòng truy cập email để nhận lại mật khẩu mới");
+            } else {
+                response.put("err", "Không tìm thấy địa chỉ email");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return gson.toJson(response);
     }
 }
