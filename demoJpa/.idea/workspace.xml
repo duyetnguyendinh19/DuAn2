@@ -7,10 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/html/MailForgetPassword.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/login.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -290,14 +288,9 @@
       <workItem from="1572601639312" duration="10400000" />
       <workItem from="1572658256351" duration="8039000" />
       <workItem from="1572832187054" duration="653000" />
-      <workItem from="1573001579663" duration="16730000" />
-    </task>
-    <task id="LOCAL-00015" summary="update code">
-      <created>1570759605296</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1570759605296</updated>
+      <workItem from="1573001579663" duration="17021000" />
+      <workItem from="1573090419059" duration="45000" />
+      <workItem from="1573123301474" duration="988000" />
     </task>
     <task id="LOCAL-00016" summary="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2">
       <created>1570761705874</created>
@@ -635,7 +628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573037855690</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="update forget password">
+      <created>1573047449694</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1573047449694</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -659,7 +659,8 @@
     <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2&#10;&#10; Conflicts:&#10;&#9;demoJpa/src/main/java/com/vn/controller/HomeController.java" />
     <MESSAGE value="update code" />
     <MESSAGE value="update reset Password" />
-    <option name="LAST_COMMIT_MESSAGE" value="update reset Password" />
+    <MESSAGE value="update forget password" />
+    <option name="LAST_COMMIT_MESSAGE" value="update forget password" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -696,7 +697,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>341</line>
+          <line>344</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>

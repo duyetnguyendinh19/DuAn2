@@ -320,6 +320,9 @@ public class HomeController {
                 if (!passwordEncoder.matches(oldPass, authUser.getPassword())) {
                     respone.put("oldPassErr", "Nhập sai mật khẩu hiện tại");
                 }
+                if(passwordEncoder.matches(newPass, authUser.getPassword())){
+                    respone.put("newPassErr", "Mật khẩu mới trùng mật khẩu hiện tại");
+                }
                 if (respone.size() == 0) {
                     authUser.setPassword(passwordEncoder.encode(newPass));
                     authUserService.update(authUser);
