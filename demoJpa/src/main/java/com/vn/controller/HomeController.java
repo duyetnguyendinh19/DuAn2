@@ -274,6 +274,9 @@ public class HomeController {
 					authUser = authUserService.findByEmail(gmailGG.getEmail());
 					if(authUser != null) {
 						inf = infomationService.findByAuthUserId(authUser.getId());
+						if(inf == null) {
+							inf = new Infomation();
+						}
 					}else {
 						inf = new Infomation();
 					}
