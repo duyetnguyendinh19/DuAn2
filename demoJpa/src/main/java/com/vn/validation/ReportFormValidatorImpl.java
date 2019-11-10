@@ -12,8 +12,11 @@ import com.vn.validation.service.ReportFormValidator;
 @Service(value="reportFormValidator")
 public class ReportFormValidatorImpl implements Validator, ReportFormValidator {
 
+	int INDEX = -1;
+	
 	@Override
 	public void validateReportForm(Object var1, Errors var2) {
+		INDEX = 1;
 		this.validate(var1, var2);
 	}
 
@@ -28,16 +31,25 @@ public class ReportFormValidatorImpl implements Validator, ReportFormValidator {
 		if (this.isBlank(report.getName())) {
 			errors.reject("name", "Không được để trống tên !");
 		}
-		if (this.isBlank(report.getMobile())) {
-			errors.reject("mobile", "Không được để trống số điện thoại !");
-		}
-		if (this.isBlank(report.getProblem())) {
-			errors.reject("problem", "Không được để trống vấn đề !");
-		}
 		if (this.isBlank(report.getOpinion())) {
 			errors.reject("opinion", "Không được để trống ý kiến !");
 		}
 		this.emailValidate(report.getEmail(),errors);
+		if(INDEX == 1) {
+			if (this.isBlank(report.getMobile())) {
+				errors.reject("mobile", "Không được để trống số điện thoại !");
+			}
+			if (this.isBlank(report.getProblem())) {
+				errors.reject("problem", "Không được để trống vấn đề !");
+			}
+		}
+	}
+	
+
+	@Override
+	public void validateReportFormInFooter(Object var1, Errors var2) {
+		INDEX = 2;
+		this.validate(var1, var2);
 	}
 
 	private boolean isBlank(String string) {
@@ -53,5 +65,6 @@ public class ReportFormValidatorImpl implements Validator, ReportFormValidator {
 			errors.reject("email", "Email không đúng định dạng !");
 		}
 	}
+
 
 }

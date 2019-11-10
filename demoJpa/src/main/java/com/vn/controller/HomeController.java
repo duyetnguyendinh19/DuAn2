@@ -67,6 +67,12 @@ public class HomeController {
 	@Resource
 	private GmailGoogleService gmailGoogleService;
 
+	@ModelAttribute("report")
+	public Report report(Model model) {
+		model.addAttribute("mapError", new HashedMap<String, String>());
+	    return new Report();
+	}
+	
 	@RequestMapping(value = "/home/login.html", method = RequestMethod.GET)
 	public ModelAndView loginPage(Model model, Pageable pageable) {
 		Map<String, String> mapError = new HashedMap<String, String>();

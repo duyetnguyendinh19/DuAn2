@@ -97,17 +97,22 @@ public class ReportController {
     @RequestMapping(value = "{id}/reply.html", method = RequestMethod.GET)
     @PreAuthorize("hasAnyAuthority('Administrators','Staffs')")
     public String reply(Model model, @PathVariable("id") Long id){
-        Report report = reportService.findOne(id);
-        ReportModel reportModel = new ReportModel();
-        reportModel.setId(id);
-        reportModel.setEmail(report.getEmail());
-        reportModel.setMobile(report.getMobile());
-        reportModel.setName(report.getName());
-        reportModel.setOpinion(report.getOpinion());
-        reportModel.setProblem(report.getProblem());
-        reportModel.setReply(report.getRepply());
-        model.addAttribute("report", reportModel);
-        return "admin/report/update";
+       try {
+    	   Report report = reportService.findOne(id);
+           ReportModel reportModel = new ReportModel();
+           reportModel.setId(id);
+           reportModel.setEmail(report.getEmail());
+           reportModel.setMobile(report.getMobile());
+           reportModel.setName(report.getName());
+           reportModel.setOpinion(report.getOpinion());
+           reportModel.setProblem(report.getProblem());
+           reportModel.setReply(report.getRepply());
+           model.addAttribute("report", reportModel);
+           return "admin/report/update";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+       return "admin/report/update";
     }
 
     @RequestMapping(value = "{id}/reply.html", method = RequestMethod.POST)
@@ -133,21 +138,54 @@ public class ReportController {
     
     @RequestMapping(value = "save.html" , method = RequestMethod.POST)
     public String saveReply(@ModelAttribute("report") Report report, BindingResult result,Model model) {
-    	reportFormValidator.validateReportForm(report, result);
     	Map<String, String> mapError = new HashedMap<String, String>();
-    	if(result.hasErrors()) {
-    		for(Object obj : result.getAllErrors()) {
-    			if(obj instanceof ObjectError) {
-    				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
-    			}
-    		}
-    		model.addAttribute("mapError", mapError);
+    	try {
+    		reportFormValidator.validateReportForm(report, result);
+        	if(result.hasErrors()) {
+        		for(Object obj : result.getAllErrors()) {
+        			if(obj instanceof ObjectError) {
+        				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
+        			}
+        		}
+        		model.addAttribute("mapError", mapError);
+        		return "home/contact";
+        	}else {
+        		reportService.insert(report);
+        		model.addAttribute("mapError", mapError);
+        		return "redirect:/home/contact.html";
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mapError.put("error", "Lỗi không xác định");
+			model.addAttribute("mapError", mapError);
+			return "home/contact";
+		}
+    }
+    
+    @RequestMapping(value = "saveFooter.html" , method = RequestMethod.POST)
+    public String saveReplyFooter(@ModelAttribute("report") Report report, BindingResult result,Model model) {
+    	Map<String, String> mapError = new HashedMap<String, String>();
+    	try {
+    		reportFormValidator.validateReportFormInFooter(report, result);
+        	if(result.hasErrors()) {
+        		for(Object obj : result.getAllErrors()) {
+        			if(obj instanceof ObjectError) {
+        				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
+        			}
+        		}
+        		model.addAttribute("mapError", mapError);
+        		return "home/contact";
+        	}else {
+        		reportService.insert(report);
+        		model.addAttribute("mapError", mapError);
+        		return "redirect:/home/contact.html";
+        	}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mapError.put("error", "Lỗi không xác định");
+			model.addAttribute("mapError", mapError);
     		return "home/contact";
-    	}else {
-    		reportService.insert(report);
-    		model.addAttribute("mapError", mapError);
-    		return "redirect:/home/contact.html";
-    	}
+		}
     }
 
 }
