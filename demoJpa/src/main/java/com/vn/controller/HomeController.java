@@ -1,10 +1,8 @@
 package com.vn.controller;
 
-import com.google.common.base.Strings;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.mysql.cj.util.StringUtils;
 import com.vn.common.Constants;
 import com.vn.common.GoogleUtils;
 import com.vn.common.ThymeleafUtil;
@@ -18,14 +16,12 @@ import com.vn.service.*;
 import com.vn.validation.service.InfomationFormValidator;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.poi.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +30,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import java.io.IOException;
 import java.math.BigInteger;
 import java.util.*;
-import java.util.regex.Pattern;
 
 @Controller
 public class HomeController {
@@ -270,8 +264,8 @@ public class HomeController {
 					authUser = (AuthUser) session.getAttribute("userLogin");
 					inf = infomationService.findByAuthUserId(authUser.getId());
 				} else if (session.getAttribute("userGoogle") != null) {
-					String mail = (String) session.getAttribute("userGoogle");
-					authUser = authUserService.findByEmail(mail);
+					GmailGoogle gmailGG = (GmailGoogle) session.getAttribute("userGoogle");
+					authUser = authUserService.findByEmail(gmailGG.getEmail());
 					if(authUser != null) {
 						inf = infomationService.findByAuthUserId(authUser.getId());
 					}else {
