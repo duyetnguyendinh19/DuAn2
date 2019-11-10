@@ -261,7 +261,9 @@ public class HomeController {
             ModelAndView modelAndView = new ModelAndView("home/login");
             return modelAndView;
         } else {
-            model.addAttribute("profile", new InfomationModel());
+        	AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
+        	Infomation inf = infomationService.findByAuthUserId(authUser.getId());
+            model.addAttribute("profile", inf);
             ModelAndView modelAndView = new ModelAndView("home/profile");
             return modelAndView;
         }

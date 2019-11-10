@@ -67,14 +67,14 @@ public class CartController {
 		if (product != null) {
 			if (cartItems.containsKey(productId)) {
 				Cart item = cartItems.get(productId);
-				if(item.getQuantity() > 1) {
+				if (item.getQuantity() > 1) {
 					item.setProduct(product);
 					item.setQuantity(item.getQuantity() - 1);
 					cartItems.put(productId, item);
-				}else {
+				} else {
 					cartItems.remove(productId);
 				}
-			} 
+			}
 		}
 		String size;
 		if (cartItems.size() < 10) {
@@ -103,7 +103,7 @@ public class CartController {
 			size = "0" + cartItems.size();
 		} else if (cartItems.size() == 0) {
 			size = null;
-		}else{
+		} else {
 			size = String.valueOf(cartItems.size());
 		}
 		session.setAttribute("myCartItems", cartItems);
@@ -118,6 +118,35 @@ public class CartController {
 			count += list.getValue().getProduct().getPrice() * list.getValue().getQuantity();
 		}
 		return count;
+	}
+
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value = "add/{productId}/{quantity}.html", method = RequestMethod.GET)
+	public String vieChangeInput(ModelMap mm, HttpSession session, @PathVariable("productId") long productId,
+			@PathVariable("quantity") int quantity) {
+		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+		if (cartItems == null) {
+			cartItems = new HashMap<>();
+		}
+		Product product = productSerivce.findOne(productId);
+		if (product != null) {
+			if (cartItems.containsKey(productId)) {
+				Cart item = cartItems.get(productId);
+				item.setProduct(product);
+				item.setQuantity(quantity);
+				cartItems.put(productId, item);
+			} 
+		}
+		String size;
+		if (cartItems.size() < 10) {
+			size = "0" + cartItems.size();
+		} else {
+			size = String.valueOf(cartItems.size());
+		}
+		session.setAttribute("myCartItems", cartItems);
+		session.setAttribute("myCartTotal", totalPrice(cartItems));
+		session.setAttribute("myCartNum", size);
+		return "redirect:/";
 	}
 
 }
