@@ -354,7 +354,7 @@
 												th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
 											<form id="contact-form" th:object="${report}"
 												th:action="@{/report/saveFooter.html}" method="post">
-												<div class="col-md-6">
+												<div class="col-md-12">
 													<input type="text" th:field="*{name}" name="name"
 														placeholder="Tên của bạn...">
 													<div class="alert alert-danger"
@@ -362,7 +362,7 @@
 														style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 														th:each="err: ${mapError.get('name')}" th:text="${err}"></div>
 												</div>
-												<div class="col-md-6">
+												<div class="col-md-12">
 													<input type="text" th:field="*{email}" name="email"
 														placeholder="Email...">
 													<div class="alert alert-danger"
