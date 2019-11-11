@@ -6,11 +6,14 @@ import com.vn.jpa.Bill;
 import com.vn.jpa.Product;
 import com.vn.jpa.Product_Bill;
 import com.vn.jpa.Reject;
+import com.vn.jpa.Report;
 import com.vn.model.RejectModel;
 import com.vn.service.BillService;
 import com.vn.service.ProductService;
 import com.vn.service.Product_BillService;
 import com.vn.service.RejectService;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +38,12 @@ public class RejectController {
 
     @Resource
     private ProductService productService;
+    
+    @ModelAttribute("report")
+ 	public Report report(Model model) {
+ 		model.addAttribute("mapError", new HashedMap<String, String>());
+ 	    return new Report();
+ 	}
 
     @RequestMapping(value = "{id}/home.html", method = RequestMethod.GET)
     public String reject(@PathVariable("id") Long id, Model model) {
