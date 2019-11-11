@@ -4,11 +4,15 @@
 <head>
     <div th:replace="fragments/initHome :: head"></div>
     <style type="text/css">
-        .mb-50 {
+        .wrapper .page-wrapper .mb-50 {
             margin-bottom: 15px !important;
         }
 
-        input[type="text"], input[type="password"] {
+        .wrapper .page-wrapper .shop-section.mb-80{
+            margin-bottom: 30px!important;
+        }
+
+        .wrapper .page-wrapper input[type="text"], input[type="password"] {
             margin-bottom: 0px !important;
             margin-top: 20px;
         }
@@ -79,10 +83,10 @@
                 <div class="row">
                     <div class="col-md-2 col-sm-12">
                         <ul class="cart-tab">
-                            <li><a class="active" href="#shopping-cart"
+                            <li><a class="active" href="#shopping-cart" id="shoppingcart"
                                    data-toggle="tab"> <span>01</span> Giỏ của bạn
                             </a></li>
-                            <li><a href="#checkout" data-toggle="tab"> <span>02</span>
+                            <li><a href="#checkout" data-toggle="tab" id="tabPayment"> <span>02</span>
                                 Thanh toán
                             </a></li>
                         </ul>
@@ -153,11 +157,12 @@
                                                     <input type="text" name="name"
                                                            placeholder="Nhập mã giảm giá tại đây.">
                                                     <button class="submit-btn-1 black-bg btn-hover-2"
+                                                            style="margin-top: 20px!important;"
                                                             type="submit">Gửi mã
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" style="line-height: 27px!important;">
                                                 <div class="payment-details box-shadow p-30 mb-50">
                                                     <h6 class="widget-title border-left mb-20">Chi tiết
                                                         thanh toán</h6>
@@ -186,6 +191,7 @@
                                             </div>
                                         </div>
                                     </form>
+                                    <button class="btn btn-success" id="nextTab" style="border-radius: 5px!important;float:right;">Tiếp tục&nbsp;<i class="fa fa-chevron-circle-right"></i></button>
                                 </div>
                             </div>
                             <!-- shopping-cart end -->
@@ -264,6 +270,7 @@
                                         </div>
                                     </form>
                                 </div>
+                                <button class="btn btn-success" id="preTab" style="border-radius: 5px!important;float:right;margin-top: 10px;"><i class="fa fa-chevron-circle-left"></i>&nbsp;Quay lại</button>
                             </div>
                             <!-- checkout end -->
                         </div>
@@ -287,6 +294,20 @@
     /*]]>*/
 </script>
 <script>
+    let urlParams = new URLSearchParams(window.location.search);
+    let myParam = urlParams.get('payment');
+    if (myParam == 'true') {
+        $('#tabPayment').click();
+    }
+
+    $('#nextTab').on('click', function(){
+        $('#tabPayment').click();
+    });
+
+    $('#preTab').on('click', function(){
+        $('#shoppingcart').click();
+    });
+
     $(document)
         .ajaxStart(function () {
             $('.btn-call-ajax').addClass('disable-call-ajax');

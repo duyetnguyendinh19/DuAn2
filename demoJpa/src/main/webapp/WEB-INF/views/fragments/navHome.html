@@ -1,4 +1,5 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
+	<input type="hidden" id="contextPath" th:value="@{/}">
 	<div th:fragment="header">
 		<div class="header-top-bar plr-185">
 			<div class="container-fluid">
@@ -222,7 +223,7 @@
 											<li>
 												<div class="top-cart-inner check-out">
 													<h4 class="text-uppercase">
-														<a href="#">Thanh toán</a>
+														<a th:href="@{/home/cart.html?payment=true}">Thanh toán</a>
 													</h4>
 												</div>
 											</li>

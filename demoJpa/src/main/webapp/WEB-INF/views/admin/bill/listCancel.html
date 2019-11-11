@@ -109,7 +109,7 @@
                                     <th class="text-table-header">Tổng tiền</th>
                                     <th class="text-table-header">Trạng thái TToán</th>
                                     <th class="text-table-header">Trạng thái HĐ</th>
-                                    <th class="text-table-header">#</th>
+<!--                                    <th class="text-table-header">#</th>-->
                                     <th class="text-table-header">#</th>
                                 </tr>
                                 </thead>
@@ -140,14 +140,14 @@
                                         <button class="btn btn-success" th:case="'4'">Đang đóng gói</button>
                                         <button class="btn btn-success" th:case="'5'">Đang xác nhận</button>
                                     </td>
-                                    <td class="text-table-body">
-                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'"
-                                           data-toggle="tooltip" title="Xác nhận hủy đơn"
-                                           th:if="${eachRow.status == 2} and ${eachRow.typeStatus} != 1 and ${eachRow.typeStatus} != 2">
-                                            <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>
-                                        </a>
-                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>
-                                    </td>
+<!--                                    <td class="text-table-body">-->
+<!--                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'"-->
+<!--                                           data-toggle="tooltip" title="Xác nhận hủy đơn"-->
+<!--                                           th:if="${eachRow.status == 2} and ${eachRow.typeStatus} != 1 and ${eachRow.typeStatus} != 2">-->
+<!--                                            <button class="btn btn-info btn-circle"><i class="fa fa-check"></i></button>-->
+<!--                                        </a>-->
+<!--                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>-->
+<!--                                    </td>-->
                                     <td>
                                         <button type="button" th:onclick="'billDetail(\'' + ${eachRow.id} + '\')'"
                                                 class="btn btn-default btn-circle" data-toggle="modal"
