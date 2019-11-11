@@ -11,6 +11,8 @@ import com.vn.jpa.*;
 import com.vn.model.BillModel;
 import com.vn.model.Cart;
 import com.vn.service.*;
+
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.RandomUtils;
 import org.joda.time.DateTime;
@@ -60,6 +62,12 @@ public class PaymentController {
     private PasswordEncoder passwordEncoder;
 
     private static int i = 1;
+    
+    @ModelAttribute("report")
+ 	public Report report(Model model) {
+ 		model.addAttribute("mapError", new HashedMap<String, String>());
+ 	    return new Report();
+ 	}
 
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
