@@ -6,10 +6,9 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="update forget password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/BillController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -290,14 +289,14 @@
       <workItem from="1572832187054" duration="653000" />
       <workItem from="1573001579663" duration="17021000" />
       <workItem from="1573090419059" duration="45000" />
-      <workItem from="1573123301474" duration="988000" />
-    </task>
-    <task id="LOCAL-00016" summary="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2">
-      <created>1570761705874</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1570761705874</updated>
+      <workItem from="1573123301474" duration="1379000" />
+      <workItem from="1573176885266" duration="297000" />
+      <workItem from="1573204289116" duration="27000" />
+      <workItem from="1573380313566" duration="6039000" />
+      <workItem from="1573438388784" duration="1001000" />
+      <workItem from="1573444453520" duration="30000" />
+      <workItem from="1573457484675" duration="2460000" />
+      <workItem from="1573468955057" duration="3322000" />
     </task>
     <task id="LOCAL-00017" summary="update code">
       <created>1570778424659</created>
@@ -635,7 +634,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573047449694</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="update forget password">
+      <created>1573131779055</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1573131779056</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -677,27 +683,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/RejectController.java</url>
-          <line>55</line>
+          <line>64</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java</url>
-          <line>141</line>
+          <line>149</line>
           <option name="timeStamp" value="36" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java</url>
-          <line>367</line>
+          <line>375</line>
           <option name="timeStamp" value="38" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>319</line>
+          <line>334</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>344</line>
+          <line>339</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
