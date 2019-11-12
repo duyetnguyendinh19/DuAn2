@@ -8,9 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/listCancel.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/bill/listCancel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/cart.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -298,14 +296,9 @@
       <workItem from="1573438388784" duration="1001000" />
       <workItem from="1573444453520" duration="30000" />
       <workItem from="1573457484675" duration="2460000" />
-      <workItem from="1573468955057" duration="10106000" />
-    </task>
-    <task id="LOCAL-00018" summary="update code">
-      <created>1570780472238</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1570780472238</updated>
+      <workItem from="1573468955057" duration="10203000" />
+      <workItem from="1573522198160" duration="144000" />
+      <workItem from="1573529681262" duration="1288000" />
     </task>
     <task id="LOCAL-00019" summary="update code">
       <created>1570802015289</created>
@@ -643,7 +636,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573475435334</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="update checkout payment header">
+      <created>1573487594914</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1573487594914</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -669,7 +669,8 @@
     <MESSAGE value="update reset Password" />
     <MESSAGE value="update forget password" />
     <MESSAGE value="fix bill" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bill" />
+    <MESSAGE value="update checkout payment header" />
+    <option name="LAST_COMMIT_MESSAGE" value="update checkout payment header" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
