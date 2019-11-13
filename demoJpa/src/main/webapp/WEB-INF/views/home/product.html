@@ -191,14 +191,14 @@
                                                     th:text="${#numbers.formatDecimal(eachPro.price, 0, 'COMMA', 0,'POINT')}">
                                                     &nbsp;Vnđ</h3>
                                                 <ul class="action-button">
-                                                    <li>
-                                                        <!--															<a href="#" title="Wishlist"><i-->
-                                                        <!--																class="zmdi zmdi-favorite"></i></a>-->
-                                                        <div class="like">
-                                                            <i class="fa fa-thumbs-o-up"></i>
-                                                            <div class="gloss"></div>
-                                                        </div>
-                                                    </li>
+<!--                                                    <li>-->
+<!--                                                        &lt;!&ndash;															<a href="#" title="Wishlist"><i&ndash;&gt;-->
+<!--                                                        &lt;!&ndash;																class="zmdi zmdi-favorite"></i></a>&ndash;&gt;-->
+<!--                                                        <div class="like">-->
+<!--                                                            <i class="fa fa-thumbs-o-up"></i>-->
+<!--                                                            <div class="gloss"></div>-->
+<!--                                                        </div>-->
+<!--                                                    </li>-->
                                                     <li><a
                                                             th:onclick="'quickView(\'' + ${eachPro.id} + '\')'"
                                                             data-toggle="modal" data-target="#productModal"
@@ -257,7 +257,7 @@
                             </div>
                             <!-- .product-images -->
                             <div class="product-info">
-                                <h1 id="name">SamSung A50</h1>
+                                <h1 id="nameQuick">SamSung A50</h1>
                                 <div class="price-box-3">
                                     <div class="s-price-box">
                                         <span class="new-price" id="price"></span> <span
@@ -328,7 +328,7 @@
                 var data = JSON.parse(response);
                 $('#quickCart').attr('href', window.location.origin + $('#path').val() + 'cart/add/' + id + '.html');
                 $('#imageQuick').attr('src', data.mainImg);
-                $('#name').text(data.name);
+                $('#nameQuick').text(data.name);
                 $('#price').text(
                     formatPriceString(data.price) + '' + ' Vnđ');
                 $('#price_sale').text(

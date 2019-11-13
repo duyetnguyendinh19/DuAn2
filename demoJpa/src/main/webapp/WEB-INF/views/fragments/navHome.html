@@ -121,9 +121,9 @@
 										<button class="search-toggle">
 											<i class="zmdi zmdi-search"></i>
 										</button>
-										<form action="#">
+										<form th:action="@{/home/search.html}" method="POST">
 											<div class="top-search-box">
-												<input type="text" placeholder="Tìm kiếm...">
+												<input type="text" name="name" placeholder="Tìm kiếm..." th:value="${session.search}">
 												<button type="submit">
 													<i class="zmdi zmdi-search"></i>
 												</button>
@@ -358,7 +358,7 @@
 												<div class="col-md-12">
 													<input type="text" th:field="*{name}" name="name"
 														placeholder="Tên của bạn...">
-													<div class="alert alert-danger"
+													<div
 														th:if="${mapError != null && mapError.containsKey('name') != null}"
 														style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 														th:each="err: ${mapError.get('name')}" th:text="${err}"></div>
@@ -366,7 +366,7 @@
 												<div class="col-md-12">
 													<input type="text" th:field="*{email}" name="email"
 														placeholder="Email...">
-													<div class="alert alert-danger"
+													<div
 														th:if="${mapError != null && mapError.containsKey('email') != null}"
 														style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 														th:each="err: ${mapError.get('email')}" th:text="${err}"></div>
@@ -374,7 +374,7 @@
 												<div class="col-md-12">
 													<textarea class="custom-textarea" th:field="*{opinion}"
 														name="message" placeholder="Ý kiến của bạn"></textarea>
-													<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('opinion') != null}"
+													<div th:if="${mapError != null && mapError.containsKey('opinion') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('opinion')}" th:text="${err}"></div>
 													<button class="submit-btn-1 mt-20 btn-hover-1"

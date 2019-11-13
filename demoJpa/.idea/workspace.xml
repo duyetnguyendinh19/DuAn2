@@ -6,9 +6,16 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="update change color">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product-single.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/ProductRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/ProductRepo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/ProductServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/fragments/navHome.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/contact.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/product.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -121,6 +128,7 @@
       </deployment>
       <server-settings>
         <option name="BASE_DIRECTORY_NAME" value="Unnamed_duan2" />
+        <option name="JNDI_PORT" value="1999" />
       </server-settings>
       <predefined_log_file enabled="true" id="Tomcat" />
       <predefined_log_file enabled="true" id="Tomcat Catalina" />
@@ -215,6 +223,11 @@
         </option>
       </method>
     </configuration>
+    <list>
+      <item itemvalue="JUnit.PasswordMD5.getIp" />
+      <item itemvalue="JUnit.PasswordMD5.testPassword" />
+      <item itemvalue="Tomcat Server.Tomcat 8.5.51" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.PasswordMD5.testPassword" />
@@ -298,14 +311,8 @@
       <workItem from="1573457484675" duration="2460000" />
       <workItem from="1573468955057" duration="10203000" />
       <workItem from="1573522198160" duration="144000" />
-      <workItem from="1573529681262" duration="1288000" />
-    </task>
-    <task id="LOCAL-00019" summary="update code">
-      <created>1570802015289</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1570802015289</updated>
+      <workItem from="1573529681262" duration="1432000" />
+      <workItem from="1573635624817" duration="6879000" />
     </task>
     <task id="LOCAL-00020" summary="update code">
       <created>1570876800312</created>
@@ -643,7 +650,14 @@
       <option name="project" value="LOCAL" />
       <updated>1573487594914</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="update change color">
+      <created>1573531071569</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1573531071571</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -670,7 +684,8 @@
     <MESSAGE value="update forget password" />
     <MESSAGE value="fix bill" />
     <MESSAGE value="update checkout payment header" />
-    <option name="LAST_COMMIT_MESSAGE" value="update checkout payment header" />
+    <MESSAGE value="update change color" />
+    <option name="LAST_COMMIT_MESSAGE" value="update change color" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -702,12 +717,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>334</line>
+          <line>337</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>339</line>
+          <line>343</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>

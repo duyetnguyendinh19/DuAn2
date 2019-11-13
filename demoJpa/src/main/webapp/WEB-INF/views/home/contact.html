@@ -4,7 +4,15 @@
 <head>
 <div th:replace="fragments/initHome :: head"></div>
 </head>
-
+<style>
+	input[type="text"], input[type="password"]{
+		margin-bottom: 0px!important;
+		margin-top: 20px!important;
+	}
+	textarea {
+		margin-top: 20px!important;
+	}
+</style>
 <body>
 	<!-- Body main wrapper start -->
 	<div class="wrapper">
@@ -100,7 +108,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="message-box box-shadow white-bg">
-							<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('error') != null}"
+							<div th:if="${mapError != null && mapError.containsKey('error') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
 								<form id="contact-form" th:object="${report}"
@@ -113,35 +121,35 @@
 										<div class="col-md-6">
 											<input type="text" th:field="*{name}" name="name"
 												placeholder="Tên của bạn...">
-											<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('name') != null}"
+											<div th:if="${mapError != null && mapError.containsKey('name') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('name')}" th:text="${err}"></div>
 										</div>
 										<div class="col-md-6">
 											<input type="text" th:field="*{email}" name="email"
 												placeholder="Email...">
-											<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('email') != null}"
+											<div th:if="${mapError != null && mapError.containsKey('email') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('email')}" th:text="${err}"></div>
 										</div>
 										<div class="col-md-6">
 											<input type="text" th:field="*{problem}" name="subject"
 												placeholder="Vấn đề của bạn...">
-											<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('problem') != null}"
+											<div th:if="${mapError != null && mapError.containsKey('problem') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('problem')}" th:text="${err}"></div>
 										</div>
 										<div class="col-md-6">
 											<input type="text" th:field="*{mobile}" name="phone"
 												placeholder="Số điện thoại...">
-											<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('mobile') != null}"
+											<div th:if="${mapError != null && mapError.containsKey('mobile') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('mobile')}" th:text="${err}"></div>
 										</div>
 										<div class="col-md-12">
 											<textarea class="custom-textarea" th:field="*{opinion}"
 												name="message" placeholder="Ý kiến của bạn"></textarea>
-											<div class="alert alert-danger" th:if="${mapError != null && mapError.containsKey('opinion') != null}"
+											<div th:if="${mapError != null && mapError.containsKey('opinion') != null}"
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('opinion')}" th:text="${err}"></div>
 											<button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Gửi

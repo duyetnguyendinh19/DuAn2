@@ -37,4 +37,7 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     @Query(value = "SELECT p FROM Product p WHERE p.category.id IN (:lsCategoryId) AND (p.isdelete = :isdelete)", nativeQuery = false)
     Page<Product> findAllByCategoryParentAndIsdelete(@Param("lsCategoryId") List<Long> categoryId,@Param("isdelete") String isdelete, Pageable pageable);
+
+    @Query(value = "SELECT p FROM Product p WHERE (:name IS NULL OR :name = '' OR p.name LIKE CONCAT('%', :name, '%')) AND (p.isdelete = :isdelete)")
+    Page<Product> findAllByNameIsLikeAndIsdelete(@Param("name") String name,@Param("isdelete") String isdelete, Pageable pageable);
 }
