@@ -152,7 +152,8 @@ public class ReportController {
         	}else {
         		reportService.insert(report);
         		model.addAttribute("mapError", mapError);
-        		return "redirect:/home/contact.html";
+        		model.addAttribute("report", new Report());
+        		return "home/thank";
         	}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -178,7 +179,8 @@ public class ReportController {
         	}else {
         		reportService.insert(report);
         		model.addAttribute("mapError", mapError);
-        		return "redirect:/home/contact.html";
+        		model.addAttribute("report", new Report());
+        		return "home/thank";
         	}
 		} catch (Exception e) {
 			e.printStackTrace();

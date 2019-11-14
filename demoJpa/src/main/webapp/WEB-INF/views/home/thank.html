@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/initHome :: head"></div>
+</head>
+
+<body>
+<!-- Body main wrapper start -->
+<div class="wrapper">
+
+    <!-- START HEADER AREA -->
+    <header class="header-area header-wrapper">
+        <!-- header-top-bar -->
+        <div th:replace="fragments/navHome :: header"></div>
+    </header>
+    <!-- END HEADER AREA -->
+
+    <!-- START MOBILE MENU AREA -->
+    <div th:replace="fragments/navHome :: menuMobile"></div>
+    <!-- END MOBILE MENU AREA -->
+
+    <!-- BREADCRUMBS SETCTION START -->
+    <div class="breadcrumbs-section plr-200 mb-80">
+        <div class="breadcrumbs overlay-bg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="breadcrumbs-inner">
+                            <h1 class="breadcrumbs-title">Cảm ơn vì đã phản hồi</h1>
+                            <ul class="breadcrumb-list">
+                                <li><a th:href="@{/}">Trang chủ</a></li>
+                                <li>Cảm ơn</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BREADCRUMBS SETCTION END -->
+
+    <!-- Start page content -->
+    <section id="page-content" class="page-wrapper">
+
+        <!-- ABOUT SECTION START -->
+        <div class="about-section mb-80">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="section-title text-left " style="word-wrap: break-word;margin-left:5%">
+                            <h2  style="color:green;font-family:Arial">ÔTôKê cảm ơn những góp ý chân thành của khách hàng đã gửi đến cho  <br/><br/>shop, đó là động lực giúp ÔTôKê phục vụ tốt hơn từng ngày !</h2>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- ABOUT SECTION END -->
+
+    </section>
+    <!-- End page content -->
+
+    <!-- START FOOTER AREA -->
+    <div th:replace="fragments/navHome :: footer"></div>
+    <!-- END FOOTER AREA -->
+</div>
+<!-- Body main wrapper end -->
+<div th:replace="fragments/initHome :: commonScript"></div>
+</body>
+
+</html>
