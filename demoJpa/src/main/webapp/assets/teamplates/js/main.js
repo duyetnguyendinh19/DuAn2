@@ -402,25 +402,25 @@
 	$(".cart-plus-minus").append('<div class="inc qtybutton">+</div>');
 	$(".qtybutton").on("click", function() {
 		var $button = $(this);
-		var inp = $button.parent().find("qtybutton");
+		var inp = $button.parent().find("input");
 		var oldValue = inp[0].value;
 		var currUrl = /* [[@{/}]] */"";
 		var path = window.location.pathname.split("/")[1];
-		var id = $(".cart-plus-minus-box-id").val();
+		var id = inp[1].value;
 		if ($button.text() == "+") {
 			var newVal = parseFloat(oldValue) + 1;
-//			$.ajax({
-//				url : currUrl + '/' + path + '/cart/add/' + id + '.html',
-//				method : 'GET'
-//			})
+			$.ajax({
+				url : currUrl + '/' + path + '/cart/add/' + id + '.html',
+				method : 'GET'
+			})
 		} else {
 			// Don't allow decrementing below zero
 			if (oldValue > 0) {
 				var newVal = parseFloat(oldValue) - 1;
-//				$.ajax({
-//					url : currUrl + '/' + path + '/cart/sub/' + id + '.html',
-//					method : 'GET'
-//				})
+				$.ajax({
+					url : currUrl + '/' + path + '/cart/sub/' + id + '.html',
+					method : 'GET'
+				})
 			} else {
 				newVal = 0;
 			}
@@ -430,20 +430,20 @@
 	});
 
 	// 13.1 Cart Change
-//	$(".cart-plus-minus-box").on("blur", function() {
-//		var inp = $(".cart-plus-minus-box").val();
-//		var oldValue = inp[0].value;
-//		var currUrl = /* [[@{/}]] */"";
-//		var path = window.location.pathname.split("/")[1];
-//		var id = $(".cart-plus-minus-box-id").val();
-//
-//		$.ajax({
-//			url : currUrl + '/' + path + '/cart/add/' + id + '/' + inp + '.html',
-//			method : 'GET'
-//		})
-//
-//		location.reload();
-//	});
+	$(".cart-plus-minus-box").on("blur", function() {
+		var $button = $(".qtybutton");
+		var inp = $button.parent().find("input");
+		var oldValue = inp[0].value;
+		var currUrl = /* [[@{/}]] */"";
+		var path = window.location.pathname.split("/")[1];
+		var id = inp[1].value;
+		$.ajax({
+			url : currUrl + '/' + path + '/cart/add/' + id + '/' + oldValue + '.html',
+			method : 'GET'
+		})
+
+		location.reload();
+	});
 
 	/***************************************************************************
 	 * 14. bootstrap accordion one open at a time
