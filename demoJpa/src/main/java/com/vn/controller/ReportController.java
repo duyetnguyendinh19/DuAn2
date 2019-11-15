@@ -164,7 +164,7 @@ public class ReportController {
     }
     
     @RequestMapping(value = "saveFooter.html" , method = RequestMethod.POST)
-    public String saveReplyFooter(@ModelAttribute("report") Report report, BindingResult result,Model model) {
+    public String saveReplyFooter(@ModelAttribute("report") Report report, BindingResult result,Model model,HttpServletRequest request) {
     	Map<String, String> mapError = new HashedMap<String, String>();
     	try {
     		reportFormValidator.validateReportFormInFooter(report, result);
