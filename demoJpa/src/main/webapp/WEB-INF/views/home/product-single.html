@@ -5,6 +5,40 @@
     <div th:replace="fragments/initHome :: head"></div>
 </head>
 <style>
+    .hiddenRep {
+        display: none;
+    }
+    /*-----------------slide down card-------------------------*/
+    .card-slide-down .card-slide-title {
+        display: flex;
+        align-items: baseline;
+        cursor: pointer;
+        margin-right: -5px;
+    }
+    .card-slide-down .card-slide-title .slide-title-left {
+        width: 100%;
+    }
+    .card-slide-down .card-slide-title i {
+        transform: rotate(0deg);
+        transition: transform 0.2s linear;
+        height: 15px;
+        color: black;
+        background: var(--blue-basic);
+        border-radius: 100%;
+        padding: 10px;
+        width: 22px;
+        height: 22px;
+        font-size: 14px;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-slide-down .card-slide-title.open i {
+        transform: rotate(180deg);
+        transition: transform 0.2s linear;
+    }
+    /*-----------------end slide down card-------------------------*/
     .status-success {
         color: white !important;
         background: #0fa145 !important;
@@ -136,7 +170,7 @@
                                                         <a href="#" th:data-image="${eachSubImg}"
                                                            th:data-zoom-image="${eachSubImg}"> <img
                                                                 class="zoom_03" th:src="${eachSubImg}" alt=""
-                                                                style="height: 50px;">
+                                                                style="height: 50px;object-fit: cover;">
                                                         </a>
                                                     </div>
                                                 </div>
@@ -316,6 +350,15 @@
                                                             <p class="mb-0" th:text="${eachReview.description}">Lorem
                                                                 ipsum dolor sit amet, consectetur adipiscing elit.
                                                                 Integer accumsan egestas .</p>
+                                                            <div th:if="${eachReview.reply}">
+                                                                <div class="card-slide-down">
+                                                                    <div class="card-slide-title">
+                                                                        <p class="slide-title-left">Phản hồi</p>
+                                                                        <i class="fa fa-angle-down"></i>
+                                                                    </div>
+                                                                    <p class="hiddenRep" th:text="${eachReview.reply}"></p>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                     <!-- single comments -->
@@ -353,7 +396,7 @@
                                                 <a
                                                         th:href="@{/home/{id}/single-product.html(id = ${eachRe.id})}">
                                                     <img th:src="${eachRe.mainImg}" alt=""
-                                                         style="height: 300px;"/>
+                                                         style="height: 300px;object-fit: cover;"/>
                                                 </a>
                                             </div>
                                             <div class="product-info">
@@ -454,7 +497,7 @@
                                     <a
                                             th:href="@{/home/{id}/single-product.html(id = ${eachNew.id})}">
                                         <img th:src="${eachNew.mainImg}" th:alt="${eachNew.name}"
-                                             style="height: 80px;"/>
+                                             style="height: 80px;object-fit: cover;"/>
                                     </a>
                                 </div>
                                 <div class="product-info">
@@ -650,6 +693,17 @@
 </script>
 <!--End QuickView-->
 <script>
+        $('body').on('click', '.card-slide-title', function() {
+            let isDimissAll = $(this).attr('data-dimissAll') !== undefined;
+            let dimisGroup =  $(this).attr('data-dimissGroup')
+            if(isDimissAll && !$(this).hasClass('open')) {
+                $(`.card-slide-title[data-dimissGroup="${dimisGroup}"]`).removeClass('open')
+                $(`.card-slide-content[data-dimissGroup="${dimisGroup}"]`).css('display', 'none');
+            }
+            $(this).toggleClass('open');
+            $(this).next().slideToggle();
+        });
+
 	var click = 0;
 	$('.like').click(function () {
 		if (click != 1) {
