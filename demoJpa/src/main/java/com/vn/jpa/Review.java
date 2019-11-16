@@ -18,6 +18,9 @@ public class Review implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "email")
+    private String email;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_date")
     private Date createDate;
@@ -41,8 +44,9 @@ public class Review implements Serializable {
     public Review() {
     }
 
-    public Review(String name, Date createDate, String description, String reply, Integer rate, int status, Product product) {
+    public Review(String name,String email, Date createDate, String description, String reply, Integer rate, int status, Product product) {
         this.name = name;
+        this.email = email;
         this.createDate = createDate;
         this.description = description;
         this.reply = reply;
@@ -65,6 +69,14 @@ public class Review implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getCreateDate() {

@@ -385,9 +385,9 @@
                         </div>
                         <div class="col-lg-6" style="height: 100px;">
                             <div class="form-group" style="height: 100px;">
-                                <label>Nội dung sản phẩm</label><span class="error"> *</span>
+                                <label>Miêu tả sản phẩm</label><span class="error"> *</span>
                                 <div style="height: 100px;">
-                                    <textarea class="form-control" placeholder="Nội dung sản phẩm" id="description"
+                                    <textarea class="form-control" placeholder="Miêu tả sản phẩm" id="description"
                                               th:text="${product.description}"
                                               style="height: 100px;"></textarea>
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
@@ -740,7 +740,10 @@
                         $('#quantityError').text('');
                     }
                     if(data.success != null){
-                        window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';
+                        alert(data.success);
+                        // setTimeout(function(){
+                            window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';
+                        // },1500);
                     }
                 }
             });
