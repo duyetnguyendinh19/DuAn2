@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Thank Customer</title>
+</head>
+<body style="margin:0px;">
+<div style="width: 100%;height: auto;float: left;background-color: #e4e4e4;">
+    <div class="body" style="margin-top:15px; width: 100%;max-width: 768px;font-family: Nunito Sans, sans-serif!important;background: white;height: auto;margin-bottom: 20px;margin-top: 15px;
+        margin-left: auto;margin-right:auto;display: table;">
+        <div style="text-align: center">
+            <a href="/"><img src="http://www.taikhoanmayman.vn/yo-home/otoke-logo.png" style="margin-bottom: 10px;margin-top: 40px;" /></a>
+        </div>
+        <div>
+            <div style="text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;
+            color:green;height: 100%;"></div>
+            <br>
+            <div style="text-align: center;font-weight:bold;padding-left:40px;padding-right:40px;
+            padding-bottom:15px;padding-top:15px;font-size: 24px;color: #111194;">Thư cảm ơn Quý khách đã sử dụng dịch vụ ÔTÔKê</div>
+            <br>
+            <div style="text-transform: uppercase;border-top: 1px solid green;font-size: 13px;font-weight: bold;
+            color:green;height: 100%;"></div>
+        </div>
+        <div style="float: left;width: 98%;margin-left: 15px;">
+            <p style="float: left;margin-top: 15px;display: flex">Xin chào<span class="name" style="float: left;color: #ff9800;font-weight: bold;    margin-left: 4px;" th:text="${name}"></span></p>
+        </div>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;" th:text="${text}">Cảm ơn bạn đã đánh gía</p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;" th:if="${problem != null}" th:text="${problem}">Cảm ơn bạn đã đánh gía</p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;" th:if="${opinion != null}" th:text="${opinion}">Cảm ơn bạn đã đánh gía</p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;" th:if="${rep != null}" th:text="${rep}">Cảm ơn bạn đã đánh gía</p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;">Xin quý khách vui lòng bỏ thêm một vài phút để thích và theo dõi trang web của ÔTôKê trên facebook tại <a href="https://www.facebook.com/tanbv.dev/">đây</a> để nhận được những khuyến mãi ưu đãi từ ÔTôKê sớm nhất.</p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;">
+            Xin chúc quý khách hàng sức khỏe, may mắn và thành công.
+        </p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;"></p>
+        <p style="margin-left: 15px;margin-top: 15px;margin-right: 15px;line-height: 20px;">
+            Trân Trọng!
+        </p>
+    </div>
+</div>
+</body>
+</html>

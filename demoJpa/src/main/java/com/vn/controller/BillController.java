@@ -137,7 +137,7 @@ public class BillController {
 
           Sort sort = new Sort(Sort.Direction.DESC, "id");
           Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-          Page<Bill> page = billService.findAllBill(_fromDate, _toDate, 0, code.trim(), DELETE, _pageable);
+          Page<Bill> page = billService.findAllBill(_fromDate, _toDate, 0, code, DELETE, _pageable);
           model.addAttribute("page", page);
           session.setAttribute("from_date", sdf.format(_fromDate));
           session.setAttribute("to_date", sdf.format(_toDate));

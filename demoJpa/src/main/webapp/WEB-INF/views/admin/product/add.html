@@ -286,9 +286,11 @@
                                                 </span>
                                                 </label>
                                             </div>
+                                            <br>
+                                            <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
+                                                  id="subError"></span>
                                         </div>
-                                        <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
-                                              id="subError"></span>
+
                                     </div>
                                 </div>
                             </div>
@@ -361,9 +363,9 @@
                         </div>
                         <div class="col-lg-6" style="height: 100px;">
                             <div class="form-group" style="height: 100px;">
-                                <label>Nội dung sản phẩm</label><span class="error"> *</span>
+                                <label>Miêu tả sản phẩm</label><span class="error"> *</span>
                                 <div style="height: 100px;">
-                                    <textarea class="form-control" placeholder="Nội dung sản phẩm" id="description"
+                                    <textarea class="form-control" placeholder="Miêu tả sản phẩm" id="description"
                                               style="height: 100px;"></textarea>
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
                                           id="descriptionError"></span>
@@ -525,7 +527,7 @@
                                 $labelText.text(labelDefault);
                             }
                         }, 500);
-                    }else{
+                    } else {
                         $('#mainError').text('Ảnh không quá 15Mb');
                     }
                 };
@@ -568,7 +570,7 @@
                     htmlAppend.find('.nameFile').text(dataFile.name);
                     indexOfImageToAdd++;
                 }, 500);
-            }else{
+            } else {
                 $('#subError').text("Ảnh không quá 15Mb");
             }
             $('#addSubImages').before(htmlAppend);
@@ -593,16 +595,21 @@
 
     $('#addProduct').on('click', function () {
         let subImamgeObject = [];
+        let valid = true;
         for (let i of subImages) {
             subImamgeObject.push(i[1]);
         }
         if (mainImg === null || mainImg === '') {
             $('#mainError').text("Ảnh đại diện không để trống");
             $('#mainError').hide().fadeIn(0).delay(2000).fadeOut(1000);
-        } else if (subImamgeObject.length === 0) {
+            valid = false;
+        }
+        if (subImamgeObject.length === 0) {
             $('#subError').text("Ảnh chi tiết không để trống");
             $('#subError').hide().fadeIn(0).delay(2000).fadeOut(1000);
-        } else {
+            valid = false;
+        }
+        if (valid === true) {
             var pricesale = $('#priceSale').val().replace(/,/g, '');
             var price = $('#price').val().replace(/,/g, '');
             if (pricesale == null || pricesale == '') {
@@ -644,37 +651,40 @@
                         }
                         if (data.info != null) {
                             $('#infoError').text(data.info);
-                        }else{
+                        } else {
                             $('#infoError').text('');
                         }
                         if (data.description != null) {
                             $('#descriptionError').text(data.description);
-                        }else{
+                        } else {
                             $('#descriptionError').text('');
                         }
                         if (data.priceSale != null) {
                             $('#priceSaleError').text('');
-                        }else{
+                        } else {
                             $('#priceSaleError').text('');
                         }
                         if (data.price != null) {
                             $('#priceError').text(data.price);
-                        }else{
+                        } else {
                             $('#priceError').text('');
                         }
                         if (data.quantity != null) {
                             $('#quantityError').text(data.quantity);
-                        }else{
+                        } else {
                             $('#quantityError').text('');
                         }
-                        if(data.success != null){
-                            window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';
+                        if (data.success != null) {
+                            alert(data.success);
+                            // setTimeout(function () {
+                                window.location.href = window.location.origin + $('#contextPath').val() + 'product/list.html';
+                            // }, 1500);
                         }
                     }
-                }
-            );
+                });
         }
-    });
+    })
+    ;
 </script>
 <script>
 

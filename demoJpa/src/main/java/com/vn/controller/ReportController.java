@@ -2,6 +2,8 @@ package com.vn.controller;
 
 import com.google.common.base.Strings;
 import com.vn.common.Constants;
+import com.vn.common.ThymeleafUtil;
+import com.vn.config.GoogleMailSender;
 import com.vn.jpa.Report;
 import com.vn.model.ReportModel;
 import com.vn.service.ReportService;
@@ -29,6 +31,7 @@ import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -128,7 +131,23 @@ public class ReportController {
            if(report1 != null){
                report1.setRepply(report.getReply());
                reportService.update(report1);
-               return "redirect:/report/list.html";
+               Map<String, Object> map = new HashMap<>();
+               map.put("name", report1.getName());
+               map.put("text", "ÔTôKê cảm ơn Quý khách đã có ý kiến góp ý cho chúng tôi.");
+               map.put("problem", "Vấn đề của Quý khách gặp phải là: " + report1.getProblem());
+               map.put("opinion", "Ý kiến của Quý khách là: " + report1.getOpinion());
+               map.put("rep", "Cảm ơn Quý khách, " + report1.getRepply());
+               new Thread(
+                       () -> {
+                           try {
+                               GoogleMailSender mailSender = new GoogleMailSender();
+                               final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailThankiuReviewAndReport.html", (HashMap<String, Object>) map);
+                               mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", report1.getEmail(), "[ÔTôKê] EMail cảm ơn Quý Khách", htmlContent);
+                           } catch (Exception e) {
+                               e.printStackTrace();
+                           }
+                       }
+               ).start();
            }
        }catch (Exception e){
            e.printStackTrace();
