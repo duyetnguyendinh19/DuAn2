@@ -19,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 
 @Controller
 @RequestMapping("/admin/")
@@ -35,10 +36,8 @@ public class AdminController {
 //    @PreAuthorize("hasAnyAuthority('Administrators')")
     @GetMapping(value = {"dashboard.html"})
     public String index(ModelMap modelMap, Pageable pageable, HttpSession session) {
-//        Page<Category> page = categoryService.findAll(pageable);
-//        modelMap.addAttribute("page", page);
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        modelMap.addAttribute("name1", authentication.getName());
+        session.setAttribute("from_date", new Date());
+        session.setAttribute("to_date", new Date());
         return "admin/index";
     }
 
