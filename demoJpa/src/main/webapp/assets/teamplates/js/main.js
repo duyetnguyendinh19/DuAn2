@@ -411,7 +411,10 @@
 			var newVal = parseFloat(oldValue) + 1;
 			$.ajax({
 				url : currUrl + '/' + path + '/cart/add/' + id + '.html',
-				method : 'GET'
+				method : 'GET',
+				success: function(response){
+					location.reload();
+				}
 			})
 		} else {
 			// Don't allow decrementing below zero
@@ -419,14 +422,17 @@
 				var newVal = parseFloat(oldValue) - 1;
 				$.ajax({
 					url : currUrl + '/' + path + '/cart/sub/' + id + '.html',
-					method : 'GET'
+					method : 'GET',
+					success: function(response){
+						location.reload();
+					}
 				})
 			} else {
 				newVal = 0;
 			}
 		}
 		$button.parent().find("input").val(newVal);
-		location.reload();
+		
 	});
 
 	// 13.1 Cart Change
@@ -439,18 +445,20 @@
 		var id = inp[1].value;
 		$.ajax({
 			url : currUrl + '/' + path + '/cart/add/' + id + '/' + oldValue + '.html',
-			method : 'GET'
+			method : 'GET',
+			success: function(response){
+				location.reload();
+			}
 		})
 
-		location.reload();
 	});
 	
 	// 13.2 Change Single Product
-	$("#quantityValue").on("change", function() {
+/*	$("#quantityValue").on("change", function() {
 		var newValue = $("#quantityValue").val();
 		$("#quantityValue").val(newValue);
 		
-	});
+	});*/
 
 
 	/***************************************************************************
