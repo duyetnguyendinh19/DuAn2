@@ -444,6 +444,14 @@
 
 		location.reload();
 	});
+	
+	// 13.2 Change Single Product
+	$("#quantityValue").on("change", function() {
+		var newValue = $("#quantityValue").val();
+		$("#quantityValue").val(newValue);
+		
+	});
+
 
 	/***************************************************************************
 	 * 14. bootstrap accordion one open at a time
