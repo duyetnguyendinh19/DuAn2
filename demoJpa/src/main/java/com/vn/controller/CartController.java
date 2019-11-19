@@ -27,7 +27,7 @@ public class CartController {
 	@RequestMapping(value = "add/{productId}.html", method = RequestMethod.GET)
 	public String viewAdd(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-		if (cartItems == null) {
+		if (cartItems == null || cartItems.isEmpty()) {
 			cartItems = new HashMap<>();
 		}
 		Product product = productSerivce.findOne(productId);
@@ -92,7 +92,7 @@ public class CartController {
 	@RequestMapping(value = "remove/{productId}.html", method = RequestMethod.GET)
 	public String viewRemove(ModelMap mm, HttpSession session, @PathVariable("productId") long productId) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-		if (cartItems == null) {
+		if (cartItems == null || cartItems.isEmpty()) {
 			cartItems = new HashMap<>();
 		}
 		if (cartItems.containsKey(productId)) {
@@ -125,7 +125,7 @@ public class CartController {
 	public String vieChangeInput(ModelMap mm, HttpSession session, @PathVariable("productId") long productId,
 			@PathVariable("quantity") int quantity) {
 		HashMap<Long, Cart> cartItems = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
-		if (cartItems == null) {
+		if (cartItems == null || cartItems.isEmpty()) {
 			cartItems = new HashMap<>();
 		}
 		Product product = productSerivce.findOne(productId);
@@ -135,7 +135,12 @@ public class CartController {
 				item.setProduct(product);
 				item.setQuantity(quantity);
 				cartItems.put(productId, item);
-			} 
+			}  else {
+				Cart item = new Cart();
+				item.setProduct(product);
+				item.setQuantity(quantity);
+				cartItems.put(productId, item);
+			}
 		}
 		String size;
 		if (cartItems.size() < 10) {
