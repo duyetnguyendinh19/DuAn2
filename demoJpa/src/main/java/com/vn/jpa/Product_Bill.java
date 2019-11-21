@@ -2,6 +2,7 @@ package com.vn.jpa;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "product_bill")
@@ -27,6 +28,10 @@ public class Product_Bill implements Serializable {
 
     @Column(name = "isdelete", columnDefinition = "CHAR")
     private String isdelete;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_date")
+    private Date createdDate;
 
     public Product_Bill() {
     }
@@ -76,5 +81,12 @@ public class Product_Bill implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @PrePersist
+    public void pre(){
+        if(this.createdDate == null){
+            this.createdDate = new Date();
+        }
     }
 }

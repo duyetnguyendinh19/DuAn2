@@ -6,12 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/index.html" afterDir="false" />
-    </list>
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +22,8 @@
         <option value="FxmlFile" />
         <option value="spring-beans.schema" />
         <option value="Interface" />
-        <option value="Class" />
         <option value="HTML File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -318,21 +313,10 @@
       <workItem from="1574061608702" duration="4000" />
       <workItem from="1574062694467" duration="128000" />
       <workItem from="1574077131667" duration="9989000" />
-      <workItem from="1574126882671" duration="1097000" />
-    </task>
-    <task id="LOCAL-00025" summary="update code">
-      <created>1571116038793</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1571116038793</updated>
-    </task>
-    <task id="LOCAL-00026" summary="update code">
-      <created>1571132011586</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1571132011586</updated>
+      <workItem from="1574126882671" duration="1806000" />
+      <workItem from="1574131596328" duration="358000" />
+      <workItem from="1574154672525" duration="150000" />
+      <workItem from="1574339050183" duration="5914000" />
     </task>
     <task id="LOCAL-00027" summary="update code">
       <created>1571132052545</created>
@@ -663,7 +647,21 @@
       <option name="project" value="LOCAL" />
       <updated>1574078005924</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2">
+      <created>1574128221981</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1574128221981</updated>
+    </task>
+    <task id="LOCAL-00075" summary="update code chart dashboard">
+      <created>1574345017630</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1574345017631</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -683,7 +681,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
     <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2&#10;&#10; Conflicts:&#10;&#9;demoJpa/src/main/java/com/vn/controller/HomeController.java" />
     <MESSAGE value="update reset Password" />
     <MESSAGE value="update forget password" />
@@ -691,7 +688,9 @@
     <MESSAGE value="update checkout payment header" />
     <MESSAGE value="update change color" />
     <MESSAGE value="update code" />
-    <option name="LAST_COMMIT_MESSAGE" value="update code" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
+    <MESSAGE value="update code chart dashboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="update code chart dashboard" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

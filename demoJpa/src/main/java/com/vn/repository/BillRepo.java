@@ -33,4 +33,5 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
     Bill findByCode(String code);
 
     List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail);
+
 }

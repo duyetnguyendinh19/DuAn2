@@ -18,35 +18,35 @@
     <div id="nav_id" th:replace="nav :: div">
     </div>
     <div id="page-wrapper" style="min-height: 600px;">
-        <div class="row">
-            <div class="panel-body panel-info">
-                <br><br><br>
-                <form role="form" th:action="@{/admin/dashboard.html}" method="POST">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <label>Từ ngày - đến ngày</label>
-                            <div class="input-prepend input-group">
-                                <span class="add-on input-group-addon"><i
-                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>
-                                <input type="text" name="from_date" id="from_date" hidden="true"
-                                       th:value="${from_date}"/>
-                                <input type="text" name="to_date" id="to_date" hidden="true" th:value="${to_date}"/>
-                                <input type="text" style="width: 100%" id="timePicker" class="form-control span4"
-                                       value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly"/>
-                            </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <label>&nbsp;</label>
-                            <div>
-                                <button type="submit" id="btnSearch" class="btn btn-primary">Tìm kiếm</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-                <!-- End form -->
-            </div>
-            <!-- /.col-lg-12 -->
-        </div>
+        <!--        <div class="row">-->
+        <!--            <div class="panel-body panel-info">-->
+        <!--                <br><br><br>-->
+        <!--                <form role="form" th:action="@{/admin/dashboard.html}" method="POST">-->
+        <!--                    <div class="row">-->
+        <!--                        <div class="col-lg-4">-->
+        <!--                            <label>Từ ngày - đến ngày</label>-->
+        <!--                            <div class="input-prepend input-group">-->
+        <!--                                <span class="add-on input-group-addon"><i-->
+        <!--                                        class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>-->
+        <!--                                <input type="text" name="from_date" id="from_date" hidden="true"-->
+        <!--                                       th:value="${from_date}"/>-->
+        <!--                                <input type="text" name="to_date" id="to_date" hidden="true" th:value="${to_date}"/>-->
+        <!--                                <input type="text" style="width: 100%" id="timePicker" class="form-control span4"-->
+        <!--                                       value=" - " th:value="${from_date} + ' - ' + ${to_date}" readonly="readonly"/>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                        <div class="col-sm-2">-->
+        <!--                            <label>&nbsp;</label>-->
+        <!--                            <div>-->
+        <!--                                <button type="submit" id="btnSearch" class="btn btn-primary">Tìm kiếm</button>-->
+        <!--                            </div>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                </form>-->
+        <!--                &lt;!&ndash; End form &ndash;&gt;-->
+        <!--            </div>-->
+        <!--            &lt;!&ndash; /.col-lg-12 &ndash;&gt;-->
+        <!--        </div>-->
         <br>
         <div class="row">
             <div class="col-lg-12">
@@ -54,7 +54,7 @@
                     <div class="row">
                         <div class="panel-body">
                             <canvas id="chartProduct"></canvas>
-                            <label style="width: 100%;text-align: center;">Thống kê sản phẩm</label>
+                            <label style="width: 100%;text-align: center;">Thống kê đơn đặt hàng 7 ngày gần nhất</label>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -63,7 +63,8 @@
                     <div class="row">
                         <div class="panel-body">
                             <canvas id="chartBill"></canvas>
-                            <label style="width: 100%;text-align: center;">Thống kê hóa đơn</label>
+                            <label style="width: 100%;text-align: center;">Thống kê đơn hàng bị hủy 7 ngày gần
+                                nhất</label>
                         </div>
                     </div>
                     <!-- /.row -->
@@ -108,54 +109,71 @@
     var currUrl = /*[[@{/}]]*/ "";
     var pageIndex = /*[[${session.pageIndex}]]*/ "";
 </script>
+<!--<script>-->
+<!--    $('#timePicker').daterangepicker({-->
+<!--        "timePicker": true,-->
+<!--        "timePicker24Hour": true,-->
+<!--        "timePickerIncrement": 1,-->
+<!--        "format": 'DD/MM/YYYY HH:mm',-->
+<!--    }, function (start, end, label) {-->
+<!--        $('#from_date').val(start.format('DD/MM/YYYY HH:mm'));-->
+<!--        $('#to_date').val(end.format('DD/MM/YYYY HH:mm'));-->
+<!--    });-->
+<!--</script>-->
 <script>
-    $('#timePicker').daterangepicker({
-        "timePicker": true,
-        "timePicker24Hour": true,
-        "timePickerIncrement": 1,
-        "format": 'DD/MM/YYYY HH:mm',
-    }, function (start, end, label) {
-        $('#from_date').val(start.format('DD/MM/YYYY HH:mm'));
-        $('#to_date').val(end.format('DD/MM/YYYY HH:mm'));
-    });
-</script>
-<script>
-    var ctx = document.getElementById('chartProduct').getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['15-11-2019', '16-11-2019', '17-11-2019', '18-11-2019', '19-11-2019', '20-11-2019',
-                '15-11-2019', '16-11-2019', '17-11-2019', '18-11-2019', '19-11-2019', '20-11-2019'],
-            datasets: [{
-                label: 'Số lượng',
-                data: [12, 50, 3, 5, 99, 3, 5, 12, 51, 23, 120, 78],
-                // backgroundColor: 'rgba(255, 99, 132, 1)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 2
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
+    $.ajax({
+        url: currUrl + 'admin/chartBill',
+        method: 'GET',
+        contentType: 'application/json;charset=utf-8',
+        success: function (response) {
+            let dataChart = {};
+            let dataLabels = [];
+            let datasetsChart = [];
+            let dataForDataSetChart = [];
+            let dataDataSetChart = {};
+            var data = JSON.parse(response);
+            for (let each of data.response) {
+                dataLabels.push(each.key);
+                dataForDataSetChart.push(each.value);
+                dataDataSetChart.data = dataForDataSetChart;
             }
+            dataDataSetChart.label = 'Tổng số giải thưởng';
+            dataDataSetChart.backgroundColor = 'rgba(0, 216, 255, 0)';
+            dataDataSetChart.borderColor = 'rgba(255, 19, 248, 0.9)';
+            datasetsChart.push(dataDataSetChart)
+            dataChart.labels = dataLabels;
+            dataChart.datasets = datasetsChart;
+
+            var ctx = document.getElementById('chartProduct').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: dataChart,
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
         }
     });
+
+
 
 
     var ctx = document.getElementById('chartBill').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['15-11-2019', '16-11-2019', '17-11-2019', '18-11-2019', '19-11-2019', '20-11-2019',
-                '15-11-2019', '16-11-2019', '17-11-2019', '18-11-2019', '19-11-2019', '20-11-2019'],
+            labels: ['15-11-2019', '16-11-2019', '17-11-2019', '18-11-2019', '19-11-2019', '20-11-2019'],
             datasets: [{
                 label: 'Số lượng',
-                data: [80, 51, 5, 8, 9, 1, 6, 92, 51, 68, 12, 7],
-                // backgroundColor: 'rgba(255, 99, 132, 1)',
+                data: [80, 51, 5, 8, 9, 1],
+                backgroundColor: 'rgba(255, 99, 132, 0)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 2
             }]
