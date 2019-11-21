@@ -262,7 +262,7 @@ public class HomeController {
         try {
             if (session.getAttribute("userLogin") == null && session.getAttribute("userGoogle") == null) {
                 Map<String, String> mapError = new HashedMap<String, String>();
-                model.addAttribute("athUser", new AuthUserModel());
+                model.addAttribute("authUser", new AuthUserModel());
                 model.addAttribute("mapError", mapError);
                 ModelAndView modelAndView = new ModelAndView("home/login");
                 return modelAndView;
@@ -272,6 +272,9 @@ public class HomeController {
                 if (session.getAttribute("userLogin") != null) {
                     authUser = (AuthUser) session.getAttribute("userLogin");
                     inf = infomationService.findByAuthUserId(authUser.getId());
+                    if(inf == null){
+                        inf = new Infomation();
+                    }
                 } else if (session.getAttribute("userGoogle") != null) {
                     GmailGoogle gmailGG = (GmailGoogle) session.getAttribute("userGoogle");
                     authUser = authUserService.findByEmail(gmailGG.getEmail());
@@ -286,6 +289,7 @@ public class HomeController {
                 }
 
                 model.addAttribute("profile", inf);
+                model.addAttribute("authUser", authUser);
                 ModelAndView modelAndView = new ModelAndView("home/profile");
                 return modelAndView;
             }
