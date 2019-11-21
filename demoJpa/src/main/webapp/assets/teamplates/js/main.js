@@ -407,13 +407,33 @@
 		var currUrl = /* [[@{/}]] */"";
 		var path = window.location.pathname.split("/")[1];
 		var id = inp[1].value;
+		var total = 0;
 		if ($button.text() == "+") {
 			var newVal = parseFloat(oldValue) + 1;
 			$.ajax({
-				url : currUrl + '/' + path + '/cart/add/' + id + '.html',
+				url : currUrl + '/' + path + '/cart/addAjax/' + id + '.html',
 				method : 'GET',
 				success: function(response){
-					location.reload();
+					$("#" + id).val(newVal);
+					$("#quantitycart" + id).text(newVal);
+					var price = $("#price" + id).html().replace(/,/g, '');
+					$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+					$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+					$('#tblCart > tbody  > tr').each(function(index, tr) { 
+						var getTD = $(this).find("td");
+						var totalChild = getTD[3].innerText.replace(/,/g, '');
+						total = parseFloat(total) + parseFloat(totalChild);
+						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+					});
+					$('#cartInfo > div').each(function(index, div) { 
+						var getPrice = $(this).find("span.pricecart");
+						var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
+						total = parseFloat(total) + parseFloat(totalChild);
+						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+					});
+					$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+					$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 				}
 			})
 		} else {
@@ -424,16 +444,42 @@
 					url : currUrl + '/' + path + '/cart/sub/' + id + '.html',
 					method : 'GET',
 					success: function(response){
-						location.reload();
+						$("#" + id).val(newVal);		
+						$("#quantitycart" + id).text(newVal);	
+						var price = $("#price" + id).html().replace(/,/g, '');
+						$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+						$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+						$('#tblCart > tbody  > tr').each(function(index, tr) { 
+							var getTD = $(this).find("td");
+							var totalChild = getTD[3].innerText.replace(/,/g, '');
+							total = parseFloat(total) + parseFloat(totalChild);
+							$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+							$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+						});
+						$('#cartInfo > div').each(function(index, div) { 
+							var getPrice = $(this).find("span.pricecart");
+							var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
+							total = parseFloat(total) + parseFloat(totalChild);
+							$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+						});
+						$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+						$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 					}
 				})
 			} else {
-				newVal = 0;
+				$("#" + id).val(0);	
 			}
 		}
-		$button.parent().find("input").val(newVal);
+		
 		
 	});
+	
+    function formatNumberString(numberStr) {
+        if (typeof numberStr === 'number') {
+            numberStr = numberStr.toString();
+        }
+        return numberStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
+    }
 
 	// 13.1 Cart Change
 	$(".cart-plus-minus-box").on("blur", function() {
@@ -443,11 +489,31 @@
 		var currUrl = /* [[@{/}]] */"";
 		var path = window.location.pathname.split("/")[1];
 		var id = inp[1].value;
+		var total = 0;
 		$.ajax({
 			url : currUrl + '/' + path + '/cart/add/' + id + '/' + oldValue + '.html',
 			method : 'GET',
 			success: function(response){
-				location.reload();
+				$("#" + id).val(oldValue);		
+				$("#quantitycart" + id).text(oldValue);
+				var price = $("#price" + id).html().replace(/,/g, '');
+				$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
+				$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
+				$('#tblCart > tbody  > tr').each(function(index, tr) { 
+					var getTD = $(this).find("td");
+					var totalChild = getTD[3].innerText.replace(/,/g, '');
+					total = parseFloat(total) + parseFloat(totalChild);
+					$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+					$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+				});
+				$('#cartInfo > div').each(function(index, div) { 
+					var getPrice = $(this).find("span.pricecart");
+					var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
+					total = parseFloat(total) + parseFloat(totalChild);
+					$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+				});
+				$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+				$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 			}
 		})
 

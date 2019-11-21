@@ -99,7 +99,7 @@
                                 <div class="shopping-cart-content">
                                     <form action="#">
                                         <div class="table-content table-responsive mb-50">
-                                            <table class="text-center">
+                                            <table id="tblCart" class="text-center">
                                                 <thead>
                                                 <tr>
                                                     <th class="product-thumbnail">Sản phẩm</th>
@@ -126,10 +126,11 @@
                                                         </div>
                                                     </td>
                                                     <td class="product-price"
+                                                    	th:id="price+${cart.value.product.id}"
                                                         th:text="${#numbers.formatDecimal(cart.value.product.price, 0, 'COMMA', 0,'POINT')}"></td>
                                                     <td class="product-quantity">
                                                         <div class="cart-plus-minus f-left">
-                                                            <input type="text" th:value="${cart.value.quantity}"
+                                                            <input th:id="${cart.value.product.id}" type="text" th:value="${cart.value.quantity}"
                                                                    name="payment" class="cart-plus-minus-box"
                                                                    style="margin-top: 0px!important;"> <input
                                                                 type="hidden"
@@ -138,6 +139,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="product-subtotal"
+                                                    	th:id="subtotal+${cart.value.product.id}"
                                                         th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
                                                         th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')}"></td>
                                                     <td class="product-remove"><a
@@ -149,8 +151,8 @@
                                             </table>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="coupon-discount box-shadow p-30 mb-50">
+                                          <div class="col-md-6">
+                                                <!-- <div class="coupon-discount box-shadow p-30 mb-50">
                                                     <h6 class="widget-title border-left mb-20">Mã giảm
                                                         giá</h6>
                                                     <p>Vui lòng nhập mã giảm giá nếu có!</p>
@@ -160,7 +162,7 @@
                                                             style="margin-top: 20px!important;"
                                                             type="submit">Gửi mã
                                                     </button>
-                                                </div>
+                                                </div> -->
                                             </div>
                                             <div class="col-md-6" style="line-height: 27px!important;">
                                                 <div class="payment-details box-shadow p-30 mb-50">
@@ -169,16 +171,16 @@
                                                     <table>
                                                         <tr>
                                                             <td class="td-title-1">Tiền sản phẩm</td>
-                                                            <td class="td-title-2"
+                                                            <td id="totalPrice" class="td-title-2"
                                                                 th:text="${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Phí ship</td>
-                                                            <td class="td-title-2">0 Vnđ</td>
+                                                            <td class="td-title-2">0 VND</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Thuế</td>
-                                                            <td class="td-title-2"
+                                                            <td id="vat" class="td-title-2"
                                                                 th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'"></td>
                                                         </tr>
                                                         <tr>

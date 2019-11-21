@@ -245,10 +245,10 @@
                                                 <div class="cart-plus-minus f-left">
                                                  <input type="text" th:if="${#lists.isEmpty(session.myCartItems) and session.myCartItems==null}" th:value="1" name="number"
                                                            class="cart-plus-minus-box">
-                                                    <input id="quantityValue" type="text" th:if="${not #lists.isEmpty(session.myCartItems) and session.myCartItems!=null }" th:value="${session.myCartItems.get(product.id) == null ? 1 : 
+                                                    <input th:id="${product.id}" type="text" th:if="${not #lists.isEmpty(session.myCartItems) and session.myCartItems!=null }" th:value="${session.myCartItems.get(product.id) == null ? 1 : 
                                                    session.myCartItems.get(product.id).quantity }" name="number"
                                                            class="cart-plus-minus-box">
-                                                     <input type="hidden" th:value="${product.id}"
+                                                     <input  type="hidden" th:value="${product.id}"
                                                             class="cart-plus-minus-box">
                                                 </div>
                                             </div>
@@ -278,8 +278,8 @@
                                         <!-- hr -->
                                         <hr>
                                         <!-- single-product-price -->
-                                        <h3 class="pro-price"
-                                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0,'POINT') + ' Vnđ'}"></h3>
+                                        <h3 class="pro-price" th:id="price+${product.id}"
+                                            th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0,'POINT')}"></h3>
                                         <!--  hr -->
                                         <hr>
                                         <div th:if="${product.quantity > 0}">

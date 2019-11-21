@@ -166,22 +166,24 @@
 																</a>
 															</div>
 														</div>
-														<div class="cart-info f-left">
+														<div id="cartInfo" class="cart-info f-left">
 															<h6 class="text-capitalize">
 																<a href="#" th:text="|${cart.value.product.name}|"></a>
 															</h6>
-															<p>
+															<div>
+																<p>
 																<span>Hãng <strong>:</strong></span> <span
 																	th:text="|${cart.value.product.category.name}|"></span>
-															</p>
-															<p>
-																<span>Giá <strong>:</strong></span> <span
-																	th:text="|${#numbers.formatDecimal(cart.value.product.price * cart.value.quantity, 0, 'COMMA', 0,'POINT')}|"></span>
-															</p>
-															<p>
-																<span>SL<strong>:</strong></span> <span
-																	th:text="|${cart.value.quantity}|"></span>
-															</p>
+																</p>
+																<p>
+																	<span>Giá <strong>:</strong></span> <span th:id="pricecart+${cart.value.product.id}" class="pricecart"
+																		th:text="|${#numbers.formatDecimal(cart.value.product.price * cart.value.quantity, 0, 'COMMA', 0,'POINT')}|"></span>
+																</p>
+																<p>
+																	<span>SL<strong>:</strong></span> <span th:id="quantitycart+${cart.value.product.id}"
+																		th:text="|${cart.value.quantity}|"></span>
+																</p>
+															</div>
 														</div>
 													</div>
 													<script>
@@ -207,7 +209,7 @@
 											</li>
 											<li>
 												<div class="top-cart-inner subtotal">
-													<h4 class="text-uppercase g-font-2"
+													<h4 class="text-uppercase g-font-2" id="totalPriceCart"
 														th:text="'Tổng = ' + ${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')}">
 														<span></span>
 													</h4>
