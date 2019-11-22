@@ -151,20 +151,20 @@
                                             </table>
                                         </div>
                                         <div class="row">
-                                          <div class="col-md-6">
-                                                <!-- <div class="coupon-discount box-shadow p-30 mb-50">
-                                                    <h6 class="widget-title border-left mb-20">Mã giảm
-                                                        giá</h6>
-                                                    <p>Vui lòng nhập mã giảm giá nếu có!</p>
-                                                    <input type="text" name="name"
-                                                           placeholder="Nhập mã giảm giá tại đây.">
-                                                    <button class="submit-btn-1 black-bg btn-hover-2"
-                                                            style="margin-top: 20px!important;"
-                                                            type="submit">Gửi mã
-                                                    </button>
-                                                </div> -->
-                                            </div>
-                                            <div class="col-md-6" style="line-height: 27px!important;">
+<!--                                          <div class="col-md-6">-->
+<!--                                                &lt;!&ndash; <div class="coupon-discount box-shadow p-30 mb-50">-->
+<!--                                                    <h6 class="widget-title border-left mb-20">Mã giảm-->
+<!--                                                        giá</h6>-->
+<!--                                                    <p>Vui lòng nhập mã giảm giá nếu có!</p>-->
+<!--                                                    <input type="text" name="name"-->
+<!--                                                           placeholder="Nhập mã giảm giá tại đây.">-->
+<!--                                                    <button class="submit-btn-1 black-bg btn-hover-2"-->
+<!--                                                            style="margin-top: 20px!important;"-->
+<!--                                                            type="submit">Gửi mã-->
+<!--                                                    </button>-->
+<!--                                                </div> &ndash;&gt;-->
+<!--                                            </div>-->
+                                            <div class="col-md-12" style="line-height: 27px!important;">
                                                 <div class="payment-details box-shadow p-30 mb-50">
                                                     <h6 class="widget-title border-left mb-20">Chi tiết
                                                         thanh toán</h6>
@@ -240,16 +240,16 @@
                                                                 th:text="${cart.value.product.name}"></td>
                                                             <td th:id="subtotalTT+${cart.value.product.id}" class="td-title-2" 
                                                                 th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
-                                                                th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
+                                                                th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')}"></td>
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Phí ship</td>
-                                                            <td class="td-title-2">0 Vnđ</td>
+                                                            <td class="td-title-2">0</td>
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Thuế (1%)</td>
                                                             <td  id="vatTT" class="td-title-2"
-                                                                th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'">
+                                                                th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')}">
                                                                 VND
                                                             </td>
                                                         </tr>

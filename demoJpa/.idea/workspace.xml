@@ -319,28 +319,7 @@
       <workItem from="1574154672525" duration="150000" />
       <workItem from="1574339050183" duration="7801000" />
       <workItem from="1574386022816" duration="185000" />
-      <workItem from="1574387678635" duration="13847000" />
-    </task>
-    <task id="LOCAL-00030" summary="update code">
-      <created>1571233792960</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1571233792960</updated>
-    </task>
-    <task id="LOCAL-00031" summary="update code">
-      <created>1571283340786</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1571283340786</updated>
-    </task>
-    <task id="LOCAL-00032" summary="update code">
-      <created>1571288947527</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1571288947527</updated>
+      <workItem from="1574387678635" duration="14918000" />
     </task>
     <task id="LOCAL-00033" summary="update code">
       <created>1571313810202</created>
@@ -664,7 +643,28 @@
       <option name="project" value="LOCAL" />
       <updated>1574407825632</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2">
+      <created>1574408268490</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1574408268490</updated>
+    </task>
+    <task id="LOCAL-00080" summary="update nav">
+      <created>1574408481576</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1574408481576</updated>
+    </task>
+    <task id="LOCAL-00081" summary="update nav">
+      <created>1574409109012</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1574409109012</updated>
+    </task>
+    <option name="localTasksCounter" value="82" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -691,11 +691,12 @@
     <MESSAGE value="update checkout payment header" />
     <MESSAGE value="update change color" />
     <MESSAGE value="update code" />
-    <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
     <MESSAGE value="update code chart dashboard" />
     <MESSAGE value="fix profile" />
     <MESSAGE value="update dashboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="update dashboard" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
+    <MESSAGE value="update nav" />
+    <option name="LAST_COMMIT_MESSAGE" value="update nav" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
