@@ -237,8 +237,8 @@
                                                     <table>
                                                         <tr th:each="cart : ${session.myCartItems}">
                                                             <td class="td-title-1"
-                                                                th:text="${cart.value.product.name + ' x ' + cart.value.quantity}"></td>
-                                                            <td class="td-title-2"
+                                                                th:text="${cart.value.product.name}"></td>
+                                                            <td th:id="subtotalTT+${cart.value.product.id}" class="td-title-2" 
                                                                 th:with="subtotal=${cart.value.product.price * cart.value.quantity}"
                                                                 th:text="${#numbers.formatDecimal(subtotal, 0, 'COMMA', 0, 'POINT')} + ' VND'"></td>
                                                         </tr>
@@ -248,9 +248,9 @@
                                                         </tr>
                                                         <tr>
                                                             <td class="td-title-1">Thuế (1%)</td>
-                                                            <td class="td-title-2"
+                                                            <td  id="vatTT" class="td-title-2"
                                                                 th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')} + ' VND'">
-                                                                Vnđ
+                                                                VND
                                                             </td>
                                                         </tr>
                                                         <tr>
