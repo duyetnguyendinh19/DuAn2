@@ -76,9 +76,23 @@ public class Product_BillServiceImpl implements Product_BillService {
         List<Object[]> lsObject = product_billRepo.listCountBillGrByDateBillId(fromDate, toDate);
         for(Object[] each : lsObject){
             String key = sdf.format(each[0]);
-            BigInteger bigInteger = (BigInteger) each[1];
-            Integer value = Integer.parseInt(String.valueOf(bigInteger));
+            Long val = (Long) each[1];
+            Integer value = val.intValue();
             ChartDashboardBillOrder model = new ChartDashboardBillOrder(key, value);
+            response.add(model);
+        }
+        return response;
+    }
+
+    @Override
+    public List<KeyValueStringIntegerModel> listCountBillOrGrDateNow() {
+        List<KeyValueStringIntegerModel> response = new ArrayList<>();
+        List<Object[]> lsObject = product_billRepo.listCountBillOrGrDateNow();
+        for(Object[] each : lsObject){
+            String name = (String) each[0];
+            Long total = (Long) each[1];
+            Integer count = total.intValue();
+            KeyValueStringIntegerModel model = new KeyValueStringIntegerModel(name, count);
             response.add(model);
         }
         return response;

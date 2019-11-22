@@ -20,8 +20,13 @@ public interface Product_BillRepo extends JpaRepository<Product_Bill, Long> {
 
     List<Product_Bill> findByBill_Id(Long id);
 
-    @Query(value = "SELECT pb.created_date, COUNT(id) FROM product_bill pb " +
-            "WHERE (pb.isdelete = 'N') AND (pb.created_date BETWEEN DATE(:fromDate) AND DATE(:toDate))" +
-            "GROUP BY DATE(pb.created_date)", nativeQuery = true)
+    @Query(value = "SELECT pb.createdDate, COUNT(pb.id) FROM Product_Bill pb " +
+            "WHERE (pb.isdelete = 'N') AND (pb.createdDate BETWEEN DATE(:fromDate) AND DATE(:toDate)) AND (pb.bill.typeStatus != 1 AND pb.bill.typeStatus != 2)" +
+            "GROUP BY DATE(pb.createdDate)", nativeQuery = false)
     List<Object[]> listCountBillGrByDateBillId(@Param("fromDate") Date fromDate,@Param("toDate") Date toDate);
+
+    @Query(value = "SELECT pb.product.name, SUM(pb.quantity) FROM Product_Bill pb " +
+            "WHERE DATE(pb.createdDate) = DATE(NOW())" +
+            "GROUP BY pb.product.name, DATE(pb.createdDate)", nativeQuery = false)
+    List<Object[]> listCountBillOrGrDateNow();
 }

@@ -1,6 +1,7 @@
 package com.vn.service;
 
 import com.vn.jpa.Bill;
+import com.vn.model.ChartDashboardBillOrder;
 import com.vn.model.KeyValueStringIntegerModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,5 +28,7 @@ public interface BillService {
     List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail);
 
     boolean checkExistByCode(String code);
+
+    List<ChartDashboardBillOrder> listSumTotalForDashboard(Date date);
 
 }

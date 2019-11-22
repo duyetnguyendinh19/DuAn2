@@ -1,15 +1,19 @@
 package com.vn.service.imple;
 
 import com.vn.jpa.Bill;
+import com.vn.model.ChartDashboardBillOrder;
 import com.vn.model.KeyValueStringIntegerModel;
 import com.vn.repository.BillRepo;
 import com.vn.service.BillService;
+import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -68,6 +72,24 @@ public class BillServiceImpl implements BillService {
             result = true;
         }
         return result;
+    }
+
+    @Override
+    public List<ChartDashboardBillOrder> listSumTotalForDashboard(Date date) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        DateTime time = new DateTime(date);
+        Date fromDate = time.plusDays(-7).toDate();
+        Date toDate = time.withTimeAtStartOfDay().toDate();
+        List<ChartDashboardBillOrder> response = new ArrayList<>();
+        List<Object[]> lsObject = billRepo.listSumTotalForDashboard(fromDate, toDate);
+        for(Object[] each : lsObject){
+            String key = sdf.format(each[0]);
+            Double val = (Double) each[1];
+            Integer value = val.intValue();
+            ChartDashboardBillOrder model = new ChartDashboardBillOrder(key, value);
+            response.add(model);
+        }
+        return response;
     }
 
 }

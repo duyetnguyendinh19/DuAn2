@@ -83,6 +83,14 @@ public class Product_Bill implements Serializable {
         this.id = id;
     }
 
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
     @PrePersist
     public void pre(){
         if(this.createdDate == null){

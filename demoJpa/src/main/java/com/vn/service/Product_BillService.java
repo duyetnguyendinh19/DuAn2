@@ -28,4 +28,6 @@ public interface Product_BillService {
     List<Product_Bill> findByBill_Id(Long id);
 
     List<ChartDashboardBillOrder> listCountBillGrByDateBillId(Date date);
+
+    List<KeyValueStringIntegerModel> listCountBillOrGrDateNow();
 }

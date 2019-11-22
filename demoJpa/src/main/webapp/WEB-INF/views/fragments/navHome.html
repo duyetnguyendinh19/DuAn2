@@ -1,415 +1,428 @@
 <div xmlns:th="http://www.w3.org/1999/xhtml">
-	<input type="hidden" id="contextPath" th:value="@{/}">
-	<div th:fragment="header">
-		<div class="header-top-bar plr-185">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-sm-6 hidden-xs">
-						<div class="call-us">
-							<p class="mb-0 roboto">(+84) 338070700</p>
-						</div>
-					</div>
-					<div class="col-sm-6 col-xs-12">
-						<div class="top-link clearfix">
-							<ul class="link f-right">
-								<li th:if="${session.userLogin != null}"><a
-									th:href="@{/home/{user}/reset.html(user = ${session.userLogin.userName})}">
-										<i class="fa fa-gears"></i> Đổi mật khẩu
-								</a></li>
-								<li
-									th:if="${session.userLogin != null || session.userGoogle != null}"><a
-									th:href="@{/home/profile.html}"> <i
-										class="zmdi zmdi-account"></i> Trang cá nhân
-								</a></li>
-								<li
-									th:if="${session.userLogin == null and session.userGoogle == null}"><a
-									th:href="@{/home/login.html}"> <i class="zmdi zmdi-lock"></i>
-										Tài khoản
-								</a></li>
-								<li
-									th:if="${session.userLogin != null || session.userGoogle != null}"><a
-									th:href="@{/home/logout.html}"><i class="fa-sign-out"
-										style="font: normal normal normal 14px/1 FontAwesome;!important;"></i>
-										Đăng xuất </a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <input type="hidden" id="contextPath" th:value="@{/}">
+    <div th:fragment="header">
+        <div class="header-top-bar plr-185">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-6 hidden-xs">
+                        <div class="call-us">
+                            <p class="mb-0 roboto">(+84) 338070700</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-xs-12">
+                        <div class="top-link clearfix">
+                            <ul class="link f-right">
+                                <li th:if="${session.userLogin != null}"><a
+                                        th:href="@{/home/{user}/reset.html(user = ${session.userLogin.userName})}">
+                                    <i class="fa fa-gears"></i> Đổi mật khẩu
+                                </a></li>
+                                <li
+                                        th:if="${session.userLogin != null || session.userGoogle != null}"><a
+                                        th:href="@{/home/profile.html}"> <i
+                                        class="zmdi zmdi-account"></i> Trang cá nhân
+                                </a></li>
+                                <li
+                                        th:if="${session.userLogin == null and session.userGoogle == null}"><a
+                                        th:href="@{/home/login.html}"> <i class="zmdi zmdi-lock"></i>
+                                    Tài khoản
+                                </a></li>
+                                <li
+                                        th:if="${session.userLogin != null || session.userGoogle != null}"><a
+                                        th:href="@{/home/logout.html}"><i class="fa-sign-out"
+                                                                          style="font: normal normal normal 14px/1 FontAwesome;!important;"></i>
+                                    Đăng xuất </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		<div id="sticky-header" class="header-middle-area plr-185">
-			<div class="container-fluid">
-				<div class="full-width-mega-dropdown">
-					<div class="row">
-						<!-- logo -->
-						<div class="col-md-2 col-sm-6 col-xs-12">
-							<div class="logo">
-								<a th:href="@{/}"> <img
-									th:src="@{/assets/teamplates/img/logo/logo.png}"
-									alt="main logo" style="height: 30px; width: 100px;">
-								</a>
-							</div>
-						</div>
-						<!-- primary-menu -->
-						<div class="col-md-8 hidden-sm hidden-xs">
-							<nav id="primary-menu">
-								<ul class="main-menu text-center">
-									<li><a th:href="@{/}">Trang chủ</a></li>
-									<li class="mega-parent"><a href="#">Danh mục sản phẩm</a>
-										<div class="mega-menu-area clearfix">
-											<div class="mega-menu-link mega-menu-link-4  f-left">
-												<ul class="single-mega-item"
-													th:each="eachCate : ${session.categoryNav}">
-													<li class="menu-title" th:text="${eachCate.value[0]}">Điện
-														thoại</li>
-													<li th:each="cateChilren : ${eachCate.value[1]}"><a
-														th:href="@{/home/{id}/product.html(id=${cateChilren[0]})}"
-														th:text="${cateChilren[1]}">Iphone</a></li>
-												</ul>
-											</div>
-										</div></li>
-									<li class="mega-parent"><a href="#">Sản phẩm</a>
-										<div class="mega-menu-area clearfix">
-											<div class="mega-menu-link f-left">
-												<ul class="single-mega-item">
-													<li class="menu-title">Điện thoại</li>
-													<li><a th:href="@{/home/1/list/product.html}">Tất
-															cả điện thoại</a></li>
-													<!--													<li><a href="#">Điện thoại thông minh</a></li>-->
-												</ul>
-												<ul class="single-mega-item">
-													<li class="menu-title">Tai nghe</li>
-													<li><a th:href="@{/home/6/list/product.html}">Tất
-															cả tai nghe</a></li>
-													<!--													<li><a href="">Tai nghe bluetooth</a></li>-->
-												</ul>
-												<ul class="single-mega-item">
-													<li class="menu-title">Máy tính bảng</li>
-													<li><a th:href="@{/home/17/list/product.html}">Tất
-															cả máy tính bảng</a></li>
-													<!--													<li><a href="">Máy tính bảng thông minh</a></li>-->
-												</ul>
-											</div>
-											<div class="mega-menu-photo f-left">
-												<a href="#"> <img
-													th:src="@{/assets/teamplates/img/mega-menu/1.jpg}"
-													alt="mega menu image">
-												</a>
-											</div>
-										</div></li>
-									<!--									<li><a href="#">Chương trình khuyến mãi</a>-->
-									<!--										<ul class="dropdwn">-->
-									<!--											<li><a href="blog-left-sidebar.html">Khuyến mãi-->
-									<!--													tháng 8</a>-->
-									<!--												<ul class="dropdwn-repeat">-->
-									<!--													<li><a href="">Giảm 10% khi thanh toán qua VNPay</a></li>-->
-									<!--													<li><a href="">Trả góp lãi xuất 0%</a></li>-->
-									<!--												</ul></li>-->
-									<!--										</ul></li>-->
-									<li><a th:href="@{/home/about.html}">Về chúng tôi</a></li>
-									<li><a th:href="@{/home/contact.html}">Liên hệ</a></li>
-								</ul>
-							</nav>
-						</div>
-						<!-- header-search & total-cart -->
-						<div class="col-md-2 col-sm-6 col-xs-12">
-							<div class="search-top-cart  f-right">
-								<!-- header-search -->
-								<div class="header-search f-left">
-									<div class="header-search-inner">
-										<button class="search-toggle">
-											<i class="zmdi zmdi-search"></i>
-										</button>
-										<form th:action="@{/home/search.html}" method="POST">
-											<div class="top-search-box">
-												<input type="text" name="name" placeholder="Tìm kiếm..." th:value="${session.search}">
-												<button type="submit">
-													<i class="zmdi zmdi-search"></i>
-												</button>
-											</div>
-										</form>
-									</div>
-								</div>
-								<!-- total-cart -->
-								<div class="total-cart f-left">
-									<div class="total-cart-in">
-										<div class="cart-toggler">
-											<a href="#"> <span class="cart-quantity"
-												th:text="${session.myCartNum}"></span><br> <span
-												class="cart-icon"> <i
-													class="zmdi zmdi-shopping-cart-plus"></i>
+        <div id="sticky-header" class="header-middle-area plr-185">
+            <div class="container-fluid">
+                <div class="full-width-mega-dropdown">
+                    <div class="row">
+                        <!-- logo -->
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <div class="logo">
+                                <a th:href="@{/}"> <img
+                                        th:src="@{/assets/teamplates/img/logo/logo.png}"
+                                        alt="main logo" style="height: 30px; width: 100px;">
+                                </a>
+                            </div>
+                        </div>
+                        <!-- primary-menu -->
+                        <div class="col-md-8 hidden-sm hidden-xs">
+                            <nav id="primary-menu">
+                                <ul class="main-menu text-center">
+                                    <li><a th:href="@{/}">Trang chủ</a></li>
+                                    <li class="mega-parent"><a href="#">Danh mục sản phẩm</a>
+                                        <div class="mega-menu-area clearfix">
+                                            <div class="mega-menu-link mega-menu-link-4  f-left">
+                                                <ul class="single-mega-item"
+                                                    th:each="eachCate : ${session.categoryNav}">
+                                                    <li class="menu-title" th:text="${eachCate.value[0]}">Điện
+                                                        thoại
+                                                    </li>
+                                                    <li th:each="cateChilren : ${eachCate.value[1]}"><a
+                                                            th:href="@{/home/{id}/product.html(id=${cateChilren[0]})}"
+                                                            th:text="${cateChilren[1]}">Iphone</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="mega-parent"><a href="#">Sản phẩm</a>
+                                        <div class="mega-menu-area clearfix">
+                                            <div class="mega-menu-link f-left">
+                                                <ul class="single-mega-item">
+                                                    <li class="menu-title">Điện thoại</li>
+                                                    <li><a th:href="@{/home/1/list/product.html}">Tất
+                                                        cả điện thoại</a></li>
+                                                    <!--													<li><a href="#">Điện thoại thông minh</a></li>-->
+                                                </ul>
+                                                <ul class="single-mega-item">
+                                                    <li class="menu-title">Tai nghe</li>
+                                                    <li><a th:href="@{/home/6/list/product.html}">Tất
+                                                        cả tai nghe</a></li>
+                                                    <!--													<li><a href="">Tai nghe bluetooth</a></li>-->
+                                                </ul>
+                                                <ul class="single-mega-item">
+                                                    <li class="menu-title">Máy tính bảng</li>
+                                                    <li><a th:href="@{/home/17/list/product.html}">Tất
+                                                        cả máy tính bảng</a></li>
+                                                    <!--													<li><a href="">Máy tính bảng thông minh</a></li>-->
+                                                </ul>
+                                            </div>
+                                            <div class="mega-menu-photo f-left">
+                                                <a href="#"> <img
+                                                        th:src="@{/assets/teamplates/img/mega-menu/1.jpg}"
+                                                        alt="mega menu image">
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!--									<li><a href="#">Chương trình khuyến mãi</a>-->
+                                    <!--										<ul class="dropdwn">-->
+                                    <!--											<li><a href="blog-left-sidebar.html">Khuyến mãi-->
+                                    <!--													tháng 8</a>-->
+                                    <!--												<ul class="dropdwn-repeat">-->
+                                    <!--													<li><a href="">Giảm 10% khi thanh toán qua VNPay</a></li>-->
+                                    <!--													<li><a href="">Trả góp lãi xuất 0%</a></li>-->
+                                    <!--												</ul></li>-->
+                                    <!--										</ul></li>-->
+                                    <li><a th:href="@{/home/about.html}">Về chúng tôi</a></li>
+                                    <li><a th:href="@{/home/contact.html}">Liên hệ</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <!-- header-search & total-cart -->
+                        <div class="col-md-2 col-sm-6 col-xs-12">
+                            <div class="search-top-cart  f-right">
+                                <!-- header-search -->
+                                <div class="header-search f-left">
+                                    <div class="header-search-inner">
+                                        <button class="search-toggle">
+                                            <i class="zmdi zmdi-search"></i>
+                                        </button>
+                                        <form th:action="@{/home/search.html}" method="POST">
+                                            <div class="top-search-box">
+                                                <input type="text" name="name" placeholder="Tìm kiếm..."
+                                                       th:value="${session.search}">
+                                                <button type="submit">
+                                                    <i class="zmdi zmdi-search"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <!-- total-cart -->
+                                <div class="total-cart f-left">
+                                    <div class="total-cart-in">
+                                        <div class="cart-toggler">
+                                            <a href="#"> <span class="cart-quantity"
+                                                               th:text="${session.myCartNum}"></span><br> <span
+                                                    class="cart-icon"> <i
+                                                    class="zmdi zmdi-shopping-cart-plus"></i>
 											</span>
-											</a>
-										</div>
-										<ul
-											th:if="${session.myCartItems != null} and ${session.myCartTotal != 0}">
-											<li>
-												<div class="top-cart-inner your-cart">
-													<h5 class="text-capitalize">Giỏ hàng của bạn</h5>
-												</div>
-											</li>
-											<li>
-												<div class="total-cart-pro">
-													<!-- single-cart -->
-													<div th:each="cart : ${session.myCartItems}"
-														class="single-cart clearfix">
-														<div class="cart-img f-left">
-															<a href="#"> <img
-																th:src="|${cart.value.product.mainImg}|"
-																style="width: 100px;" alt="Cart Product" />
-															</a>
-															<div class="del-icon">
-																<a
-																	th:onclick="'remove(\'' +  ${cart.value.product.id} + '\')'"
-																	title="Xóa"> <i class="zmdi zmdi-close"></i>
-																</a>
-															</div>
-														</div>
-														<div id="cartInfo" class="cart-info f-left">
-															<h6 class="text-capitalize">
-																<a href="#" th:text="|${cart.value.product.name}|"></a>
-															</h6>
-															<div>
-																<p>
-																<span>Hãng <strong>:</strong></span> <span
-																	th:text="|${cart.value.product.category.name}|"></span>
-																</p>
-																<p>
-																	<span>Giá <strong>:</strong></span> <span th:id="pricecart+${cart.value.product.id}" class="pricecart"
-																		th:text="|${#numbers.formatDecimal(cart.value.product.price * cart.value.quantity, 0, 'COMMA', 0,'POINT')}|"></span>
-																</p>
-																<p>
-																	<span>SL<strong>:</strong></span> <span th:id="quantitycart+${cart.value.product.id}"
-																		th:text="|${cart.value.quantity}|"></span>
-																</p>
-															</div>
-														</div>
-													</div>
-													<script>
-														function remove(id) {
-															var path = window.location.pathname
-																	.split("/")[1];
-															$
-																	.ajax({
-																		url : window.location.origin
-																				+ '/'
-																				+ path
-																				+ '/'
-																				+ 'cart/remove/'
-																				+ id
-																				+ '.html',
-																		method : 'GET',
-																	});
-															location.reload();
+                                            </a>
+                                        </div>
+                                        <ul
+                                                th:if="${session.myCartItems != null} and ${session.myCartTotal != 0}">
+                                            <li>
+                                                <div class="top-cart-inner your-cart">
+                                                    <h5 class="text-capitalize">Giỏ hàng của bạn</h5>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="total-cart-pro">
+                                                    <!-- single-cart -->
+                                                    <div th:each="cart : ${session.myCartItems}"
+                                                         class="single-cart clearfix">
+                                                        <div class="cart-img f-left">
+                                                            <a href="#"> <img
+                                                                    th:src="|${cart.value.product.mainImg}|"
+                                                                    style="width: 100px;" alt="Cart Product"/>
+                                                            </a>
+                                                            <div class="del-icon">
+                                                                <a
+                                                                        th:onclick="'remove(\'' +  ${cart.value.product.id} + '\')'"
+                                                                        title="Xóa"> <i class="zmdi zmdi-close"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                        <div id="cartInfo" class="cart-info f-left">
+                                                            <h6 class="text-capitalize">
+                                                                <a href="#" th:text="|${cart.value.product.name}|"></a>
+                                                            </h6>
+                                                            <div>
+                                                                <p>
+                                                                    <span>Hãng <strong>:</strong></span> <span
+                                                                        th:text="|${cart.value.product.category.name}|"></span>
+                                                                </p>
+                                                                <p>
+                                                                    <span>Giá <strong>:</strong></span> <span
+                                                                        th:id="pricecart+${cart.value.product.id}"
+                                                                        class="pricecart"
+                                                                        th:text="|${#numbers.formatDecimal(cart.value.product.price * cart.value.quantity, 0, 'COMMA', 0,'POINT')}|"></span>
+                                                                </p>
+                                                                <p>
+                                                                    <span>SL<strong>:</strong></span> <span
+                                                                        th:id="quantitycart+${cart.value.product.id}"
+                                                                        th:text="|${cart.value.quantity}|"></span>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <script>
+                                                        function remove(id) {
+                                                            var path = window.location.pathname
+                                                                .split("/")[1];
+                                                            $
+                                                                .ajax({
+                                                                    url: window.location.origin
+                                                                        + '/'
+                                                                        + path
+                                                                        + '/'
+                                                                        + 'cart/remove/'
+                                                                        + id
+                                                                        + '.html',
+                                                                    method: 'GET',
+                                                                });
+                                                            location.reload();
 
-														}
-													</script>
-												</div>
-											</li>
-											<li>
-												<div class="top-cart-inner subtotal">
-													<h4 class="text-uppercase g-font-2" id="totalPriceCart"
-														th:text="'Tổng = ' + ${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')}">
-														<span></span>
-													</h4>
-												</div>
-											</li>
-											<li>
-												<div class="top-cart-inner view-cart">
-													<h4 class="text-uppercase">
-														<a th:href="@{/home/cart.html}">Xem giỏ hàng</a>
-													</h4>
-												</div>
-											</li>
-											<li>
-												<div class="top-cart-inner check-out">
-													<h4 class="text-uppercase">
-														<a th:href="@{/home/cart.html?payment=true}">Thanh toán</a>
-													</h4>
-												</div>
-											</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                                        }
+                                                    </script>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="top-cart-inner subtotal">
+                                                    <h4 class="text-uppercase g-font-2" id="totalPriceCart"
+                                                        th:text="'Tổng = ' + ${#numbers.formatDecimal(session.myCartTotal, 0, 'COMMA', 0,'POINT')}">
+                                                        <span></span>
+                                                    </h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="top-cart-inner view-cart">
+                                                    <h4 class="text-uppercase">
+                                                        <a th:href="@{/home/cart.html}">Xem giỏ hàng</a>
+                                                    </h4>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="top-cart-inner check-out">
+                                                    <h4 class="text-uppercase">
+                                                        <a th:href="@{/home/cart.html?payment=true}">Thanh toán</a>
+                                                    </h4>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<div th:fragment="menuMobile">
-		<div class="mobile-menu-area hidden-lg hidden-md">
-			<div class="container">
-				<div class="row">
-					<div class="col-xs-12">
-						<div class="mobile-menu">
-							<nav id="dropdown">
-								<ul>
-									<li><a th:href="@{/}">Trang chủ</a></li>
-									<li><a href="#">Danh mục sản phẩm</a>
-										<ul>
-											<li th:each="eachCate : ${session.categoryNav}"><span
-												th:each="cateChilren : ${eachCate.value[1]}"> <a
-													th:href="@{/home/{id}/product.html(id=${cateChilren[0]})}"
-													th:text="${cateChilren[1]}">Iphone</a>
+    <div th:fragment="menuMobile">
+        <div class="mobile-menu-area hidden-lg hidden-md">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul>
+                                    <li><a th:href="@{/}">Trang chủ</a></li>
+                                    <li><a href="#">Danh mục sản phẩm</a>
+                                        <ul>
+                                            <li th:each="eachCate : ${session.categoryNav}"><span
+                                                    th:each="cateChilren : ${eachCate.value[1]}"> <a
+                                                    th:href="@{/home/{id}/product.html(id=${cateChilren[0]})}"
+                                                    th:text="${cateChilren[1]}">Iphone</a>
 											</span></li>
-										</ul></li>
-									<li><a href="#">Sản phẩm</a>
-										<ul>
-											<li><a th:href="@{/home/1/list/product.html}">Tất cả
-													điện thoại</a></li>
-											<!--											<li><a href="#">Điện thoại thông minh</a></li>-->
-											<li><a th:href="@{/home/6/list/product.html}">Tất cả
-													tai nghe</a></li>
-											<!--											<li><a href="">Tai nghe bluetooth</a></li>-->
-											<li><a th:href="@{/home/17/list/product.html}">Tất
-													cả máy tính bảng</a></li>
-											<!--											<li><a href="">Máy tính bảng thông minh</a></li>-->
-										</ul></li>
-									<!--									<li><a href="#">Chương trình khuyến mãi</a>-->
-									<!--										<ul>-->
-									<!--											<li><a href="#">Giảm 10% khi thanh toán qua VNPay</a></li>-->
-									<!--											<li><a href="#">Trả góp lãi xuất 0%</a></li>-->
-									<!--										</ul></li>-->
-									<li><a th:href="@{/home/about.html}">Về chúng tôi</a></li>
-									<li><a th:href="@{/home/contact.html}">Liên hệ</a></li>
-								</ul>
-							</nav>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div th:fragment="footer">
-		<footer id="footer" class="footer-area">
-			<div class="footer-top">
-				<div class="container-fluid">
-					<div class="plr-185">
-						<div class="footer-top-inner gray-bg">
-							<div class="row">
-								<div class="col-lg-3 col-md-5 col-sm-4">
-									<div class="single-footer footer-about">
-										<div class="footer-logo">
-											<img th:src="@{/assets/teamplates/img/logo/logo.png}" alt=""
-												style="width: 190px;">
-										</div>
-										<div class="footer-brief">
-											<a class="zmdi zmdi-phone" href="tel:0338070700"
-												style="font-size: 14px;">&nbsp;Hotline: 0338 070 700</a> <a
-												class="zmdi zmdi-email" href="mailto:tanbv.dev@gmail.com"
-												style="font-size: 14px;">&nbsp;Email:
-												tanbv.dev@gmail.com</a>
-										</div>
-										<ul class="footer-social">
-											<li><a class="facebook"
-												href="https://www.facebook.com/tanbv.dev/?modal=admin_todo_tour"
-												title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
-											<li><a class="twitter" href="" title="Skype"><i
-													class="zmdi zmdi-skype"></i></a></li>
-											<li><a class="twitter" href="" title="Instagram"><i
-													class="zmdi zmdi-instagram"></i></a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="col-lg-2 hidden-md hidden-sm">
-									<div class="single-footer">
-										<h4 class="footer-title border-left">hỗ trợ - dịch vụ</h4>
-										<ul class="footer-menu">
-											<li><a href="#"><i class="zmdi zmdi-circle"></i><span>Hướng
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Sản phẩm</a>
+                                        <ul>
+                                            <li><a th:href="@{/home/1/list/product.html}">Tất cả
+                                                điện thoại</a></li>
+                                            <!--											<li><a href="#">Điện thoại thông minh</a></li>-->
+                                            <li><a th:href="@{/home/6/list/product.html}">Tất cả
+                                                tai nghe</a></li>
+                                            <!--											<li><a href="">Tai nghe bluetooth</a></li>-->
+                                            <li><a th:href="@{/home/17/list/product.html}">Tất
+                                                cả máy tính bảng</a></li>
+                                            <!--											<li><a href="">Máy tính bảng thông minh</a></li>-->
+                                        </ul>
+                                    </li>
+                                    <!--									<li><a href="#">Chương trình khuyến mãi</a>-->
+                                    <!--										<ul>-->
+                                    <!--											<li><a href="#">Giảm 10% khi thanh toán qua VNPay</a></li>-->
+                                    <!--											<li><a href="#">Trả góp lãi xuất 0%</a></li>-->
+                                    <!--										</ul></li>-->
+                                    <li><a th:href="@{/home/about.html}">Về chúng tôi</a></li>
+                                    <li><a th:href="@{/home/contact.html}">Liên hệ</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:fragment="footer">
+        <footer id="footer" class="footer-area">
+            <div class="footer-top">
+                <div class="container-fluid">
+                    <div class="plr-185">
+                        <div class="footer-top-inner gray-bg">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-5 col-sm-4">
+                                    <div class="single-footer footer-about">
+                                        <div class="footer-logo">
+                                            <img th:src="@{/assets/teamplates/img/logo/logo.png}" alt=""
+                                                 style="width: 190px;">
+                                        </div>
+                                        <div class="footer-brief">
+                                            <a class="zmdi zmdi-phone" href="tel:0338070700"
+                                               style="font-size: 14px;">&nbsp;Hotline: 0338 070 700</a> <a
+                                                class="zmdi zmdi-email" href="mailto:tanbv.dev@gmail.com"
+                                                style="font-size: 14px;">&nbsp;Email:
+                                            tanbv.dev@gmail.com</a>
+                                        </div>
+                                        <ul class="footer-social">
+                                            <li><a class="facebook"
+                                                   href="https://www.facebook.com/tanbv.dev/?modal=admin_todo_tour"
+                                                   title="Facebook"><i class="zmdi zmdi-facebook"></i></a></li>
+                                            <li><a class="twitter" href="" title="Skype"><i
+                                                    class="zmdi zmdi-skype"></i></a></li>
+                                            <li><a class="twitter" href="" title="Instagram"><i
+                                                    class="zmdi zmdi-instagram"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 hidden-md hidden-sm">
+                                    <div class="single-footer">
+                                        <h4 class="footer-title border-left">hỗ trợ - dịch vụ</h4>
+                                        <ul class="footer-menu">
+                                            <li><a href="#"><i class="zmdi zmdi-circle"></i><span>Hướng
 														dẫn mua hàng</span></a></li>
-											<li><a href="#"><i class="zmdi zmdi-circle"></i><span>Chính
+                                            <li><a href="#"><i class="zmdi zmdi-circle"></i><span>Chính
 														sách bảo mật</span></a></li>
-											<li><a href="#"><i class="zmdi zmdi-circle"></i><span>Chính
+                                            <li><a href="#"><i class="zmdi zmdi-circle"></i><span>Chính
 														sách bảo hành</span></a></li>
-										</ul>
-									</div>
-								</div>
-								<div class="col-lg-3 col-md-3 col-sm-4">
-									<ul class="single-footer">
-										<h4 class="footer-title border-left">phương thức thanh
-											toán</h4>
-										<ul class="footer-menu">
-											<li><a href="#"><img
-													th:src="@{/assets/img/visa_mastercard.gif}" alt=""
-													style="width: 100%; height: 60px;"></a></li>
-											<br>
-											<h4 class="footer-title border-left">hình thức vận
-												chuyển</h4>
-											<ul class="footer-menu">
-												<li><a href="#"><img
-														th:src="@{/assets/img/logo-vanchuyen.png}" alt=""
-														style="width: 100%; height: 60px;"></a></li>
-											</ul>
-										</ul>
-									</ul>
-								</div>
-								<div class="col-lg-4 col-md-4 col-sm-4">
-									<div class="single-footer">
-										<h4 class="footer-title border-left">Gửi phản hồi/Ý kiến</h4>
-										<div class="footer-message">
-											<div class="alert alert-danger"
-												th:if="${mapError != null && mapError.containsKey('error') != null}"
-												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-												th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
-											<form id="contact-form" th:object="${report}"
-												th:action="@{/report/saveFooter.html}" method="post">
-												<div class="col-md-12">
-													<input type="text" th:field="*{name}" name="name"
-														placeholder="Tên của bạn...">
-													<div
-														th:if="${mapError != null && mapError.containsKey('name') != null}"
-														style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-														th:each="err: ${mapError.get('name')}" th:text="${err}"></div>
-												</div>
-												<div class="col-md-12">
-													<input type="text" th:field="*{email}" name="email"
-														placeholder="Email...">
-													<div
-														th:if="${mapError != null && mapError.containsKey('email') != null}"
-														style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-														th:each="err: ${mapError.get('email')}" th:text="${err}"></div>
-												</div>
-												<div class="col-md-12">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-4">
+                                    <ul class="single-footer">
+                                        <h4 class="footer-title border-left">phương thức thanh
+                                            toán</h4>
+                                        <ul class="footer-menu">
+                                            <li><a href="#"><img
+                                                    th:src="@{/assets/img/visa_mastercard.gif}" alt=""
+                                                    style="width: 100%; height: 60px;"></a></li>
+                                            <br>
+                                            <h4 class="footer-title border-left">hình thức vận
+                                                chuyển</h4>
+                                            <ul class="footer-menu">
+                                                <li><a href="#"><img
+                                                        th:src="@{/assets/img/logo-vanchuyen.png}" alt=""
+                                                        style="width: 100%; height: 60px;"></a></li>
+                                            </ul>
+                                        </ul>
+                                    </ul>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div class="single-footer">
+                                        <h4 class="footer-title border-left">Gửi phản hồi/Ý kiến</h4>
+                                        <div class="footer-message">
+                                            <div class="alert alert-danger"
+                                                 th:if="${mapError != null && mapError.containsKey('error') != null}"
+                                                 style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                 th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
+                                            <form id="contact-form" th:object="${report}"
+                                                  th:action="@{/report/saveFooter.html}" method="post">
+                                                <div class="col-md-12">
+                                                    <input type="text" th:field="*{name}" name="name"
+                                                           placeholder="Tên của bạn...">
+                                                    <div
+                                                            th:if="${mapError != null && mapError.containsKey('name') != null}"
+                                                            style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                            th:each="err: ${mapError.get('name')}"
+                                                            th:text="${err}"></div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input type="text" th:field="*{email}" name="email"
+                                                           placeholder="Email...">
+                                                    <div
+                                                            th:if="${mapError != null && mapError.containsKey('email') != null}"
+                                                            style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                            th:each="err: ${mapError.get('email')}"
+                                                            th:text="${err}"></div>
+                                                </div>
+                                                <div class="col-md-12">
 													<textarea class="custom-textarea" th:field="*{opinion}"
-														name="message" placeholder="Ý kiến của bạn"></textarea>
-													<div th:if="${mapError != null && mapError.containsKey('opinion') != null}"
-												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-												th:each="err: ${mapError.get('opinion')}" th:text="${err}"></div>
-													<button class="submit-btn-1 mt-20 btn-hover-1"
-														type="submit">gửi phản hồi</button>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="footer-bottom black-bg">
-				<div class="container-fluid">
-					<div class="plr-185">
-						<div class="copyright">
-							<div class="row">
-								<div class="col-sm-12 col-xs-12">
-									<div class="copyright-text">
-										<p>
-											&copy; <a href="#" target="_blank">2019</a>&nbsp;Copy All
-											Rights Reserved.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</footer>
-	</div>
+                                                              name="message" placeholder="Ý kiến của bạn"></textarea>
+                                                    <div th:if="${mapError != null && mapError.containsKey('opinion') != null}"
+                                                         style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+                                                         th:each="err: ${mapError.get('opinion')}"
+                                                         th:text="${err}"></div>
+                                                    <button class="submit-btn-1 mt-20 btn-hover-1"
+                                                            type="submit">gửi phản hồi
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom black-bg">
+                <div class="container-fluid">
+                    <div class="plr-185">
+                        <div class="copyright">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+                                    <div class="copyright-text">
+                                        <p>
+                                            &copy; <a href="#" target="_blank">2019</a>&nbsp;Copy All
+                                            Rights Reserved.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>
 

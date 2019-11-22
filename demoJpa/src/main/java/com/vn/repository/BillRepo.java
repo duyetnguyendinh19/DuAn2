@@ -1,6 +1,7 @@
 package com.vn.repository;
 
 import com.vn.jpa.Bill;
+import com.vn.model.KeyValueStringIntegerModel;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -33,5 +34,11 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
     Bill findByCode(String code);
 
     List<Bill> findByTypeStatusAndMailStatus(Integer type, Integer statusMail);
+
+    @Query(value = "SELECT b.createDate, SUM(b.total) FROM Bill b " +
+            "WHERE (DATE(b.createDate) BETWEEN DATE(:fromDate) AND DATE(:toDate))" +
+            "AND (b.isDelete = 'N') AND (b.status = 1)" +
+            "GROUP BY DATE(b.createDate)", nativeQuery = false)
+    List<Object[]> listSumTotalForDashboard(@Param("fromDate") Date fromDate,@Param("toDate") Date toDate);
 
 }
