@@ -418,21 +418,24 @@
 					$("#quantitycart" + id).text(newVal);
 					var price = $("#price" + id).html().replace(/,/g, '');
 					$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+					$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
 					$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(newVal)));
-					$('#tblCart > tbody  > tr').each(function(index, tr) { 
-						var getTD = $(this).find("td");
-						var totalChild = getTD[3].innerText.replace(/,/g, '');
-						total = parseFloat(total) + parseFloat(totalChild);
-						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
-						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
-					});
+//					$('#tblCart > tbody  > tr').each(function(index, tr) { 
+//						var getTD = $(this).find("td");
+//						var totalChild = getTD[3].innerText.replace(/,/g, '');
+//						total = parseFloat(total) + parseFloat(totalChild);
+//						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+//						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+//					});
 					$('#cartInfo > div').each(function(index, div) { 
 						var getPrice = $(this).find("span.pricecart");
 						var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
 						total = parseFloat(total) + parseFloat(totalChild);
+						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
 						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
 					});
 					$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+					$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
 					$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 				}
 			})
@@ -448,21 +451,24 @@
 						$("#quantitycart" + id).text(newVal);	
 						var price = $("#price" + id).html().replace(/,/g, '');
 						$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+						$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
 						$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(newVal)));
-						$('#tblCart > tbody  > tr').each(function(index, tr) { 
-							var getTD = $(this).find("td");
-							var totalChild = getTD[3].innerText.replace(/,/g, '');
-							total = parseFloat(total) + parseFloat(totalChild);
-							$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
-							$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
-						});
+//						$('#tblCart > tbody  > tr').each(function(index, tr) { 
+//						var getTD = $(this).find("td");
+//						var totalChild = getTD[3].innerText.replace(/,/g, '');
+//						total = parseFloat(total) + parseFloat(totalChild);
+//						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+//						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+//						});
 						$('#cartInfo > div').each(function(index, div) { 
 							var getPrice = $(this).find("span.pricecart");
 							var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
 							total = parseFloat(total) + parseFloat(totalChild);
+							$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
 							$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
 						});
 						$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+						$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
 						$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 					}
 				})
@@ -498,21 +504,24 @@
 				$("#quantitycart" + id).text(oldValue);
 				var price = $("#price" + id).html().replace(/,/g, '');
 				$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
+				$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
 				$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
-				$('#tblCart > tbody  > tr').each(function(index, tr) { 
-					var getTD = $(this).find("td");
-					var totalChild = getTD[3].innerText.replace(/,/g, '');
-					total = parseFloat(total) + parseFloat(totalChild);
-					$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
-					$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
-				});
+//				$('#tblCart > tbody  > tr').each(function(index, tr) { 
+//				var getTD = $(this).find("td");
+//				var totalChild = getTD[3].innerText.replace(/,/g, '');
+//				total = parseFloat(total) + parseFloat(totalChild);
+//				$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+//				$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+//				});
 				$('#cartInfo > div').each(function(index, div) { 
 					var getPrice = $(this).find("span.pricecart");
 					var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
 					total = parseFloat(total) + parseFloat(totalChild);
+					$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
 					$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
 				});
 				$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+				$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
 				$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 			}
 		})
