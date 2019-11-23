@@ -556,8 +556,8 @@
 	/***************************************************************************
 	 * 15. Cart tab menu active
 	 **************************************************************************/
-	$('.cart-tab li a,.default-tab li a').on("click", function() {
-		$('.tab-pane').removeClass("active");
+	$('.cart-tab li a,.default-tab li a, .nav.nav-tabs li a').on("click", function() {
+		$('.tab-pane, .tab-pane.container').removeClass("active");
 		$(this).addClass("active");
 		$($(this).attr("href")).addClass("active");
 		// $(this).parent('li').prevAll('li').find('a').addClass("active");

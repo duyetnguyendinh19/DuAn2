@@ -4,7 +4,14 @@
 <head>
     <div th:replace="fragments/initHome :: head"></div>
 </head>
-
+<style>
+    .btn.btn-success,.btn.btn-warning{
+        border-radius: 5px!important;
+    }
+    .p-30{
+        padding-bottom: 40px!important;
+    }
+</style>
 <body>
 
 <!-- Body main wrapper start -->
@@ -45,84 +52,189 @@
     <!-- Start page content -->
     <div id="page-content" class="page-wrapper">
 
-        <!-- LOGIN SECTION START -->
-        <div class="login-section mb-80">
+
+        <div class="shop-section mb-80">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="my-account-content" id="accordion2">
-                            <!-- My Personal Information -->
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion2" href="#personal_info">Thông tin cá nhân</a>
-                                    </h4>
-                                </div>
-                                <div id="personal_info" class="panel-collapse collapse in" role="tabpanel">
-                                    <div class="panel-body">
-                                        <form th:object="${profile}" th:action="@{/home/profile.html}" method="POST">
-                                            <div class="new-customers">
-                                                <div class="p-30">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="firstName" th:field="*{authUser.firstName}" placeholder="Họ..." readonly="readonly">
+                    <div class="col-md-2 col-sm-12">
+                        <ul class="cart-tab">
+                            <li><a class="active" href="#shopping-cart" id="shoppingcart"
+                                   data-toggle="tab"> <span>01</span> Thông tin cá nhân
+                            </a></li>
+                            <li><a href="#checkout" data-toggle="tab" id="tabPayment"> <span>02</span>
+                                Lịch sử đơn hàng
+                            </a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-10 col-sm-12">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <!-- shopping-cart start -->
+                            <div class="tab-pane active" id="shopping-cart">
+                                <div class="shopping-cart-content">
+                                    <div class="login-section mb-80">
+                                        <div class="row">
+                                            <div class="col-md-offset-1">
+                                                <div class="my-account-content" id="accordion2">
+                                                    <!-- My Personal Information -->
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-heading">
+                                                            <h4 class="panel-title">
+                                                                <a data-toggle="collapse" data-parent="#accordion2"
+                                                                   href="#personal_info">Thông tin cá nhân</a>
+                                                            </h4>
                                                         </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="lastName" th:field="*{authUser.lastName}" placeholder="Tên..." readonly="readonly">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="province" placeholder="Thành phố..." th:field="*{province}">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="town" placeholder="Quận/Huyện..." th:field="*{town}">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select" name="gender" th:field="*{authUser.gender}">
-                                                                <option value="">Giới tính</option>
-                                                                <option value="0">Nam</option>
-                                                                <option value="1">Nữ</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="phone"  placeholder="Số điện thoại..." th:field="*{phone}">
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <select class="custom-select" name="bank" th:field="*{bank}">
-                                                                <option value="">Ngân hàng</option>
-                                                                <option value="VIETCOMBANK">VIETCOMBANK</option>
-                                                                <option value="VIETINBANK">VIETINBANK</option>
-                                                                <option value="ACB">ACB</option>
-                                                                <option value="VPBANK">VPBANK</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <input type="text" name="atmNumber" placeholder="Số tài khoản..." th:field="*{atmNumber}">
-                                                        </div>
-                                                    </div>
-                                                    <input type="text" name="company" placeholder="Công ty..." th:field="*{company}">
-                                                    <input type="text" name="email" th:field="*{authUser.email}" placeholder="Email..." readonly="readonly">
-                                               <!--      <input type="password" name="password"  placeholder="Mật khẩu...">
-                                                    <input type="password" name="confirmPassword"  placeholder="Xác thực mật khẩu...">
-                                                    <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea> -->
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1" type="submit" value="register">Lưu</button>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <button class="submit-btn-1 mt-20 btn-hover-1 f-right" type="reset">Làm mới</button>
+                                                        <div id="personal_info" class="panel-collapse collapse in"
+                                                             role="tabpanel">
+                                                            <div class="panel-body">
+                                                                <form th:object="${profile}"
+                                                                      th:action="@{/home/profile.html}" method="POST">
+                                                                    <div class="new-customers">
+                                                                        <div class="p-30">
+                                                                            <div class="row">
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="firstName"
+                                                                                           th:field="*{authUser.firstName}"
+                                                                                           placeholder="Họ..."
+                                                                                           readonly="readonly">
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="lastName"
+                                                                                           th:field="*{authUser.lastName}"
+                                                                                           placeholder="Tên..."
+                                                                                           readonly="readonly">
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="province"
+                                                                                           placeholder="Thành phố..."
+                                                                                           th:field="*{province}">
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="town"
+                                                                                           placeholder="Quận/Huyện..."
+                                                                                           th:field="*{town}">
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="custom-select"
+                                                                                            name="gender"
+                                                                                            th:field="*{authUser.gender}">
+                                                                                        <option value="">Giới tính
+                                                                                        </option>
+                                                                                        <option value="0">Nam</option>
+                                                                                        <option value="1">Nữ</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="phone"
+                                                                                           placeholder="Số điện thoại..."
+                                                                                           th:field="*{phone}">
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="custom-select"
+                                                                                            name="bank"
+                                                                                            th:field="*{bank}">
+                                                                                        <option value="">Ngân hàng
+                                                                                        </option>
+                                                                                        <option value="VIETCOMBANK">
+                                                                                            VIETCOMBANK
+                                                                                        </option>
+                                                                                        <option value="VIETINBANK">
+                                                                                            VIETINBANK
+                                                                                        </option>
+                                                                                        <option value="ACB">ACB</option>
+                                                                                        <option value="VPBANK">VPBANK
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                    <input type="text" name="atmNumber"
+                                                                                           placeholder="Số tài khoản..."
+                                                                                           th:field="*{atmNumber}">
+                                                                                </div>
+                                                                            </div>
+                                                                            <input type="text" name="company"
+                                                                                   placeholder="Công ty..."
+                                                                                   th:field="*{company}">
+                                                                            <input type="text" name="email"
+                                                                                   th:field="*{authUser.email}"
+                                                                                   placeholder="Email..."
+                                                                                   readonly="readonly">
+                                                                            <!--      <input type="password" name="password"  placeholder="Mật khẩu...">
+                                                                                 <input type="password" name="confirmPassword"  placeholder="Xác thực mật khẩu...">
+                                                                                 <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea> -->
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <button class="submit-btn-1 mt-20 btn-hover-1"
+                                                                                            type="submit"
+                                                                                            value="register">Lưu
+                                                                                    </button>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <button class="submit-btn-1 mt-20 btn-hover-1 f-right"
+                                                                                            type="reset">Làm mới
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- shopping-cart end -->
+                            <!-- checkout start -->
+                            <div class="tab-pane" id="checkout">
+                                <div class="checkout-content box-shadow p-30">
+                                    <table id="table-question" class="table table-striped table-bordered table-hover dataTable">
+                                        <thead>
+                                        <tr>
+                                            <th class="text-table-header">STT</th>
+                                            <th class="text-table-header">Ngày mua</th>
+                                            <th class="text-table-header">Mã hóa đơn</th>
+                                            <th class="text-table-header">Tổng tiền</th>
+                                            <th class="text-table-header">Trạng thái đơn hàng</th>
+                                            <th class="text-table-header">Trạng thái thanh toán</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody th:if="${lsBill} != null">
+                                        <tr th:each="each,iterate : ${lsBill}">
+                                            <td class="text-table-body" th:text="${iterate.count}"></td>
+                                            <td class="text-table-body" th:text="${#dates.format(each.createdDate, 'dd/MM/yyyy')}"></td>
+                                            <td class="text-table-body" th:text="${each.code}"></td>
+                                            <td class="text-table-body" th:text="${#numbers.formatDecimal(each.total, 0, 'COMMA', 0, 'POINT')}"></td>
+                                            <td class="text-table-body">
+                                                <span th:if="${each.typeStatus == 0}" class="btn btn-success">Đã nhận hàng</span>
+                                                <span th:if="${each.typeStatus == 1}" class="btn btn-warning">Đã hủy</span>
+                                                <span th:if="${each.typeStatus == 2}" class="btn btn-success">Không nhận hàng</span>
+                                                <span th:if="${each.typeStatus == 3}" class="btn btn-success">Đang giao hàng</span>
+                                                <span th:if="${each.typeStatus == 4}" class="btn btn-success">Đang đóng gói</span>
+                                                <span th:if="${each.typeStatus == 5}" class="btn btn-success">Đang xác nhận đơn</span>
+                                            </td>
+                                            <td class="text-table-body">
+                                                <span th:if="${each.status == 1}" class="btn btn-warning">Đã thanh toán</span>
+                                                <span th:if="${each.status == 2}" class="btn btn-success">Chưa thanh toán</span>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div th:replace="fragments/panigatorHome :: content(page = ${lsBill})"></div>
+                                </div>
+                            </div>
+                            <!-- checkout end -->
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- LOGIN SECTION START -->
+
         <!-- LOGIN SECTION END -->
     </div>
     <!-- End page content -->
@@ -132,5 +244,23 @@
 </div>
 <div th:replace="fragments/initHome :: commonScript"></div>
 </body>
-
+<script src="../../resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js"
+        th:src="@{/resources/sb-admin-v2/js/plugins/dataTables/jquery.dataTables.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('#table-question').DataTable({
+            "order": [1, 'desc'],
+            "aoColumnDefs": [{
+                'bSortable': true,
+                'aTargets': [0]
+            }],
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "language": {
+                "emptyTable": "Danh sách rỗng"
+            }
+        });
+    });
+</script>
 </html>

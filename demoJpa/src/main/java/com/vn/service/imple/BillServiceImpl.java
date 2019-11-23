@@ -1,12 +1,14 @@
 package com.vn.service.imple;
 
 import com.vn.jpa.Bill;
+import com.vn.model.BillProfileModel;
 import com.vn.model.ChartDashboardBillOrder;
 import com.vn.model.KeyValueStringIntegerModel;
 import com.vn.repository.BillRepo;
 import com.vn.service.BillService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -90,6 +92,23 @@ public class BillServiceImpl implements BillService {
             response.add(model);
         }
         return response;
+    }
+
+    @Override
+    public Page<BillProfileModel> pageBillForShowProfileUser(Long id, Pageable pageable) {
+        List<BillProfileModel> response = new ArrayList<>();
+        Page<Object[]> lsObject = billRepo.pageBillForShowProfileUser(id, pageable);
+        for(Object[] each : lsObject){
+            Date date = (Date) each[0];
+            String code = (String) each[1];
+            Float total = (Float) each[2];
+            Integer typeStatus = (Integer) each[3];
+            Integer status = (Integer) each[4];
+            BillProfileModel model = new BillProfileModel(date, code, total, typeStatus, status);
+            response.add(model);
+        }
+        PageImpl<BillProfileModel> pageResponse = new PageImpl<>(response, pageable, lsObject.getTotalElements());
+        return pageResponse;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.vn.service;
 
 import com.vn.jpa.Bill;
+import com.vn.model.BillProfileModel;
 import com.vn.model.ChartDashboardBillOrder;
 import com.vn.model.KeyValueStringIntegerModel;
 import org.springframework.data.domain.Page;
@@ -31,4 +32,5 @@ public interface BillService {
 
     List<ChartDashboardBillOrder> listSumTotalForDashboard(Date date);
 
+    Page<BillProfileModel> pageBillForShowProfileUser(Long id, Pageable pageable);
 }

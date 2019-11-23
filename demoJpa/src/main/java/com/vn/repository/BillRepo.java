@@ -41,4 +41,8 @@ public interface BillRepo extends JpaRepository<Bill, Long> {
             "GROUP BY DATE(b.createDate)", nativeQuery = false)
     List<Object[]> listSumTotalForDashboard(@Param("fromDate") Date fromDate,@Param("toDate") Date toDate);
 
+    @Query(value = "SELECT b.createDate, b.code, b.total, b.typeStatus, b.status FROM Bill b " +
+            "WHERE b.authUser.id = :id")
+    Page<Object[]> pageBillForShowProfileUser(@Param("id") Long id, Pageable pageable);
+
 }

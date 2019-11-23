@@ -10,6 +10,7 @@ import com.vn.common.ThymeleafUtil;
 import com.vn.config.GoogleMailSender;
 import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
+import com.vn.model.BillProfileModel;
 import com.vn.model.InfomationModel;
 import com.vn.model.ProductQuickViewModel;
 import com.vn.service.*;
@@ -68,6 +69,8 @@ public class HomeController {
 
     @Resource
     private GmailGoogleService gmailGoogleService;
+    @Resource
+    private BillService billService;
 
     @ModelAttribute("report")
     public Report report(Model model) {
@@ -258,7 +261,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.GET)
-    public ModelAndView profilePage(HttpSession session, Model model) {
+    public ModelAndView profilePage(HttpSession session, Model model, Pageable pageable) {
         try {
             if (session.getAttribute("userLogin") == null && session.getAttribute("userGoogle") == null) {
                 Map<String, String> mapError = new HashedMap<String, String>();
@@ -272,7 +275,7 @@ public class HomeController {
                 if (session.getAttribute("userLogin") != null) {
                     authUser = (AuthUser) session.getAttribute("userLogin");
                     inf = infomationService.findByAuthUserId(authUser.getId());
-                    if(inf == null){
+                    if (inf == null) {
                         inf = new Infomation();
                     }
                 } else if (session.getAttribute("userGoogle") != null) {
@@ -287,7 +290,14 @@ public class HomeController {
                         inf = new Infomation();
                     }
                 }
+                Long id = authUser.getId();
+                Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createDate"));
+                Pageable _page = new PageRequest(pageable.getPageNumber(), 20, sort);
+                Page<BillProfileModel> lsBill = billService.pageBillForShowProfileUser(id, _page);
+                if (lsBill.getContent() != null) {
+                    model.addAttribute("lsBill", lsBill);
 
+                }
                 model.addAttribute("profile", inf);
                 model.addAttribute("authUser", authUser);
                 ModelAndView modelAndView = new ModelAndView("home/profile");
@@ -408,7 +418,7 @@ public class HomeController {
         return gson.toJson(response);
     }
 
-    @RequestMapping(value = "/home/search.html", method = {RequestMethod.GET,RequestMethod.POST})
+    @RequestMapping(value = "/home/search.html", method = {RequestMethod.GET, RequestMethod.POST})
     public String search(@RequestParam(value = "name", defaultValue = "") String name, Pageable pageable, Model model,
                          HttpSession session, HttpServletRequest request) {
         try {
