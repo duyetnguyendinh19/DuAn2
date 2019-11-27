@@ -108,16 +108,16 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="message-box box-shadow white-bg">
-							<div th:if="${mapError != null && mapError.containsKey('error') != null}"
-												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
-												th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
 								<form id="contact-form" th:object="${report}"
 									th:action="@{/report/save.html}" method="post">
 									<div class="row">
 										<div class="col-md-12">
-											<h4 class="blog-section-title border-left mb-30">Phản
-												hồi</h4>
+											<h4 class="blog-section-title border-left mb-30">Góp ý</h4>
+												<div th:if="${mapError != null && mapError.containsKey('error') != null}"
+												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+												th:each="err: ${mapError.get('error')}" th:text="${err}"></div>
 										</div>
+										
 										<div class="col-md-6">
 											<input type="text" th:field="*{name}" name="name"
 												placeholder="Tên của bạn...">
@@ -153,7 +153,7 @@
 												style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
 												th:each="err: ${mapError.get('opinion')}" th:text="${err}"></div>
 											<button class="submit-btn-1 mt-30 btn-hover-1" type="submit">Gửi
-												phản hồi</button>
+												góp ý</button>
 										</div>
 									</div>
 								</form>
