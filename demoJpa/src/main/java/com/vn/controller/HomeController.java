@@ -69,9 +69,13 @@ public class HomeController {
 
     @Resource
     private GmailGoogleService gmailGoogleService;
+    
     @Resource
     private BillService billService;
 
+    @Resource
+    private BankInfoService bankService;
+    
     @ModelAttribute("report")
     public Report report(Model model) {
         model.addAttribute("mapError", new HashedMap<String, String>());
@@ -272,12 +276,24 @@ public class HomeController {
             } else {
                 AuthUser authUser = null;
                 Infomation inf = null;
+                InfomationModel infModel =  new InfomationModel();
                 if (session.getAttribute("userLogin") != null) {
                     authUser = (AuthUser) session.getAttribute("userLogin");
                     inf = infomationService.findByAuthUserId(authUser.getId());
                     if (inf == null) {
                         inf = new Infomation();
                     }
+                    
+                    infModel.setFirstName(authUser.getFirstName());
+                    infModel.setLastName(authUser.getLastName());
+                    infModel.setProvince(inf.getProvince());
+                    infModel.setTown(inf.getTown());
+                    infModel.setGender(authUser.getGender());
+                    infModel.setPhone(inf.getPhone());
+                    infModel.setBank(inf.getBank());
+                    infModel.setAtmNumberBank(inf.getAtmNumber());
+                    infModel.setAddress(inf.getAddress());
+                    infModel.setEmailUser(authUser.getEmail());
                 } else if (session.getAttribute("userGoogle") != null) {
                     GmailGoogle gmailGG = (GmailGoogle) session.getAttribute("userGoogle");
                     authUser = authUserService.findByEmail(gmailGG.getEmail());
@@ -285,10 +301,19 @@ public class HomeController {
                         inf = infomationService.findByAuthUserId(authUser.getId());
                         if (inf == null) {
                             inf = new Infomation();
+                        }else {
+                        	 infModel.setFirstName(authUser.getFirstName());
+                             infModel.setLastName(authUser.getLastName());
+                             infModel.setProvince(inf.getProvince());
+                             infModel.setTown(inf.getTown());
+                             infModel.setGender(authUser.getGender());
+                             infModel.setPhone(inf.getPhone());
+                             infModel.setBank(inf.getBank());
+                             infModel.setAtmNumberBank(inf.getAtmNumber());
+                             infModel.setAddress(inf.getAddress());
+                             infModel.setEmailUser(authUser.getEmail());
                         }
-                    } else {
-                        inf = new Infomation();
-                    }
+                    } 
                 }
                 Long id = authUser.getId();
                 Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createDate"));
@@ -298,8 +323,8 @@ public class HomeController {
                     model.addAttribute("lsBill", lsBill);
 
                 }
-                model.addAttribute("profile", inf);
-                model.addAttribute("authUser", authUser);
+                model.addAttribute("profile", infModel);
+                model.addAttribute("bankInfo", bankService.findAll());
                 ModelAndView modelAndView = new ModelAndView("home/profile");
                 return modelAndView;
             }
@@ -314,15 +339,21 @@ public class HomeController {
                                     @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
         try {
             infoFormValidator.validateReportForm(infomationModel, result);
-            Infomation infomation = new Infomation();
+            Infomation infomation = null;
             AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
+            infomation = infomationService.findByAuthUserId(authUser.getId());
+            if (infomation == null) {
+            	infomation = new Infomation();
+            }
             authUser.setEmail(infomationModel.getEmailUser());
+            authUser.setFirstName(infomationModel.getFirstName());
+            authUser.setLastName(infomationModel.getLastName());
             infomation.setProvince(infomationModel.getProvince());
             infomation.setTown(infomationModel.getTown());
             infomation.setBank(infomationModel.getBank());
             infomation.setAtmNumber(infomationModel.getAtmNumberBank());
-            infomation.setCompany(infomationModel.getCompany());
-            infomation.setPhone(infomation.getPhone());
+            infomation.setAddress(infomationModel.getAddress());
+            infomation.setPhone(infomationModel.getPhone());
             infomation.setAuthUser(authUser);
             infomation.setIsDelete("N");
             if (infomation.getId() == null) {
@@ -330,9 +361,11 @@ public class HomeController {
             } else {
                 infomationService.update(infomation);
             }
+            authUserService.update(authUser);
         } catch (Exception e) {
             model.addAttribute("errorUnkown", "Lỗi không xác định !");
         }
+        model.addAttribute("bankInfo", bankService.findAll());
         ModelAndView modelAndView = new ModelAndView("home/profile");
         return modelAndView;
     }

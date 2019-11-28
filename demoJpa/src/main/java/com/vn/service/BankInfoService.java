@@ -9,6 +9,8 @@ import java.util.List;
 public interface BankInfoService {
 
     Page<BankInfo> findAll(Pageable pageable);
+    
+    List<BankInfo> findAll();
 
     BankInfo insert(BankInfo bankInfo);
 
