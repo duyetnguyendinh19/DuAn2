@@ -72,6 +72,9 @@ public class HomeController {
     
     @Resource
     private BillService billService;
+    
+    @Resource
+    private Product_BillService prBillService;
 
     @Resource
     private BankInfoService bankService;
@@ -335,7 +338,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
-    public ModelAndView profileSave(HttpSession session, Model model,
+    public String profileSave(HttpSession session, Model model,
                                     @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
         try {
             infoFormValidator.validateReportForm(infomationModel, result);
@@ -366,8 +369,7 @@ public class HomeController {
             model.addAttribute("errorUnkown", "Lỗi không xác định !");
         }
         model.addAttribute("bankInfo", bankService.findAll());
-        ModelAndView modelAndView = new ModelAndView("home/profile");
-        return modelAndView;
+        return "redirect:/home/profile.html";
     }
 
     @RequestMapping(value = "/home/logout.html", method = RequestMethod.GET)
@@ -467,5 +469,15 @@ public class HomeController {
             e.printStackTrace();
         }
         return "home/product";
+    }
+    
+    
+    @RequestMapping(value = "/home/review/{id}.html")
+    public String revire(Model model, @PathVariable("id") Long id) {
+    	List<Product_Bill> lstPrBill = prBillService.findByBill_Id(id);
+    	model.addAttribute("lstBillPr", lstPrBill);
+    	model.addAttribute("rate", 1);
+    	model.addAttribute("description", "");
+    	return "home/review";
     }
 }
