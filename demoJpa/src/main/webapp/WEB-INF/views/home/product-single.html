@@ -238,11 +238,11 @@
                                         <!-- hr -->
                                         <hr>
                                         <!-- plus-minus-pro-action -->
-                                        <div class="plus-minus-pro-action clearfix">
-                                            <div class="sin-plus-minus f-left clearfix">
+                                        <div class="plus-minus-pro-action1 clearfix">
+                                            <div class="sin-plus-minus1 f-left clearfix">
                                                 <p class="color-title f-left"
                                                    style="width: 80px !important;">Số lượng</p>
-                                                <div class="cart-plus-minus f-left">
+                                               <!--  <div class="cart-plus-minus f-left">
                                                  <input type="text" th:if="${#lists.isEmpty(session.myCartItems) and session.myCartItems==null}" th:value="1" name="number"
                                                            class="cart-plus-minus-box">
                                                     <input th:id="${product.id}" type="text" th:if="${not #lists.isEmpty(session.myCartItems) and session.myCartItems!=null }" th:value="${session.myCartItems.get(product.id) == null ? 1 : 
@@ -250,9 +250,16 @@
                                                            class="cart-plus-minus-box">
                                                      <input  type="hidden" th:value="${product.id}"
                                                             class="cart-plus-minus-box">
+                                                </div> -->
+                                                 <div class="cart-plus-minus1 f-left">
+                                                 <input type="text" th:value="${session.myCartItems.get(product.id) == null ? 1 : 
+                                                   session.myCartItems.get(product.id).quantity }" name="number"
+                                                           class="cart-plus-minus-box1">
+                                                 <!--    <input th:id="${product.id}" type="text" name="number"
+                                                           class="cart-plus-minus-box1"> -->
                                                 </div>
                                             </div>
-                                            <div class="sin-pro-action f-right">
+                                            <div class="sin-pro-action1 f-right">
                                                 <ul class="action-button">
 <!--                                                    <li>-->
 <!--&lt;!&ndash;														<a href="#" title="Wishlist" tabindex="0"><i&ndash;&gt;-->
@@ -283,7 +290,7 @@
                                         <!--  hr -->
                                         <hr>
                                         <div th:if="${product.quantity > 0}">
-                                            <a href="#" class="button extra-small button-black"
+                                            <a  th:onclick="'addToCart(\'' + ${product.id} + '\')'" class="button extra-small button-black"
                                                tabindex="-1"> <span class="text-uppercase">Mua
 														ngay</span>
                                             </a>
@@ -680,8 +687,9 @@
     }
 
     function addToCart(id) {
+    	var value = $(".cart-plus-minus-box1").val();
         $.ajax({
-            url: currUrl + '/cart/add/' + id + '.html',
+            url: currUrl + '/cart/add/' + id + '/' + value + '.html',
             method: 'GET'
         })
         location.reload();

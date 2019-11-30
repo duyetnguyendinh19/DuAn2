@@ -495,15 +495,18 @@
 		var oldValue = inp[0].value;
 		var currUrl = /* [[@{/}]] */"";
 		var path = window.location.pathname.split("/")[1];
-		var id = inp[1].value;
+//		var id = inp[1].value;
 		var total = 0;
 		if ($button.text() == "+") {
 			var newVal = parseFloat(oldValue) + 1;
+			$(".cart-plus-minus-box1").val(newVal);
 		}else{
 			if (oldValue > 0) {
 				var newVal = parseFloat(oldValue) - 1;
+				$(".cart-plus-minus-box1").val(newVal);
 			}else{
 				var newVal = 0;
+				$(".cart-plus-minus-box1").val(newVal);
 			}
 		}
 	})
