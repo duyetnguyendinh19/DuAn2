@@ -1161,6 +1161,39 @@ input.cart-plus-minus-box {
   text-align: center;
   width: 40%;
 }
+
+/* Custom Css Single Product Start */
+.cart-plus-minus1 {
+  border: 1px solid #cccccc;
+  height: 25px;
+  text-align: center;
+  width: 90px;
+  color: #666666;
+}
+.qtybutton1 {
+  background: #cccccc none repeat scroll 0 0;
+  height: 100%;
+  width: 30%;
+}
+.dec.qtybutton1 {
+  float: left;
+}
+.inc.qtybutton1 {
+  float: right;
+}
+input.cart-plus-minus-box1 {
+  background: transparent none repeat scroll 0 0;
+  box-shadow: none;
+  font-family: roboto;
+  height: 100%;
+  margin-bottom: 0;
+  padding: 0;
+  text-align: center;
+  width: 40%;
+}
+
+/* End */
+
 /*=========================================
   11. Cart Page
 ==========================================*/

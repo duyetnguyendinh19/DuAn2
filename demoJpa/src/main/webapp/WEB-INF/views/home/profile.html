@@ -94,15 +94,15 @@
                                                                             <div class="row">
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="firstName"
-                                                                                           th:field="*{authUser.firstName}"
+                                                                                           th:field="*{firstName}"
                                                                                            placeholder="Họ..."
-                                                                                           readonly="readonly">
+                                                                                           >
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="lastName"
-                                                                                           th:field="*{authUser.lastName}"
+                                                                                           th:field="*{lastName}"
                                                                                            placeholder="Tên..."
-                                                                                           readonly="readonly">
+                                                                                           >
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="province"
@@ -117,7 +117,7 @@
                                                                                 <div class="col-sm-6">
                                                                                     <select class="custom-select"
                                                                                             name="gender"
-                                                                                            th:field="*{authUser.gender}">
+                                                                                            th:field="*{gender}">
                                                                                         <option value="">Giới tính
                                                                                         </option>
                                                                                         <option value="0">Nam</option>
@@ -135,30 +135,23 @@
                                                                                             th:field="*{bank}">
                                                                                         <option value="">Ngân hàng
                                                                                         </option>
-                                                                                        <option value="VIETCOMBANK">
-                                                                                            VIETCOMBANK
-                                                                                        </option>
-                                                                                        <option value="VIETINBANK">
-                                                                                            VIETINBANK
-                                                                                        </option>
-                                                                                        <option value="ACB">ACB</option>
-                                                                                        <option value="VPBANK">VPBANK
+                                                                                        <option th:each="bank : ${bankInfo}" th:value="${bank.code}" th:text="${bank.name}" th:selected="${bank.code==bank}">
                                                                                         </option>
                                                                                     </select>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="atmNumber"
                                                                                            placeholder="Số tài khoản..."
-                                                                                           th:field="*{atmNumber}">
+                                                                                           th:field="*{atmNumberBank}">
                                                                                 </div>
                                                                             </div>
-                                                                            <input type="text" name="company"
-                                                                                   placeholder="Công ty..."
-                                                                                   th:field="*{company}">
+                                                                            <input type="text" name="address"
+                                                                                   placeholder="Địa chỉ..."
+                                                                                   th:field="*{address}">
                                                                             <input type="text" name="email"
-                                                                                   th:field="*{authUser.email}"
+                                                                                   th:field="*{emailUser}"
                                                                                    placeholder="Email..."
-                                                                                   readonly="readonly">
+                                                                                   >
                                                                             <!--      <input type="password" name="password"  placeholder="Mật khẩu...">
                                                                                  <input type="password" name="confirmPassword"  placeholder="Xác thực mật khẩu...">
                                                                                  <textarea class="custom-textarea" name="additional" placeholder="Bổ sung thông tin cá nhân..."></textarea> -->

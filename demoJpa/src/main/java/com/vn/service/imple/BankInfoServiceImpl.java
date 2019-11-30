@@ -47,4 +47,9 @@ public class BankInfoServiceImpl implements BankInfoService {
     public List<BankInfo> findAllByType(Integer type) {
         return bankInfoRepo.findAllByType(type);
     }
+
+	@Override
+	public List<BankInfo> findAll() {
+		return bankInfoRepo.findAll();
+	}
 }

@@ -17,7 +17,7 @@
                                     <i class="fa fa-gears"></i> Đổi mật khẩu
                                 </a></li>
                                 <li
-                                        th:if="${session.userLogin != null || session.userGoogle != null}"><a
+                                        th:if="${session.userLogin != null}"><a
                                         th:href="@{/home/profile.html}"> <i
                                         class="zmdi zmdi-account"></i> Trang cá nhân
                                 </a></li>
@@ -358,7 +358,7 @@
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-4">
                                     <div class="single-footer">
-                                        <h4 class="footer-title border-left">Gửi phản hồi/Ý kiến</h4>
+                                        <h4 class="footer-title border-left">Gửi góp ý/Ý kiến</h4>
                                         <div class="footer-message">
                                             <div class="alert alert-danger"
                                                  th:if="${mapError != null && mapError.containsKey('error') != null}"
@@ -392,7 +392,7 @@
                                                          th:each="err: ${mapError.get('opinion')}"
                                                          th:text="${err}"></div>
                                                     <button class="submit-btn-1 mt-20 btn-hover-1"
-                                                            type="submit">gửi phản hồi
+                                                            type="submit">gửi góp ý
                                                     </button>
                                                 </div>
                                             </form>
