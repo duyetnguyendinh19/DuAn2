@@ -7,14 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/vn/model/BillProfileModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/repository/BillRepo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/BillService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/service/imple/BillServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/assets/teamplates/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/assets/teamplates/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/duan2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/duan2.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -329,14 +324,18 @@
       <workItem from="1574339050183" duration="7801000" />
       <workItem from="1574386022816" duration="185000" />
       <workItem from="1574387678635" duration="15379000" />
-      <workItem from="1574421904556" duration="7165000" />
-    </task>
-    <task id="LOCAL-00034" summary="update code">
-      <created>1571314446448</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1571314446448</updated>
+      <workItem from="1574421904556" duration="7987000" />
+      <workItem from="1574579462818" duration="1888000" />
+      <workItem from="1574645655436" duration="229000" />
+      <workItem from="1574734332664" duration="144000" />
+      <workItem from="1574944287224" duration="646000" />
+      <workItem from="1574952438415" duration="1455000" />
+      <workItem from="1574991159319" duration="117000" />
+      <workItem from="1574992666201" duration="194000" />
+      <workItem from="1574994269418" duration="446000" />
+      <workItem from="1575038119655" duration="1484000" />
+      <workItem from="1575077805634" duration="119000" />
+      <workItem from="1575113513755" duration="235000" />
     </task>
     <task id="LOCAL-00035" summary="update code">
       <created>1571387872729</created>
@@ -674,7 +673,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574409158905</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="update profile user">
+      <created>1574479439180</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1574479439180</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -706,16 +712,12 @@
     <MESSAGE value="update dashboard" />
     <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
     <MESSAGE value="update nav" />
-    <option name="LAST_COMMIT_MESSAGE" value="update nav" />
+    <MESSAGE value="update profile user" />
+    <option name="LAST_COMMIT_MESSAGE" value="update profile user" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/ProductController.java</url>
-          <line>157</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/common/VnpayConfig.java</url>
           <line>131</line>
