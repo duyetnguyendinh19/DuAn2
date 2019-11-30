@@ -593,7 +593,7 @@
 			$("#" + id).remove();
 			location.reload();
 		}
-
+		location.reload();
 	});
 	
 	// 13.2 Change Single Product
