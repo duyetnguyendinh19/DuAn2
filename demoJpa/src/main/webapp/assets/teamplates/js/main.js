@@ -472,14 +472,43 @@
 						$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 					}
 				})
+				if(newVal <=0){
+					$("#" + id).remove();
+					location.reload();
+				}
 			} else {
-				$("#" + id).val(0);	
+				$("#" + id).val(0);
+				
 			}
 		}
 		
 		
 	});
 	
+	
+	/*Custom Button In Single Product*/
+	$(".cart-plus-minus1").prepend('<div class="dec qtybutton1">-</div>');
+	$(".cart-plus-minus1").append('<div class="inc qtybutton1">+</div>');
+	$(".qtybutton1").on("click", function() {
+		var $button = $(this);
+		var inp = $button.parent().find("input");
+		var oldValue = inp[0].value;
+		var currUrl = /* [[@{/}]] */"";
+		var path = window.location.pathname.split("/")[1];
+		var id = inp[1].value;
+		var total = 0;
+		if ($button.text() == "+") {
+			var newVal = parseFloat(oldValue) + 1;
+		}else{
+			if (oldValue > 0) {
+				var newVal = parseFloat(oldValue) - 1;
+			}else{
+				var newVal = 0;
+			}
+		}
+	})
+	
+	//format Number
     function formatNumberString(numberStr) {
         if (typeof numberStr === 'number') {
             numberStr = numberStr.toString();
@@ -489,13 +518,16 @@
 
 	// 13.1 Cart Change
 	$(".cart-plus-minus-box").on("blur", function() {
-		var $button = $(".qtybutton");
-		var inp = $button.parent().find("input");
-		var oldValue = inp[0].value;
+//		var $button = $(".qtybutton");
+//		var inp = $button.parent().find("input");
+//		var oldValue = inp[0].value;
 		var currUrl = /* [[@{/}]] */"";
 		var path = window.location.pathname.split("/")[1];
-		var id = inp[1].value;
+//		var id = inp[1].value;
+		var id = $(this).attr('id');
+		var oldValue = $(this).val();
 		var total = 0;
+		if(oldValue>0){
 		$.ajax({
 			url : currUrl + '/' + path + '/cart/add/' + id + '/' + oldValue + '.html',
 			method : 'GET',
@@ -525,6 +557,39 @@
 				$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
 			}
 		})
+		}else{
+			$.ajax({
+				url : currUrl + '/' + path + '/cart/remove/' + id  + '.html',
+				method : 'GET',
+				success: function(response){
+					$("#" + id).val(oldValue);		
+					$("#quantitycart" + id).text(oldValue);
+					var price = $("#price" + id).html().replace(/,/g, '');
+					$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
+					$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+					$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
+//					$('#tblCart > tbody  > tr').each(function(index, tr) { 
+//					var getTD = $(this).find("td");
+//					var totalChild = getTD[3].innerText.replace(/,/g, '');
+//					total = parseFloat(total) + parseFloat(totalChild);
+//					$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+//					$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+//					});
+					$('#cartInfo > div').each(function(index, div) { 
+						var getPrice = $(this).find("span.pricecart");
+						var totalChild = getPrice[0].innerHTML.replace(/,/g, '');
+						total = parseFloat(total) + parseFloat(totalChild);
+						$("#totalPrice").html(formatNumberString(total) + ' ' +'VND');
+						$("#totalPriceCart").html('Tổng = ' + formatNumberString(total) + ' ' +'VND');
+					});
+					$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+					$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)) + ' ' +'VND');
+					$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)) + ' ' +'VND');
+				}
+			})
+			$("#" + id).remove();
+			location.reload();
+		}
 
 	});
 	
