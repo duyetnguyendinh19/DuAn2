@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/init :: head">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -109,7 +110,7 @@
                                     <td>
                                         <a type="button" class="btn btn-warning" href="#"
                                            th:onclick="'deleteConfirm(\'' + ${eachRow.userName} + '\');'"
-                                           data-toggle="tooltip" title="Xóa Tài Khoản">
+                                           data-toggle="tooltip" title="Xóa Nhân viên">
                                             <i class="glyphicon glyphicon-trash"></i></a>
                                     </td>
                                     <td>
@@ -298,26 +299,26 @@
         }
     </script>
 
-    <!--    <script type="text/javascript">-->
-    <!--        function deleteConfirm(key) {-->
-    <!--            BootstrapDialog.show({-->
-    <!--                title: 'Xác Nhận xóa Tài Khoản',-->
-    <!--                message: 'Bạn có chắc chắn muốn xóa Tài khoản có userName là ' + key + ' không ? Bấm Delete để xách nhận.',-->
-    <!--                buttons: [{-->
-    <!--                    label: 'Bỏ qua',-->
-    <!--                    action: function (dialogItself) {-->
-    <!--                        dialogItself.close();-->
-    <!--                    }-->
-    <!--                }, {-->
-    <!--                    label: 'Delete',-->
-    <!--                    cssClass: 'btn-primary',-->
-    <!--                    action: function (dialogItself) {-->
-    <!--                        window.location.href = currUrl + 'account/delete/' + key + '/list.html';-->
-    <!--                    }-->
-    <!--                }]-->
-    <!--            });-->
-    <!--        }-->
-    <!--    </script>-->
+        <script type="text/javascript">
+            function deleteConfirm(key) {
+                BootstrapDialog.show({
+                    title: 'Xác Nhận xóa Nhân viên',
+                    message: 'Bạn có chắc chắn muốn xóa Nhân viên có userName là ' + key + ' không ? Bấm Delete để xách nhận.',
+                    buttons: [{
+                        label: 'Bỏ qua',
+                        action: function (dialogItself) {
+                            dialogItself.close();
+                        }
+                    }, {
+                        label: 'Delete',
+                        cssClass: 'btn-primary',
+                        action: function (dialogItself) {
+                            window.location.href = currUrl + 'user/delete/' + key + '/list.html';
+                        }
+                    }]
+                });
+            }
+        </script>
 
     <!--    <script type="text/javascript">-->
     <!--        function resetPasswordConfirm(key) {-->

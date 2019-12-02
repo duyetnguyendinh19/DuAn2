@@ -3,6 +3,7 @@ package com.vn.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
+import com.vn.jpa.AuthUser;
 import com.vn.jpa.Infomation;
 import com.vn.model.AuthUserModel;
 import com.vn.model.InfomationModel;
@@ -110,5 +111,16 @@ public class UserController {
             e.printStackTrace();
             return "redirect:/user/list.html";
         }
+    }
+
+    @RequestMapping(value = "delete/{username}/list.html", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('Administrators')")
+    public String deleteAccount(@PathVariable("username") String username) {
+        AuthUser authUser = authUserService.findByUsername(username);
+        if (authUser == null) {
+            return "403";
+        }
+        authUserService.delete(authUser);
+        return "redirect:/user/list.html";
     }
 }

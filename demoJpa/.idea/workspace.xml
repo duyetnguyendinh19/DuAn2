@@ -6,10 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="">
+    <list default="true" id="5066a22b-aa22-415a-b471-a067039291a3" name="Default Changelist" comment="update valid reset password">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/duan2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/duan2.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/reset-password.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/StaffController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/StaffController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/review/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/review/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/staffs/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/staffs/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users/list.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/admin/users/list.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/nav.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/nav.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -335,14 +339,9 @@
       <workItem from="1574994269418" duration="446000" />
       <workItem from="1575038119655" duration="1484000" />
       <workItem from="1575077805634" duration="119000" />
-      <workItem from="1575113513755" duration="235000" />
-    </task>
-    <task id="LOCAL-00035" summary="update code">
-      <created>1571387872729</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1571387872729</updated>
+      <workItem from="1575113513755" duration="2875000" />
+      <workItem from="1575250473434" duration="107000" />
+      <workItem from="1575287558718" duration="2870000" />
     </task>
     <task id="LOCAL-00036" summary="update code">
       <created>1571451113780</created>
@@ -680,7 +679,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574479439180</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="update valid reset password">
+      <created>1575113860610</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1575113860612</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -713,7 +719,8 @@
     <MESSAGE value="Merge branch 'master' of https://github.com/duyetnguyendinh19/DuAn2" />
     <MESSAGE value="update nav" />
     <MESSAGE value="update profile user" />
-    <option name="LAST_COMMIT_MESSAGE" value="update profile user" />
+    <MESSAGE value="update valid reset password" />
+    <option name="LAST_COMMIT_MESSAGE" value="update valid reset password" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -730,18 +737,23 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>351</line>
+          <line>386</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
-          <line>357</line>
+          <line>392</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/AdminController.java</url>
           <line>63</line>
           <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/vn/controller/HomeController.java</url>
+          <line>343</line>
+          <option name="timeStamp" value="49" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
