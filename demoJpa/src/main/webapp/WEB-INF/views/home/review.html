@@ -805,7 +805,7 @@ translate3d
 		<div class="row"
 			style="width: 85% !important; margin: 0px auto; margin-bottom: 30px; color: black;">
 			<div class="table-content table-responsive mb-50">
-				<table class="text-center">
+				<table class="text-center" id="attendees">
 					<thead>
 						<tr>
 							<th class="product-thumbnail">Sản phẩm</th>
@@ -816,11 +816,12 @@ translate3d
 								</div>
 							
 							</th>
+							<th>Nội dung</th>
 						</tr>
 					</thead>
 					<tbody>
 						<!-- tr -->
-						<tr th:each="each : ${lstBillPr}">
+						<tr th:each="each : ${lstBillPr}" class="data">
 							<td class="product-thumbnail">
 								<div class="pro-thumbnail-img">
 									<img th:src="${each.product.mainImg}" alt="">
@@ -828,6 +829,7 @@ translate3d
 								<div class="pro-thumbnail-info text-left">
 									<h6 class="product-title-2">
 										<a href="#" th:text="${each.product.name}"></a>
+										<input type="hidden" th:value="${each.product.id}" class="idPr" />
 									</h6>
 									<p th:text="${each.product.category.name}"></p>
 								</div>
@@ -835,7 +837,7 @@ translate3d
 							<td>
 								<p th:text="${each.product.info}"></p>
 							</td>
-							<td><select class="rate-select" name="rate">
+							<td><select class="rate-select rate" name="rate" >
 									<option value="1">1</option>
 									<option value="2">2</option>
 									<option value="3">3</option>
@@ -844,10 +846,16 @@ translate3d
 
 							</select>
 							</td>
+							<td>
+								<textarea class="description" cols="45" rows="10"></textarea>
+							</td>
 						</tr>
 
 					</tbody>
 				</table>
+				  <a href=""
+                     style="line-height: 45px;height: 45px; border-radius: 5px; font-size: 17px;"
+                     id="submit" class="btn btn-warning" type="submit">Gửi</a>
 			</div>
 		</div>
 	</div>
@@ -862,6 +870,33 @@ translate3d
 	<script th:inline="javascript">
 		var currUrl = /*[[@{/}]]*/"";
 		var pageIndex = /*[[${session.pageIndex}]]*/"";
+	</script>
+	
+	<script>
+		$("#submit").on('click', function (e) {
+		    e.preventDefault();
+		    /* var data = $("#attendees tr.data").map(function (index, elem) {
+		        var ret = [];
+		        var obj = {}
+		        $('.inputValue', this).each(function () {
+		        	console.log($(this).val()); */
+		            /* var d = $(this).val()||$(this).text();
+		            ret.push(d); */
+/* 		        });
+		        return ret;
+		    }); */
+	/* 	    console.log(data); */
+			var lst = [];
+			$("#attendees tr.data").each(function (){
+				var obj = {
+						id: $(this).find('.idPr').val(),
+						rate: $(this).find('.rate').val(),
+						description: $(this).find('.description').val()
+				};
+				lst.push(obj);
+			});
+			console.log(lst);
+		});
 	</script>
 </body>
 

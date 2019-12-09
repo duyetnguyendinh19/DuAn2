@@ -114,18 +114,22 @@ public class HomeController {
     @RequestMapping(value = "/home/login.html", method = RequestMethod.POST)
     public String loginPageSuccsess(HttpSession session, @RequestParam("user") String user,
                                     @RequestParam("password") String pass, Model model) {
-        AuthUser authUser = authUserService.findByUsername(user);
-        if (authUser != null) {
-            if (passwordEncoder.matches(pass, authUser.getPassword())) {
-                session.setAttribute("userLogin", authUser);
-                return "redirect:/";
-            }
-        }
-        Map<String, String> mapError = new HashedMap<String, String>();
-        model.addAttribute("athUser", new AuthUserModel());
-        model.addAttribute("mapError", mapError);
-        model.addAttribute("errorLogin", "Sai tài khoản hoặc mật khẩu");
-        return "home/login";
+    	if(session.getAttribute("userLogin") != null) {
+    		 return "redirect:/";
+    	}else {
+    		 AuthUser authUser = authUserService.findByUsername(user);
+    	        if (authUser != null) {
+    	            if (passwordEncoder.matches(pass, authUser.getPassword())) {
+    	                session.setAttribute("userLogin", authUser);
+    	                return "redirect:/";
+    	            }
+    	        }
+    	        Map<String, String> mapError = new HashedMap<String, String>();
+    	        model.addAttribute("athUser", new AuthUserModel());
+    	        model.addAttribute("mapError", mapError);
+    	        model.addAttribute("errorLogin", "Sai tài khoản hoặc mật khẩu");
+    	        return "home/login";
+    	}
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
@@ -341,7 +345,7 @@ public class HomeController {
     public String profileSave(HttpSession session, Model model,
                                     @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
         try {
-            infoFormValidator.validateReportForm(infomationModel, result);
+//            infoFormValidator.validateReportForm(infomationModel, result);
             Infomation infomation = null;
             AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
             infomation = infomationService.findByAuthUserId(authUser.getId());
@@ -351,6 +355,9 @@ public class HomeController {
             authUser.setEmail(infomationModel.getEmailUser());
             authUser.setFirstName(infomationModel.getFirstName());
             authUser.setLastName(infomationModel.getLastName());
+            authUser.setGender(infomationModel.getGender());
+            authUserService.update(authUser);
+            session.setAttribute("userLogin", authUser);
             infomation.setProvince(infomationModel.getProvince());
             infomation.setTown(infomationModel.getTown());
             infomation.setBank(infomationModel.getBank());
@@ -364,11 +371,10 @@ public class HomeController {
             } else {
                 infomationService.update(infomation);
             }
-            authUserService.update(authUser);
         } catch (Exception e) {
             model.addAttribute("errorUnkown", "Lỗi không xác định !");
         }
-        model.addAttribute("bankInfo", bankService.findAll());
+//        model.addAttribute("bankInfo", bankService.findAll());
         return "redirect:/home/profile.html";
     }
 

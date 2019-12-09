@@ -252,7 +252,10 @@
                                                             class="cart-plus-minus-box">
                                                 </div> -->
                                                  <div class="cart-plus-minus1 f-left">
-                                                 <input type="text" th:value="${session.myCartItems.get(product.id) == null ? 1 : 
+                                                  <input type="text" th:if="${#lists.isEmpty(session.myCartItems) and session.myCartItems==null}" th:value="1" name="number"
+                                                           class="cart-plus-minus-box">
+                                                 <input type="text" th:if="${not #lists.isEmpty(session.myCartItems) and session.myCartItems!=null }"
+                                                  th:value="${session.myCartItems.get(product.id) == null ? 1 : 
                                                    session.myCartItems.get(product.id).quantity }" name="number"
                                                            class="cart-plus-minus-box1">
                                                  <!--    <input th:id="${product.id}" type="text" name="number"
