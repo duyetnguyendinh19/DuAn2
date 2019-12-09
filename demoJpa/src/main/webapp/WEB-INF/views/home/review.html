@@ -886,6 +886,8 @@ translate3d
 		        return ret;
 		    }); */
 	/* 	    console.log(data); */
+			var currUrl = /* [[@{/}]] */"";
+			var path = window.location.pathname.split("/")[1];
 			var lst = [];
 			$("#attendees tr.data").each(function (){
 				var obj = {
@@ -895,7 +897,16 @@ translate3d
 				};
 				lst.push(obj);
 			});
-			console.log(lst);
+			$.ajax({
+				   type: "POST",
+			       contentType : 'application/json; charset=utf-8',
+			       dataType : 'json',
+			       url: "/gDirecotry/ajax/searchUserProfiles.html",url : currUrl + '/' + path + '/home/reviewSubmit'  + '.html',
+			       data: JSON.stringify(lst),
+			       success :function(result) {
+			       	location.reload();
+			       }
+			});
 		});
 	</script>
 </body>

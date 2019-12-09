@@ -18,11 +18,14 @@ import com.vn.service.*;
 import com.vn.validation.service.InfomationFormValidator;
 import org.apache.commons.collections4.map.HashedMap;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.MediaType;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -479,11 +483,47 @@ public class HomeController {
     
     
     @RequestMapping(value = "/home/review/{id}.html")
-    public String revire(Model model, @PathVariable("id") Long id) {
+    public String revire(Model model, @PathVariable("id") Long id, HttpSession session) {
     	List<Product_Bill> lstPrBill = prBillService.findByBill_Id(id);
     	model.addAttribute("lstBillPr", lstPrBill);
     	model.addAttribute("rate", 1);
     	model.addAttribute("description", "");
+    	session.setAttribute("idBill", id);
     	return "home/review";
+    }
+    
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/home/reviewSubmit.html", method = RequestMethod.POST)
+    public @ResponseBody String submit(@RequestBody List<Object> lst,HttpSession session) {
+        try {
+        	Review review = null;
+        	Product product = null;
+        	LinkedHashMap<String, String> map = null;
+        	long id = (long) session.getAttribute("idBill");
+        	Bill bill = billService.findOne(id);
+        	Date date = new Date();
+        	for(Object obj : lst) {
+        		map = (LinkedHashMap<String, String>) obj;
+        		review = new Review();
+        		product = productService.findOne(Long.parseLong(map.get("id")));
+        		review.setProduct(product);
+        		review.setRate(Integer.parseInt(map.get("rate")));
+        		review.setDescription(map.get("description"));
+        		review.setEmail(bill.getEmail());
+        		review.setName(bill.getName());
+        		review.setStatus(0);
+        		review.setCreateDate(date);
+        		reviewService.insert(review);
+        	}
+        } catch(JSONException _instance) {
+        }
+
+    	return "Json String";
+    }
+    
+    class review{
+    	int id;
+    	int rate;
+    	String description;
     }
 }
