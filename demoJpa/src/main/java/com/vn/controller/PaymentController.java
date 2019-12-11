@@ -164,7 +164,6 @@ public class PaymentController {
                         roles.add(authRoleService.findOne(2l));
                         Date createdDate = new DateTime().toDate();
                         String password = RandomStringUtils.randomAlphanumeric(6).toUpperCase();
-                        ;
                         String salt = "5876695f8e4e1811";
                         String encryptPassword = "";
                         encryptPassword = passwordEncoder.encode(password);
