@@ -208,10 +208,10 @@
                                                     <h6 class="widget-title border-left mb-20">Thông tin
                                                         người nhận</h6>
                                                     <input type="text" id="name" name="name"
-                                                           placeholder="Tên của bạn..." th:value="${name}">
+                                                           placeholder="Tên của bạn..." th:value="${name}" maxlength="128">
                                                     <span style="color: red;font-size: 13px;" id="nameError"></span>
                                                     <input type="text" id="email" name="email" placeholder="Email..."
-                                                           th:value="${email}">
+                                                           th:value="${email}" maxlength="45">
                                                     <span style="color: red;font-size: 13px;" id="emailError"></span>
                                                     <select id="payment" name="payment" class="custom-select">
                                                         <option value="">Chọn phương thức</option>
@@ -220,10 +220,10 @@
                                                     </select>
                                                     <span style="color: red;font-size: 13px;" id="paymentError"></span>
                                                     <input type="text" id="mobile" name="mobile"
-                                                           placeholder="Số điện thoại..." th:value="${mobile}">
+                                                           placeholder="Số điện thoại..." th:value="${mobile}" maxlength="12">
                                                     <span style="color: red;font-size: 13px;" id="mobileError"></span>
                                                     <textarea class="custom-textarea" id="address"
-                                                              placeholder="Địa chỉ..." th:text="${address}"></textarea>
+                                                              placeholder="Địa chỉ..." th:text="${address}" maxlength="128"></textarea>
                                                     <span style="color: red;font-size: 13px;" id="addressError"></span>
                                                     <span style="color: red;font-size: 13px;font-weight: bold;"
                                                           id="authUserError"></span>
@@ -250,7 +250,6 @@
                                                             <td class="td-title-1">Thuế (1%)</td>
                                                             <td  id="vatTT" class="td-title-2"
                                                                 th:text="${#numbers.formatDecimal(session.myCartTotal*0.01, 0, 'COMMA', 0,'POINT')}">
-                                                                VND
                                                             </td>
                                                         </tr>
                                                         <tr>
@@ -319,11 +318,11 @@
         });
 
     $('#submitPayment').on('click', function () {
-        var name = $('#name').val();
+        var name = $('#name').val().trim();
         var email = $('#email').val();
         var payment = $('#payment').val();
         var mobile = $('#mobile').val();
-        var address = $('#address').val();
+        var address = $('#address').val().trim();
         var total = $('#total').text();
         var errorMessage = '';
         var valid = true;

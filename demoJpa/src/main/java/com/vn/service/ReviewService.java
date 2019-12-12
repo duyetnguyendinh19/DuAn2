@@ -14,6 +14,8 @@ public interface ReviewService {
     Page<Review> findALlReview(Date fromDate, Date toDate, String name, Pageable pageable);
 
     List<Review> findAllByProductIdAndStatus(Long id, int status);
+    
+    Long countRateByBillId(Long i);
 
     Review insert(Review review);
 

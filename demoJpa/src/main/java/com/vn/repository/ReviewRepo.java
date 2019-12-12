@@ -25,4 +25,7 @@ public interface ReviewRepo extends JpaRepository<Review, Long> {
 
     @Query(value = "SELECT COUNT(*) FROM Review re WHERE (re.product.id = :id)")
     Long countRateByProductId(@Param("id") Long id);
+    
+    @Query(value = "SELECT COUNT(*) FROM Review re WHERE (re.bill.id = :id)")
+    Long countRateByBillId(@Param("id") Long id);
 }

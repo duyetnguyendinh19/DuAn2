@@ -698,7 +698,7 @@
                                   th:text="${bill.address}" readonly></textarea>
                         </div>
                         <div class="col col-xs-12 col-sm-12 col-md-12">
-                            <textarea name="reason" placeholder="Lý do hủy dơn..." id="reason"></textarea>
+                            <textarea name="reason" placeholder="Lý do hủy đơn..." id="reason" maxlength="128"></textarea>
                             <span style="color: red;font-size: 13px;" id="reasonError"></span>
                         </div>
                     </div>
@@ -736,7 +736,7 @@
         var email = $('#email').val();
         var mobile = $('#mobile').val();
         var address = $('#address').val();
-        var reason = $('#reason').val();
+        var reason = $('#reason').val().trim();
         var dataObject = {};
         dataObject.id = id;
         dataObject.code = code;

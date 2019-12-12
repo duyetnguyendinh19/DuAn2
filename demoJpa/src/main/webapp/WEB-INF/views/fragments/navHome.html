@@ -368,7 +368,7 @@
                                                   th:action="@{/report/saveFooter.html}" method="post">
                                                 <div class="col-md-12">
                                                     <input type="text" th:field="*{name}" name="name"
-                                                           placeholder="Tên của bạn...">
+                                                           placeholder="Tên của bạn..." maxlength="64">
                                                     <div
                                                             th:if="${mapError != null && mapError.containsKey('name') != null}"
                                                             style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
@@ -377,7 +377,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <input type="text" th:field="*{email}" name="email"
-                                                           placeholder="Email...">
+                                                           placeholder="Email..." maxlength="45">
                                                     <div
                                                             th:if="${mapError != null && mapError.containsKey('email') != null}"
                                                             style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
@@ -386,7 +386,7 @@
                                                 </div>
                                                 <div class="col-md-12">
 													<textarea class="custom-textarea" th:field="*{opinion}"
-                                                              name="message" placeholder="Ý kiến của bạn"></textarea>
+                                                              name="message" placeholder="Ý kiến của bạn" maxlength="128"></textarea>
                                                     <div th:if="${mapError != null && mapError.containsKey('opinion') != null}"
                                                          style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
                                                          th:each="err: ${mapError.get('opinion')}"

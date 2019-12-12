@@ -699,15 +699,19 @@
                     </select>
                     </td>
                     <td>
-                        <textarea class="description" cols="45" rows="10"></textarea>
+                        <textarea class="description" cols="45" rows="10" maxlength="256"></textarea>
                     </td>
                 </tr>
 
                 </tbody>
             </table>
-            <a href=""
-               style="line-height: 45px;height: 45px; border-radius: 5px; font-size: 17px;"
-               id="submit" class="btn btn-warning" type="submit">Gửi</a>
+            <br/>
+            <div style="float:right">
+	            <a href=""
+	               style="line-height: 45px;height: 45px; border-radius: 5px; font-size: 17px"
+	               id="submit" class="btn btn-success" type="submit">Gửi</a>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -755,10 +759,11 @@
             dataType: 'json',
             url: "/gDirecotry/ajax/searchUserProfiles.html", url: currUrl + '/' + path + '/home/reviewSubmit' + '.html',
             data: JSON.stringify(lst),
-            success: function (result) {
-                location.reload();
+            success: function (response) {
+            	 window.location.href = window.location.origin + $('#contextPath').val();
             }
         });
+        window.location.href = window.location.origin + $('#contextPath').val();
     });
 </script>
 </body>

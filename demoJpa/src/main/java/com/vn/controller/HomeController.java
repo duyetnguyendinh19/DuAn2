@@ -484,12 +484,16 @@ public class HomeController {
     
     @RequestMapping(value = "/home/review/{id}.html")
     public String revire(Model model, @PathVariable("id") Long id, HttpSession session) {
-    	List<Product_Bill> lstPrBill = prBillService.findByBill_Id(id);
-    	model.addAttribute("lstBillPr", lstPrBill);
-    	model.addAttribute("rate", 1);
-    	model.addAttribute("description", "");
-    	session.setAttribute("idBill", id);
-    	return "home/review";
+    	if(reviewService.countRateByBillId(id)>0) {
+    		return "redirect:/";
+    	}else {
+    		List<Product_Bill> lstPrBill = prBillService.findByBill_Id(id);
+        	model.addAttribute("lstBillPr", lstPrBill);
+        	model.addAttribute("rate", 1);
+        	model.addAttribute("description", "");
+        	session.setAttribute("idBill", id);
+        	return "home/review";
+    	}
     }
     
     @SuppressWarnings("unchecked")
@@ -513,6 +517,7 @@ public class HomeController {
         		review.setName(bill.getName());
         		review.setStatus(0);
         		review.setCreateDate(date);
+        		review.setBill(bill);
         		reviewService.insert(review);
         	}
         } catch(JSONException _instance) {

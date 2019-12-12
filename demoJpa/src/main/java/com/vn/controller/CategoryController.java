@@ -2,6 +2,7 @@ package com.vn.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -87,6 +88,9 @@ public class CategoryController {
             Category category = categoryService.findOne(id);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             model.addAttribute("category", category);
+            if(category.getDate() == null) {
+            	category.setDate(new Date());
+            }
             model.addAttribute("date", sdf.format(category.getDate()));
             model.addAttribute("title", "Sửa danh mục");
         }
@@ -106,6 +110,7 @@ public class CategoryController {
 			} else {
 				model.addAttribute("title", "Sửa danh mục");
 			}
+			model.addAttribute("lstCate", categoryService.findAllCateList(category.getId() == null ? 0 : category.getId(), "", "N", "Y"));
 			return "admin/categorys/cate_edit";
 		}
 		if (category.getId() == null) {

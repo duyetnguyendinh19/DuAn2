@@ -144,11 +144,11 @@ public class ProductController {
             if (model.getIdCate() == null) {
                 responseMap.put("idCate", "Danh mục sản phẩm không được để trống");
             }
-            if (Strings.isNullOrEmpty(model.getName())) {
+            if (Strings.isNullOrEmpty(model.getName().trim())) {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
-            if (!Strings.isNullOrEmpty(model.getName())) {
-                if (model.getName().length() > 64) {
+            if (!Strings.isNullOrEmpty(model.getName().trim())) {
+                if (model.getName().trim().length() > 64) {
                     responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
                 }
                 if (productService.findAllByNameAndIsdelete(model.getName().trim(), "N") != null) {
@@ -161,10 +161,10 @@ public class ProductController {
             if (model.getPrice() == 0) {
                 responseMap.put("price", "Giá sản phẩm không được để trống");
             }
-            if(Strings.isNullOrEmpty(model.getDescription())){
+            if(Strings.isNullOrEmpty(model.getDescription().trim())){
                 responseMap.put("description","Nội dung sản phẩm không được để trống");
             }
-            if (Strings.isNullOrEmpty(model.getInfo())) {
+            if (Strings.isNullOrEmpty(model.getInfo().trim())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");
             }
             if (responseMap.size() == 0) {
@@ -249,14 +249,14 @@ public class ProductController {
             if (model.getIdCate() == null) {
                 responseMap.put("idCate", "Danh mục sản phẩm không được để trống");
             }
-            if (Strings.isNullOrEmpty(model.getName())) {
+            if (Strings.isNullOrEmpty(model.getName().trim())) {
                 responseMap.put("name", "Tên sản phẩm không được để trống");
             }
-            if (!Strings.isNullOrEmpty(model.getName())) {
-                if (model.getName().length() > 64) {
+            if (!Strings.isNullOrEmpty(model.getName().trim())) {
+                if (model.getName().trim().length() > 64) {
                     responseMap.put("name", "Tên sản phẩm không quá 64 kí tự");
                 }
-                if (!model.getName().trim().equals(product.getName())) {
+                if (!model.getName().trim().equals(product.getName().trim())) {
                     if (productService.findAllByNameAndIsdelete(model.getName(), "N") != null) {
                         responseMap.put("name", "Tên sản phẩm đã tồn tại");
                     }
@@ -268,10 +268,10 @@ public class ProductController {
             if (model.getPrice() == 0L) {
                 responseMap.put("price", "Giá sản phẩm không được để trống");
             }
-            if(Strings.isNullOrEmpty(model.getDescription())){
+            if(Strings.isNullOrEmpty(model.getDescription().trim())){
                 responseMap.put("description","Nội dung sản phẩm không được để trống");
             }
-            if (Strings.isNullOrEmpty(model.getInfo())) {
+            if (Strings.isNullOrEmpty(model.getInfo().trim())) {
                 responseMap.put("info", "Thông tin sản phẩm không được để trống");
             }
             if (responseMap.size() == 0) {

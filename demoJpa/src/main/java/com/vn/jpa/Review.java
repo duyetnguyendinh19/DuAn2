@@ -40,11 +40,15 @@ public class Review implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_product")
     private Product product;
-
+    
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    private Bill bill;
+    
     public Review() {
     }
 
-    public Review(String name,String email, Date createDate, String description, String reply, Integer rate, int status, Product product) {
+    public Review(String name,String email, Date createDate, String description, String reply, Integer rate, int status, Product product, Bill bill) {
         this.name = name;
         this.email = email;
         this.createDate = createDate;
@@ -53,6 +57,7 @@ public class Review implements Serializable {
         this.rate = rate;
         this.status = status;
         this.product = product;
+        this.bill = bill;
     }
 
     public Long getId() {
@@ -127,7 +132,15 @@ public class Review implements Serializable {
         this.product = product;
     }
 
-    @PrePersist
+    public Bill getBill() {
+		return bill;
+	}
+
+	public void setBill(Bill bill) {
+		this.bill = bill;
+	}
+
+	@PrePersist
     public void prePersist() {
         if (this.createDate == null) {
             this.createDate = new Date();

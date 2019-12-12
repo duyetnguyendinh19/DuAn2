@@ -329,7 +329,7 @@
                                 <label>Tên sản phẩm</label><span class="error"> *</span>
                                 <div>
                                     <input type="text" class="form-control" id="name" placeholder="Tên sản phẩm"
-                                           th:value="${product.name}"/>
+                                           th:value="${product.name}" maxlength="64" />
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
                                           id="nameError"></span>
                                 </div>
@@ -339,7 +339,7 @@
                             <div class="form-group">
                                 <label>Số lượng</label><span class="error"> *</span>
                                 <div>
-                                    <input type="text" class="form-control" id="quantity"
+                                    <input type="text" class="form-control" id="quantity" maxlength="11"
                                            th:value="${product.quantity}"/>
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
                                           id="quantityError"></span>
@@ -389,7 +389,7 @@
                                 <div style="height: 100px;">
                                     <textarea class="form-control" placeholder="Miêu tả sản phẩm" id="description"
                                               th:text="${product.description}"
-                                              style="height: 100px;"></textarea>
+                                              style="height: 100px;" maxlength="256" ></textarea>
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
                                           id="descriptionError"></span>
                                 </div>
@@ -401,7 +401,7 @@
                                 <div>
                                     <textarea class="form-control" placeholder="Thông tin sản phẩm" id="info"
                                               th:text="${product.info}"
-                                              style="height: 100px;"></textarea>
+                                              style="height: 100px;" maxlength="256" ></textarea>
                                     <span style="text-align:left; color: red; font-weight: bold; font-size: 13px;margin-top:10px;"
                                           id="infoError"></span>
                                 </div>

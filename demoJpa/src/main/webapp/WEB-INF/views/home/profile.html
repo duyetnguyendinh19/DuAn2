@@ -95,24 +95,24 @@
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="firstName"
                                                                                            th:field="*{firstName}"
-                                                                                           placeholder="Họ..."
+                                                                                           placeholder="Họ..." maxlength="15"
                                                                                            >
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="lastName"
                                                                                            th:field="*{lastName}"
-                                                                                           placeholder="Tên..."
+                                                                                           placeholder="Tên..." maxlength="15"
                                                                                            >
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="province"
                                                                                            placeholder="Thành phố..."
-                                                                                           th:field="*{province}">
+                                                                                           th:field="*{province}" maxlength="64">
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="town"
                                                                                            placeholder="Quận/Huyện..."
-                                                                                           th:field="*{town}">
+                                                                                           th:field="*{town}" maxlength="64">
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <select class="custom-select"
@@ -127,7 +127,7 @@
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="phone"
                                                                                            placeholder="Số điện thoại..."
-                                                                                           th:field="*{phone}">
+                                                                                           th:field="*{phone}" maxlength="10">
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <select class="custom-select"
@@ -142,12 +142,12 @@
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="atmNumber"
                                                                                            placeholder="Số tài khoản..."
-                                                                                           th:field="*{atmNumberBank}">
+                                                                                           th:field="*{atmNumberBank}" maxlength="16">
                                                                                 </div>
                                                                             </div>
                                                                             <input type="text" name="address"
                                                                                    placeholder="Địa chỉ..."
-                                                                                   th:field="*{address}">
+                                                                                   th:field="*{address}" maxlength="256">
                                                                             <input type="text" name="email"
                                                                                    th:field="*{emailUser}"
                                                                                    placeholder="Email..." 
