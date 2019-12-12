@@ -102,44 +102,27 @@
                                 <thead>
                                 <tr>
                                     <th class="text-table-header">STT</th>
+                                    <th class="text-table-header">Mã hóa đơn</th>
                                     <th class="text-table-header">Tên KH</th>
 <!--                                    <th class="text-table-header">Email</th>-->
-                                    <th class="text-table-header">Mã hóa đơn</th>
-                                    <th class="text-table-header">Thanh toán</th>
-                                    <th class="text-table-header">Tổng tiền</th>
-                                    <th class="text-table-header">Trạng thái TToán</th>
-                                    <th class="text-table-header">Trạng thái HĐ</th>
+                                    <th class="text-table-header">Email</th>
+                                    <th class="text-table-header">Số điện thoại</th>
+                                    <th class="text-table-header">Địa chỉ</th>
+                                    <th class="text-table-header">Lý do</th>
 <!--                                    <th class="text-table-header">#</th>-->
-                                    <th class="text-table-header">#</th>
+<!--                                    <th class="text-table-header">#</th>-->
                                 </tr>
                                 </thead>
                                 <tbody th:if="${page}!=null">
                                 <tr th:each="eachRow,iterStat :${page}">
                                     <td class="text-table-body" th:text="${iterStat.count}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.code}"></td>
                                     <td class="text-table-body" th:text="${eachRow.name}"></td>
 <!--                                    <td class="text-table-body" th:text="${eachRow.email}"></td>-->
-                                    <td class="text-table-body" th:text="${eachRow.code}"></td>
-                                    <td class="text-table-body">
-                                        <span th:if="${eachRow.payment == 0}">Thanh toán trực tiếp</span>
-                                        <span th:if="${eachRow.payment == 1}">Thanh toán online</span>
-                                    </td>
-                                    <td class="text-table-body"
-                                        th:text="${#numbers.formatDecimal(eachRow.total, 0, 'COMMA', 0,'POINT')}"></td>
-                                    <td class="text-table-body" style="text-align: center;">
-                                        <button class="btn btn-success" th:if="${eachRow.status == 1}">Đã Thanh Toán
-                                        </button>
-                                        <button class="btn btn-warning" th:if="${eachRow.status == 2}">Chưa Thanh toán
-                                        </button>
-                                    </td>
-                                     <td class="text-table-body" style="text-align: center;"
-                                        th:switch="${eachRow.typeStatus}">
-                                        <button class="btn btn-success" th:case="'0'">Đã nhận</button>
-                                        <button class="btn btn-warning" th:case="'1'">Đã hủy</button>
-                                        <button class="btn btn-error" th:case="'2'">Boom hàng</button>
-                                        <button class="btn btn-success" th:case="'3'">Đang giao hàng</button>
-                                        <button class="btn btn-success" th:case="'4'">Đang đóng gói</button>
-                                        <button class="btn btn-success" th:case="'5'">Đang xác nhận</button>
-                                    </td>
+                                    <td class="text-table-body" th:text="${eachRow.email}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.mobile}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.address}"></td>
+                                    <td class="text-table-body" th:text="${eachRow.reason}"></td>
 <!--                                    <td class="text-table-body">-->
 <!--                                        <a th:onclick="'acceptPayment(\'' + ${eachRow.code} + '\',\'' + ${eachRow.id} + '\')'"-->
 <!--                                           data-toggle="tooltip" title="Xác nhận hủy đơn"-->
@@ -148,70 +131,70 @@
 <!--                                        </a>-->
 <!--                                        <label th:if="${eachRow.status} == 1">&nbsp;</label>-->
 <!--                                    </td>-->
-                                    <td>
-                                        <button type="button" th:onclick="'billDetail(\'' + ${eachRow.id} + '\')'"
-                                                class="btn btn-default btn-circle" data-toggle="modal"
-                                                data-target="#billModal"
-                                                title="Hóa đơn chi tiết"><i class="fa fa-eye"></i></button>
-                                    </td>
+<!--                                    <td>-->
+<!--                                        <button type="button" th:onclick="'billDetail(\'' + ${eachRow.id} + '\')'"-->
+<!--                                                class="btn btn-default btn-circle" data-toggle="modal"-->
+<!--                                                data-target="#billModal"-->
+<!--                                                title="Hóa đơn chi tiết"><i class="fa fa-eye"></i></button>-->
+<!--                                    </td>-->
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
 
-                        <div class="modal fade" id="billModal" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header" style="height: 50px;">
-                                        <label>Chi tiết hóa đơn</label>
-                                        <button type="button" class="close" data-dismiss="modal"
-                                                aria-label="Close"><span
-                                                aria-hidden="true">&times;</span></button>
-                                    </div>
-                                    <div class="modal-body" style="padding-top: 0px!important;">
-                                        <div class="modal-product clearfix">
-                                            <div class="product-info">
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
-                                                        <h4>Thông tin sản phẩm</h4>
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
-                                                        <h4>Thông tin hóa đơn</h4>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;" id="leftDetail">
-                                                    </div>
-                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">
-                                                        <div class="col-lg-12"
-                                                             style="margin-top: 10px;padding: 0px!important;">
-                                                            <span style="display:inline-flex;width: 100%;">Tên KH:&nbsp;<p
-                                                                    id="nameCustomer"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">Mã HĐ:&nbsp;<p
-                                                                    id="codeBill"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">Email:&nbsp;<p
-                                                                    id="emailCustomer"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">SĐT:&nbsp;<p
-                                                                    id="mobileCustomer"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">Địa chỉ:&nbsp;<p
-                                                                    id="addressCustomer"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">Ngày đặt hàng:&nbsp;<p
-                                                                    id="createdBill"></p></span>
-                                                            <span style="display:inline-flex;width: 100%;">PTTT:&nbsp;
-                                                                    <p id="paymentBill"></p>
-                                                                </span>
-                                                            <span style="display:inline-flex;width: 100%;">Trang thái:&nbsp;
-                                                                    <p id="statusBill"></p>
-                                                                </span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div><!-- .product-info -->
-                                    </div><!-- .modal-product -->
-                                </div><!-- .modal-body -->
-                            </div><!-- .modal-content -->
-                        </div><!-- .modal-dialog -->
+<!--                        <div class="modal fade" id="billModal" tabindex="-1" role="dialog">-->
+<!--                            <div class="modal-dialog" role="document">-->
+<!--                                <div class="modal-content">-->
+<!--                                    <div class="modal-header" style="height: 50px;">-->
+<!--                                        <label>Chi tiết hóa đơn</label>-->
+<!--                                        <button type="button" class="close" data-dismiss="modal"-->
+<!--                                                aria-label="Close"><span-->
+<!--                                                aria-hidden="true">&times;</span></button>-->
+<!--                                    </div>-->
+<!--                                    <div class="modal-body" style="padding-top: 0px!important;">-->
+<!--                                        <div class="modal-product clearfix">-->
+<!--                                            <div class="product-info">-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">-->
+<!--                                                        <h4>Thông tin sản phẩm</h4>-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">-->
+<!--                                                        <h4>Thông tin hóa đơn</h4>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                                <div class="row">-->
+<!--                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;" id="leftDetail">-->
+<!--                                                    </div>-->
+<!--                                                    <div class="col-lg-6 col-sm-6" style="margin-top: 10px;">-->
+<!--                                                        <div class="col-lg-12"-->
+<!--                                                             style="margin-top: 10px;padding: 0px!important;">-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Tên KH:&nbsp;<p-->
+<!--                                                                    id="nameCustomer"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Mã HĐ:&nbsp;<p-->
+<!--                                                                    id="codeBill"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Email:&nbsp;<p-->
+<!--                                                                    id="emailCustomer"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">SĐT:&nbsp;<p-->
+<!--                                                                    id="mobileCustomer"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Địa chỉ:&nbsp;<p-->
+<!--                                                                    id="addressCustomer"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Ngày đặt hàng:&nbsp;<p-->
+<!--                                                                    id="createdBill"></p></span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">PTTT:&nbsp;-->
+<!--                                                                    <p id="paymentBill"></p>-->
+<!--                                                                </span>-->
+<!--                                                            <span style="display:inline-flex;width: 100%;">Trang thái:&nbsp;-->
+<!--                                                                    <p id="statusBill"></p>-->
+<!--                                                                </span>-->
+<!--                                                        </div>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </div>&lt;!&ndash; .product-info &ndash;&gt;-->
+<!--                                    </div>&lt;!&ndash; .modal-product &ndash;&gt;-->
+<!--                                </div>&lt;!&ndash; .modal-body &ndash;&gt;-->
+<!--                            </div>&lt;!&ndash; .modal-content &ndash;&gt;-->
+<!--                        </div>&lt;!&ndash; .modal-dialog &ndash;&gt;-->
                     </div>
 
                     
@@ -354,53 +337,53 @@
         return numberStr.replace(/(?=(?:\d{3})+$)(?!^)/g, ',');
     }
 
-    function billDetail(id) {
-        $.ajax({
-            url: currUrl + 'bill/billDetail',
-            method: 'GET',
-            data: {'id': id},
-            contentType: 'application/x-www-form-urlencoded',
-            success: function (response) {
-                var data = JSON.parse(response);
-                var html = '';
-                if (data != null) {
-                    for (var each of data) {
-                        html += ` <div class="col-lg-12" style="margin-top: 10px;padding: 0px!important;">
-                                      <img class="col-lg-5" src="${each.mainImg}" style="padding: 0px!important;"/>
-                                       <div class="col-lg-7">
-                                             <span style="display:inline-flex;width: 100%;">Tên SP:&nbsp;<p>${each.nameProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;">Giá SP:&nbsp;<p>${each.priceProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;" id="salce">Giảm giá:&nbsp;<p>${each.priceSaleProduct}</p></span>
-                                             <span style="display:inline-flex;width: 100%;">Số lượng:&nbsp;<p>${each.quantity}</p></span>
-                                       </div>
-                                   </div>`
-                    }
-                    $('#leftDetail').html(html);
-                    $('#nameCustomer').text(data[0].nameBill);
-                    $('#emailCustomer').text(data[0].emailBill);
-                    $('#addressCustomer').text(data[0].addressBill);
-                    $('#codeBill').text(data[0].codeBill);
-                    $('#mobileCustomer').text(data[0].mobileBill);
-                    $('#createdBill').text(moment(data[0].createdBill).format('DD/MM/YYYY HH:mm:ss'));
-                    if (data[0].statusBill == 1) {
-                        $('#statusBill').text('Đã thanh toán');
-                        $('#statusBill').css({'color': 'green', 'font-weight': 'bold'});
-                    }
-                    if (data[0].statusBill == 2) {
-                        $('#statusBill').text('Chưa thanh toán');
-                        $('#statusBill').css({'color': '#ff9800', 'font-weight': 'bold'});
-                    }
-                    if (data[0].paymentBill == 0) {
-                        $('#paymentBill').text('Thanh toán trực tiếp');
-                        $('#paymentBill').css({'font-weight': 'bold'});
-                    }
-                    if (data[0].paymentBill == 1) {
-                        $('#paymentBill').text('Thanh toán online');
-                        $('#paymentBill').css({'font-weight': 'bold'});
-                    }
-                }
-            }
-        });
+    // function billDetail(id) {
+    //     $.ajax({
+    //         url: currUrl + 'bill/billDetail',
+    //         method: 'GET',
+    //         data: {'id': id},
+    //         contentType: 'application/x-www-form-urlencoded',
+    //         success: function (response) {
+    //             var data = JSON.parse(response);
+    //             var html = '';
+    //             if (data != null) {
+    //                 for (var each of data) {
+    //                     html += ` <div class="col-lg-12" style="margin-top: 10px;padding: 0px!important;">
+    //                                   <img class="col-lg-5" src="${each.mainImg}" style="padding: 0px!important;"/>
+    //                                    <div class="col-lg-7">
+    //                                          <span style="display:inline-flex;width: 100%;">Tên SP:&nbsp;<p>${each.nameProduct}</p></span>
+    //                                          <span style="display:inline-flex;width: 100%;">Giá SP:&nbsp;<p>${each.priceProduct}</p></span>
+    //                                          <span style="display:inline-flex;width: 100%;" id="salce">Giảm giá:&nbsp;<p>${each.priceSaleProduct}</p></span>
+    //                                          <span style="display:inline-flex;width: 100%;">Số lượng:&nbsp;<p>${each.quantity}</p></span>
+    //                                    </div>
+    //                                </div>`
+    //                 }
+    //                 $('#leftDetail').html(html);
+    //                 $('#nameCustomer').text(data[0].nameBill);
+    //                 $('#emailCustomer').text(data[0].emailBill);
+    //                 $('#addressCustomer').text(data[0].addressBill);
+    //                 $('#codeBill').text(data[0].codeBill);
+    //                 $('#mobileCustomer').text(data[0].mobileBill);
+    //                 $('#createdBill').text(moment(data[0].createdBill).format('DD/MM/YYYY HH:mm:ss'));
+    //                 if (data[0].statusBill == 1) {
+    //                     $('#statusBill').text('Đã thanh toán');
+    //                     $('#statusBill').css({'color': 'green', 'font-weight': 'bold'});
+    //                 }
+    //                 if (data[0].statusBill == 2) {
+    //                     $('#statusBill').text('Chưa thanh toán');
+    //                     $('#statusBill').css({'color': '#ff9800', 'font-weight': 'bold'});
+    //                 }
+    //                 if (data[0].paymentBill == 0) {
+    //                     $('#paymentBill').text('Thanh toán trực tiếp');
+    //                     $('#paymentBill').css({'font-weight': 'bold'});
+    //                 }
+    //                 if (data[0].paymentBill == 1) {
+    //                     $('#paymentBill').text('Thanh toán online');
+    //                     $('#paymentBill').css({'font-weight': 'bold'});
+    //                 }
+    //             }
+    //         }
+    //     });
     }
 
 </script>

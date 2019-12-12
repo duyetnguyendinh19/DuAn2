@@ -598,14 +598,14 @@
     </div>
 </div>
 <!--    <div class="wrapper">-->
-<div th:if="${bill.typeStatus == 1 || bill.typeStatus == 2}">
+<div th:if="${bill.typeStatus == 1 || bill.typeStatus == 2 || bill.typeStatus == 0}">
     <div class="container" style="margin-bottom: 70px;">
-        <span style="font-weight: bold;">Đơn hàng của Quý khách đã bị hủy Quý khách xin vui lòng liên hệ với admin để nhận được hỗ trợ. Xin chân thành cảm ơn.
+        <span style="font-weight: bold;">Đơn hàng của Quý khách đã bị hủy hoặc đã nhận, Quý khách xin vui lòng liên hệ với admin để nhận được hỗ trợ. Xin chân thành cảm ơn.
             <a th:href="@{/}" style="text-decoration: underline;color: blue;">Trang chủ</a>
         </span>
     </div>
 </div>
-<div th:if="${bill.typeStatus != 1 and bill.typeStatus != 2}">
+<div th:if="${bill.typeStatus != 1 and bill.typeStatus != 2 and bill.typeStatus != 0}">
     <div class="row" style="width: 85%!important;margin: 0px auto;margin-bottom: 30px;color: black;">
         <div class="col col-xs-12 col-sm-4 col-md-4 col-lg-4 infoRight">
             <div class="col col-xs-12 col-sm-12 col-md-12" style="border-bottom: 1px solid #E8E8E8;margin-top: 0px;font-size: 17px;font-weight: bold;

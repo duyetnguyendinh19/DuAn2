@@ -6,11 +6,13 @@ import com.google.gson.GsonBuilder;
 import com.vn.common.Constants;
 import com.vn.jpa.Bill;
 import com.vn.jpa.Product_Bill;
+import com.vn.jpa.Reject;
 import com.vn.model.BillModel;
 import com.vn.model.ProductBillModel;
 import com.vn.service.BillService;
 import com.vn.service.ProductService;
 import com.vn.service.Product_BillService;
+import com.vn.service.RejectService;
 import org.joda.time.DateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,6 +42,9 @@ public class BillController {
 
     @Resource
     private ProductService productService;
+
+    @Resource
+    private RejectService rejectService;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
     private String DELETE = "N";
@@ -137,7 +142,7 @@ public class BillController {
 
           Sort sort = new Sort(Sort.Direction.DESC, "id");
           Pageable _pageable = new PageRequest(pageable.getPageNumber(), Constants.Paging.SIZE, sort);
-          Page<Bill> page = billService.findAllBill(_fromDate, _toDate, 0, code, DELETE, _pageable);
+          Page<Reject> page = rejectService.pageByDateAndCode(_fromDate, _toDate, code, _pageable);
           model.addAttribute("page", page);
           session.setAttribute("from_date", sdf.format(_fromDate));
           session.setAttribute("to_date", sdf.format(_toDate));
