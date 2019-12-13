@@ -172,6 +172,7 @@ public class PaymentController {
                         authUser.setFirstName(billModel.getName().split(" ")[0]);
                         authUser.setMiddleName(billModel.getName().split(" ")[1]);
                         String lastName = billModel.getName().split(" ")[2];
+                        authUser.setLastName(lastName);
                         authUser.setFullName(billModel.getName());
                         authUser.setGender("0");
                         authUser.setIsVerified((byte) 1);
@@ -394,6 +395,7 @@ public class PaymentController {
                     authUser.setFirstName(model.getName().split(" ")[0]);
                     authUser.setMiddleName(model.getName().split(" ")[1]);
                     String lastName = model.getName().split(" ")[2];
+                    authUser.setLastName(lastName);
                     authUser.setFullName(model.getName());
                     authUser.setGender("0");
                     authUser.setIsVerified((byte) 1);

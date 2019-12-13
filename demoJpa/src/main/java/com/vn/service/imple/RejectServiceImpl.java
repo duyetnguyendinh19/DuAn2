@@ -66,4 +66,11 @@ public class RejectServiceImpl implements RejectService {
         }
         return response;
     }
+
+    @Override
+    public Page<Reject> pageByDateAndCode(Date fromDate, Date toDate, String code, Pageable pageable) {
+        return rejectRepo.pageByDateAndCode(fromDate, toDate, code, pageable);
+    }
+
+
 }
