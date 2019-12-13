@@ -188,8 +188,12 @@ public class ReportController {
     	try {
     		reportFormValidator.validateReportFormInFooter(report, result);
         	if(result.hasErrors()) {
-        		mapError.put("error", "Lỗi khi gửi góp ý xin mời nhập lại dưới đây!");
-    			model.addAttribute("mapError", mapError);
+        		for(Object obj : result.getAllErrors()) {
+        			if(obj instanceof ObjectError) {
+        				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
+        			}
+        		}
+        		model.addAttribute("mapError", mapError);
         		return "home/contact";
         	}else {
         		reportService.insert(report);
