@@ -159,7 +159,7 @@
                                                     <div th:each="cart : ${session.myCartItems}"
                                                          class="single-cart clearfix">
                                                         <div class="cart-img f-left">
-                                                            <a href="#"> <img
+                                                            <a th:href="@{/home/{id}/single-product.html(id = ${cart.value.product.id})}"> <img
                                                                     th:src="|${cart.value.product.mainImg}|"
                                                                     style="width: 100px;" alt="Cart Product"/>
                                                             </a>
@@ -172,7 +172,8 @@
                                                         </div>
                                                         <div id="cartInfo" class="cart-info f-left" style="width: 65%!important;float: right" >
                                                             <h6 class="text-capitalize">
-                                                                <a href="#" th:text="|${cart.value.product.name}|"></a>
+                                                                <a th:href="@{/home/{id}/single-product.html(id = ${cart.value.product.id})}"
+                                                                	 th:text="|${cart.value.product.name}|"></a>
                                                             </h6>
                                                             <div>
                                                                 <p>

@@ -118,7 +118,8 @@
                                                         </div>
                                                         <div class="pro-thumbnail-info text-left">
                                                             <h6 class="product-title-2">
-                                                                <a href="#" th:text="${cart.value.product.name}"></a>
+                                                                <a th:href="@{/home/{id}/single-product.html(id = ${cart.value.product.id})}"
+                                                                 th:text="${cart.value.product.name}"></a>
                                                             </h6>
                                                             <p th:text="${cart.value.product.category.name}"></p>
                                                             <p

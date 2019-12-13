@@ -11,6 +11,7 @@ import com.vn.config.GoogleMailSender;
 import com.vn.jpa.*;
 import com.vn.model.AuthUserModel;
 import com.vn.model.BillProfileModel;
+import com.vn.model.Cart;
 import com.vn.model.InfomationModel;
 import com.vn.model.ProductQuickViewModel;
 import com.vn.service.*;
@@ -242,7 +243,7 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/cart.html", method = RequestMethod.GET)
-    public ModelAndView viewCart(HttpSession session, Model model) {
+    public ModelAndView viewCart(HttpSession session,Pageable pageable, Model model) {
         AuthUser authUser = (AuthUser) session.getAttribute("userLogin");
         GmailGoogle gmailGoogle = (GmailGoogle) session.getAttribute("userGoogle");
         if (authUser != null) {
@@ -259,6 +260,65 @@ public class HomeController {
             model.addAttribute("email", gmailGoogle.getEmail());
         }
         ModelAndView modelAndView = new ModelAndView("home/cart");
+        if(session.getAttribute("myCartItems") == null){
+        	Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+            Pageable _pageable = new PageRequest(pageable.getPageNumber(), 8, sort);
+            Page<Product> product = productService.findAllByIsdelete("N", _pageable);
+            List<Product> newProduct = productService.lsProductDateDesc();
+            List<Category> category = categoryService.findAllByIsDeleteAndIsActive("N", "Y");
+            Map<Long, List> mapLsId = new HashMap<>();
+            for (Category each : category) {
+                if (each.getParent() == null) {
+                    List ls = new ArrayList();
+                    ls.add(each.getName());
+                    List lsCategoryChildren = new ArrayList();
+                    ls.add(lsCategoryChildren);
+                    mapLsId.put(each.getId(), ls);
+                }
+            }
+            for (Category eachCateChildren : category) {
+                if (eachCateChildren.getParent() != null) {
+                    ArrayList lsChildren = (ArrayList) mapLsId.get(eachCateChildren.getParent().getId()).get(1);
+                    List lsCategoryInfo = new ArrayList();
+                    lsCategoryInfo.add(eachCateChildren.getId());
+                    lsCategoryInfo.add(eachCateChildren.getName());
+                    lsChildren.add(lsCategoryInfo);
+                }
+            }
+            session.setAttribute("categoryNav", mapLsId);
+            model.addAttribute("newProduct", newProduct);
+            model.addAttribute("page", product);
+        	modelAndView = new ModelAndView("home/index");
+        }else if(((HashMap<Long, Cart>) session.getAttribute("myCartItems")).isEmpty()) {
+        	Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "id"));
+            Pageable _pageable = new PageRequest(pageable.getPageNumber(), 8, sort);
+            Page<Product> product = productService.findAllByIsdelete("N", _pageable);
+            List<Product> newProduct = productService.lsProductDateDesc();
+            List<Category> category = categoryService.findAllByIsDeleteAndIsActive("N", "Y");
+            Map<Long, List> mapLsId = new HashMap<>();
+            for (Category each : category) {
+                if (each.getParent() == null) {
+                    List ls = new ArrayList();
+                    ls.add(each.getName());
+                    List lsCategoryChildren = new ArrayList();
+                    ls.add(lsCategoryChildren);
+                    mapLsId.put(each.getId(), ls);
+                }
+            }
+            for (Category eachCateChildren : category) {
+                if (eachCateChildren.getParent() != null) {
+                    ArrayList lsChildren = (ArrayList) mapLsId.get(eachCateChildren.getParent().getId()).get(1);
+                    List lsCategoryInfo = new ArrayList();
+                    lsCategoryInfo.add(eachCateChildren.getId());
+                    lsCategoryInfo.add(eachCateChildren.getName());
+                    lsChildren.add(lsCategoryInfo);
+                }
+            }
+            session.setAttribute("categoryNav", mapLsId);
+            model.addAttribute("newProduct", newProduct);
+            model.addAttribute("page", product);
+        	modelAndView = new ModelAndView("home/index");
+        }
         return modelAndView;
     }
 

@@ -547,7 +547,7 @@
 				$("#quantitycart" + id).text(oldValue);
 				var price = $("#price" + id).html().replace(/,/g, '');
 				$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
-				$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+				$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
 				$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
 //				$('#tblCart > tbody  > tr').each(function(index, tr) { 
 //				var getTD = $(this).find("td");
@@ -566,6 +566,7 @@
 				$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)));
 				$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)));
 				$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)));
+				location.reload();
 			}
 		})
 		}else{
@@ -577,7 +578,7 @@
 					$("#quantitycart" + id).text(oldValue);
 					var price = $("#price" + id).html().replace(/,/g, '');
 					$("#subtotal" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
-					$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(newVal)));
+					$("#subtotalTT" + id).html(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
 					$("#pricecart" + id).text(formatNumberString(parseFloat(price)*parseFloat(oldValue)));
 //					$('#tblCart > tbody  > tr').each(function(index, tr) { 
 //					var getTD = $(this).find("td");
@@ -596,12 +597,12 @@
 					$('#vat').html(formatNumberString(parseFloat(total)*parseFloat(0.01)));
 					$('#vatTT').html(formatNumberString(parseFloat(total)*parseFloat(0.01)));
 					$('.order-total-price').html(formatNumberString(parseFloat(total)*parseFloat(0.01)+parseFloat(total)));
+					location.reload();
 				}
 			})
 			$("#" + id).remove();
 			location.reload();
 		}
-		location.reload();
 	});
 	
 	// 13.2 Change Single Product
