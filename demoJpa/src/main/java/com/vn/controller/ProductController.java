@@ -342,7 +342,7 @@ public class ProductController {
                 product.setPrice(model.getPrice());
                 product.setPriceSale(model.getPriceSale());
                 product.setQuantity(model.getQuantity());
-                product.setStatus(model.getStatus());
+//                product.setStatus(model.getStatus());
                 productService.update(product);
                 responseMap.put("success", "Cập nhật thành công");
             }

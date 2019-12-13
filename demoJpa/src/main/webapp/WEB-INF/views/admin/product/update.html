@@ -346,7 +346,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Giá sản phẩm</label><span class="error"> *</span>
                                 <div>
@@ -357,7 +357,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <div class="form-group">
                                 <label>Giảm giá</label>
                                 <div>
@@ -368,21 +368,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4" style="margin-bottom: 20px;">
-                            <div class="form-group">
-                                <label>Trạng thái</label>
-                                <div>
-                                    <select class="form-control" th:value="${product.status}" id="status">
-                                        <option value="1" th:attr="selected =${product.quantity} > 0 ? 'selected'">Còn
-                                            hàng
-                                        </option>
-                                        <option value="0" th:attr="selected =${product.quantity} <= 0 ? 'selected'">Hết
-                                            hàng
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
+<!--                        <div class="col-lg-4" style="margin-bottom: 20px;">-->
+<!--                            <div class="form-group">-->
+<!--                                <label>Trạng thái</label>-->
+<!--                                <div>-->
+<!--                                    <select class="form-control" th:value="${product.status}" id="status">-->
+<!--                                        <option value="1" th:attr="selected =${product.quantity} > 0 ? 'selected'">Còn-->
+<!--                                            hàng-->
+<!--                                        </option>-->
+<!--                                        <option value="0" th:attr="selected =${product.quantity} <= 0 ? 'selected'">Hết-->
+<!--                                            hàng-->
+<!--                                        </option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="col-lg-6" style="height: 100px;">
                             <div class="form-group" style="height: 100px;">
                                 <label>Miêu tả sản phẩm</label><span class="error"> *</span>
@@ -687,7 +687,7 @@
             dataObject.info = $('#info').val();
             dataObject.quantity = $('#quantity').val();
             dataObject.price = price;
-            dataObject.status = $('#status').val();
+            // dataObject.status = $('#status').val();
             dataObject.priceSale = pricesale;
             $.ajax({
                 url: currUrl + 'product/' + id + '/update.html',
