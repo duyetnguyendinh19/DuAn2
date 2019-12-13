@@ -16,7 +16,7 @@ public class SendMailOrderSuccess {
     @Resource
     private BillService billService;
 
-    @Scheduled(cron = "0/30 * * * * ?") // 10 phút chạy 1 lần gửi mail cho KH đã nhận được hàng do nhân viên cập nhật Trạng thái
+    @Scheduled(cron = "0 1 * * * ?") // 10 phút chạy 1 lần gửi mail cho KH đã nhận được hàng do nhân viên cập nhật Trạng thái
     private void scheduleSendMailCusOrderSuccess(){
         try {
             List<Bill> lsbill = billService.findByTypeStatusAndMailStatus(Bill.STATUSPAYMENT.PAID.value(), Bill.MAILSTATUS.UNPAID.value());

@@ -294,9 +294,11 @@
                                         <hr>
                                         <div th:if="${product.quantity > 0}">
                                             <a  th:onclick="'addToCart(\'' + ${product.id} + '\')'" class="button extra-small button-black"
-                                               tabindex="-1"> <span class="text-uppercase">Mua
-														ngay</span>
+                                               tabindex="-1"> <span class="text-uppercase">Thêm vào giỏ</span>
                                             </a>
+                                        </div>
+                                        <div th:if="${product.quantity <= 0}">
+                                            <button class="btn btn-warning" style="border-radius: 5px;">Hết hàng</button>
                                         </div>
                                     </div>
                                 </div>
