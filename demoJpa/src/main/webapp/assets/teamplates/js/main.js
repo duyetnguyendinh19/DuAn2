@@ -520,6 +520,14 @@
     }
 
 	// 13.1 Cart Change
+	$(".cart-plus-minus-box1").on("blur", function() {
+		var oldValue = $(this).val();
+		if(oldValue < 1){
+			oldValue = 1;
+		}
+		$(this).val(oldValue);
+	});
+	
 	$(".cart-plus-minus-box").on("blur", function() {
 //		var $button = $(".qtybutton");
 //		var inp = $button.parent().find("input");
