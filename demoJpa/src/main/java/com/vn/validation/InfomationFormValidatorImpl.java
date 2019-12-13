@@ -55,6 +55,8 @@ public class InfomationFormValidatorImpl implements Validator, InfomationFormVal
 	private void phoneValidate(String phone, Errors errors, InfomationModel infomation) {
         String phoneExist = infomation.getPhone();
      
+        this.infomationService.findByPhone(phoneExist);
+        
         String phonePattern = "^(0|\\+84)(\\s|\\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\\d)(\\s|\\.)?(\\d{3})(\\s|\\.)?(\\d{3})$";
         Pattern pattern = Pattern.compile(phonePattern);
         if (this.isBlank(phone)) {
