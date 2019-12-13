@@ -31,6 +31,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -280,7 +281,7 @@ public class HomeController {
         try {
             if (session.getAttribute("userLogin") == null && session.getAttribute("userGoogle") == null) {
                 Map<String, String> mapError = new HashedMap<String, String>();
-                model.addAttribute("authUser", new AuthUserModel());
+                model.addAttribute("athUser", new AuthUserModel());
                 model.addAttribute("mapError", mapError);
                 ModelAndView modelAndView = new ModelAndView("home/login");
                 return modelAndView;
@@ -347,38 +348,69 @@ public class HomeController {
 
     @RequestMapping(value = "/home/profile.html", method = RequestMethod.POST)
     public String profileSave(HttpSession session, Model model,
-                                    @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result) {
+                                    @ModelAttribute("profile") @Valid InfomationModel infomationModel, BindingResult result, Pageable pageable) {
+    	Map<String, String> mapError = new HashedMap<String, String>();
+    	AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
         try {
-//            infoFormValidator.validateReportForm(infomationModel, result);
-            Infomation infomation = null;
-            AuthUser authUser = authUserService.findOne(((AuthUser) session.getAttribute("userLogin")).getId());
-            infomation = infomationService.findByAuthUserId(authUser.getId());
-            if (infomation == null) {
-            	infomation = new Infomation();
-            }
-            authUser.setEmail(infomationModel.getEmailUser());
-            authUser.setFirstName(infomationModel.getFirstName());
-            authUser.setLastName(infomationModel.getLastName());
-            authUser.setGender(infomationModel.getGender());
-            authUserService.update(authUser);
-            session.setAttribute("userLogin", authUser);
-            infomation.setProvince(infomationModel.getProvince());
-            infomation.setTown(infomationModel.getTown());
-            infomation.setBank(infomationModel.getBank());
-            infomation.setAtmNumber(infomationModel.getAtmNumberBank());
-            infomation.setAddress(infomationModel.getAddress());
-            infomation.setPhone(infomationModel.getPhone());
-            infomation.setAuthUser(authUser);
-            infomation.setIsDelete("N");
-            if (infomation.getId() == null) {
-                infomationService.create(infomation);
-            } else {
-                infomationService.update(infomation);
-            }
+            infoFormValidator.validateReportForm(infomationModel, result);
+        	if(result.hasErrors()) {
+        		for(Object obj : result.getAllErrors()) {
+        			if(obj instanceof ObjectError) {
+        				mapError.put(((ObjectError) obj).getCode(), ((ObjectError) obj).getDefaultMessage());
+        			}
+        		}
+        		Long id = authUser.getId();
+                Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createDate"));
+                Pageable _page = new PageRequest(pageable.getPageNumber(), 20, sort);
+                Page<BillProfileModel> lsBill = billService.pageBillForShowProfileUser(id, _page);
+                if (lsBill.getContent() != null) {
+                	model.addAttribute("lsBill", lsBill);
+
+                }
+        		model.addAttribute("mapError", mapError);
+        		model.addAttribute("bankInfo", bankService.findAll());
+        		return "home/profile";
+        	}else {
+        		Infomation infomation = null;
+                infomation = infomationService.findByAuthUserId(authUser.getId());
+                if (infomation == null) {
+                	infomation = new Infomation();
+                }
+                authUser.setEmail(infomationModel.getEmailUser());
+                authUser.setFirstName(infomationModel.getFirstName());
+                authUser.setLastName(infomationModel.getLastName());
+                authUser.setGender(infomationModel.getGender());
+                authUserService.update(authUser);
+                session.setAttribute("userLogin", authUser);
+                infomation.setProvince(infomationModel.getProvince());
+                infomation.setTown(infomationModel.getTown());
+                infomation.setBank(infomationModel.getBank());
+                infomation.setAtmNumber(infomationModel.getAtmNumberBank());
+                infomation.setAddress(infomationModel.getAddress());
+                infomation.setPhone(infomationModel.getPhone());
+                infomation.setAuthUser(authUser);
+                infomation.setIsDelete("N");
+                if (infomation.getId() == null) {
+                    infomationService.create(infomation);
+                } else {
+                    infomationService.update(infomation);
+                }
+        	}
         } catch (Exception e) {
-            model.addAttribute("errorUnkown", "Lỗi không xác định !");
+        	Long id = authUser.getId();
+            Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, "createDate"));
+            Pageable _page = new PageRequest(pageable.getPageNumber(), 20, sort);
+            Page<BillProfileModel> lsBill = billService.pageBillForShowProfileUser(id, _page);
+            if (lsBill.getContent() != null) {
+            	model.addAttribute("lsBill", lsBill);
+
+            }
+    		model.addAttribute("mapError", mapError);
+    		model.addAttribute("bankInfo", bankService.findAll());
+        	mapError.put("errorProfile", "Lỗi không xác định");
+			model.addAttribute("mapError", mapError);
+			return "home/profile";
         }
-//        model.addAttribute("bankInfo", bankService.findAll());
         return "redirect:/home/profile.html";
     }
 
@@ -390,9 +422,17 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/home/{user}/reset.html", method = RequestMethod.GET)
-    public ModelAndView resetPassword(Model model, @PathVariable("user") String user) {
-        ModelAndView modelAndView = new ModelAndView("home/reset-password");
-        return modelAndView;
+    public ModelAndView resetPassword(Model model, @PathVariable("user") String user,HttpSession session) {
+    	if (session.getAttribute("userLogin") == null && session.getAttribute("userGoogle") == null) {
+            Map<String, String> mapError = new HashedMap<String, String>();
+            model.addAttribute("athUser", new AuthUserModel());
+            model.addAttribute("mapError", mapError);
+            ModelAndView modelAndView = new ModelAndView("home/login");
+            return modelAndView;
+        }else {
+        	 ModelAndView modelAndView = new ModelAndView("home/reset-password");
+             return modelAndView;
+        }
     }
 
     @RequestMapping(value = "/home/reset.html", method = RequestMethod.POST)

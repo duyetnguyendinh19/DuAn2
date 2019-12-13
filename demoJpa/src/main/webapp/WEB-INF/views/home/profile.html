@@ -89,6 +89,9 @@
                                                             <div class="panel-body">
                                                                 <form th:object="${profile}"
                                                                       th:action="@{/home/profile.html}" method="POST">
+                                                                   	<div th:if="${mapError != null && mapError.containsKey('error') != null}"
+																		style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+																		th:each="err: ${mapError.get('errorProfile')}" th:text="${err}"></div>
                                                                     <div class="new-customers">
                                                                         <div class="p-30">
                                                                             <div class="row">
@@ -97,12 +100,18 @@
                                                                                            th:field="*{firstName}"
                                                                                            placeholder="Họ..." maxlength="15"
                                                                                            >
+                                                                                    <div th:if="${mapError != null && mapError.containsKey('firstName') != null}"
+																						style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+																						th:each="err: ${mapError.get('firstName')}" th:text="${err}"></div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="lastName"
                                                                                            th:field="*{lastName}"
                                                                                            placeholder="Tên..." maxlength="15"
                                                                                            >
+                                                                                     <div th:if="${mapError != null && mapError.containsKey('lastName') != null}"
+																						style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+																						th:each="err: ${mapError.get('lastName')}" th:text="${err}"></div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="province"
@@ -123,11 +132,17 @@
                                                                                         <option value="0">Nam</option>
                                                                                         <option value="1">Nữ</option>
                                                                                     </select>
+                                                                                     <div th:if="${mapError != null && mapError.containsKey('gender') != null}"
+																						style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+																						th:each="err: ${mapError.get('gender')}" th:text="${err}"></div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <input type="text" name="phone"
                                                                                            placeholder="Số điện thoại..."
                                                                                            th:field="*{phone}" maxlength="10">
+                                                                                     <div th:if="${mapError != null && mapError.containsKey('phone') != null}"
+																						style="text-align: left; color: red; font-weight: bold; font-size: 13px;"
+																						th:each="err: ${mapError.get('phone')}" th:text="${err}"></div>
                                                                                 </div>
                                                                                 <div class="col-sm-6">
                                                                                     <select class="custom-select"
