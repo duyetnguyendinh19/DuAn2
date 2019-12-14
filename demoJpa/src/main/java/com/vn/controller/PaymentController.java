@@ -211,6 +211,7 @@ public class PaymentController {
                     }
                 }
                 if (responeMap.size() == 0) {
+                	boolean checkPro = true;
                     String code = RandomStringUtils.randomAlphanumeric(10).toUpperCase();
 
                     bill.setPayment(billModel.getPayment());
@@ -232,31 +233,38 @@ public class PaymentController {
                     for (Map.Entry<Long, Cart> eachValid : map.entrySet()) {
                         Product pro = productService.findOne(eachValid.getValue().getProduct().getId());
                         if (pro.getQuantity() < eachValid.getValue().getQuantity()) {
-                            responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                            responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng " + eachValid.getValue().getProduct().getName() 
+                            		+ " trong kho không đủ");
+                            checkPro = false;
                             break;
-                        } else {
-                            billService.insert(bill);
                         }
                     }
-                    for (Map.Entry<Long, Cart> each : map.entrySet()) {
-                        Product pro = productService.findOne(each.getValue().getProduct().getId());
-                        if (pro != null) {
-                            Product product = new Product();
-                            Product_Bill productBill = new Product_Bill();
-                            product.setId(each.getValue().getProduct().getId());
-                            productBill.setProduct(product);
-                            productBill.setQuantity(each.getValue().getQuantity());
-                            productBill.setIsdelete("N");
-                            productBill.setBill(bill);
-                            productBillService.insert(productBill);
-                            pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
-                            productService.update(pro);
-                            responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
-                            session.removeAttribute("myCartItems");
-                            session.removeAttribute("myCartTotal");
-                            session.removeAttribute("myCartNum");
-                        }
+                    
+                    if(checkPro) {
+                    	billService.insert(bill);
+                        
+                        for (Map.Entry<Long, Cart> each : map.entrySet()) {
+                            Product pro = productService.findOne(each.getValue().getProduct().getId());
+                            if (pro != null) {
+                                Product product = new Product();
+                                Product_Bill productBill = new Product_Bill();
+                                product.setId(each.getValue().getProduct().getId());
+                                productBill.setProduct(product);
+                                productBill.setQuantity(each.getValue().getQuantity());
+                                productBill.setIsdelete("N");
+                                productBill.setBill(bill);
+                                productBillService.insert(productBill);
+                                pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                                productService.update(pro);
+                                responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
+                                session.removeAttribute("myCartItems");
+                                session.removeAttribute("myCartTotal");
+                                session.removeAttribute("myCartNum");
+                            }
+                        }	
                     }
+                    
+                    
                     responseMapMail.put("bill", bill);
                     new Thread(
                             () -> {
