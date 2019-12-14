@@ -56,7 +56,7 @@ public class CartController {
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("myCartTotal", totalPrice(cartItems));
 		session.setAttribute("myCartNum", size);
-		return "redirect:/";
+		return "redirect:/home/" + productId + "/single-product.html";
 	}
 	
 	@SuppressWarnings("unchecked")
