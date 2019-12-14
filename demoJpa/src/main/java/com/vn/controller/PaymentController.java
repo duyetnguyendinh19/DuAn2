@@ -62,12 +62,12 @@ public class PaymentController {
     private PasswordEncoder passwordEncoder;
 
     private static int i = 1;
-    
+
     @ModelAttribute("report")
- 	public Report report(Model model) {
- 		model.addAttribute("mapError", new HashedMap<String, String>());
- 	    return new Report();
- 	}
+    public Report report(Model model) {
+        model.addAttribute("mapError", new HashedMap<String, String>());
+        return new Report();
+    }
 
     @RequestMapping(value = "online/list.html", method = RequestMethod.GET)
     public String paymentOnline(HttpSession session, Model model) {
@@ -228,9 +228,17 @@ public class PaymentController {
                     }
                     bill.setCode(code);
                     bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
-                    billService.insert(bill);
 
+                    Product pro;
                     HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
+                    for (Map.Entry<Long, Cart> eachValid : map.entrySet()) {
+                         pro = productService.findOne(eachValid.getValue().getProduct().getId());
+                        if (pro.getQuantity() < eachValid.getValue().getQuantity()) {
+                            responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                        } else {
+                            billService.insert(bill);
+                        }
+                    }
                     for (Map.Entry<Long, Cart> each : map.entrySet()) {
                         Product product = new Product();
                         Product_Bill productBill = new Product_Bill();
@@ -241,20 +249,15 @@ public class PaymentController {
                         productBill.setBill(bill);
                         productBillService.insert(productBill);
 
-                        Product pro = productService.findOne(each.getValue().getProduct().getId());
+                        pro = productService.findOne(each.getValue().getProduct().getId());
                         if (pro != null) {
-                            if (pro.getQuantity() < each.getValue().getQuantity()) {
-                                responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
-                            } else {
-                                pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
-                                productService.update(pro);
-                                responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
-                                session.removeAttribute("myCartItems");
-                                session.removeAttribute("myCartTotal");
-                                session.removeAttribute("myCartNum");
-                            }
+                            pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
+                            productService.update(pro);
+                            responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
+                            session.removeAttribute("myCartItems");
+                            session.removeAttribute("myCartTotal");
+                            session.removeAttribute("myCartNum");
                         }
-
                     }
                     responseMapMail.put("bill", bill);
                     new Thread(
@@ -270,7 +273,8 @@ public class PaymentController {
                     ).start();
                 }
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             e.printStackTrace();
         }
         return gson.toJson(responeMap);
