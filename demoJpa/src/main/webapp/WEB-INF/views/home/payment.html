@@ -981,9 +981,9 @@
                         var data = JSON.parse(response)
                         if (data.limit != null) {
                             $('#error').text(data.limit);
-                            setTimeout(function(){
-                                window.location.href = window.location.origin + $("#contextPath").val() +"home/cart.html";
-                            },1500);
+                            // setTimeout(function(){
+                            //     window.location.href = window.location.origin + $("#contextPath").val() +"home/cart.html";
+                            // },1500);
                         }
                         if (data.urlPayment != null) {
                             window.location.href = data.urlPayment;

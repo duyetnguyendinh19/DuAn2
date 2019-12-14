@@ -228,29 +228,27 @@ public class PaymentController {
                     }
                     bill.setCode(code);
                     bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
-
-                    Product pro;
                     HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
                     for (Map.Entry<Long, Cart> eachValid : map.entrySet()) {
-                         pro = productService.findOne(eachValid.getValue().getProduct().getId());
+                        Product pro = productService.findOne(eachValid.getValue().getProduct().getId());
                         if (pro.getQuantity() < eachValid.getValue().getQuantity()) {
                             responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                            break;
                         } else {
                             billService.insert(bill);
                         }
                     }
                     for (Map.Entry<Long, Cart> each : map.entrySet()) {
-                        Product product = new Product();
-                        Product_Bill productBill = new Product_Bill();
-                        product.setId(each.getValue().getProduct().getId());
-                        productBill.setProduct(product);
-                        productBill.setQuantity(each.getValue().getQuantity());
-                        productBill.setIsdelete("N");
-                        productBill.setBill(bill);
-                        productBillService.insert(productBill);
-
-                        pro = productService.findOne(each.getValue().getProduct().getId());
+                        Product pro = productService.findOne(each.getValue().getProduct().getId());
                         if (pro != null) {
+                            Product product = new Product();
+                            Product_Bill productBill = new Product_Bill();
+                            product.setId(each.getValue().getProduct().getId());
+                            productBill.setProduct(product);
+                            productBill.setQuantity(each.getValue().getQuantity());
+                            productBill.setIsdelete("N");
+                            productBill.setBill(bill);
+                            productBillService.insert(productBill);
                             pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
                             productService.update(pro);
                             responeMap.put("success", "Đặt hàng thành công. Xin cảm ơn Quý khách");
@@ -454,15 +452,17 @@ public class PaymentController {
                 bill.setMobile(model.getMobile());
                 bill.setPayment(Bill.payment.ONLINE.value());
                 bill.setMailStatus(Bill.MAILSTATUS.UNPAID.value());
-                billService.insert(bill);
-
+                boolean isSuccess = true;
                 HashMap<Long, Cart> map = (HashMap<Long, Cart>) session.getAttribute("myCartItems");
                 for (Map.Entry<Long, Cart> each : map.entrySet()) {
                     Product pro = productService.findOne(each.getValue().getProduct().getId());
                     if (pro != null) {
                         if (pro.getQuantity() < each.getValue().getQuantity()) {
-                            responseMap.put("limit", "Đặt hàng không thành công! Số lượng sản phẩm trong kho không đủ.");
+                            responseMap.put("limit", "Đặt hàng không thành công! Số lượng hàng trong kho không đủ");
+                            isSuccess = false;
+                            break;
                         } else {
+                            billService.insert(bill);
                             Product_Bill productBill = new Product_Bill();
                             productBill.setProduct(pro);
                             productBill.setQuantity(each.getValue().getQuantity());
@@ -472,25 +472,27 @@ public class PaymentController {
                             pro.setQuantity(pro.getQuantity() - each.getValue().getQuantity());
                             productService.update(pro);
                             responseMap.put("urlPayment", paymentUrl);
+                            session.removeAttribute("myCartItems");
+                            session.removeAttribute("myCartTotal");
+                            session.removeAttribute("myCartNum");
+                            isSuccess = true;
                         }
                     }
                 }
                 responseMapMail.put("bill", bill);
-
-                new Thread(
-                        () -> {
-                            try {
-                                GoogleMailSender mailSender = new GoogleMailSender();
-                                final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
-                                mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                if (isSuccess) {
+                    new Thread(
+                            () -> {
+                                try {
+                                    GoogleMailSender mailSender = new GoogleMailSender();
+                                    final String htmlContent = ThymeleafUtil.getHtmlContentInClassPath("html/MailCustomerOrderProduct.html", (HashMap<String, Object>) responseMapMail);
+                                    mailSender.sendSimpleMailWarningTLS("ÔTôKê<tanbv.dev@gmail.com>", model.getEmail(), "[ÔTôKê] EMail đơn đặt hàng Quý Khách", htmlContent);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                ).start();
-                session.removeAttribute("myCartItems");
-                session.removeAttribute("myCartTotal");
-                session.removeAttribute("myCartNum");
+                    ).start();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

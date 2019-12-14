@@ -12,6 +12,7 @@
       <change beforePath="$PROJECT_DIR$/../Slide.pptx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/vn/controller/PaymentController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/home/payment.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -362,21 +363,7 @@
       <workItem from="1576205860267" duration="1958000" />
       <workItem from="1576218310964" duration="1355000" />
       <workItem from="1576229662591" duration="7794000" />
-      <workItem from="1576283904769" duration="320000" />
-    </task>
-    <task id="LOCAL-00043" summary="update code">
-      <created>1571833193125</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1571833193125</updated>
-    </task>
-    <task id="LOCAL-00044" summary="update code">
-      <created>1571904146253</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1571904146253</updated>
+      <workItem from="1576283904769" duration="4387000" />
     </task>
     <task id="LOCAL-00045" summary="update code">
       <created>1571904182867</created>
@@ -707,7 +694,21 @@
       <option name="project" value="LOCAL" />
       <updated>1576244140305</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="update code">
+      <created>1576284292495</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1576284292496</updated>
+    </task>
+    <task id="LOCAL-00093" summary="update code">
+      <created>1576284338696</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1576284338697</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
