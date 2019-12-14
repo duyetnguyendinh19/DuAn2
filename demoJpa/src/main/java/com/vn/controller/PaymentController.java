@@ -234,7 +234,7 @@ public class PaymentController {
                         Product pro = productService.findOne(eachValid.getValue().getProduct().getId());
                         if (pro.getQuantity() < eachValid.getValue().getQuantity()) {
                             responeMap.put("limit", "Đặt hàng không thành công! Số lượng hàng " + eachValid.getValue().getProduct().getName() 
-                            		+ " trong kho không đủ");
+                            		+ " trong kho không đủ ( chỉ còn " + eachValid.getValue().getProduct().getQuantity() + " sản phẩm )");
                             checkPro = false;
                             break;
                         }
