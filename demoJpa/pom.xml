@@ -16,7 +16,7 @@
         <spring-security-oauth2-version>2.0.7.RELEASE</spring-security-oauth2-version>
         <jetty.version>9.2.15.v20160210</jetty.version>
         <aspectj.version>1.8.8</aspectj.version>
-        <springframework.boot.version>1.3.3.RELEASE</springframework.boot.version>
+        <springframework.boot.version>2.5.12</springframework.boot.version>
     </properties>
 
     <dependencies>
